@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap");
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Global Rules */
 * {
   box-sizing: border-box;
@@ -24,32 +28,4 @@ ul {
 }
 a {
   text-decoration: none;
-}
-
-.container-one,
-.container-two,
-.container-three,
-.container-four {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.container-one {
-  padding-left: 174px;
-  padding-right: 174px;
-}
-
-.container-two {
-  padding-left: 310px;
-  padding-right: 310px;
-}
-
-.container-three {
-  padding-left: 408px;
-  padding-right: 408px;
-}
-
-.container-four {
-  padding-left: 815px;
-  padding-right: 815px;
 }
