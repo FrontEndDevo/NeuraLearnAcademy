@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import macAllister from "../../assets/images/homepage/mac-allister.jpg";
+import Slider from "react-slick";
 
+// Array of professionals.
 const professionals = [
   {
     name: "Mac Allister",
@@ -26,7 +28,29 @@ const professionals = [
   },
 ];
 
+// Slider settings.
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+};
+
 const ProfessionalCertificates = () => {
+  const professionalPeople = <Slider settings={...settings}>
+{professionals.map((item, index) => (
+    <div key={index}>
+      <p>{item.quote}</p>
+      <div>
+        <img src={item.img} alt={item.name} />
+        <h3>{item.name}</h3>
+        <span>{item.jobTitle}</span>
+      </div>
+    </div>
+  ))}
+  </Slider>
+
   return (
     <section className="bg-gray-200 py-20">
       <div className="container">
@@ -39,7 +63,7 @@ const ProfessionalCertificates = () => {
           </p>
         </div>
 
-        {/* slider */}
+        {professionalPeople}
 
         <Link
           to="/"
