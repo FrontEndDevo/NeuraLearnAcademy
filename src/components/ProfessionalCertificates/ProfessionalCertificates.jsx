@@ -1,4 +1,30 @@
 import { Link } from "react-router-dom";
+import macAllister from "../../assets/images/homepage/mac-allister.jpg";
+
+const professionals = [
+  {
+    name: "Mac Allister",
+    jobTitle: "CEO of international food brands",
+    img: macAllister,
+    quote:
+      '"To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset. With Neura Learn Academy Business, I can give my team the space to learn and take the initiative. It means we can produce higher quality work more quickly."',
+  },
+
+  {
+    name: "Mac Allister",
+    jobTitle: "CEO of international food brands",
+    img: macAllister,
+    quote:
+      '"To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset. With Neura Learn Academy Business, I can give my team the space to learn and take the initiative. It means we can produce higher quality work more quickly."',
+  },
+  {
+    name: "Mac Allister",
+    jobTitle: "CEO of international food brands",
+    img: macAllister,
+    quote:
+      '"To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset. With Neura Learn Academy Business, I can give my team the space to learn and take the initiative. It means we can produce higher quality work more quickly."',
+  },
+];
 
 const ProfessionalCertificates = () => {
   return (
