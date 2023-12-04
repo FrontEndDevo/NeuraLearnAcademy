@@ -1,5 +1,11 @@
+import ProfessionalCertificates from "../components/ProfessionalCertificates/ProfessionalCertificates";
+
 const Homepage = () => {
-  return <></>;
+  return (
+    <>
+      <ProfessionalCertificates />
+    </>
+  );
 };
 
 export default Homepage;
