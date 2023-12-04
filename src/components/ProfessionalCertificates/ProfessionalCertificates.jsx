@@ -56,9 +56,9 @@ const ProfessionalCertificates = () => {
       {professionals.map((item, index) => (
         <div
           key={index}
-          className="!grid items-center grid-cols-3 gap-10 mb-2 p-10 bg-white rounded-lg shadow-inner"
+          className="lg:!grid !flex flex-col-reverse items-center grid-cols-1 lg:grid-cols-3 gap-10 mb-2 p-10 bg-white rounded-lg shadow-inner"
         >
-          <p className="col-span-2 text-3xl leading-loose">
+          <p className="col-span-2 text-lg leading-loose lg:text-3xl">
             &quot;{item.quote}&quot;
           </p>
           <div className="flex flex-col items-center">
@@ -79,10 +79,10 @@ const ProfessionalCertificates = () => {
     <section className="py-20 bg-gray-200">
       <div className="container text-center">
         <div className="mb-10">
-          <h2 className="mb-6 text-5xl">
+          <h2 className="mb-6 text-2xl lg:text-5xl">
             How Professional Certificates have helped others
           </h2>
-          <p className="text-2xl font-light">
+          <p className="text-lg font-light lg:text-2xl">
             Stories from those that have completed Professional Certificates
           </p>
         </div>
