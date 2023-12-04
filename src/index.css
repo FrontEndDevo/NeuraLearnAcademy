@@ -29,3 +29,14 @@ ul {
 a {
   text-decoration: none;
 }
+
+.slick-slider .slick-prev::before,
+.slick-slider .slick-next::before {
+  color: black;
+  font-size: 2rem;
+}
+
+.slick-slider > ul > li > button::before {
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}

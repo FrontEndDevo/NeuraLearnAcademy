@@ -9,53 +9,77 @@ const professionals = [
     jobTitle: "CEO of international food brands",
     img: macAllister,
     quote:
-      '"To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset. With Neura Learn Academy Business, I can give my team the space to learn and take the initiative. It means we can produce higher quality work more quickly."',
-  },
-
-  {
-    name: "Mac Allister",
-    jobTitle: "CEO of international food brands",
-    img: macAllister,
-    quote:
-      '"To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset. With Neura Learn Academy Business, I can give my team the space to learn and take the initiative. It means we can produce higher quality work more quickly."',
+      "To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset. With Neura Learn Academy Business, I can give my team the space to learn and take the initiative. It means we can produce higher quality work more quickly.",
   },
   {
     name: "Mac Allister",
     jobTitle: "CEO of international food brands",
     img: macAllister,
     quote:
-      '"To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset. With Neura Learn Academy Business, I can give my team the space to learn and take the initiative. It means we can produce higher quality work more quickly."',
+      "To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset. With Neura Learn Academy Business, I can give my team the space to learn and take the initiative. It means we can produce higher quality work more quickly.",
+  },
+  {
+    name: "Mac Allister",
+    jobTitle: "CEO of international food brands",
+    img: macAllister,
+    quote:
+      "To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset. With Neura Learn Academy Business, I can give my team the space to learn and take the initiative. It means we can produce higher quality work more quickly.",
+  },
+  {
+    name: "Mac Allister",
+    jobTitle: "CEO of international food brands",
+    img: macAllister,
+    quote:
+      "To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset. With Neura Learn Academy Business, I can give my team the space to learn and take the initiative. It means we can produce higher quality work more quickly.",
+  },
+  {
+    name: "Mac Allister",
+    jobTitle: "CEO of international food brands",
+    img: macAllister,
+    quote:
+      "To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset. With Neura Learn Academy Business, I can give my team the space to learn and take the initiative. It means we can produce higher quality work more quickly.",
   },
 ];
 
 // Slider settings.
 const settings = {
   dots: true,
-  infinite: true,
+  infinite: false,
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
 };
 
 const ProfessionalCertificates = () => {
-  const professionalPeople = <Slider settings={...settings}>
-{professionals.map((item, index) => (
-    <div key={index}>
-      <p>{item.quote}</p>
-      <div>
-        <img src={item.img} alt={item.name} />
-        <h3>{item.name}</h3>
-        <span>{item.jobTitle}</span>
-      </div>
-    </div>
-  ))}
-  </Slider>
+  const professionalPeople = (
+    <Slider {...settings} className="mb-20">
+      {professionals.map((item, index) => (
+        <div
+          key={index}
+          className="!grid items-center grid-cols-3 gap-10 mb-2 p-10 bg-white rounded-lg shadow-inner"
+        >
+          <p className="col-span-2 text-3xl leading-loose">
+            &quot;{item.quote}&quot;
+          </p>
+          <div className="flex flex-col items-center">
+            <img
+              src={item.img}
+              alt={item.name}
+              className="rounded-full mb-4 w-[300px] h-[300px]"
+            />
+            <h3 className="mb-3 text-3xl font-bold capitalize">{item.name}</h3>
+            <span className="text-xl text-gray-600">{item.jobTitle}</span>
+          </div>
+        </div>
+      ))}
+    </Slider>
+  );
 
   return (
-    <section className="bg-gray-200 py-20">
-      <div className="container">
-        <div className="mb-10 text-center">
-          <h2 className=" text-5xl mb-6">
+    <section className="py-20 bg-gray-200">
+      <div className="container text-center">
+        <div className="mb-10">
+          <h2 className="mb-6 text-5xl">
             How Professional Certificates have helped others
           </h2>
           <p className="text-2xl font-light">
@@ -67,7 +91,7 @@ const ProfessionalCertificates = () => {
 
         <Link
           to="/"
-          className="bg-primary text-xl py-2 px-6 rounded-full text-white font-bold"
+          className="px-6 py-3 text-xl font-bold text-white duration-200 rounded-full bg-primary-700 hover:bg-primary-500"
         >
           View more customer story
         </Link>
