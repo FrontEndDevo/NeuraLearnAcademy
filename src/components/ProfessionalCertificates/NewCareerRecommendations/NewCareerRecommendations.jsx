@@ -1,9 +1,11 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import course_one from "../../../assets/images/homepage/course_1.jpg";
 import course_two from "../../../assets/images/homepage/course_2.jpg";
 import course_three from "../../../assets/images/homepage/course_3.jpg";
 import course_four from "../../../assets/images/homepage/course_4.jpg";
 import course_five from "../../../assets/images/homepage/course_5.jpg";
 import smileIcon from "../../../assets/images/homepage/icon.png";
+import { faStar, faUser } from "@fortawesome/free-solid-svg-icons";
 const NewCareerRecommendations = () => {
   // This is a temporary array of objects (courses) until fetch all of these from DB.
   const recomendedCourses = [
@@ -79,6 +81,28 @@ const NewCareerRecommendations = () => {
     },
   ];
 
+  // Render all courses inside a slider:
+  const renderedCourses = recomendedCourses.map((item, i) => (
+    <div key={i}>
+      <img src={item.img} alt={item.title} />
+      <div>
+        <h4>{item.title}</h4>
+        <div>
+          <FontAwesomeIcon icon={faUser} /> <span>{item.instructor}</span>
+        </div>
+        <div>
+          <span>{item.review}</span>{" "}
+          <div>
+            {Array.from({ length: 5 }, (_, index) => (
+              <FontAwesomeIcon key={index} icon={faStar} />
+            ))}
+          </div>
+        </div>
+        <span>${item.price}</span>
+      </div>
+    </div>
+  ));
+
   return (
     <section className="py-20 container">
       <div className="flex items-center gap-4 mx-6 lg:mx-0">
@@ -91,6 +115,7 @@ const NewCareerRecommendations = () => {
           className="w-10 h-10 lg:w-16 lg:h-16"
         />
       </div>
+      {renderedCourses}
     </section>
   );
 };
