@@ -1,4 +1,4 @@
-import NewCareerRecommendations from "../components/ProfessionalCertificates/NewCareerRecommendations/NewCareerRecommendations";
+import NewCareerRecommendations from "../components/NewCareerRecommendations/NewCareerRecommendations";
 import ProfessionalCertificates from "../components/ProfessionalCertificates/ProfessionalCertificates";
 
 const Homepage = () => {
