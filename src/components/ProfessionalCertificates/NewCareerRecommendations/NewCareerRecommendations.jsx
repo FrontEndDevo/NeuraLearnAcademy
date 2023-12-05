@@ -83,14 +83,16 @@ const NewCareerRecommendations = () => {
 
   // Render all courses inside a slider:
   const renderedCourses = recomendedCourses.map((item, i) => (
-    <div key={i}>
-      <img src={item.img} alt={item.title} />
-      <div>
-        <h4>{item.title}</h4>
-        <div>
+    <div key={i} className="bg-gray-200 border-2 w-96">
+      <img src={item.img} alt={item.title} className="w-full" />
+      <div className="py-4 px-3">
+        <h4 className="text-xl font-bold">{item.title}</h4>
+
+        <div className="text-gray-600 flex items-center gap-1 my-3">
           <FontAwesomeIcon icon={faUser} /> <span>{item.instructor}</span>
         </div>
-        <div>
+
+        <div className="my-3 font-bold flex items-center gap-1">
           <span>{item.review}</span>{" "}
           <div>
             {Array.from({ length: 5 }, (_, index) => (
@@ -98,7 +100,7 @@ const NewCareerRecommendations = () => {
             ))}
           </div>
         </div>
-        <span>${item.price}</span>
+        <span className="font-bold text-xl">${item.price.toFixed(2)}</span>
       </div>
     </div>
   ));
