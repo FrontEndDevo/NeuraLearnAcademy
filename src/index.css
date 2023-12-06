@@ -30,6 +30,13 @@ a {
   text-decoration: none;
 }
 
+.slick-slide > div {
+  margin: 1rem;
+}
+.slick-list {
+  margin: 0 -10px;
+}
+
 .slick-slider .slick-prev::before,
 .slick-slider .slick-next::before {
   color: black;
