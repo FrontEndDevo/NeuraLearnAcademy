@@ -6,7 +6,6 @@ const App = () => {
     <>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <h1>karim</h1>
       </Routes>
     </>
   );
