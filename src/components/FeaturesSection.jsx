@@ -1,7 +1,7 @@
 import React from 'react';
-import trophyStar from '../assets/trophy-star.png'
-import personCircle from '../assets/person-circle-exclamation.png'
-import calendarClock from '../assets/calendar-clock.png'
+import trophyStar from '../assets/images/homepage/FeaturesSection/trophy-star.png'
+import personCircle from '../assets/images/homepage/FeaturesSection/person-circle-exclamation.png'
+import calendarClock from '../assets/images/homepage/FeaturesSection/calendar-clock.png'
 const FeaturesSection = () => {
     return (
         <section className="py-20 bg-gray-100 min-h-screen ">
