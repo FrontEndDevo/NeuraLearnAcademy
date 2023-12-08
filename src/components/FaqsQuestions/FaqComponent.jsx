@@ -5,6 +5,30 @@ import { Link } from "react-router-dom";
 const PlusIcon = () => <span>+</span>;
 const MinusIcon = () => <span>-</span>;
 
+const FaqItem = ({ question, answer, isOpen, toggleAnswer }) => (
+  <div className={`border-b border-gray-200 py-4`}>
+    <div
+      className="flex justify-between items-center cursor-pointer"
+      onClick={toggleAnswer}
+    >
+      <h4 className="text-lg font-semibold">{question}</h4>
+      {isOpen ? (
+        <MinusIcon className="text-white" />
+      ) : (
+        <PlusIcon className="text-white" />
+      )}
+    </div>
+    {isOpen && <p className="mt-2">{answer}</p>}
+  </div>
+);
+
+FaqItem.propTypes = {
+  question: PropTypes.string.isRequired,
+  answer: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  toggleAnswer: PropTypes.func.isRequired,
+};
+
 
 
 const FaqComponent = () => {
