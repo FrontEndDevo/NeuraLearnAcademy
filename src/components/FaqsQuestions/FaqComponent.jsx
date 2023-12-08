@@ -29,7 +29,36 @@ FaqItem.propTypes = {
   toggleAnswer: PropTypes.func.isRequired,
 };
 
+const FaqList = ({ faqs }) => {
+  const [openIndex, setOpenIndex] = useState(null);
 
+  const toggleAnswer = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <div>
+      {faqs.map((faq, index) => (
+        <FaqItem
+          key={index}
+          question={faq.question}
+          answer={faq.answer}
+          isOpen={index === openIndex}
+          toggleAnswer={() => toggleAnswer(index)}
+        />
+      ))}
+    </div>
+  );
+};
+
+FaqList.propTypes = {
+  faqs: PropTypes.arrayOf(
+    PropTypes.shape({
+      question: PropTypes.string.isRequired,
+      answer: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
 
 const FaqComponent = () => {
   const faqs = [
