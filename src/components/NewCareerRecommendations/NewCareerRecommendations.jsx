@@ -125,15 +125,15 @@ const NewCareerRecommendations = () => {
     <Slider {...settings}>
       {recomendedCourses.map((item, i) => (
         <div key={i} className="bg-gray-100 border-2">
-          <img src={item.img} alt={item.title} />
-          <div className="py-4 px-3">
+          <img src={item.img} alt={item.title} className="w-full h-[300px]" />
+          <div className="px-3 py-4">
             <h4 className="text-xl font-bold">{item.title}</h4>
 
-            <div className="text-gray-600 flex items-center gap-1 my-3">
+            <div className="flex items-center gap-1 my-3 text-gray-600">
               <FontAwesomeIcon icon={faUser} /> <span>{item.instructor}</span>
             </div>
 
-            <div className="my-3 font-bold flex items-center gap-1">
+            <div className="flex items-center gap-1 my-3 font-bold">
               <span>{item.review}</span>{" "}
               <div className="flex items-center gap-1">
                 {Array.from({ length: Math.floor(item.review) }, (_, index) => (
@@ -151,7 +151,7 @@ const NewCareerRecommendations = () => {
                 )}
               </div>
             </div>
-            <span className="font-bold text-xl">${item.price.toFixed(2)}</span>
+            <span className="text-xl font-bold">${item.price.toFixed(2)}</span>
           </div>
         </div>
       ))}
@@ -159,9 +159,9 @@ const NewCareerRecommendations = () => {
   );
 
   return (
-    <section className="py-20 container">
-      <div className="flex items-center mb-12 gap-4 mx-6 lg:mx-0">
-        <h2 className="font-bold text-xl lg:text-3xl">
+    <section className="container py-20">
+      <div className="flex items-center gap-4 mx-6 mb-12 lg:mx-0">
+        <h2 className="text-xl font-bold lg:text-3xl">
           Recommend this if you are looking for a new career path
         </h2>
         <img
