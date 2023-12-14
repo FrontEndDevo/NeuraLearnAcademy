@@ -3,17 +3,17 @@ import personCircle from "../../assets/images/homepage/FeaturesSection/person-ci
 import calendarClock from "../../assets/images/homepage/FeaturesSection/calendar-clock.png";
 const FeaturesSection = () => {
   return (
-    <section className="py-20 bg-gray-100 min-h-screen ">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className=" text-1xl md:text-3xl font-medium mb-3 text-center tracking-wider">
+    <section className="py-32 bg-gray-100  ">
+      <div className=" container p-8 md:p-10 xl:p-0">
+        <h1 className=" text-1xl md:text-3xl font-medium mb-5 text-center tracking-wider ">
           Take The First toward your new career{" "}
         </h1>
-        <h3 className="text-center mb-3 md:mb-10 font-medium">
+        <h3 className="text-center mb-5 md:mb-10 font-medium">
           Get professional-level training and earn a credentail
         </h3>
         <div className="grid grid-cols-1 gap-6 md:gap-20 sm:grid-cols-2 lg:grid-cols-3">
           {/* Card 1 */}
-          <div className="bg-white overflow-hidden  rounded-lg text-center shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+          <div className="bg-white overflow-hidden  rounded-lg text-center shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 p-5">
             <div className="flex items-center justify-center">
               <img
                 src={personCircle}
