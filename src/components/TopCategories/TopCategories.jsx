@@ -10,10 +10,10 @@ import PhtographyImage from "../../assets/images/homepage/cartoon/42429.jpg";
 function TopCategories() {
   return (
     <>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-screen pt-8">
-        <h3 className=" text-2xl text-center lg:text-left ">Top Categories</h3>
+      <div className="container my-20">
+        <h3 className=" text-3xl text-center lg:text-left  ">Top Categories</h3>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0">
           <div className="ml-12 mt-7 md:ml-10 ">
             <img
               src={programming}
