@@ -52,7 +52,7 @@ function TopCategories() {
           <div className="ml-12 mt-7 md:ml-10">
             <img
               src={DataScienec}
-              className=" rounded-full   h-56 w-56 border-40 imgBorderColor"
+              className=" rounded-full   h-56 w-56 border-4 imgBorderColor"
               alt=""
             />
             <h2 className="my-5 font-black text-lg  ml-14  ">Data Science</h2>
