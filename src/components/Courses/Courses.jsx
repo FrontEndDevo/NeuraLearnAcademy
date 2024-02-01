@@ -10,12 +10,12 @@ import { faStar } from "@fortawesome/free-regular-svg-icons";
 import Slider from "react-slick";
 
 const categories = [
-  "all",
+  "all courses",
   "programming",
   "web development",
   "bussines",
   "data science",
-  "sales & marketing",
+  "marketing",
 ];
 
 const settings = {
@@ -62,13 +62,12 @@ const Courses = () => {
   const coursesCategories = categories.map((item, i) => (
     <li
       key={i}
-      className="px-8 py-2 text-black duration-300 bg-white border-2 rounded-lg hover:bg-black hover:text-white"
+      className="p-2 font-playfair font-bold flex items-center justify-center text-black text-[11px] lg:text-sm duration-300 bg-white border-2 rounded-lg lg:rounded-full hover:bg-black hover:text-white"
     >
       <button className="capitalize">{item}</button>
     </li>
   ));
 
-  // Prepare the suggested courses array:
   // This is a temporary array of objects (courses) until fetch all of these from DB.
   const suggestedCourses = [
     {
@@ -197,42 +196,44 @@ const Courses = () => {
 
   return (
     <section className="container py-20 text-center">
-      <div className="mb-6">
-        <h2 className="text-3xl lg:mx-40 lg:text-5xl">
-          Build your ideas and implement them with the computer !
-        </h2>
-        <h4 className="mt-6 text-2xl lg:text-4xl">
+      <div className="mb-10">
+        <h2 className="text-3xl font-bold lg:mx-40 lg:text-4xl font-playfair">
           A broad selection of courses
+        </h2>
+        <h4 className="mt-6 text-base font-bold lg:text-xl text-primary-700">
+          Build your ideas and implement them with the computer !
         </h4>
-        <p className="mt-8 text-lg text-gray-500">
-          Choose from the most popular online courses with new additions
-          published every month
-        </p>
       </div>
 
-      <ul className="grid grid-cols-1 gap-4 mx-4 my-10 sm:grid-cols-2 md:grid-cols-3 lg:items-center lg:justify-center lg:flex">
-        {coursesCategories}
-      </ul>
+      <div className="grid grid-cols-4 gap-10 lg:gap-2 lg:grid-cols-1">
+        <ul className="grid grid-cols-1 gap-2 m-2 md:grid-cols-2 lg:items-center lg:justify-center lg:flex">
+          {coursesCategories}
+        </ul>
 
-      <div className="relative mx-4 flex flex-col items-center justify-center p-8 bg-[#EEF3F6] border-2 shadow-lg rounded-3xl">
-        <img
-          src={programmer}
-          alt="programmer"
-          className="w-[250px] h-[250px] mb-4 lg:absolute -top-2 -left-20 border-8 border-primary-700 rounded-full"
-        />
-        <div className="flex items-center justify-center font-bold leading-7 text-justify lg:px-[19rem] lg:py-20 py-4">
-          <p>
-            Welcome, I am your assistant here to introduce you to
-            programming,software, and the world of software, and to create your
-            first application through a group of courses that qualify you for
-            the labor market with the latest existing technologies, knowing that
-            programming is fundamental to the technologies that humans have
-            achieved.
+        <div className="lg:w-2/3 relative col-span-3 mx-auto mb-10 p-2 lg:p-8 bg-[#F7F2F2] border-2 shadow-lg rounded-3xl">
+          <img
+            src={programmer}
+            alt="programmer"
+            className="w-[80px] h-[80px] lg:w-[200px] lg:h-[200px] mb-4 absolute -top-8 -left-8 lg:-top-4 lg:-left-16 border-4 lg:border-8 border-secondary-700 rounded-full"
+          />
+
+          <p className="text-[11px] font-bold lg:text-xl lg:pl-[8rem] lg:text-start">
+            Build your ideas and implement them with the computer !
           </p>
+          <div className="flex items-center justify-center my-4 font-bold lg:text-sm leading-5 lg:leading-7 text-[10px] md:text-justify lg:pl-[8rem] lg:px-[4rem] lg:py-4">
+            <p>
+              Welcome, I am your assistant here to introduce you to
+              programming,software, and the world of software, and to create
+              your first application through a group of courses that qualify you
+              for the labor market with the latest existing technologies,
+              knowing that programming is fundamental to the technologies that
+              humans have achieved.
+            </p>
+          </div>
+          <button className="flex justify-end px-4 py-2 ml-auto text-[10px] text-white capitalize duration-200 rounded-lg lg:px-8 lg:py-4 lg:text-xl bg-primary-700 hover:bg-primary-500">
+            explore programming
+          </button>
         </div>
-        <button className="flex justify-end px-4 py-2 ml-auto text-xl text-white capitalize duration-200 rounded-lg lg:px-8 lg:py-4 lg:text-2xl bg-primary-700 hover:bg-primary-500">
-          explore programming
-        </button>
       </div>
 
       {renderSuggestedCourses}
