@@ -4,7 +4,6 @@ import course_two from "../../assets/images/homepage/course_2.jpg";
 import course_three from "../../assets/images/homepage/course_3.jpg";
 import course_four from "../../assets/images/homepage/course_4.jpg";
 import course_five from "../../assets/images/homepage/course_5.jpg";
-import smileIcon from "../../assets/images/homepage/icon.png";
 import { faUser, faStar as mainStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import Slider from "react-slick";
@@ -40,6 +39,7 @@ const settings = {
       settings: {
         slidesToShow: 1,
         slidesToScroll: 1,
+        arrows: false,
       },
     },
   ],
@@ -160,16 +160,9 @@ const NewCareerRecommendations = () => {
 
   return (
     <section className="container py-20">
-      <div className="flex items-center gap-4 mx-6 mb-12 lg:mx-0">
-        <h2 className="text-xl font-bold lg:text-3xl">
-          Recommend this if you are looking for a new career path
-        </h2>
-        <img
-          src={smileIcon}
-          alt="smile icon"
-          className="w-10 h-10 lg:w-16 lg:h-16"
-        />
-      </div>
+      <h2 className="mx-6 mb-10 text-xl font-bold lg:text-3xl lg:mx-0">
+        Recommend this if you are looking for a new career path
+      </h2>
       {renderedCourses}
     </section>
   );
