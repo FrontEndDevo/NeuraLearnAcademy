@@ -28,15 +28,13 @@ const settings = {
   speed: 1500,
   autoplay: true,
   autoplaySpeed: 1500,
-  rows: 2,
+  rows: 1,
   slidesPerRow: 1,
   responsive: [
     {
       breakpoint: 1024,
       settings: {
-        centerPadding: "100px",
-        slidesToShow: 2,
-        rows: 2,
+        slidesToShow: 3,
         slidesPerRow: 1,
       },
     },
@@ -44,9 +42,17 @@ const settings = {
       breakpoint: 600,
       settings: {
         centerPadding: "20px",
-        slidesToShow: 1,
-        rows: 2,
+        slidesToShow: 2,
         slidesPerRow: 1,
+        arrows: false,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
       },
     },
   ],
