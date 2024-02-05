@@ -13,8 +13,8 @@ import '../TopCategories/topCategories.css'
 function TopCategories() {
   return (
     <>
-      <div className="container my-20">
-        <h3 className=" text-3xl text-center lg:text-left font-bold  ">Top Categories</h3>
+      <div className="container my-20 ">
+        <h3 className=" text-3xl text-center lg:text-left font-bold ml-3   ">Top Categories</h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0">
           <div className="ml-12 mt-7 md:ml-10 ">
