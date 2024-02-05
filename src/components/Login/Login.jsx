@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import image1 from '../../assets/images/Login/logo.png'
-import faceimg from '../../assets/images/Login/icons/facebook.png'
-import linkimg from '../../assets/images/Login/icons/linkedin.png'
-import gogleimg from '../../assets/images/Login/icons/gogle.png'
+import image1 from '../../assets/images/LoginSigin/logo.png'
+import faceimg from '../../assets/images/LoginSigin/icons/facebook.png'
+import linkimg from '../../assets/images/LoginSigin/icons/linkedin.png'
+import gogleimg from '../../assets/images/LoginSigin/icons/gogle.png'
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -95,7 +95,7 @@ const Login = () => {
                                 type="email"
                                 id="email"
                                 className={`w-full pl-2 py-2 border ${errors.email ? "border-red-500" : "border-gray-300"
-                                    } w-40 md:w-80`}
+                                    }  md:w-[335px]`}
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 onBlur={validateEmail}
@@ -115,8 +115,8 @@ const Login = () => {
                             <input
                                 type="password"
                                 id="password"
-                                className={`w-full pl-2 mb-3 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
-                                    } w-40 md:w-80`}
+                                className={`w-full pl-2 mb-5 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
+                                    }   md:w-[335px]`}
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 onBlur={validatePassword}
@@ -128,7 +128,7 @@ const Login = () => {
 
                         <button
                             type="submit"
-                            className="w-3/4 py-2 text-xl font-semibold text-white bg-blue-700 hover:bg-blue-600"
+                            className="w-3/4 py-3 text-xl font-semibold text-white bg-blue-700 hover:bg-blue-600"
                         >
                             Log in
                         </button>
