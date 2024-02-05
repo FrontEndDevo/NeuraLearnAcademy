@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import image1 from '../../assets/images/LoginSigin/logo.png'
-import faceimg from '../../assets/images/LoginSigin/icons/facebook.png'
-import linkimg from '../../assets/images/LoginSigin/icons/linkedin.png'
-import gogleimg from '../../assets/images/LoginSigin/icons/gogle.png'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLinkedin, faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 const SignUpForm = () => {
 
     const [fullName, setFullName] = useState('');
@@ -136,14 +136,21 @@ const SignUpForm = () => {
                         {/* start social media icon */}
                         <div className='flex space-x-12 '>
                             <Link>
-                                <img src={gogleimg} className="w-8" alt="" />
+                                <div style={{ backgroundColor: '#DB4437', padding: '10px', borderRadius: '50%' }}>
+                                    <FontAwesomeIcon icon={faGoogle} style={{ color: 'white' }} />
+                                </div>
+                            </Link>
+                            <Link >
+                                <div style={{ backgroundColor: '#0077B5', padding: '10px', borderRadius: '50%' }}>
+                                    <FontAwesomeIcon icon={faLinkedin} style={{ color: 'white' }} />
+                                </div>
                             </Link>
                             <Link>
-                                <img src={linkimg} className='w-8' alt="" />
+                                <div style={{ backgroundColor: 'blue', padding: '10px', borderRadius: '50%' }}>
+                                    <FontAwesomeIcon icon={faFacebook} style={{ color: 'white' }} />
+                                </div>
                             </Link>
-                            <Link>
-                                <img src={faceimg} className='w-8 ' alt="" />
-                            </Link>
+
 
                         </div>
                         {/* end social media icon */}
@@ -152,7 +159,7 @@ const SignUpForm = () => {
                             <Link><span className='text-blue-700 text-lg font-bold  underline'> Log in</span></Link>
                         </div>
                     </form>
-                </div>
+                </div >
 
 
             </div >
@@ -160,7 +167,7 @@ const SignUpForm = () => {
 
 
             {/* Links */}
-            <div className="flex flex-wrap mx-2 md:ml-20 md:my-14 lg:w-1/2">
+            <div div className="flex flex-wrap mx-2 md:ml-20 md:my-14 lg:w-1/2" >
                 <Link
                     to="#"
                     className="px-2 text-sm font-bold border-r border-black md:text-xl md:px-4 text-neutral-700"
@@ -186,7 +193,7 @@ const SignUpForm = () => {
                 >
                     Privacy Policy
                 </Link>
-            </div>
+            </div >
 
             <div className="flex justify-center m-4 text-sm font-bold text-neutral-700">
                 <div>
