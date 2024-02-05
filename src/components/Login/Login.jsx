@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import image1 from '../../assets/images/LoginSigin/logo.png'
-import faceimg from '../../assets/images/LoginSigin/icons/facebook.png'
-import linkimg from '../../assets/images/LoginSigin/icons/linkedin.png'
-import gogleimg from '../../assets/images/LoginSigin/icons/gogle.png'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLinkedin, faGoogle, faFacebook } from '@fortawesome/free-brands-svg-icons';
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -144,28 +144,24 @@ const Login = () => {
                             Continue in another way
                         </h2>
 
-                        <div className="flex space-x-12">
-                            <Link to="#">
-                                <img
-                                    src={gogleimg}
-                                    className="w-8"
-                                    alt="image google"
-                                />
+                        <div className='flex space-x-12 '>
+                            <Link>
+                                <div style={{ backgroundColor: '#DB4437', padding: '10px', borderRadius: '50%' }}>
+                                    <FontAwesomeIcon icon={faGoogle} style={{ color: 'white' }} />
+                                </div>
                             </Link>
-                            <Link to="#">
-                                <img
-                                    src={linkimg}
-                                    className="w-8"
-                                    alt="image linked in"
-                                />
+                            <Link >
+                                <div style={{ backgroundColor: '#0077B5', padding: '10px', borderRadius: '50%' }}>
+                                    <FontAwesomeIcon icon={faLinkedin} style={{ color: 'white' }} />
+                                </div>
                             </Link>
-                            <Link to="#">
-                                <img
-                                    src={faceimg}
-                                    className="w-8"
-                                    alt="image facebook"
-                                />
+                            <Link>
+                                <div style={{ backgroundColor: 'blue', padding: '10px', borderRadius: '50%' }}>
+                                    <FontAwesomeIcon icon={faFacebook} style={{ color: 'white' }} />
+                                </div>
                             </Link>
+
+
                         </div>
                     </form>
                 </div>
