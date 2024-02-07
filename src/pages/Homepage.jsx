@@ -5,9 +5,11 @@ import FaqComponent from "../components/FaqsQuestions/FaqComponent";
 import FeaturesSection from "../components/FeaturesSection/FeaturesSection";
 import ResourceGuide from "../components/ResourceGuide/ResourceGuide";
 import TopCategories from "../components/TopCategories/TopCategories";
+import Hero from "../components/Hero/Hero";
 const Homepage = () => {
   return (
     <>
+      <Hero />
       <Courses />
       <ProfessionalCertificates />
       <ResourceGuide />
