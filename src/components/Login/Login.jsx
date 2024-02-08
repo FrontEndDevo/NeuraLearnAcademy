@@ -11,7 +11,7 @@ const Login = () => {
     const [errors, setErrors] = useState({});
 
     const validateEmail = () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailRegex = /^[a-zA-Z][a-zA-Z0-9]*@[a-zA-Z]+\.[a-zA-Z]+$/;
         if (!email) {
             setErrors((prevErrors) => ({
                 ...prevErrors,
@@ -26,17 +26,22 @@ const Login = () => {
             setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
         }
     };
-
     const validatePassword = () => {
         if (!password) {
-            setErrors((prevErrors) => ({
-                ...prevErrors,
-                password: "Password is required",
-            }));
+            setErrors(prevErrors => ({ ...prevErrors, password: 'Password is required' }));
         } else {
-            setErrors((prevErrors) => ({ ...prevErrors, password: "" }));
+            let passwordStrength = 'Weak';
+
+            // Check password strength based on criteria (e.g., length, uppercase, lowercase, numbers, special characters)
+            if (password.length >= 8 && /[a-z]/.test(password) && /[A-Z]/.test(password) && /\d/.test(password) && /[!@#$%^&*]/.test(password)) {
+                passwordStrength = 'Strong';
+                setErrors(prevErrors => ({ ...prevErrors, password: `Password strength: ${passwordStrength}` }));
+            } else {
+                setErrors(prevErrors => ({ ...prevErrors, password: 'Password is weak, choose stronge password.' }));
+            }
         }
     };
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
