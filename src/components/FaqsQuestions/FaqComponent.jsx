@@ -62,7 +62,7 @@ const FaqList = ({ faqs }) => {
 
   return (
     <div>
-      {faqs.map((faq, index) => (
+      {faqs.slice(0, 10).map((faq, index) => (
         <FaqItem
           key={index}
           question={faq.question}
@@ -122,12 +122,15 @@ const FaqComponent = () => {
       <div className="max-w-screen-lg p-4 mx-auto md:mt-12">
         <div className="relative flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold text-black">Top FAQs</h2>
-          <Link to="/all-faqs" className="text-2xl font-bold text-blue-600">
+          <Link
+            to="/all-faqs"
+            className="text-2xl font-bold duration-200 text-primary-500 hover:text-primary-700"
+          >
             All FAQs <ArrowRightIcon />
           </Link>
         </div>
 
-        <div className="relative flex items-center justify-between flex-grow w-11/12 mt-0 mb-12 ml-auto mr-auto ">
+        <div className="relative flex items-center justify-between flex-grow w-11/12 mt-0 mb-12 ml-auto mr-auto">
           <div className="relative flex items-center">
             <div className="w-3 h-3 bg-black rounded-full"></div>
           </div>
