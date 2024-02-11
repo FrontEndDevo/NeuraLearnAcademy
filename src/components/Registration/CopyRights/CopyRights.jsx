@@ -8,7 +8,7 @@ const CopyRights = () => {
       {linksArray.map((link, index) => (
         <li key={index}>
           <Link
-            to={link.toLowerCase().replace("", "-")}
+            to={index == 0 ? "/" : link.toLowerCase().replace("", "-")}
             className="px-2 text-sm font-bold capitalize duration-200 border-r border-black md:text-xl md:px-4 text-gray-color-500 hover:text-gray-color-700"
           >
             {link}
