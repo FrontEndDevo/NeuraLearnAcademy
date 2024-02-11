@@ -62,7 +62,7 @@ const FaqList = ({ faqs }) => {
 
   return (
     <div>
-      {faqs.map((faq, index) => (
+      {faqs.slice(0, 10).map((faq, index) => (
         <FaqItem
           key={index}
           question={faq.question}
