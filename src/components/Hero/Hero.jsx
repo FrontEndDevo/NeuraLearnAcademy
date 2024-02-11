@@ -1,32 +1,33 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCertificate } from "@fortawesome/free-solid-svg-icons";
 import { faHandPointer } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import hero from "/src/assets/images/homepage/hero.png";
+import { Link } from "react-router-dom";
 const Hero = () => {
   return (
     <div className="mx-4 mt-24 md:mx-12">
-      <section className="grid grid-cols-1 gap-12 place-items-center md:grid-cols-2">
+      <section className="flex items-center justify-center">
         <div>
-          <div className="p-4 border-t-2 border-solid shadow-lg lg:w-11/12 lg:p-8">
-            <h1 className="mb-4 text-xl font-extrabold">
-              Learn. Improve. Grow.
-            </h1>
-            <p>
+          <div className="p-4 mb-10 border-t-2 border-solid shadow-xl lg:w-11/12 lg:p-8">
+            <h1 className="mb-4 text-2xl font-bold">Learn. Improve. Grow.</h1>
+            <p className="text-base">
               Build your skills through job-ready programs and earn your
               certification to propel your career.
             </p>
           </div>
-          <button className="px-8 py-3 mt-8 text-sm font-semibold text-center text-white bg-blue-700 mtpx-6 rounded-3xl hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700">
+          <Link
+            to="/"
+            className="px-8 py-3 text-base font-bold text-center text-white duration-200 bg-primary-500 rounded-3xl hover:bg-primary-700"
+          >
             Get Started
-          </button>
+          </Link>
         </div>
         <div className="row-start-1 md:col-start-2">
           <img src={hero} alt="" />
         </div>
       </section>
-      
+
       <section className="grid w-full grid-cols-1 gap-5 p-3 mx-auto mt-8 text-center border shadow-md rounded-xl md:p-8 md:w-11/12 md:grid-cols-2 lg:grid-cols-5 md:text-left">
         <div className="md:col-start-1 md:col-end-3 lg:col-end-2">
           <h2 className="text-xl font-bold">
