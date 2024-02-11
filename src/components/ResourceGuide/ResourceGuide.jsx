@@ -2,31 +2,30 @@ import Image1 from "../../assets/images/homepage/ResourceGuideSection/men.jpg";
 function ResourcesGuide() {
   return (
     <>
-      <div className="  h-screen  p-28 w bg-white  ">
-        <div className="grid sm:grid-cols-1  md:grid-cols-1 lg:grid-cols-2   ">
-          <div className="ResourceGuideImage ">
-            <img src={Image1} className="" width="550px" alt="" />
+      <div className="container my-10 xl:my-32 p-8  lg:p-16 xl:p-0 bg-white">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 md:gap-4 xl:gap-28">
+          <div className="flex justify-center items-center md:w-3/4 lg:w-10/12 xl:w-full">
+            <img src={Image1} alt="" />
           </div>
 
-          {/* Content  */}
-          <div className="ResorceGuideContent">
-            <p className=" mb-2 text-sm">
+          {/* Content */}
+          <div className="">
+            <p className="mb-2 text-sm md:text-base lg:text-lg font-bold text-blue-700">
               Finished a Professional certificate?
             </p>
-            <h2 className=" mb-10 text-2xl text-gray-700">
-              Get resources and support to guide you
-              <br /> through the jop search process.
+            <h2 className="mb-6 xl:mb-16 text-lg md:text-sm lg:text-2xl text-gray-700">
+              Get resources and support to guide you through the job search process.
             </h2>
-            <h3 className=" text-2xl	">showcase your skills</h3>
-            <p className="mt-2 mb-4 text-sm">
-              present real world projects to potentail employers.
+            <h3 className="md:text-lg lg:text-xl font-semibold">Showcase your skills</h3>
+            <p className="mt-3 mb-6 text-sm md:text-base lg:text-lg">
+              Present real-world projects to potential employers.
             </p>
-            <h3 className=" text-2xl	">Enhance your resume</h3>
-            <p className="mt-2 mb-4 text-sm">
-              Get support to build a standout resume and LinkedIn profile
+            <h3 className="md:text-lg lg:text-xl font-semibold">Enhance your resume</h3>
+            <p className="mt-3 mb-6 text-sm md:text-base lg:text-lg">
+              Get support to build a standout resume and LinkedIn profile.
             </p>
-            <h3 className=" text-2xl	">Ace your interview</h3>
-            <p className="mt-2 mb-4 text-sm">
+            <h3 className="md:text-lg lg:text-xl font-semibold">Ace your interview</h3>
+            <p className="mt-3 mb-6 text-sm md:text-base lg:text-lg">
               Practice and improve your interview skills with virtual feedback.
             </p>
           </div>
