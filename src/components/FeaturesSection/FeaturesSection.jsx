@@ -11,21 +11,21 @@ const cardData = [
   {
     title: "Fahmy ali",
     description:
-      '"To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset.With Neura Learn  Academy Business, I can give my team the space to learn and take the initiative.It means we can produce higher quality work more quickly."',
+      '"To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset.With Neura Learn  Academy Business, I can give my team the space to learn and take the initiative space.It means we can produce higher quality work more quickly."',
     personPostion: "CEO of international",
     CardImage: men1,
   },
   {
     title: "Mona ali",
     description:
-      '"One of the best courses on management that after a few months and leadership I have come across so far.The advice is practical, higher quality work more quickly. and examples highly relatable.Would help anyone become a better manager."',
+      '"One of the best courses on management that after a few months and leadership I have come across so far.The advice is practical, higher quality work more quickly. and examples highly relatable.Would help anyone become a better manager quality work more quickly."',
     personPostion: "Front End Developer",
     CardImage: women,
   },
   {
     title: "karim ali",
     description:
-      '"am proud to say that higher quality work more quickly. after a few months of taking this that after a few months course...I passed my exam and am now an AWS Certified Cloud Practitioner! This content was exactly what the CCP exam covered."',
+      '"am proud to say that higher quality work more quickly. after a few months of taking this that after a few months course...I passed my exam and am now an AWS Certified Cloud Practitioner! This content was exactly what the CCP exam covered quality work more quickly."',
     personPostion: "Back End Developer ",
     CardImage: men2,
   },
@@ -33,9 +33,10 @@ const cardData = [
 const FeaturesSection = () => {
   const divStyle = {
     backgroundImage: `url(${bg})`,
-    backgroundSize: "100% 100%",
+    backgroundSize: "100% 130%",
     backgroundRepeat: "no-repeat",
-    backgroundBlendMode: "lighten",
+    height: "75vh",
+    loading: "lazy"
   };
 
   return (
@@ -47,58 +48,59 @@ const FeaturesSection = () => {
         Stories from those that have completed Professional Certificates
       </h3>
 
-      <section
-        className="grid h-full px-0 py-20 place-items-center"
-        style={divStyle}
-      >
-        <div className="container">
-          <div className="grid grid-cols-1 pb-10 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 place-items-center">
-            {cardData.map((card) => {
-              return (
-                <>
-                  <div key={card} className="p-4">
-                    <div className=" relative bg-black rounded-tl-[23px] rounded-tr-[23px] rounded-bl-[23px]">
-                      <h2 className=" text-white text-[25px] md:text-[35px] text-opacity-80 font-extrabold ] tracking-widest pt-12 pb-20 pl-6 md:pl-20">
-                        #Comments
-                      </h2>
-                      <h2 className="absolute text-2xl font-extrabold text-white bottom-2 left-36">
-                        {card.title}
-                      </h2>
-                    </div>
-                    <div className="relative CardDetails bg-stone-50 ">
-                      <img
-                        src={card.CardImage}
-                        alt="profile-sample4"
-                        className="absolute left-0 z-10 w-32 h-32 text-white border-4 border-white rounded-full shadow-lg -top-20"
-                      />
-                      <div className="absolute py-2 text-sm font-semibold left-32 md:left-36 text-neutral-500 md:text-normal">
-                        {card.personPostion}
+      <section className=" h-full px-0 py-22 relative " style={divStyle}  >
+        <div className="absolute top-0 left-0 bottom-0 right-0 w-full  bg-white bg-opacity-100 xl:bg-opacity-80 z-10">
+          <div className="container">
+            <div className="grid grid-cols-1 pb-10 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-7 mt-10 p-5 ">
+              {cardData.map((card) => {
+                return (
+                  <>
+                    <div key={card} className="shadow-lg border-gray-300   ">
+                      <div className=" relative bg-black rounded-tl-[23px] rounded-tr-[23px] ">
+                        <h2 className=" text-white text-[25px] md:text-[35px] text-opacity-80 font-extrabold ] tracking-widest pt-12 pb-20 pl-6 md:pl-20">
+                          #Comments
+                        </h2>
+                        <h2 className="absolute text-2xl font-extrabold text-white bottom-2 left-36">
+                          {card.title}
+                        </h2>
                       </div>
+                      <div className="relative CardDetails bg-stone-50 ">
+                        <img
+                          loading="lazy"
+                          src={card.CardImage}
+                          alt="profile-sample4"
+                          className="absolute -left-0.5  w-32 h-32 text-white border-4 border-white rounded-full shadow-lg -top-20"
+                        />
+                        <div className="absolute py-2 text-sm font-semibold left-32 md:left-36 text-neutral-500 md:text-normal">
+                          {card.personPostion}
+                        </div>
 
-                      <p className="h-full  text-black text-[13px] md:text-[17px]  px-6 pt-16  bg-stone-50  ">
-                        {card.description}
-                      </p>
-
-                      <Link
-                        to="/"
-                        className="inline-block relative left-[45%] md:left-[60%] xl:left-[70%] text-primary-500 duration-200 hover:text-primary-700 text-base font-bold py-5"
-                      >
-                        Read all story{" "}
-                        <FontAwesomeIcon icon={faAngleDoubleRight} />
-                      </Link>
+                        <p className="h-full  text-black text-[13px] md:text-[17px]  px-6 pt-16  bg-stone-50  ">
+                          {card.description}
+                        </p>
+                        <Link
+                          to="/"
+                          className="inline-block relative left-[45%] md:left-[60%] 2xl:left-[70%] text-primary-500 duration-200 hover:text-primary-700 text-base font-bold py-5"
+                        >
+                          Read all story{" "}
+                          <FontAwesomeIcon icon={faAngleDoubleRight} />
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                </>
-              );
-            })}
+                  </>
+                );
+              })}
+            </div>
+          </div>
+          <div className="flex justify-center items-center  inset-x-0 ">
+            <Link
+              to="/"
+              className="p-4 mb-5 text-base font-bold text-white duration-200 bg-primary-500 hover:bg-primary-700 rounded-3xl  "
+            >
+              View more customer stories
+            </Link>
           </div>
         </div>
-        <Link
-          to="/"
-          className="p-3 text-base font-bold text-center text-white duration-200 bg-primary-500 hover:bg-primary-700 rounded-3xl"
-        >
-          View more customer stories{" "}
-        </Link>
       </section>
     </>
   );
