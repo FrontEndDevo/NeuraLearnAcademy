@@ -64,7 +64,11 @@ a {
 /* Specializations component */
 .right-specializations-linear-gradient {
   background: linear-gradient(212.46deg, #1f6e61 0%, #305b67 99.35%);
-  box-shadow: rgba(0, 0, 0, 0.2) 60px 0px 50px 0px inset;
+}
+@media only screen and (min-width: 768px) {
+  .right-specializations-linear-gradient {
+    box-shadow: rgba(0, 0, 0, 0.2) 60px 0px 50px 0px inset;
+  }
 }
 
 /* Specializations component */
