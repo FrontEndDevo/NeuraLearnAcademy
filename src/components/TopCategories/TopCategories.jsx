@@ -1,3 +1,6 @@
+
+import { Link } from "react-router-dom";
+
 import programming from "../../assets/images/homepage/cartoon/1.jpg";
 import DevelopmentImage from "../../assets/images/homepage/cartoon/programming-concept-illustration_114360-1351.jpg";
 import SalesMarktingImage from "../../assets/images/homepage/cartoon/3.jpg";
@@ -8,81 +11,68 @@ import BuisnessImage from "../../assets/images/homepage/cartoon/58074.jpg";
 import PhtographyImage from "../../assets/images/homepage/cartoon/42429.jpg";
 
 
-import '../TopCategories/topCategories.css'
+
+var CategoriesData = [
+  {
+    category: "Development",
+    img: programming
+  },
+  {
+    category: "Programming",
+    img: DevelopmentImage
+  },
+  {
+    category: "Sales & Markting",
+    img: SalesMarktingImage
+  },
+  {
+    category: "Drawing",
+    img: DrawingImage
+  },
+
+  {
+    category: "Strategy",
+    img: StrategyImage
+  },
+  {
+    category: "Data Science",
+    img: DataScienec
+  }, {
+    category: "Buisness",
+    img: BuisnessImage
+  },
+  {
+    category: "Photography",
+    img: PhtographyImage
+  },
+]
+
 
 function TopCategories() {
+  ;
   return (
     <>
-      <div className="container my-20 ">
-        <h3 className=" text-3xl text-center lg:text-left font-bold ml-3   ">Top Categories</h3>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-0">
-          <div className="ml-12 mt-7 md:ml-10 ">
-            <img
-              src={programming}
-              className=" rounded-full border-4	   h-56 w-56 imgBorderColor "
-              alt=""
-            />
-            <h2 className="my-5 font-black text-lg  ml-14 ">Programming</h2>
-          </div>
-          <div className="ml-12 mt-7 md:ml-10">
-            <img
-              src={DevelopmentImage}
-              className=" rounded-full   h-56 w-56 border-4 imgBorderColor"
-              alt=""
-            />
-            <h2 className="my-5 font-black text-lg  ml-14 ">Development</h2>
-          </div>
-          <div className="ml-12 mt-7 md:ml-10">
-            <img
-              src={SalesMarktingImage}
-              className=" rounded-full   h-56 w-56 border-4 imgBorderColor"
-              alt=""
-            />
-            <h2 className="my-5 font-black text-lg ml-14 ">Sales & Markting</h2>
-          </div>
-          <div className="ml-12 mt-7 md:ml-10">
-            <img
-              src={DrawingImage}
-              className=" rounded-full   h-56 w-56 border-4 imgBorderColor"
-              alt=""
-            />
-            <h2 className="my-5 font-black text-lg  ml-20 ">Drawing</h2>
-          </div>
-          <div className="ml-12 mt-7 md:ml-10">
-            <img
-              src={DataScienec}
-              className=" rounded-full   h-56 w-56 border-4 imgBorderColor"
-              alt=""
-            />
-            <h2 className="my-5 font-black text-lg  ml-14  ">Data Science</h2>
-          </div>
-          <div className="ml-12 mt-7 md:ml-10">
-            <img
-              src={StrategyImage}
-              className=" rounded-full   h-56 w-56 border-4 imgBorderColor"
-              alt=""
-            />
-            <h2 className="my-5 font-black text-lg  ml-14 ">Strategy</h2>
-          </div>
-          <div className="ml-12 mt-7 md:ml-10">
-            <img
-              src={BuisnessImage}
-              className=" rounded-full   h-56 w-56 border-4 imgBorderColor"
-              alt=""
-            />
-            <h2 className="my-5 font-black text-lg  ml-14 ">Buisness</h2>
-          </div>
-
-          <div className="ml-12 mt-7 md:ml-10">
-            <img
-              src={PhtographyImage}
-              className=" rounded-full   h-56 w-56 border-4 imgBorderColor"
-              alt=""
-            />
-            <h2 className="my-5 font-black text-lg  ml-14 ">Photography</h2>
-          </div>
-        </div>
+      <div className="container my-10 xl:my-20 ">
+        <h3 className=" text-3xl text-center xl:text-left font-bold ml-3 mb-5">Top Categories</h3>
+        <ul className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap:0 ">
+          {CategoriesData.map((item, index) => {
+            return (
+              <>
+                <li key={index} className="my-2 md:my-5">
+                  <Link className="flex flex-col justify-center items-center" to={item.category}>
+                    <img
+                      src={item.img}
+                      className="rounded-full border-4 border-secondary-700  h-28 w-28 sm:h-32 sm:w-32 md:w-40 md:h-40 lg:w-56 lg:h-56 transition duration-300 transform hover:scale-105"
+                      alt={item.category}
+                      loading="lazy"
+                    />
+                    <h2 className="my-3 font-extrabold text-sm md:text-lg">{item.category}</h2>
+                  </Link>
+                </li>
+              </>
+            )
+          })}
+        </ul>
       </div>
     </>
   );
