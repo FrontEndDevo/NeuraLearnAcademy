@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap");
 
 @tailwind base;
@@ -47,4 +47,28 @@ a {
 .slick-slider > ul > li > button::before {
   font-size: 14px;
   transition: all 0.2s ease-in-out;
+}
+
+/* Specializations component */
+.left-specializations-linear-gradient {
+  background: linear-gradient(
+    254.59deg,
+    rgba(0, 0, 127, 0.93) -82.03%,
+    #02388a -64.02%,
+    #243f9d -7.59%,
+    #004274 50.72%,
+    #07078e 133.48%
+  );
+}
+
+/* Specializations component */
+.right-specializations-linear-gradient {
+  background: linear-gradient(212.46deg, #1f6e61 0%, #305b67 99.35%);
+  box-shadow: rgba(0, 0, 0, 0.2) 60px 0px 50px 0px inset;
+}
+
+/* Specializations component */
+.specializations .slick-dots li.slick-active button:before {
+  color: #fed04e !important;
+  font-size: 18px;
 }
