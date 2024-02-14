@@ -107,11 +107,9 @@ const SignUp = () => {
       <div className="flex flex-col items-center px-10 pt-20 pb-16">
         <div
           style={{
-            background: "#EFEFEA",
             boxShadow: "0px 4px 4px 3px rgba(0, 0, 0, 0.25)",
-            borderRadius: 15,
           }}
-          className="w-full max-w-md px-8 py-6 "
+          className="w-full max-w-md px-8 py-6 rounded-[15px] bg-slate-50 	"
         >
           <form
             onSubmit={handleSubmit}
