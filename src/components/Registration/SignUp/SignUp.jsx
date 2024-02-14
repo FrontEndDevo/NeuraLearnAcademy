@@ -1,15 +1,83 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import image1 from "../../../assets/images/LoginSigin/logo.png";
-
+// icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLinkedin,
   faGoogle,
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
+// images
+import image1 from "../../../assets/images/LoginSigin/logo.png";
+//files
 import CopyRights from "../CopyRights/CopyRights";
+
+// Validation is here
+export const validateEmail = (email, setErrors) => {
+  const emailRegex = /^[a-zA-Z][a-zA-Z0-9]*@[a-zA-Z]+\.[a-zA-Z]+$/;
+  if (!email) {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      email: "Email is required",
+    }));
+  } else if (!emailRegex.test(email)) {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      email: "Invalid email address",
+    }));
+  } else {
+    setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
+  }
+};
+
+export const validatePassword = (password, setErrors) => {
+  if (!password) {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      password: "Password is required",
+    }));
+  } else {
+    let passwordStrength = "Weak";
+
+    // Check password strength based on criteria (e.g., length, uppercase, lowercase, numbers, special characters)
+    if (
+      password.length >= 8 &&
+      /[a-z]/.test(password) &&
+      /[A-Z]/.test(password) &&
+      /\d/.test(password) &&
+      /[!@#$%^&*]/.test(password)
+    ) {
+      passwordStrength = "Strong";
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: `Password strength: ${passwordStrength}`,
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password is weak, choose strong password.",
+      }));
+    }
+  }
+};
+
+export const validateFullName = (fullName, setErrors) => {
+  const fullNameRegex = /^[a-zA-Z\s]+$/;
+  if (!fullName) {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      fullName: "Full name is required",
+    }));
+  } else if (!fullNameRegex.test(fullName)) {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      fullName: "Invalid characters in full name",
+    }));
+  } else {
+    setErrors((prevErrors) => ({ ...prevErrors, fullName: "" }));
+  }
+};
 const SignUp = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,76 +88,11 @@ const SignUp = () => {
     fullName: "",
   });
 
-  // Validation is here
-  const validateEmail = () => {
-    const emailRegex = /^[a-zA-Z][a-zA-Z0-9]*@[a-zA-Z]+\.[a-zA-Z]+$/;
-    if (!email) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        email: "Email is required",
-      }));
-    } else if (!emailRegex.test(email)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        email: "Invalid email address",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
-    }
-  };
-
-  const validatePassword = () => {
-    if (!password) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        password: "Password is required",
-      }));
-    } else {
-      let passwordStrength = "Weak";
-
-      // Check password strength based on criteria (e.g., length, uppercase, lowercase, numbers, special characters)
-      if (
-        password.length >= 8 &&
-        /[a-z]/.test(password) &&
-        /[A-Z]/.test(password) &&
-        /\d/.test(password) &&
-        /[!@#$%^&*]/.test(password)
-      ) {
-        passwordStrength = "Strong";
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password: `Password strength: ${passwordStrength}`,
-        }));
-      } else {
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          password: "Password is weak, choose stronge password.",
-        }));
-      }
-    }
-  };
-
-  const validateFullName = () => {
-    const fullNameRegex = /^[a-zA-Z\s]+$/;
-    if (!fullName) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        fullName: "Full name is required",
-      }));
-    } else if (!fullNameRegex.test(fullName)) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        fullName: "Invalid characters in full name",
-      }));
-    } else {
-      setErrors((prevErrors) => ({ ...prevErrors, fullName: "" }));
-    }
-  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    validateEmail();
-    validatePassword();
-    validateFullName();
+    validateEmail(email, setErrors); // Pass email and setErrors
+    validatePassword(password, setErrors); // Pass password and setErrors
+    validateFullName(fullName, setErrors); // Pass fullName and setErrors
 
     // perform logic
 
@@ -116,7 +119,7 @@ const SignUp = () => {
             className="flex flex-col items-center space-y-4 "
           >
             <div className="flex items-center">
-              <img src={image1} className="w-24" alt="" />
+              <img src={image1} className="w-20 md:w-24" alt="logo" loading="lazy" />
               <div className="w-[1px] h-28  bg-neutral-500 mx-2"></div>{" "}
               {/* Adjust the height and margin as needed */}
               <div>
@@ -200,7 +203,7 @@ const SignUp = () => {
 
             <button
               type="submit"
-              className="w-5/6 py-3 text-xl font-semibold text-white bg-blue-700 hover:bg-blue-600"
+              className="w-5/6 py-2.5 text-xl font-semibold text-white bg-blue-700  hover:bg-blue-600"
             >
               Sign up
             </button>
@@ -208,36 +211,25 @@ const SignUp = () => {
             <h2 className="text-base font-semibold tracking-wide text-black">
               Sign in another way
             </h2>
-
             {/* start social media icon */}
             <div className="flex space-x-12 ">
               <Link>
-                <div className="bg-red-600 p-2.5 rounded-[50%]  "
-                >
+                <div className="bg-red-600 p-2.5 rounded-[50%]  ">
                   <FontAwesomeIcon icon={faGoogle} className="text-white" />
                 </div>
               </Link>
               <Link>
-                <div className="bg-sky-600	 p-2.5 rounded-[50%]  "
-
-                >
-                  <FontAwesomeIcon
-                    icon={faLinkedin}
-                    className="text-white"
-                  />
+                <div className="bg-sky-600	 p-2.5 rounded-[50%]  ">
+                  <FontAwesomeIcon icon={faLinkedin} className="text-white" />
                 </div>
               </Link>
               <Link>
-                <div className="bg-blue-700 p-2.5 rounded-[50%]"
-                >
-                  <FontAwesomeIcon className="text-white"
-                    icon={faFacebook}
-                  />
+                <div className="bg-blue-700 p-2.5 rounded-[50%]">
+                  <FontAwesomeIcon className="text-white" icon={faFacebook} />
                 </div>
               </Link>
             </div>
             {/* end social media icon */}
-
             <div className="text-lg font-bold text-center text-neutral-600 ">
               Already have an account?
               <Link>
