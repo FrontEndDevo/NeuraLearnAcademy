@@ -8,7 +8,7 @@ const ResourcesGuide = () => {
       <div className="container p-8 my-10 bg-white xl:my-32 lg:p-16 xl:p-0">
         <div className="grid grid-cols-1 gap-8 xl:grid-cols-2 md:gap-4 xl:gap-44">
           <div className="flex items-center justify-center md:w-3/4 lg:w-10/12 xl:w-full">
-            <img src={Image1} alt="" />
+            <img loading="lazy" src={Image1} alt="" />
           </div>
 
           {/* Content */}
