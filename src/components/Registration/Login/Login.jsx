@@ -61,7 +61,7 @@ const Login = () => {
             className="flex flex-col items-center space-y-4"
           >
             <div className="flex items-center">
-              <img src={image1} className="w-24" alt="Logo" />
+              <img src={image1} className="w-24" alt="Logo" loading="lazy" />
               <div className="w-[1px] h-28 bg-neutral-500 mx-2"></div>
               <div>
                 <div className="font-bold text-black text-1xl md:text-2xl">
