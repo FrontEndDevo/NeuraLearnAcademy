@@ -107,11 +107,9 @@ const SignUp = () => {
       <div className="flex flex-col items-center px-10 pt-20 pb-16">
         <div
           style={{
-            background: "#EFEFEA",
             boxShadow: "0px 4px 4px 3px rgba(0, 0, 0, 0.25)",
-            borderRadius: 15,
           }}
-          className="w-full max-w-md px-8 py-6 "
+          className="w-full max-w-md px-8 py-6 rounded-[15px] bg-slate-50 	"
         >
           <form
             onSubmit={handleSubmit}
@@ -147,9 +145,8 @@ const SignUp = () => {
               <input
                 type="text"
                 id="fullName"
-                className={`w-full pl-2 py-2 border ${
-                  errors.fullName ? "border-red-500" : "border-gray-300"
-                }  md:w-80`}
+                className={`w-full pl-2 py-2 border ${errors.fullName ? "border-red-500" : "border-gray-300"
+                  }  md:w-80`}
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 onBlur={validateFullName}
@@ -169,9 +166,8 @@ const SignUp = () => {
               <input
                 type="email"
                 id="email"
-                className={`w-full pl-2 py-2 border ${
-                  errors.email ? "border-red-500" : "border-gray-300"
-                }  md:w-80`}
+                className={`w-full pl-2 py-2 border ${errors.email ? "border-red-500" : "border-gray-300"
+                  }  md:w-80`}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={validateEmail}
@@ -191,9 +187,8 @@ const SignUp = () => {
               <input
                 type="password"
                 id="password"
-                className={`w-full pl-2 mb-3 py-2 border ${
-                  errors.password ? "border-red-500" : "border-gray-300"
-                }  md:w-80`}
+                className={`w-full pl-2 mb-3 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
+                  }  md:w-80`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 onBlur={validatePassword}
@@ -207,7 +202,7 @@ const SignUp = () => {
               type="submit"
               className="w-5/6 py-3 text-xl font-semibold text-white bg-blue-700 hover:bg-blue-600"
             >
-              Sign in
+              Sign up
             </button>
 
             <h2 className="text-base font-semibold tracking-wide text-black">
@@ -217,48 +212,33 @@ const SignUp = () => {
             {/* start social media icon */}
             <div className="flex space-x-12 ">
               <Link>
-                <div
-                  style={{
-                    backgroundColor: "#DB4437",
-                    padding: "10px",
-                    borderRadius: "50%",
-                  }}
+                <div className="bg-red-600 p-2.5 rounded-[50%]  "
                 >
-                  <FontAwesomeIcon icon={faGoogle} style={{ color: "white" }} />
+                  <FontAwesomeIcon icon={faGoogle} className="text-white" />
                 </div>
               </Link>
               <Link>
-                <div
-                  style={{
-                    backgroundColor: "#0077B5",
-                    padding: "10px",
-                    borderRadius: "50%",
-                  }}
+                <div className="bg-sky-600	 p-2.5 rounded-[50%]  "
+
                 >
                   <FontAwesomeIcon
                     icon={faLinkedin}
-                    style={{ color: "white" }}
+                    className="text-white"
                   />
                 </div>
               </Link>
               <Link>
-                <div
-                  style={{
-                    backgroundColor: "blue",
-                    padding: "10px",
-                    borderRadius: "50%",
-                  }}
+                <div className="bg-blue-700 p-2.5 rounded-[50%]"
                 >
-                  <FontAwesomeIcon
+                  <FontAwesomeIcon className="text-white"
                     icon={faFacebook}
-                    style={{ color: "white" }}
                   />
                 </div>
               </Link>
             </div>
             {/* end social media icon */}
 
-            <div className="text-lg font-bold text-neutral-600 ">
+            <div className="text-lg font-bold text-center text-neutral-600 ">
               Already have an account?
               <Link>
                 <span className="text-lg font-bold text-blue-700 underline">
