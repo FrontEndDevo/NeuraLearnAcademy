@@ -59,7 +59,7 @@ function TopCategories() {
                 <li key={index} className="my-2 md:my-5">
                   <Link
                     className="flex flex-col items-center justify-center"
-                    to={item.category}
+                    to={item.category.toLowerCase().replace(' & ', '-')}
                   >
                     <img
                       src={item.img}
@@ -71,12 +71,12 @@ function TopCategories() {
                       {item.category}
                     </h2>
                   </Link>
-                </li>
+                </li >
               </>
             );
           })}
         </ul>
-      </div>
+      </div >
     </>
   );
 }
