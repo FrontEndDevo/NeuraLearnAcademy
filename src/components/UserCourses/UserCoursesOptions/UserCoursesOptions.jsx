@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import {
   faArchway,
@@ -6,7 +7,6 @@ import {
   faTableList,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
 
 const userOptions = [
   {
@@ -30,18 +30,14 @@ const userOptions = [
     name: "purchase",
   },
 ];
-const UserCoursesOptions = () => {
-  const [currentOption, setCurrentOption] = useState(0);
 
-  const chooseAnOptionHandler = (index) => {
-    setCurrentOption(index);
-  };
+const UserCoursesOptions = ({ option, chooseUserOption }) => {
   const renderedAllUserOptions = userOptions.map((item, index) => (
     <li
-      onClick={() => chooseAnOptionHandler(index)}
+      onClick={() => chooseUserOption(index)}
       key={index}
       className={`p-4 rounded flex items-center hover:bg-primary-500 hover:text-white gap-4 cursor-pointer duration-200 ${
-        index == currentOption
+        index == option
           ? "bg-primary-500 hover:bg-primary-700 text-white"
           : "text-gray-500"
       }`}
