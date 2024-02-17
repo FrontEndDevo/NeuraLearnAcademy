@@ -92,10 +92,10 @@ const UserCourses = () => {
                 ))}
               </div>
             </div>
-            <h4 className="my-4 text-xl font-semibold leading-6 tracking-wide text-gray-color-700">
+            <h3 className="my-4 text-base font-semibold leading-6 tracking-wide lg:text-xl text-gray-color-700">
               {course.title}
-            </h4>
-            <h6 className="px-3 text-[10px] md:text-base font-bold text-white rounded-full bg-secondary-700 w-fit">
+            </h3>
+            <h6 className="px-3 py-1 text-[10px] lg:text-base font-bold text-white rounded-full bg-secondary-700 w-fit">
               {course.category}
             </h6>
             <div className="relative my-4">
@@ -112,7 +112,7 @@ const UserCourses = () => {
             </div>
             <Link
               to="/"
-              className="flex px-10 py-3 mx-auto text-xs text-white duration-300 rounded-full md:text-sm w-fit bg-primary-500 hover:bg-primary-700"
+              className="flex px-8 py-2 mx-auto text-xs text-white duration-300 rounded-full lg:px-10 lg:py-3 md:text-sm w-fit bg-primary-500 hover:bg-primary-700"
             >
               {progressButton}
             </Link>
@@ -123,14 +123,18 @@ const UserCourses = () => {
   });
 
   return (
-    <section className="container grid grid-cols-4 gap-20 py-10">
+    <section className="container grid grid-cols-3 gap-10 py-10 lg:gap-20 lg:grid-cols-4">
       <UserCoursesOptions
         option={currentOption}
         chooseUserOption={chooseAnOptionHandler}
       />
-      <div className="col-span-3">
-        <h2 className="mb-2 text-2xl font-bold">{myLearningsTitle}</h2>
-        <ul className="grid grid-cols-3 gap-4">{renderedUserCourses}</ul>
+      <div className="col-span-2 lg:col-span-3">
+        <h2 className="mb-2 text-xl font-bold lg:text-2xl">
+          {myLearningsTitle}
+        </h2>
+        <ul className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+          {renderedUserCourses}
+        </ul>
       </div>
     </section>
   );
