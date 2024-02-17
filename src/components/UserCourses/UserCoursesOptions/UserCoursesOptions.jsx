@@ -36,20 +36,22 @@ const UserCoursesOptions = ({ option, chooseUserOption }) => {
     <li
       onClick={() => chooseUserOption(index)}
       key={index}
-      className={`p-4 rounded flex items-center hover:bg-primary-500 hover:text-white gap-4 cursor-pointer duration-200 ${
+      className={`p-2 md:p-4 rounded flex items-center hover:bg-primary-500 hover:text-white gap-2 md:gap-4 cursor-pointer duration-200 ${
         index == option
           ? "bg-primary-500 hover:bg-primary-700 text-white"
           : "text-gray-500"
       }`}
     >
-      <FontAwesomeIcon icon={item.icon} className="text-2xl" />
-      <span className="text-sm font-bold capitalize">{item.name}</span>
+      <FontAwesomeIcon icon={item.icon} className="text-sm md:text-2xl" />
+      <span className="text-xs font-bold capitalize md:text-sm">
+        {item.name}
+      </span>
     </li>
   ));
 
   return (
     <aside>
-      <ul className="flex flex-col gap-4 border-b-4 ">
+      <ul className="flex flex-wrap justify-center gap-4 md:border-b-4 md:flex-col">
         {renderedAllUserOptions}
       </ul>
     </aside>

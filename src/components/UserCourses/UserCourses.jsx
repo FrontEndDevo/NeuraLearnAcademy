@@ -75,7 +75,7 @@ const UserCourses = () => {
         : "Continue Learning";
     return (
       <li key={index}>
-        <div className="border shadow-lg h-[550px] rounded-3xl">
+        <div className="border shadow-lg h-[500px] md:h-[550px] rounded-3xl">
           <img
             src={course.image}
             alt={course.title}
@@ -86,7 +86,7 @@ const UserCourses = () => {
               <span className="text-xs font-bold text-gray-color-500 md:text-sm">
                 {course.author}
               </span>
-              <div className="flex gap-1 p-2 cursor-pointer hover:animate-pulse">
+              <div className="flex gap-1 p-2 cursor-pointer lg:hover:animate-pulse">
                 {Array.from({ length: 3 }, (_, i) => (
                   <span key={i} className={threeDotsClasses} />
                 ))}
@@ -112,7 +112,7 @@ const UserCourses = () => {
             </div>
             <Link
               to="/"
-              className="flex px-8 py-2 mx-auto text-xs text-white duration-300 rounded-full lg:px-10 lg:py-3 md:text-sm w-fit bg-primary-500 hover:bg-primary-700"
+              className="flex px-12 py-2 mx-auto text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm w-fit bg-primary-500 hover:bg-primary-700"
             >
               {progressButton}
             </Link>
@@ -123,16 +123,16 @@ const UserCourses = () => {
   });
 
   return (
-    <section className="container grid grid-cols-3 gap-10 py-10 lg:gap-20 lg:grid-cols-4">
+    <section className="container grid grid-cols-1 gap-10 py-10 md:grid-cols-3 lg:gap-20 lg:grid-cols-4">
       <UserCoursesOptions
         option={currentOption}
         chooseUserOption={chooseAnOptionHandler}
       />
       <div className="col-span-2 lg:col-span-3">
-        <h2 className="mb-2 text-xl font-bold lg:text-2xl">
+        <h2 className="mx-8 mb-6 text-xl font-bold md:mx-0 md:mb-2 lg:text-2xl">
           {myLearningsTitle}
         </h2>
-        <ul className="grid grid-cols-2 gap-4 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-4 mx-8 md:mx-0 md:grid-cols-2 lg:grid-cols-3">
           {renderedUserCourses}
         </ul>
       </div>
