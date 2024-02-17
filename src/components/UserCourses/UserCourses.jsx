@@ -75,7 +75,7 @@ const UserCourses = () => {
         : "Continue Learning";
     return (
       <li key={index}>
-        <div className="border shadow-lg h-[500px] md:h-[550px] rounded-3xl">
+        <div className="border shadow-lg h-[500px] md:h-[550px] lg:h-[700px] xl:h-[650px] 2xl:h-[600px] rounded-3xl">
           <img
             src={course.image}
             alt={course.title}
