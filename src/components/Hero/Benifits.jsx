@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCertificate } from "@fortawesome/free-solid-svg-icons";
 import { faHandPointer } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+const benifitsUlClass =
+  "relative z-0 grid w-full grid-cols-2 gap-5 p-3 mx-auto mt-8 text-center bg-white border shadow-md -mb-28 rounded-xl md:p-8 md:w-11/12 md:grid-cols-2 lg:grid-cols-5 md:text-left";
 const benifitsArray = [
   {
     icon: faCertificate,
@@ -34,12 +36,12 @@ const Benifits = () => {
         size="3x"
       />
       <h2 className="text-lg font-bold">{item.title}</h2>
-      <p>{item.content} </p>
+      <p className="hidden md:block">{item.content} </p>
     </li>
   ));
   return (
-    <ul className="relative z-0 grid w-full grid-cols-1 gap-5 p-3 mx-auto mt-8 text-center bg-white border shadow-md -mb-28 rounded-xl md:p-8 md:w-11/12 md:grid-cols-2 lg:grid-cols-5 md:text-left">
-      <li>
+    <ul className={benifitsUlClass}>
+      <li className="col-span-2 md:col-span-1">
         <p className="mb-6 text-2xl font-extrabold">
           Take the first step toward your new career
         </p>
