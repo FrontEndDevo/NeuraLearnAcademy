@@ -70,6 +70,34 @@ const allUserCourses = [
     category: "Programming",
     progress: 100,
   },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
+  {
+    image: course1,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 50,
+  },
+  {
+    image: course2,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 80,
+  },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
 ];
 const UserCourses = () => {
   const [paginationIndices, setPaginationIndices] = useState({

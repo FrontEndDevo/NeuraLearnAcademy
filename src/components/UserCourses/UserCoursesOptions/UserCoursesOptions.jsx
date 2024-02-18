@@ -7,6 +7,7 @@ import {
   faTableList,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SearchUserCourses from "./SearchUserCourses";
 
 const userOptions = [
   {
@@ -54,6 +55,7 @@ const UserCoursesOptions = ({ option, chooseUserOption }) => {
       <ul className="flex flex-wrap justify-center gap-4 md:border-b-4 md:flex-col">
         {renderedAllUserOptions}
       </ul>
+      <SearchUserCourses />
     </aside>
   );
 };
