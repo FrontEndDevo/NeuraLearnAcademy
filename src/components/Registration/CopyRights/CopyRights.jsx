@@ -4,7 +4,7 @@ const CopyRights = () => {
   const linksArray = ["home", "contact", "terms of use", "privacy policy"];
 
   const rendredLinks = (
-    <ul className="flex flex-wrap mx-2 md:ml-20 md:my-14 lg:w-1/2">
+    <ul className="flex flex-wrap justify-center mx-2 md:ml-20 md:my-14 lg:w-1/2 md:justify-start ">
       {linksArray.map((link, index) => (
         <li key={index}>
           <Link
