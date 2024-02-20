@@ -5,10 +5,12 @@ import FeaturesSection from "../components/FeaturesSection/FeaturesSection";
 import ResourceGuide from "../components/ResourceGuide/ResourceGuide";
 import TopCategories from "../components/TopCategories/TopCategories";
 import Hero from "../components/Hero/Hero";
+import Specializations from "../components/Specializations/Specializations";
 const Homepage = () => {
   return (
     <>
       <Hero />
+      <Specializations />
       <Courses />
       <FeaturesSection />
       <ResourceGuide />
