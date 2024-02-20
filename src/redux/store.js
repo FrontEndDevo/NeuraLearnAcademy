@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-
+import searchCoursesReducer from "./slices/searchCourses";
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    searchCourses: searchCoursesReducer,
+  },
 });

@@ -3,10 +3,21 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSearchKeyword } from "../../../redux/slices/searchCourses";
 
 const SearchUserCourses = React.memo(() => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  // To store the final value of the search input.
+  const searchInputRef = useRef();
+
+  const dispatch = useDispatch();
+  // Store the search keyword in the redux store.
+  const searchCoursesHandler = () => {
+    dispatch(setSearchKeyword(searchInputRef.current.value));
+  };
 
   return (
     <div className="my-6">
@@ -31,6 +42,7 @@ const SearchUserCourses = React.memo(() => {
         }`}
       >
         <input
+          ref={searchInputRef}
           type="text"
           name="courses"
           id="courses"
@@ -38,8 +50,9 @@ const SearchUserCourses = React.memo(() => {
           className="w-full px-1 md:px-4 font-semibold py-3 text-xs xl:text-base border border-r-0 outline-none tracking-wide rounded-[3px] border-zinc-600 caret-gray-color-700"
         />
         <FontAwesomeIcon
+          onClick={searchCoursesHandler}
           icon={faMagnifyingGlass}
-          className="absolute top-0 right-0 px-1 rounded-r-[3px] w-[29px] h-[42px] xl:h-[50px] text-white bg-zinc-600"
+          className="absolute top-0 cursor-pointer right-0 px-2 rounded-r-[3px] w-[35px] h-[42px] xl:h-[50px] text-white bg-zinc-600 duration-200 hover:bg-zinc-800"
         />
       </form>
     </div>
