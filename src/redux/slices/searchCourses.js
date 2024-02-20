@@ -7,7 +7,7 @@ const searchCoursesSlice = createSlice({
   },
   reducers: {
     setSearchKeyword: (state, action) => {
-      state.searchKeyword = action.payload;
+      state.searchKeyword = action.payload.trim();
     },
   },
 });
