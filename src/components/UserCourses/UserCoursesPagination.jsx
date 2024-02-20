@@ -56,7 +56,7 @@ const UserCoursesPagination = React.memo((props) => {
   return (
     <div
       className={`${
-        totalPages == 1 ? "hidden" : "flex"
+        totalPages <= 1 ? "hidden" : "flex"
       } flex-col items-center justify-center flex-1 gap-4 mx-2 mt-8 md:flex-row`}
     >
       <div className="flex flex-col items-center gap-2">
