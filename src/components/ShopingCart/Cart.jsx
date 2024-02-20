@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Cart() {
+function ShopingCart() {
     return (
         <>
 
@@ -9,4 +9,4 @@ function Cart() {
     )
 }
 
-export default Cart
+export default ShopingCart;
