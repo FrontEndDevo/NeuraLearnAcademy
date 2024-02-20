@@ -4,7 +4,6 @@ function ShopingCart() {
     return (
         <>
 
-
         </>
     )
 }
