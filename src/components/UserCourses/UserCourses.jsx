@@ -5,12 +5,13 @@ import course2 from "../../assets/images/homepage/course_8.jpg";
 import course3 from "../../assets/images/homepage/course_7.jpg";
 import { Link } from "react-router-dom";
 import UserCoursesPagination from "./UserCoursesPagination";
+import { useSelector } from "react-redux";
 const userCourses = ["courses", "my lists", "wishlist", "archived", "purchase"];
 const allUserCourses = [
   {
     image: course1,
     author: "Adel nsiem",
-    title: "The complete course of programming for beginners",
+    title: "The complete course of programming object for beginners",
     category: "Programming",
     progress: 0,
   },
@@ -66,7 +67,7 @@ const allUserCourses = [
   {
     image: course3,
     author: "Adel nsiem",
-    title: "The complete course of programming for beginners",
+    title: "The complete course of object oriented programming for beginners",
     category: "Programming",
     progress: 100,
   },
@@ -106,6 +107,17 @@ const UserCourses = () => {
     end: 6,
   });
 
+  // Get the search keyword from the Redux store
+  const searchKeyword = useSelector(
+    (state) => state.searchCourses.searchKeyword
+  );
+
+  // Filter the allUserCourses array based on the search keyword
+  const filteredCourses = allUserCourses.filter((course) =>
+    course.title.toLowerCase().includes(searchKeyword.toLowerCase())
+  );
+
+  // Store these functions inside callback to prevent re-rendering.
   const memorizedUserOptions = useCallback((index) => {
     setCurrentOption(index);
   }, []);
@@ -124,7 +136,8 @@ const UserCourses = () => {
     userCourses[currentOption].slice(1);
 
   // Render all the user courses.
-  const renderedUserCourses = allUserCourses
+  const correctCoursesArray = searchKeyword ? filteredCourses : allUserCourses;
+  const renderedUserCourses = correctCoursesArray
     .slice(paginationIndices.start, paginationIndices.end)
     .map((course, index) => {
       // Classes
@@ -202,7 +215,7 @@ const UserCourses = () => {
           {renderedUserCourses}
         </ul>
         <UserCoursesPagination
-          coursesLength={allUserCourses.length}
+          coursesLength={correctCoursesArray.length}
           getCurrentPage={memorizedUserCoursesPagination}
           paginationIndices={paginationIndices}
         />
