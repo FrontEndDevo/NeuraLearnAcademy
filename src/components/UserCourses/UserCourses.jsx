@@ -134,15 +134,19 @@ const UserCourses = () => {
   const myLearningsTitle =
     userCourses[currentOption].charAt(0).toUpperCase() +
     userCourses[currentOption].slice(1);
-
-  // Render all the user courses.
+  // Render the correct courses based on the search keyword.
   const correctCoursesArray = searchKeyword ? filteredCourses : allUserCourses;
   const renderedUserCourses = correctCoursesArray
     .slice(paginationIndices.start, paginationIndices.end)
     .map((course, index) => {
-      // Classes
+      // Classes:
       const progressBarClasses = "absolute top-0 left-0 h-1 rounded-full";
       const threeDotsClasses = "w-2 h-2 rounded-full bg-gray-color-500";
+
+      const courseTitle =
+        course.title.length <= 50
+          ? course.title
+          : course.title.slice(0, 50) + "...";
 
       // User progress button:
       const progressButton =
@@ -172,7 +176,7 @@ const UserCourses = () => {
               </div>
 
               <h3 className="my-4 text-base font-semibold leading-6 tracking-wide lg:text-xl text-gray-color-700">
-                {course.title}
+                {courseTitle}
               </h3>
               <h6 className="px-3 py-1 text-[10px] lg:text-base font-bold text-white rounded-full bg-secondary-700 w-fit">
                 {course.category}
@@ -211,9 +215,15 @@ const UserCourses = () => {
         <h2 className="mx-8 mb-6 text-xl font-bold md:mx-0 md:mb-2 lg:text-2xl">
           {myLearningsTitle}
         </h2>
-        <ul className="grid grid-cols-1 gap-4 mx-8 md:mx-0 md:grid-cols-2 lg:grid-cols-3">
-          {renderedUserCourses}
-        </ul>
+        {renderedUserCourses.length == 0 ? (
+          <p className="mx-auto text-sm font-semibold text-center text-red-600 md:text-base">
+            You don&apos;t have any courses yet, buy one.
+          </p>
+        ) : (
+          <ul className="grid grid-cols-1 gap-4 mx-8 md:mx-0 md:grid-cols-2 lg:grid-cols-3">
+            {renderedUserCourses}
+          </ul>
+        )}
         <UserCoursesPagination
           coursesLength={correctCoursesArray.length}
           getCurrentPage={memorizedUserCoursesPagination}
