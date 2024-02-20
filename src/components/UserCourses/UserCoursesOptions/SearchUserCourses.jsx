@@ -17,7 +17,6 @@ const SearchUserCourses = React.memo(() => {
   // Store the search keyword in the redux store.
   const searchCoursesHandler = () => {
     dispatch(setSearchKeyword(searchInputRef.current.value));
-    searchInputRef.current.value = "";
   };
 
   return (
