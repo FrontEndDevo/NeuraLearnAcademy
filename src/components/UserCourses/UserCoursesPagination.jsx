@@ -5,9 +5,9 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import React, { useState } from "react";
 
-const UserCoursesPagination = (props) => {
+const UserCoursesPagination = React.memo((props) => {
   const [currentPage, setCurrentPage] = useState(1);
   // Pagination elements classes to keep JSX lean.
   const pageNumberClasses =
@@ -116,6 +116,8 @@ const UserCoursesPagination = (props) => {
       </div>
     </div>
   );
-};
+});
+
+UserCoursesPagination.displayName = "UserCoursesPagination";
 
 export default UserCoursesPagination;

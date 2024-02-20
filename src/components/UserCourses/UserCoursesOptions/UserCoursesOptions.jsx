@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchUserCourses from "./SearchUserCourses";
+import React from "react";
 
 const userOptions = [
   {
@@ -32,7 +33,7 @@ const userOptions = [
   },
 ];
 
-const UserCoursesOptions = ({ option, chooseUserOption }) => {
+const UserCoursesOptions = React.memo(({ option, chooseUserOption }) => {
   const renderedAllUserOptions = userOptions.map((item, index) => (
     <li
       onClick={() => chooseUserOption(index)}
@@ -58,6 +59,8 @@ const UserCoursesOptions = ({ option, chooseUserOption }) => {
       <SearchUserCourses />
     </aside>
   );
-};
+});
+
+UserCoursesOptions.displayName = "UserCoursesOptions";
 
 export default UserCoursesOptions;

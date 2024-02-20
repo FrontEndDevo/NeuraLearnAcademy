@@ -3,9 +3,9 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import React, { useState } from "react";
 
-const SearchUserCourses = () => {
+const SearchUserCourses = React.memo(() => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
@@ -44,6 +44,8 @@ const SearchUserCourses = () => {
       </form>
     </div>
   );
-};
+});
+
+SearchUserCourses.displayName = "SearchUserCourses";
 
 export default SearchUserCourses;

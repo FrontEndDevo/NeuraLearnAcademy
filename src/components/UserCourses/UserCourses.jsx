@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import UserCoursesOptions from "./UserCoursesOptions/UserCoursesOptions";
 import course1 from "../../assets/images/homepage/course_9.jpg";
 import course2 from "../../assets/images/homepage/course_8.jpg";
@@ -100,23 +100,23 @@ const allUserCourses = [
   },
 ];
 const UserCourses = () => {
+  const [currentOption, setCurrentOption] = useState(0);
   const [paginationIndices, setPaginationIndices] = useState({
     start: 0,
     end: 6,
   });
-  const [currentOption, setCurrentOption] = useState(0);
 
-  const chooseAnOptionHandler = (index) => {
+  const memorizedUserOptions = useCallback((index) => {
     setCurrentOption(index);
-  };
+  }, []);
 
-  const getCurrentPageHandler = (cur, productsPerPage) => {
+  const memorizedUserCoursesPagination = useCallback((cur, productsPerPage) => {
     // Calc the first and last product index that should be rendered.
     const startIndex = (cur - 1) * productsPerPage;
     const endIndex = startIndex + productsPerPage;
 
     setPaginationIndices({ start: startIndex, end: endIndex });
-  };
+  }, []);
 
   // Detect which page the user in to render the correct title.
   const myLearningsTitle =
@@ -157,6 +157,7 @@ const UserCourses = () => {
                   ))}
                 </div>
               </div>
+
               <h3 className="my-4 text-base font-semibold leading-6 tracking-wide lg:text-xl text-gray-color-700">
                 {course.title}
               </h3>
@@ -191,7 +192,7 @@ const UserCourses = () => {
     <section className="container grid grid-cols-1 gap-10 py-10 md:grid-cols-3 lg:gap-20 lg:grid-cols-4">
       <UserCoursesOptions
         option={currentOption}
-        chooseUserOption={chooseAnOptionHandler}
+        chooseUserOption={memorizedUserOptions}
       />
       <div className="col-span-2 lg:col-span-3">
         <h2 className="mx-8 mb-6 text-xl font-bold md:mx-0 md:mb-2 lg:text-2xl">
@@ -202,7 +203,7 @@ const UserCourses = () => {
         </ul>
         <UserCoursesPagination
           coursesLength={allUserCourses.length}
-          getCurrentPage={getCurrentPageHandler}
+          getCurrentPage={memorizedUserCoursesPagination}
           paginationIndices={paginationIndices}
         />
       </div>
