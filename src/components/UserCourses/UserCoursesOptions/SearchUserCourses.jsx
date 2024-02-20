@@ -17,6 +17,7 @@ const SearchUserCourses = React.memo(() => {
   // Store the search keyword in the redux store.
   const searchCoursesHandler = () => {
     dispatch(setSearchKeyword(searchInputRef.current.value));
+    searchInputRef.current.value = "";
   };
 
   return (
@@ -47,12 +48,12 @@ const SearchUserCourses = React.memo(() => {
           name="courses"
           id="courses"
           placeholder="Search my courses"
-          className="w-full px-1 md:px-4 font-semibold py-3 text-xs xl:text-base border border-r-0 outline-none tracking-wide rounded-[3px] border-zinc-600 caret-gray-color-700"
+          className="w-full px-1 md:px-4 font-semibold py-3 text-xs border border-r-0 outline-none tracking-wide rounded-[3px] border-zinc-600 caret-gray-color-700"
         />
         <FontAwesomeIcon
           onClick={searchCoursesHandler}
           icon={faMagnifyingGlass}
-          className="absolute top-0 cursor-pointer right-0 px-2 rounded-r-[3px] w-[35px] h-[42px] xl:h-[50px] text-white bg-zinc-600 duration-200 hover:bg-zinc-800"
+          className="absolute top-0 cursor-pointer right-0 px-2 rounded-r-[3px] w-[35px] h-[42px] text-white bg-zinc-600 duration-200 hover:bg-zinc-800"
         />
       </form>
     </div>
