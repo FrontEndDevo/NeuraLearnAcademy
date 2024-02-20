@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchUserCourses from "./SearchUserCourses";
 import React from "react";
+import UserCoursesActions from "./UserCoursesActions/UserCoursesActions";
 
 const userOptions = [
   {
@@ -56,7 +57,10 @@ const UserCoursesOptions = React.memo(({ option, chooseUserOption }) => {
       <ul className="flex flex-wrap justify-center gap-4 md:border-b-4 md:flex-col">
         {renderedAllUserOptions}
       </ul>
-      <SearchUserCourses />
+      <div className="grid grid-cols-2 gap-2 md:block">
+        <SearchUserCourses />
+        <UserCoursesActions />
+      </div>
     </aside>
   );
 });
