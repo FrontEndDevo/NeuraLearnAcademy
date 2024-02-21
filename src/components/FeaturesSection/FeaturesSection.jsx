@@ -67,7 +67,7 @@ const FeaturesSection = () => {
                     <div className="relative CardDetails bg-stone-50 ">
                       <img
                         src={card.CardImage}
-                        alt="profile-sample4"
+                        alt={card.title}
                         className="absolute left-0 z-10 w-32 h-32 text-white border-4 border-white rounded-full shadow-lg -top-20"
                       />
                       <div className="absolute py-2 text-sm font-semibold left-32 md:left-36 text-neutral-500 md:text-normal">
