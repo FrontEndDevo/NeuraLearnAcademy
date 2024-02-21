@@ -125,9 +125,9 @@ function ShopingCart() {
                 </h1>
             </div>
 
-            <div className="flex flex-col md:flex-row mx-4 mb-10">
+            <div className="flex flex-col md:flex-row mx-4 mb-8">
                 <div className="ml-0 md:ml-10 xl:ml-32 mt-20 w-full md:w-7/12">
-                    <div className=" mb-5">
+                    <div className="mb-3">
                         <h1 className="text-2xl font-bold">Courses</h1>
                     </div>
                     {ShopingCartCourses.slice(
