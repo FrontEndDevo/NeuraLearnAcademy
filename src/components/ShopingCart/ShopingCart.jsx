@@ -109,14 +109,16 @@ const ShopingCartCourses = [
         price: 50.00,
         rating: 4.5
     },
-
-
-
 ];
 function ShopingCart() {
- 
-
-    const firstFourCourses = currentProducts.slice(0, 4); // Display the first four courses separately
+    const [currentPage, setCurrentPage] = useState(1);
+    const productsPerPage = 4;
+    const getCurrentPage = (pageIndex, productsPerPage) => {
+        setCurrentPage(pageIndex);
+    };
+    const indexOfLastCourse = currentPage * productsPerPage;
+    const indexOfFirstCourse = indexOfLastCourse - productsPerPage;
+    const currentProducts = ShopingCartCourses.slice(indexOfFirstCourse, indexOfLastCourse);
     return (
         <>
             {/* Header Of Shopping Cart */}
@@ -124,13 +126,13 @@ function ShopingCart() {
                 <h1 className='text-white text-[1rem] md:text-[1.5rem] xl:text-[2rem] font-semibold tracking-wider'>Shopping Cart <FontAwesomeIcon icon={faShoppingCart} /></h1>
             </div>
 
-            <div className='flex flex-col md:flex-row mx-4'>
+            <div className='flex flex-col md:flex-row mx-4 mb-10'>
                 <div className='ml-0 md:ml-10 xl:ml-32 mt-20 w-full md:w-7/12'>
                     <div className='flex justify-between mb-5'>
                         <h1 className='text-2xl font-bold'>Courses</h1>
                         <h1 className='text-2xl font-bold'>Price</h1>
                     </div>
-                    {ShopingCartCourses.map((item) => {
+                    {ShopingCartCourses.slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage).map((item) => {
                         return (
                             <div key={item} className='mb-5 relative flex pl-[1.rem] pr-5 pt-4 pb-5 bg-white rounded-[0.3rem] border-b border-black border-opacity-60 transform hover:scale-105  transition-transform duration-500'>
                                 <div>
@@ -147,6 +149,7 @@ function ShopingCart() {
                                         <FontAwesomeIcon key={index} icon={faStar} className='text-yellow-500 ml-1' />
                                     ))}
 
+
                                     <div className='flex my-1'>
                                         <h3 className='text-black text-opacity-40 text-sm font-medium tracking-tight '><FontAwesomeIcon className='mr-1' icon={faVideo} />{item.numOfVideos} videos</h3>
                                         <h3 className='text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5'>{item.numOfLectures} Lectures</h3>
@@ -157,7 +160,7 @@ function ShopingCart() {
                             </div>
                         );
                     })}
-                  
+                    <UserCoursesPagination coursesLength={ShopingCartCourses.length} getCurrentPage={getCurrentPage} />
                 </div>
                 <div className='order-first md:order-none w-full md:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-20 2xl:ml-40 my-5  md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center'>
                     <h1 className="text-black text-xl font-semibold tracking-tight">Total Price:</h1>
