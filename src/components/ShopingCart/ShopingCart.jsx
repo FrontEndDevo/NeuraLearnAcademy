@@ -127,9 +127,8 @@ function ShopingCart() {
 
             <div className="flex flex-col md:flex-row mx-4 mb-10">
                 <div className="ml-0 md:ml-10 xl:ml-32 mt-20 w-full md:w-7/12">
-                    <div className="flex justify-between mb-5">
+                    <div className=" mb-5">
                         <h1 className="text-2xl font-bold">Courses</h1>
-                        <h1 className="text-2xl font-bold">Price</h1>
                     </div>
                     {ShopingCartCourses.slice(
                         (currentPage - 1) * productsPerPage,
@@ -150,7 +149,7 @@ function ShopingCart() {
                                 </div>
                                 <div className="ml-5">
                                     <div className="flex ">
-                                        <Link className="text-blue-900 text-sm font-semibold underline-offset-4 underline tracking-tight xl:text-lg">
+                                        <Link className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-sm font-semibold tracking-tight xl:text-lg">
                                             {item.title}
                                         </Link>
                                         <h2 className="absolute right-1 text-black text-base font-semibold tracking-tight ">
