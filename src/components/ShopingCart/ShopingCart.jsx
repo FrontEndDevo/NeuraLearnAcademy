@@ -25,6 +25,7 @@ const ShopingCartCourses = [
         category: "Programming",
         numOfVideos: 150,
         numOfLectures: 4,
+        numOfSections: 8,
         price: 100.00,
         rating: 3
     },
@@ -35,13 +36,14 @@ const ShopingCartCourses = [
         category: "Programming",
         numOfVideos: 120,
         numOfLectures: 5,
+        numOfSections: 8,
         price: 300.00,
         rating: 2.5
     },
     {
         image: course3,
         author: "Karim abdelazim",
-        title: "The complete course of programming object for beginners",
+        title: "Data Structure and Algorithms",
         category: "Programming",
         numOfVideos: 50,
         numOfLectures: 10,
@@ -55,13 +57,14 @@ const ShopingCartCourses = [
         category: "Programming",
         numOfVideos: 150,
         numOfLectures: 4,
+        numOfSections: 8,
         price: 300.00,
         rating: 3.5
     },
     {
         image: course1,
         author: "Adel nsiem",
-        title: "The complete course of programming object for beginners",
+        title: "React Js ",
         category: "Programming",
         numOfVideos: 150,
         numOfLectures: 4,
@@ -74,6 +77,7 @@ const ShopingCartCourses = [
         title: "The complete course of programming object for beginners",
         category: "Programming",
         numOfVideos: 150,
+        numOfSections: 8,
         numOfLectures: 4,
         price: 50.00,
         rating: 4.5
@@ -85,6 +89,7 @@ const ShopingCartCourses = [
         category: "Programming",
         numOfVideos: 150,
         numOfLectures: 4,
+        numOfSections: 8,
         price: 50.00,
         rating: 4.5
     },
@@ -95,6 +100,7 @@ const ShopingCartCourses = [
         category: "Programming",
         numOfVideos: 150,
         numOfLectures: 4,
+        numOfSections: 8,
         price: 50.00,
         rating: 4.5
     },
@@ -134,14 +140,15 @@ function ShopingCart() {
                                     <div className='flex my-1'>
                                         <h3 className='text-black text-opacity-40 text-sm font-medium tracking-tight '><FontAwesomeIcon icon={faVideo} />{item.numOfVideos} videos</h3>
                                         <h3 className='text-black text-opacity-40 text-sm font-medium tracking-tight ml-5'>{item.numOfLectures} Lectures</h3>
-                                        <button className=' absolute right-1'><FontAwesomeIcon icon={faTimes} /> Remove</button>
+                                        <h3 className='text-black text-opacity-40 text-sm font-medium tracking-tight ml-5'>{item.numOfSections} Sections</h3>
+                                        <button className=' absolute right-1 text-blue-700 text-base font-semibold tracking-tight'><FontAwesomeIcon icon={faTimes} /> Remove</button>
                                     </div>
                                 </div>
                             </div>
                         );
                     })}
                 </div>
-                <div className='order-first md:order-none w-full md:w-[316px] h-[214px] pt-7 pl-7 ml-0 md:ml-20 my-5 md:mt-20 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center'>
+                <div className='order-first md:order-none w-full md:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-20 2xl:ml-40 my-5 md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center'>
                     <h1 className="text-black text-xl font-semibold tracking-tight">Total Price:</h1>
                     <h2 className="text-black text-[32px] font-semibold">$200.00</h2>
                     <h3 className="text-black text-sm font-semibold font-['Open Sans'] my-2">Courses in Cart: 4</h3>
