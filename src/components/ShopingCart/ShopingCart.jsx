@@ -131,7 +131,7 @@ function ShopingCart() {
                   <img
                     src={item.image}
                     className="ml-2 w-24 md:w-28 h-24"
-                    alt="Cart Image"
+                    alt={item.title}
                     loading="lazy"
                   />
                 </div>
