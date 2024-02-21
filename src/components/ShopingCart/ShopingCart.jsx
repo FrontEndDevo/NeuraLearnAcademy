@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 
 
 //import icons
@@ -16,6 +16,10 @@ import course3 from "../../assets/images/homepage/course_7.jpg";
 import course4 from "../../assets/images/homepage/course_4.jpg";
 import course5 from "../../assets/images/homepage/course_5.jpg";
 import { Link } from 'react-router-dom';
+
+
+// import files
+import UserCoursesPagination from '../UserCourses/UserCoursesPagination';
 
 // Cart Data as a Termpoeray Data
 const ShopingCartCourses = [
@@ -42,9 +46,9 @@ const ShopingCartCourses = [
         rating: 2.5
     },
     {
-        image: course3,
+        image: course5,
         author: "Karim abdelazim",
-        title: "Data Structure and Algorithms",
+        title: "Data Structure",
         category: "Programming",
         numOfVideos: 50,
         numOfLectures: 10,
@@ -63,7 +67,7 @@ const ShopingCartCourses = [
         rating: 3.5
     },
     {
-        image: course1,
+        image: course4,
         author: "Adel nsiem",
         title: "React Js",
         category: "Programming",
@@ -110,6 +114,9 @@ const ShopingCartCourses = [
 
 ];
 function ShopingCart() {
+ 
+
+    const firstFourCourses = currentProducts.slice(0, 4); // Display the first four courses separately
     return (
         <>
             {/* Header Of Shopping Cart */}
@@ -127,7 +134,7 @@ function ShopingCart() {
                         return (
                             <div key={item} className='mb-5 relative flex pl-[1.rem] pr-5 pt-4 pb-5 bg-white rounded-[0.3rem] border-b border-black border-opacity-60 transform hover:scale-105  transition-transform duration-500'>
                                 <div>
-                                    <img src={item.image} className='w-28 h-24' alt="Cart Image" loading='lazy' />
+                                    <img src={item.image} className='ml-2 w-24 md:w-28 h-24' alt="Cart Image" loading='lazy' />
                                 </div>
                                 <div className='ml-5'>
                                     <div className='flex '>
@@ -139,6 +146,7 @@ function ShopingCart() {
                                     {Array.from({ length: item.rating }, (_, index) => (
                                         <FontAwesomeIcon key={index} icon={faStar} className='text-yellow-500 ml-1' />
                                     ))}
+
                                     <div className='flex my-1'>
                                         <h3 className='text-black text-opacity-40 text-sm font-medium tracking-tight '><FontAwesomeIcon className='mr-1' icon={faVideo} />{item.numOfVideos} videos</h3>
                                         <h3 className='text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5'>{item.numOfLectures} Lectures</h3>
@@ -149,8 +157,9 @@ function ShopingCart() {
                             </div>
                         );
                     })}
+                  
                 </div>
-                <div className='order-first md:order-none w-full md:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-20 2xl:ml-40 my-5 md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center'>
+                <div className='order-first md:order-none w-full md:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-20 2xl:ml-40 my-5  md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center'>
                     <h1 className="text-black text-xl font-semibold tracking-tight">Total Price:</h1>
                     <h2 className="text-black text-[32px] font-semibold">$200.00</h2>
                     <h3 className="text-black text-sm font-semibold font-['Open Sans'] my-2">Courses in Cart: 4</h3>
