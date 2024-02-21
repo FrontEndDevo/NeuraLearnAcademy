@@ -52,10 +52,10 @@ const FeaturesSection = () => {
       >
         <div className="container">
           <div className="grid grid-cols-1 pb-10 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 place-items-center">
-            {cardData.map((card) => {
+            {cardData.map((card, index) => {
               return (
                 <>
-                  <div key={card} className="p-4">
+                  <div key={index} className="p-4">
                     <div className=" relative bg-black rounded-tl-[23px] rounded-tr-[23px] rounded-bl-[23px]">
                       <h2 className=" text-white text-[25px] md:text-[35px] text-opacity-80 font-extrabold ] tracking-widest pt-12 pb-20 pl-6 md:pl-20">
                         #Comments
