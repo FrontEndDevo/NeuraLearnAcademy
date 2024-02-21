@@ -7,8 +7,6 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faVideo } from '@fortawesome/free-solid-svg-icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-
-
 // import images 
 import course1 from "../../assets/images/homepage/course_9.jpg";
 import course2 from "../../assets/images/homepage/course_8.jpg";
@@ -16,11 +14,8 @@ import course3 from "../../assets/images/homepage/course_7.jpg";
 import course4 from "../../assets/images/homepage/course_4.jpg";
 import course5 from "../../assets/images/homepage/course_5.jpg";
 import { Link } from 'react-router-dom';
-
-
 // import files
 import UserCoursesPagination from '../UserCourses/UserCoursesPagination';
-
 // Cart Data as a Termpoeray Data
 const ShopingCartCourses = [
     {
@@ -134,7 +129,7 @@ function ShopingCart() {
                     </div>
                     {ShopingCartCourses.slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage).map((item) => {
                         return (
-                            <div key={item} className='mb-5 relative flex pl-[1.rem] pr-5 pt-4 pb-5 bg-white rounded-[0.3rem] border-b border-black border-opacity-60 transform hover:scale-105  transition-transform duration-500'>
+                            <div key={item} className='mb-2 relative flex pl-[1.rem] pr-5 pt-4 pb-3 bg-white rounded-[0.3rem] border-b border-black border-opacity-60 transform hover:scale-105  transition-transform duration-500'>
                                 <div>
                                     <img src={item.image} className='ml-2 w-24 md:w-28 h-24' alt="Cart Image" loading='lazy' />
                                 </div>
@@ -148,8 +143,6 @@ function ShopingCart() {
                                     {Array.from({ length: item.rating }, (_, index) => (
                                         <FontAwesomeIcon key={index} icon={faStar} className='text-yellow-500 ml-1' />
                                     ))}
-
-
                                     <div className='flex my-1'>
                                         <h3 className='text-black text-opacity-40 text-sm font-medium tracking-tight '><FontAwesomeIcon className='mr-1' icon={faVideo} />{item.numOfVideos} videos</h3>
                                         <h3 className='text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5'>{item.numOfLectures} Lectures</h3>
