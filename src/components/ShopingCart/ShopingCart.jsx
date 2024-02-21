@@ -17,6 +17,7 @@ import course4 from "../../assets/images/homepage/course_4.jpg";
 import course5 from "../../assets/images/homepage/course_5.jpg";
 import { Link } from 'react-router-dom';
 
+// Cart Data as a Termpoeray Data
 const ShopingCartCourses = [
     {
         image: course5,
@@ -64,7 +65,7 @@ const ShopingCartCourses = [
     {
         image: course1,
         author: "Adel nsiem",
-        title: "React Js ",
+        title: "React Js",
         category: "Programming",
         numOfVideos: 150,
         numOfLectures: 4,
@@ -111,11 +112,12 @@ const ShopingCartCourses = [
 function ShopingCart() {
     return (
         <>
+            {/* Header Of Shopping Cart */}
             <div className='flex justify-center place-content-center bg-stone-700 bg-opacity-8 p-[1.5rem] w-full'>
                 <h1 className='text-white text-[1rem] md:text-[1.5rem] xl:text-[2rem] font-semibold tracking-wider'>Shopping Cart <FontAwesomeIcon icon={faShoppingCart} /></h1>
             </div>
 
-            <div className='flex flex-col md:flex-row mx-5       '>
+            <div className='flex flex-col md:flex-row mx-4'>
                 <div className='ml-0 md:ml-10 xl:ml-32 mt-20 w-full md:w-7/12'>
                     <div className='flex justify-between mb-5'>
                         <h1 className='text-2xl font-bold'>Courses</h1>
@@ -138,10 +140,10 @@ function ShopingCart() {
                                         <FontAwesomeIcon key={index} icon={faStar} className='text-yellow-500 ml-1' />
                                     ))}
                                     <div className='flex my-1'>
-                                        <h3 className='text-black text-opacity-40 text-sm font-medium tracking-tight '><FontAwesomeIcon icon={faVideo} />{item.numOfVideos} videos</h3>
-                                        <h3 className='text-black text-opacity-40 text-sm font-medium tracking-tight ml-5'>{item.numOfLectures} Lectures</h3>
-                                        <h3 className='text-black text-opacity-40 text-sm font-medium tracking-tight ml-5'>{item.numOfSections} Sections</h3>
-                                        <button className=' absolute right-1 text-blue-700 text-base font-semibold tracking-tight'><FontAwesomeIcon icon={faTimes} /> Remove</button>
+                                        <h3 className='text-black text-opacity-40 text-sm font-medium tracking-tight '><FontAwesomeIcon className='mr-1' icon={faVideo} />{item.numOfVideos} videos</h3>
+                                        <h3 className='text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5'>{item.numOfLectures} Lectures</h3>
+                                        <h3 className='text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5'>{item.numOfSections} Sections</h3>
+                                        <button className=' absolute right-1 text-blue-700 text-base font-semibold tracking-tight hover:text-blue-900'><FontAwesomeIcon icon={faTimes} /> Remove</button>
                                     </div>
                                 </div>
                             </div>
