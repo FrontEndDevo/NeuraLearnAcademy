@@ -121,10 +121,10 @@ function ShopingCart() {
           {ShopingCartCourses.slice(
             (currentPage - 1) * productsPerPage,
             currentPage * productsPerPage
-          ).map((item) => {
+          ).map((item, index) => {
             return (
               <div
-                key={item}
+                key={index}
                 className="mb-2 relative flex pl-[1.rem] pr-5 pt-4 pb-3 bg-white rounded-[0.3rem] border-b border-black border-opacity-60"
               >
                 <div>
