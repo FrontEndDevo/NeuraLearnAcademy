@@ -141,18 +141,18 @@ function ShopingCart() {
                       {item.title}
                     </Link>
                     <h2 className="absolute right-1 text-black text-base font-semibold tracking-tight ">
-                      {item.price} $
+                      ${item.price}
                     </h2>
                   </div>
                   <h2 className="text-black text-opacity-40 text-base font-medium tracking-tight">
                     by {item.author}
                   </h2>
                   <span className="text-black text-lg ">{item.rating}</span>
-                  {Array.from({ length: item.rating }, (_, index) => (
+                  {Array.from({ length: 5 }, (_, index) => (
                     <FontAwesomeIcon
                       key={index}
                       icon={faStar}
-                      className="text-yellow-500 ml-1"
+                      className={index < item.rating ? "text-yellow-500 ml-1" : "ml-1"}
                     />
                   ))}
                   <div className="flex my-1">
