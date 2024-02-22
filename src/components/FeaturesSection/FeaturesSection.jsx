@@ -52,10 +52,10 @@ const FeaturesSection = () => {
       >
         <div className="container">
           <div className="grid grid-cols-1 pb-10 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 place-items-center">
-            {cardData.map((card) => {
+            {cardData.map((card, index) => {
               return (
                 <>
-                  <div key={card} className="p-4">
+                  <div key={index} className="p-4">
                     <div className=" relative bg-black rounded-tl-[23px] rounded-tr-[23px] rounded-bl-[23px]">
                       <h2 className=" text-white text-[25px] md:text-[35px] text-opacity-80 font-extrabold ] tracking-widest pt-12 pb-20 pl-6 md:pl-20">
                         #Comments
@@ -67,7 +67,7 @@ const FeaturesSection = () => {
                     <div className="relative CardDetails bg-stone-50 ">
                       <img
                         src={card.CardImage}
-                        alt="profile-sample4"
+                        alt={card.title}
                         className="absolute left-0 z-10 w-32 h-32 text-white border-4 border-white rounded-full shadow-lg -top-20"
                       />
                       <div className="absolute py-2 text-sm font-semibold left-32 md:left-36 text-neutral-500 md:text-normal">
