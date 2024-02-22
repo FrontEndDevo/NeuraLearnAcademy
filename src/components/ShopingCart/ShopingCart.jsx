@@ -92,7 +92,14 @@ const ShopingCartCourses = [
     rating: 4.5,
   },
 ];
+
+// calculate Total Price
+function calculateTotalPrice(courses) {
+  const totalPrice = courses.reduce((total, course) => total + course.price, 0);
+  return totalPrice.toFixed(2);
+}
 function ShopingCart() {
+
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 4;
   const getCurrentPage = (pageIndex, productsPerPage) => {
@@ -183,7 +190,7 @@ function ShopingCart() {
           <h1 className="text-black text-xl font-semibold tracking-tight">
             Total Price:
           </h1>
-          <h2 className="text-black text-[32px] font-semibold">$200.00</h2>
+          <h2 className="text-black text-[32px] font-semibold">${calculateTotalPrice(currentProducts)}</h2>
           <h3 className="text-black text-sm font-semibold font-['Open Sans'] my-2">
             Courses in Cart: 4
           </h3>
