@@ -15,9 +15,10 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/my-learnings" element={<MyLearningsPage />} />
-
-
         <Route path="/cart" element={<ShoppingCartPage />} />
+
+
+        
       </Routes>
     </>
   );
