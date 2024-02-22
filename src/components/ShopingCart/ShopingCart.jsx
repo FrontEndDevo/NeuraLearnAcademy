@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 // import files
 import UserCoursesPagination from "../UserCourses/UserCoursesPagination";
 // Cart Data as a Termpoeray Data
-const ShopingCartCourses = [
+const shopingCartCourses = [
   {
     image: course5,
     author: "Adel nsiem",
@@ -107,7 +107,7 @@ function ShopingCart() {
   };
   const indexOfLastCourse = currentPage * productsPerPage;
   const indexOfFirstCourse = indexOfLastCourse - productsPerPage;
-  const currentProducts = ShopingCartCourses.slice(
+  const currentProducts = shopingCartCourses.slice(
     indexOfFirstCourse,
     indexOfLastCourse
   );
@@ -125,7 +125,7 @@ function ShopingCart() {
           <div className="mb-3">
             <h1 className="text-2xl font-bold">Courses</h1>
           </div>
-          {ShopingCartCourses.slice(
+          {shopingCartCourses.slice(
             (currentPage - 1) * productsPerPage,
             currentPage * productsPerPage
           ).map((item, index) => {
@@ -182,7 +182,7 @@ function ShopingCart() {
             );
           })}
           <UserCoursesPagination
-            coursesLength={ShopingCartCourses.length}
+            coursesLength={shopingCartCourses.length}
             getCurrentPage={getCurrentPage}
           />
         </div>
