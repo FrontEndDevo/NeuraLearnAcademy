@@ -6,8 +6,6 @@ import MyLearningsPage from "./pages/MyLearningsPage";
 import PageNotFound from "./pages/PageNotFound";
 
 
-import ShoppingCartPage from "./pages/ShoppingCartPage";
-
 const App = () => {
   return (
     <>
@@ -21,5 +19,4 @@ const App = () => {
     </>
   );
 };
-
 export default App;
