@@ -4,6 +4,7 @@ import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import MyLearningsPage from "./pages/MyLearningsPage";
 import PageNotFound from "./pages/PageNotFound";
+import ShoppingCartPage from './pages/ShoppingCartPage';
 
 
 const App = () => {
@@ -15,8 +16,10 @@ const App = () => {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/my-learnings" element={<MyLearningsPage />} />
         <Route path="/*" element={<PageNotFound />} />
+        <Route path="/cart" element={<ShoppingCartPage />} />
       </Routes>
     </>
   );
 };
+
 export default App;

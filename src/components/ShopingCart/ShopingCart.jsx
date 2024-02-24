@@ -121,12 +121,7 @@ const shopingCartCourses = [
   }
 ];
 
-// calculate Total Price
-function calculateTotalPrice(courses) {
-  const totalPrice = courses.reduce((total, course) => total + course.price, 0);
-  return totalPrice.toFixed(2);
-}
-const totalPrice = calculateTotalPrice(shopingCartCourses); // Calculate total price based on all courses
+
 function ShopingCart() {
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -140,6 +135,13 @@ function ShopingCart() {
     indexOfFirstCourse,
     indexOfLastCourse
   );
+
+  const calculateTotalPrice = (courses) => {
+    const totalPrice = courses.reduce((total, course) => total + course.price, 0);
+    return totalPrice.toFixed(2);
+  };
+
+  const totalPrice = calculateTotalPrice(shopingCartCourses);
   return (
     <>
       {/* Header Of Shopping Cart */}
