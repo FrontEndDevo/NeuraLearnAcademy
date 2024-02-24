@@ -143,12 +143,7 @@ function ShopingCart() {
   };
   const totalPrice = calculateTotalPrice(shopingCartCourses);
 
-  // function to remove a course from the shopping cart
-  const removeCourse = (index) => {
-    const updatedCourses = [...shopingCartCourses];
-    updatedCourses.splice(index, 1);
-    setShopingCartCourses(updatedCourses);
-  };
+ 
   return (
     <>
       {/* Header Of Shopping Cart */}
