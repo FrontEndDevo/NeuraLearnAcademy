@@ -68,6 +68,24 @@ const shopingCartCourses = [
     numOfLectures: 4,
     price: 50.0,
     rating: 4.5,
+  }, {
+    image: course4,
+    author: "Adel nsiem",
+    title: "React Js",
+    category: "Programming",
+    numOfVideos: 150,
+    numOfLectures: 4,
+    price: 50.0,
+    rating: 4.5,
+  }, {
+    image: course4,
+    author: "Adel nsiem",
+    title: "React Js",
+    category: "Programming",
+    numOfVideos: 150,
+    numOfLectures: 4,
+    price: 50.0,
+    rating: 4.5,
   },
   {
     image: course3,
@@ -90,7 +108,17 @@ const shopingCartCourses = [
     numOfSections: 8,
     price: 50.0,
     rating: 4.5,
-  },
+  }, {
+    image: course1,
+    author: "Adel nsiem",
+    title: "The complete course of programming object for beginners",
+    category: "Programming",
+    numOfVideos: 150,
+    numOfLectures: 4,
+    numOfSections: 8,
+    price: 50.0,
+    rating: 4.5,
+  }
 ];
 
 // calculate Total Price
@@ -98,6 +126,7 @@ function calculateTotalPrice(courses) {
   const totalPrice = courses.reduce((total, course) => total + course.price, 0);
   return totalPrice.toFixed(2);
 }
+const totalPrice = calculateTotalPrice(shopingCartCourses); // Calculate total price based on all courses
 function ShopingCart() {
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -144,7 +173,7 @@ function ShopingCart() {
                 </div>
                 <div className="ml-5">
                   <div className="flex ">
-                    <Link className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-sm font-semibold tracking-tight xl:text-lg">
+                    <Link className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-sm font-semibold tracking-tight xl:text-lg" to={item.title.toLowerCase().replace(' & ', '-')}>
                       {item.title}
                     </Link>
                     <h2 className="absolute right-1 text-black text-base font-semibold tracking-tight ">
@@ -190,9 +219,9 @@ function ShopingCart() {
           <h1 className="text-black text-xl font-semibold tracking-tight">
             Total Price:
           </h1>
-          <h2 className="text-black text-[32px] font-semibold">${calculateTotalPrice(currentProducts)}</h2>
+          <h2 className="text-black text-[32px] font-semibold">${totalPrice}</h2>
           <h3 className="text-black text-sm font-semibold font-['Open Sans'] my-2">
-            Courses in Cart: 4
+            Courses in Cart: {shopingCartCourses.length}
           </h3>
           <button className="w-[150px] mx-auto bg-blue-700 rounded-[25px] p-2 my-2 text-white hover:bg-blue-950 transition duration-300 ease-in-out">
             Checkout
