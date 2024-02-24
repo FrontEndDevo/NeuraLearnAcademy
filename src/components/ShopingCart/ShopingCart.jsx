@@ -124,6 +124,7 @@ const shopingCartCourses = [
 
 function ShopingCart() {
 
+
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 4;
   const getCurrentPage = (pageIndex, productsPerPage) => {
@@ -135,13 +136,19 @@ function ShopingCart() {
     indexOfFirstCourse,
     indexOfLastCourse
   );
-
+  // calculate the total price 
   const calculateTotalPrice = (courses) => {
     const totalPrice = courses.reduce((total, course) => total + course.price, 0);
     return totalPrice.toFixed(2);
   };
-
   const totalPrice = calculateTotalPrice(shopingCartCourses);
+
+  // function to remove a course from the shopping cart
+  const removeCourse = (index) => {
+    const updatedCourses = [...shopingCartCourses];
+    updatedCourses.splice(index, 1);
+    setShopingCartCourses(updatedCourses);
+  };
   return (
     <>
       {/* Header Of Shopping Cart */}
@@ -175,7 +182,7 @@ function ShopingCart() {
                 </div>
                 <div className="ml-5">
                   <div className="flex ">
-                    <Link className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-sm font-semibold tracking-tight xl:text-lg" to={item.title.toLowerCase().replace(' & ', '-')}>
+                    <Link className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-sm font-semibold tracking-tight xl:text-lg">
                       {item.title}
                     </Link>
                     <h2 className="absolute right-1 text-black text-base font-semibold tracking-tight ">
