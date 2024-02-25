@@ -200,7 +200,7 @@ function ShopingCart() {
       <div className="flex flex-col md:flex-row mx-4 mb-8">
         <div className="ml-0 md:ml-10 xl:ml-32 mt-20 w-full md:w-11/12 lg:w-7/12">
           <div className="mb-3">
-            <h1 className="text-2xl font-bold text-center md:text-left ">Courses</h1>
+            <h1 className="text-2xl font-bold text-center md:text-left md:ml-4 ">Courses</h1>
           </div>
           {shopingCartCourses
             .slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage)
