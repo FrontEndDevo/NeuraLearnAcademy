@@ -243,7 +243,7 @@ function ShopingCart() {
                   <h2 className=" md:absolute md:right-1 md:top-8 lg:top-10 xl:top-4 text-black text-base md:text-lg font-semibold tracking-tight">
                     ${item.price}
                   </h2>
-                  <button onClick={() => handleRemoveCourse(item.id)} className="md:absolute md:right-1 md:bottom-2 text-blue-700 text-base font-semibold tracking-tight hover:text-blue-950 transition duration-300 ease-in-out">
+                  <button onClick={() => handleRemoveCourse(item.id)} className=" mt-1 md:mt-0 md:absolute md:right-1 md:bottom-2 text-blue-700 text-base font-semibold tracking-tight hover:text-blue-950 transition duration-300 ease-in-out">
                     <FontAwesomeIcon icon={faTimes} /> Remove
                   </button>
                 </div>
