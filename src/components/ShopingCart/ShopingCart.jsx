@@ -201,7 +201,7 @@ function ShopingCart() {
       </div>
       {/* render courses */}
       <div className="flex flex-col md:flex-row mx-4 mb-8">
-        <div className="ml-0 md:ml-10 xl:ml-32 mt-20 w-full md:w-7/12">
+        <div className="ml-0 md:ml-2 xl:ml-32 mt-20 w-full md:w-11/12 lg:w-7/12">
           <div className="mb-3">
             <h1 className="text-2xl font-bold">Courses</h1>
           </div>
@@ -216,14 +216,14 @@ function ShopingCart() {
                   <div>
                     <img
                       src={item.image}
-                      className="ml-2 w-24 md:w-28 h-24 md:h-28 "
+                      className="ml-2 w-24 md:w-32 h-24 md:h-28 "
                       alt={item.title}
                       loading="lazy"
                     />
                   </div>
                   <div className="ml-5">
                     <div className="flex ">
-                      <Link to={`/${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-sm md:text-lg xl:text-xl font-semibold tracking-tight">
+                      <Link to={`/${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-sm  xl:text-xl font-semibold ">
                         {item.title}
                       </Link>
                       <h2 className="absolute right-1 text-black text-base font-semibold tracking-tight ">
@@ -266,7 +266,7 @@ function ShopingCart() {
             totalPages={totalPages}
           />
         </div>
-        <div className="order-first md:order-none w-full md:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-20 2xl:ml-40 my-5  md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center">
+        <div className="order-first md:order-none w-full  md:w-[300px]  lg:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-16 2xl:ml-40 my-5  md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center">
           <h1 className="text-black text-xl font-semibold tracking-tight">
             Total Price:
           </h1>
