@@ -159,7 +159,7 @@ function ShopingCart() {
     const updatedCourses = shopingCartCourses.filter((course) => course.id !== courseId);
     setShopingCartCourses(updatedCourses);
   };
-  
+
   return (
     <>
       {/* Header Of Shopping Cart */}
@@ -192,7 +192,7 @@ function ShopingCart() {
                 </div>
                 <div className="ml-5">
                   <div className="flex ">
-                    <Link className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-sm font-semibold tracking-tight xl:text-lg">
+                    <Link to={`/${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-sm font-semibold tracking-tight xl:text-lg">
                       {item.title}
                     </Link>
                     <h2 className="absolute right-1 text-black text-base font-semibold tracking-tight ">
