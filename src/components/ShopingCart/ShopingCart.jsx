@@ -21,6 +21,8 @@ import ShoppingCartPage from './../../pages/ShoppingCartPage';
 
 
 function ShopingCart() {
+
+  // store courses data
   const [shopingCartCourses, setShopingCartCourses] = useState([
     {
       id: 1,
@@ -138,6 +140,7 @@ function ShopingCart() {
   ])
 
 
+  // use pagination
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 4;
   const getCurrentPage = (pageIndex, productsPerPage) => {
@@ -156,6 +159,7 @@ function ShopingCart() {
   };
   const totalPrice = calculateTotalPrice(shopingCartCourses);
 
+  // remove elments
   const handleRemoveCourse = (courseId) => {
     const updatedCourses = shopingCartCourses.filter((course) => course.id !== courseId);
     setShopingCartCourses(updatedCourses);
