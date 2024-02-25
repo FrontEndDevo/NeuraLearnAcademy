@@ -14,9 +14,7 @@ import course5 from "../../assets/images/homepage/course_5.jpg";
 import { Link } from "react-router-dom";
 // import files
 import UserCoursesPagination from "../UserCourses/UserCoursesPagination";
-
 function ShopingCart() {
-
   // store courses data
   const [shopingCartCourses, setShopingCartCourses] = useState([
     {
@@ -190,7 +188,6 @@ function ShopingCart() {
     const updatedCourses = shopingCartCourses.filter((course) => course.id !== courseId);
     setShopingCartCourses(updatedCourses);
   };
-
   return (
     <>
       {/* Header Of Shopping Cart */}
@@ -249,7 +246,6 @@ function ShopingCart() {
                 </div>
               </div>
             ))}
-
           <UserCoursesPagination
             coursesLength={shopingCartCourses.length}
             getCurrentPage={getCurrentPage}
