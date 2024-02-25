@@ -14,11 +14,6 @@ import course5 from "../../assets/images/homepage/course_5.jpg";
 import { Link } from "react-router-dom";
 // import files
 import UserCoursesPagination from "../UserCourses/UserCoursesPagination";
-import ShoppingCartPage from './../../pages/ShoppingCartPage';
-
-// Cart Data as a Termpoeray Data
-
-
 
 function ShopingCart() {
 
@@ -138,12 +133,10 @@ function ShopingCart() {
       rating: 4.5,
     }
   ])
-
-
   // use pagination
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 4;
-  const getCurrentPage = (pageIndex, productsPerPage) => {
+  const getCurrentPage = (pageIndex) => {
     setCurrentPage(pageIndex);
   };
   const indexOfLastCourse = currentPage * productsPerPage;
@@ -152,6 +145,8 @@ function ShopingCart() {
     indexOfFirstCourse,
     indexOfLastCourse
   );
+  const totalPages = Math.ceil(shopingCartCourses.length / productsPerPage)
+
   // calculate the total price 
   const calculateTotalPrice = (courses) => {
     const totalPrice = courses.reduce((total, course) => total + course.price, 0);
@@ -164,7 +159,7 @@ function ShopingCart() {
     const updatedCourses = shopingCartCourses.filter((course) => course.id !== courseId);
     setShopingCartCourses(updatedCourses);
   };
-
+  
   return (
     <>
       {/* Header Of Shopping Cart */}
@@ -179,13 +174,12 @@ function ShopingCart() {
           <div className="mb-3">
             <h1 className="text-2xl font-bold">Courses</h1>
           </div>
-          {shopingCartCourses.slice(
-            (currentPage - 1) * productsPerPage,
-            currentPage * productsPerPage
-          ).map((item, index) => {
+          {shopingCartCourses
+            .slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage)
+            .map((item) => {
             return (
               <div
-                key={index}
+                key={item.id}
                 className="mb-2 relative flex pl-[1.rem] pr-5 pt-4 pb-3 bg-white rounded-[0.3rem] border-b border-black border-opacity-60"
               >
                 <div>
@@ -238,6 +232,7 @@ function ShopingCart() {
           <UserCoursesPagination
             coursesLength={shopingCartCourses.length}
             getCurrentPage={getCurrentPage}
+            totalPages={totalPages}
           />
         </div>
         <div className="order-first md:order-none w-full md:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-20 2xl:ml-40 my-5  md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center">
