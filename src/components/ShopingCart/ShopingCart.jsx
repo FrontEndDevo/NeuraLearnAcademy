@@ -201,72 +201,61 @@ function ShopingCart() {
       </div>
       {/* render courses */}
       <div className="flex flex-col md:flex-row mx-4 mb-8">
-        <div className="ml-0 md:ml-2 xl:ml-32 mt-20 w-full md:w-11/12 lg:w-7/12">
+        <div className="ml-0 md:ml-10 xl:ml-32 mt-20 w-full md:w-11/12 lg:w-7/12">
           <div className="mb-3">
             <h1 className="text-2xl font-bold">Courses</h1>
           </div>
           {shopingCartCourses
             .slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage)
-            .map((item) => {
-              return (
-                <div
-                  key={item.id}
-                  className="mb-2 relative flex pl-[1rem] pr-5 pt-4 pb-3 bg-white rounded-[0.3rem] border-b border-black border-opacity-60"
-                >
-                  <div>
-                    <img
-                      src={item.image}
-                      className="ml-2 w-24 md:w-32 h-24 md:h-28 "
-                      alt={item.title}
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="ml-5">
-                    <div className="flex ">
-                      <Link to={`/${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-sm  xl:text-xl font-semibold ">
-                        {item.title}
-                      </Link>
-                      <h2 className="absolute right-1 text-black text-base font-semibold tracking-tight ">
-                        ${item.price}
-                      </h2>
-                    </div>
-                    <h2 className="text-black text-opacity-40 text-base font-medium tracking-tight">
-                      by {item.author}
+            .map((item) => (
+              <div key={item.id} className="mb-2 relative flex flex-col md:flex-row pl-3 pr-5 pt-4 pb-3 bg-white rounded-lg border-b border-black border-opacity-60 ml-1">
+                <img src={item.image} className=" w-screen h-32  md:w-32  md:h-28" alt={item.title} loading="lazy" />
+                <div className="md:ml-5 flex-grow">
+                  <div className="flex justify-between items-center">
+                    <Link to={`/${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-base md:text-lg font-semibold tracking-tight mt-2 md:mt-0">
+                      {item.title}
+                    </Link>
+                    <h2 className="text-black text-base md:text-lg font-semibold tracking-tight">
+                      ${item.price}
                     </h2>
-                    <span className="text-black text-lg ">{item.rating}</span>
-                    {Array.from({ length: 5 }, (_, index) => (
-                      <FontAwesomeIcon
-                        key={index}
-                        icon={faStar}
-                        className={index < item.rating ? "text-yellow-500 ml-1" : "ml-1"}
-                      />
-                    ))}
-                    <div className="flex my-1">
-                      <h3 className="text-black text-opacity-40 text-sm font-medium tracking-tight ">
-                        <FontAwesomeIcon className="mr-1" icon={faVideo} />
-                        {item.numOfVideos} videos
-                      </h3>
-                      <h3 className="text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5">
-                        {item.numOfLectures} Lectures
-                      </h3>
-                      <h3 className="text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5">
-                        {item.numOfSections} Sections
-                      </h3>
-                      <button onClick={() => handleRemoveCourse(item.id)} className=" absolute right-1 text-blue-700 text-base font-semibold tracking-tight hover:text-blue-950 transition duration-300 ease-in-out">
-                        <FontAwesomeIcon icon={faTimes} /> Remove
-                      </button>
-                    </div>
+                  </div>
+                  <h2 className="text-black text-opacity-40 text-base md:text-sm font-medium tracking-tight mt-1 md:mt-0">
+                    by {item.author}
+                  </h2>
+                  <span className="text-black text-lg">{item.rating}</span>
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <FontAwesomeIcon
+                      key={index}
+                      icon={faStar}
+                      className={index < item.rating ? "text-yellow-500 ml-1" : "ml-1"}
+                    />
+                  ))}
+                  <div className="flex flex-wrap my-1">
+                    <h3 className="text-black text-opacity-40 text-sm font-medium tracking-tight">
+                      <FontAwesomeIcon className="mr-1" icon={faVideo} />
+                      {item.numOfVideos} videos
+                    </h3>
+                    <h3 className="text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5">
+                      {item.numOfLectures} Lectures
+                    </h3>
+                    <h3 className="text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5">
+                      {item.numOfSections} Sections
+                    </h3>
+                    <button onClick={() => handleRemoveCourse(item.id)} className="absolute right-1 text-blue-700 text-base font-semibold tracking-tight hover:text-blue-950 transition duration-300 ease-in-out">
+                      <FontAwesomeIcon icon={faTimes} /> Remove
+                    </button>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
+
           <UserCoursesPagination
             coursesLength={shopingCartCourses.length}
             getCurrentPage={getCurrentPage}
             totalPages={totalPages}
           />
         </div>
-        <div className="order-first md:order-none w-full  md:w-[300px]  lg:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-16 2xl:ml-40 my-5  md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center">
+        <div className="order-first md:order-none w-full  md:w-[300px]  lg:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-10 2xl:ml-40 my-5  md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center">
           <h1 className="text-black text-xl font-semibold tracking-tight">
             Total Price:
           </h1>
