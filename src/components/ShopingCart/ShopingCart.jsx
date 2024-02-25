@@ -131,11 +131,55 @@ function ShopingCart() {
       numOfSections: 8,
       price: 50.0,
       rating: 4.5,
+    }, {
+      id: 11,
+      image: course1,
+      author: "Adel nsiem",
+      title: "The complete course of programming object for beginners",
+      category: "Programming",
+      numOfVideos: 150,
+      numOfLectures: 4,
+      numOfSections: 8,
+      price: 50.0,
+      rating: 4.5,
+    }, {
+      id: 12,
+      image: course1,
+      author: "Adel nsiem",
+      title: "The complete course of programming object for beginners",
+      category: "Programming",
+      numOfVideos: 150,
+      numOfLectures: 4,
+      numOfSections: 8,
+      price: 50.0,
+      rating: 4.5,
+    }, {
+      id: 13,
+      image: course3,
+      author: "Adel nsiem",
+      title: "The complete course of programming object for beginners",
+      category: "figma",
+      numOfVideos: 150,
+      numOfLectures: 4,
+      numOfSections: 8,
+      price: 50.0,
+      rating: 3,
+    }, {
+      id: 14,
+      image: course5,
+      author: "Adel nsiem",
+      title: "The complete course of programming object for beginners",
+      category: "React Js",
+      numOfVideos: 10,
+      numOfLectures: 4,
+      numOfSections: 8,
+      price: 2000.0,
+      rating: 4,
     }
   ])
   // use pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 4;
+  const productsPerPage = 6;
   const getCurrentPage = (pageIndex) => {
     setCurrentPage(pageIndex);
   };
@@ -147,14 +191,14 @@ function ShopingCart() {
   );
   const totalPages = Math.ceil(shopingCartCourses.length / productsPerPage)
 
-  // calculate the total price 
+  // calculate the total price pf cart courses  
   const calculateTotalPrice = (courses) => {
     const totalPrice = courses.reduce((total, course) => total + course.price, 0);
     return totalPrice.toFixed(2);
   };
   const totalPrice = calculateTotalPrice(shopingCartCourses);
 
-  // remove elments
+  // remove elementt i click on it
   const handleRemoveCourse = (courseId) => {
     const updatedCourses = shopingCartCourses.filter((course) => course.id !== courseId);
     setShopingCartCourses(updatedCourses);
@@ -177,58 +221,58 @@ function ShopingCart() {
           {shopingCartCourses
             .slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage)
             .map((item) => {
-            return (
-              <div
-                key={item.id}
-                className="mb-2 relative flex pl-[1.rem] pr-5 pt-4 pb-3 bg-white rounded-[0.3rem] border-b border-black border-opacity-60"
-              >
-                <div>
-                  <img
-                    src={item.image}
-                    className="ml-2 w-24 md:w-28 h-24"
-                    alt={item.title}
-                    loading="lazy"
-                  />
-                </div>
-                <div className="ml-5">
-                  <div className="flex ">
-                    <Link to={`/${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-sm font-semibold tracking-tight xl:text-lg">
-                      {item.title}
-                    </Link>
-                    <h2 className="absolute right-1 text-black text-base font-semibold tracking-tight ">
-                      ${item.price}
-                    </h2>
-                  </div>
-                  <h2 className="text-black text-opacity-40 text-base font-medium tracking-tight">
-                    by {item.author}
-                  </h2>
-                  <span className="text-black text-lg ">{item.rating}</span>
-                  {Array.from({ length: 5 }, (_, index) => (
-                    <FontAwesomeIcon
-                      key={index}
-                      icon={faStar}
-                      className={index < item.rating ? "text-yellow-500 ml-1" : "ml-1"}
+              return (
+                <div
+                  key={item.id}
+                  className="mb-2 relative flex pl-[1.rem] pr-5 pt-4 pb-3 bg-white rounded-[0.3rem] border-b border-black border-opacity-60"
+                >
+                  <div>
+                    <img
+                      src={item.image}
+                      className="ml-2 w-24 md:w-28 h-24"
+                      alt={item.title}
+                      loading="lazy"
                     />
-                  ))}
-                  <div className="flex my-1">
-                    <h3 className="text-black text-opacity-40 text-sm font-medium tracking-tight ">
-                      <FontAwesomeIcon className="mr-1" icon={faVideo} />
-                      {item.numOfVideos} videos
-                    </h3>
-                    <h3 className="text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5">
-                      {item.numOfLectures} Lectures
-                    </h3>
-                    <h3 className="text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5">
-                      {item.numOfSections} Sections
-                    </h3>
-                    <button onClick={() => handleRemoveCourse(item.id)} className=" absolute right-1 text-blue-700 text-base font-semibold tracking-tight hover:text-blue-950 transition duration-300 ease-in-out">
-                      <FontAwesomeIcon icon={faTimes} /> Remove
-                    </button>
+                  </div>
+                  <div className="ml-5">
+                    <div className="flex ">
+                      <Link to={`/${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-sm font-semibold tracking-tight xl:text-lg">
+                        {item.title}
+                      </Link>
+                      <h2 className="absolute right-1 text-black text-base font-semibold tracking-tight ">
+                        ${item.price}
+                      </h2>
+                    </div>
+                    <h2 className="text-black text-opacity-40 text-base font-medium tracking-tight">
+                      by {item.author}
+                    </h2>
+                    <span className="text-black text-lg ">{item.rating}</span>
+                    {Array.from({ length: 5 }, (_, index) => (
+                      <FontAwesomeIcon
+                        key={index}
+                        icon={faStar}
+                        className={index < item.rating ? "text-yellow-500 ml-1" : "ml-1"}
+                      />
+                    ))}
+                    <div className="flex my-1">
+                      <h3 className="text-black text-opacity-40 text-sm font-medium tracking-tight ">
+                        <FontAwesomeIcon className="mr-1" icon={faVideo} />
+                        {item.numOfVideos} videos
+                      </h3>
+                      <h3 className="text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5">
+                        {item.numOfLectures} Lectures
+                      </h3>
+                      <h3 className="text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5">
+                        {item.numOfSections} Sections
+                      </h3>
+                      <button onClick={() => handleRemoveCourse(item.id)} className=" absolute right-1 text-blue-700 text-base font-semibold tracking-tight hover:text-blue-950 transition duration-300 ease-in-out">
+                        <FontAwesomeIcon icon={faTimes} /> Remove
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
           <UserCoursesPagination
             coursesLength={shopingCartCourses.length}
             getCurrentPage={getCurrentPage}
