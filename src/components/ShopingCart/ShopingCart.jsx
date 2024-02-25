@@ -192,10 +192,7 @@ function ShopingCart() {
   const totalPages = Math.ceil(shopingCartCourses.length / productsPerPage)
 
   // calculate the total price pf cart courses  
-  const calculateTotalPrice = (courses) => {
-    const totalPrice = courses.reduce((total, course) => total + course.price, 0);
-    return totalPrice.toFixed(2);
-  };
+  const calculateTotalPrice = (courses) => courses.reduce((total, course) => total + course.price, 0).toFixed(2);
   const totalPrice = calculateTotalPrice(shopingCartCourses);
 
   // remove elementt i click on it
@@ -224,12 +221,12 @@ function ShopingCart() {
               return (
                 <div
                   key={item.id}
-                  className="mb-2 relative flex pl-[1.rem] pr-5 pt-4 pb-3 bg-white rounded-[0.3rem] border-b border-black border-opacity-60"
+                  className="mb-2 relative flex pl-[1rem] pr-5 pt-4 pb-3 bg-white rounded-[0.3rem] border-b border-black border-opacity-60"
                 >
                   <div>
                     <img
                       src={item.image}
-                      className="ml-2 w-24 md:w-28 h-24"
+                      className="ml-2 w-24 md:w-28 h-24 md:h-28 "
                       alt={item.title}
                       loading="lazy"
                     />
