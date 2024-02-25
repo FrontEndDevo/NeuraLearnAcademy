@@ -14,115 +14,128 @@ import course5 from "../../assets/images/homepage/course_5.jpg";
 import { Link } from "react-router-dom";
 // import files
 import UserCoursesPagination from "../UserCourses/UserCoursesPagination";
+import ShoppingCartPage from './../../pages/ShoppingCartPage';
+
 // Cart Data as a Termpoeray Data
-const shopingCartCourses = [
-  {
-    image: course5,
-    author: "Adel nsiem",
-    title: "The complete course of programming object for beginners",
-    category: "Programming",
-    numOfVideos: 150,
-    numOfLectures: 4,
-    numOfSections: 8,
-    price: 100.0,
-    rating: 3,
-  },
-  {
-    image: course4,
-    author: "elzero",
-    title: "The complete course of programming object for beginners",
-    category: "Programming",
-    numOfVideos: 120,
-    numOfLectures: 5,
-    numOfSections: 8,
-    price: 300.0,
-    rating: 2.5,
-  },
-  {
-    image: course5,
-    author: "Karim abdelazim",
-    title: "Data Structure",
-    category: "Programming",
-    numOfVideos: 50,
-    numOfLectures: 10,
-    price: 400.0,
-    rating: 5,
-  },
-  {
-    image: course2,
-    author: "Adel nsiem",
-    title: "The complete course of programming object for beginners",
-    category: "Programming",
-    numOfVideos: 150,
-    numOfLectures: 4,
-    numOfSections: 8,
-    price: 300.0,
-    rating: 3.5,
-  },
-  {
-    image: course4,
-    author: "Adel nsiem",
-    title: "React Js",
-    category: "Programming",
-    numOfVideos: 150,
-    numOfLectures: 4,
-    price: 50.0,
-    rating: 4.5,
-  }, {
-    image: course4,
-    author: "Adel nsiem",
-    title: "React Js",
-    category: "Programming",
-    numOfVideos: 150,
-    numOfLectures: 4,
-    price: 50.0,
-    rating: 4.5,
-  }, {
-    image: course4,
-    author: "Adel nsiem",
-    title: "React Js",
-    category: "Programming",
-    numOfVideos: 150,
-    numOfLectures: 4,
-    price: 50.0,
-    rating: 4.5,
-  },
-  {
-    image: course3,
-    author: "Adel nsiem",
-    title: "The complete course of programming object for beginners",
-    category: "Programming",
-    numOfVideos: 150,
-    numOfSections: 8,
-    numOfLectures: 4,
-    price: 50.0,
-    rating: 4.5,
-  },
-  {
-    image: course1,
-    author: "Adel nsiem",
-    title: "The complete course of programming object for beginners",
-    category: "Programming",
-    numOfVideos: 150,
-    numOfLectures: 4,
-    numOfSections: 8,
-    price: 50.0,
-    rating: 4.5,
-  }, {
-    image: course1,
-    author: "Adel nsiem",
-    title: "The complete course of programming object for beginners",
-    category: "Programming",
-    numOfVideos: 150,
-    numOfLectures: 4,
-    numOfSections: 8,
-    price: 50.0,
-    rating: 4.5,
-  }
-];
+
 
 
 function ShopingCart() {
+  const [shopingCartCourses, setShopingCartCourses] = useState([
+    {
+      id: 1,
+      image: course5,
+      author: "Adel nsiem",
+      title: "The complete course of programming object for beginners",
+      category: "Programming",
+      numOfVideos: 150,
+      numOfLectures: 4,
+      numOfSections: 8,
+      price: 100.0,
+      rating: 3,
+    },
+    {
+      id: 2,
+      image: course4,
+      author: "elzero",
+      title: "The complete course of programming object for beginners",
+      category: "Programming",
+      numOfVideos: 120,
+      numOfLectures: 5,
+      numOfSections: 8,
+      price: 300.0,
+      rating: 2.5,
+    },
+    {
+      id: 3,
+      image: course5,
+      author: "Karim abdelazim",
+      title: "Data Structure",
+      category: "Programming",
+      numOfVideos: 50,
+      numOfLectures: 10,
+      price: 400.0,
+      rating: 5,
+    },
+    {
+      id: 4,
+      image: course2,
+      author: "Adel nsiem",
+      title: "The complete course of programming object for beginners",
+      category: "Programming",
+      numOfVideos: 150,
+      numOfLectures: 4,
+      numOfSections: 8,
+      price: 300.0,
+      rating: 3.5,
+    },
+    {
+      id: 5,
+      image: course4,
+      author: "Adel nsiem",
+      title: "React Js",
+      category: "Programming",
+      numOfVideos: 150,
+      numOfLectures: 4,
+      price: 50.0,
+      rating: 4.5,
+    }, {
+      id: 6,
+      image: course4,
+      author: "Adel nsiem",
+      title: "React Js",
+      category: "Programming",
+      numOfVideos: 150,
+      numOfLectures: 4,
+      price: 50.0,
+      rating: 4.5,
+    }, {
+      id: 7,
+      image: course4,
+      author: "Adel nsiem",
+      title: "React Js",
+      category: "Programming",
+      numOfVideos: 150,
+      numOfLectures: 4,
+      price: 50.0,
+      rating: 4.5,
+    },
+    {
+      id: 8,
+      image: course3,
+      author: "Adel nsiem",
+      title: "The complete course of programming object for beginners",
+      category: "Programming",
+      numOfVideos: 150,
+      numOfSections: 8,
+      numOfLectures: 4,
+      price: 50.0,
+      rating: 4.5,
+    },
+    {
+      id: 9,
+      image: course1,
+      author: "Adel nsiem",
+      title: "The complete course of programming object for beginners",
+      category: "Programming",
+      numOfVideos: 150,
+      numOfLectures: 4,
+      numOfSections: 8,
+      price: 50.0,
+      rating: 4.5,
+    }, {
+      id: 10,
+      image: course1,
+      author: "Adel nsiem",
+      title: "The complete course of programming object for beginners",
+      category: "Programming",
+      numOfVideos: 150,
+      numOfLectures: 4,
+      numOfSections: 8,
+      price: 50.0,
+      rating: 4.5,
+    }
+  ])
 
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -143,7 +156,11 @@ function ShopingCart() {
   };
   const totalPrice = calculateTotalPrice(shopingCartCourses);
 
- 
+  const handleRemoveCourse = (courseId) => {
+    const updatedCourses = shopingCartCourses.filter((course) => course.id !== courseId);
+    setShopingCartCourses(updatedCourses);
+  };
+
   return (
     <>
       {/* Header Of Shopping Cart */}
@@ -206,7 +223,7 @@ function ShopingCart() {
                     <h3 className="text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5">
                       {item.numOfSections} Sections
                     </h3>
-                    <button className=" absolute right-1 text-blue-700 text-base font-semibold tracking-tight hover:text-blue-950 transition duration-300 ease-in-out">
+                    <button onClick={() => handleRemoveCourse(item.id)} className=" absolute right-1 text-blue-700 text-base font-semibold tracking-tight hover:text-blue-950 transition duration-300 ease-in-out">
                       <FontAwesomeIcon icon={faTimes} /> Remove
                     </button>
                   </div>
