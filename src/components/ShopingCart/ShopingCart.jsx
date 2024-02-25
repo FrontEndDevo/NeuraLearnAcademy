@@ -164,17 +164,6 @@ function ShopingCart() {
       numOfSections: 8,
       price: 50.0,
       rating: 3,
-    }, {
-      id: 14,
-      image: course5,
-      author: "Adel nsiem",
-      title: "The complete course of programming object for beginners",
-      category: "React Js",
-      numOfVideos: 10,
-      numOfLectures: 4,
-      numOfSections: 8,
-      price: 2000.0,
-      rating: 4,
     }
   ])
   // use pagination
@@ -189,10 +178,11 @@ function ShopingCart() {
     indexOfFirstCourse,
     indexOfLastCourse
   );
+  //calculate the number of pages to render elments
   const totalPages = Math.ceil(shopingCartCourses.length / productsPerPage)
 
   // calculate the total price pf cart courses  
-  const calculateTotalPrice = (courses) => courses.reduce((total, course) => total + course.price, 0).toFixed(2);
+  const calculateTotalPrice = (courses) => +(courses.reduce((total, course) => total + course.price, 0).toFixed(2));
   const totalPrice = calculateTotalPrice(shopingCartCourses);
 
   // remove elementt i click on it
