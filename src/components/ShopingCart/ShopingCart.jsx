@@ -274,7 +274,7 @@ function ShopingCart() {
           <h3 className="text-black text-sm font-semibold font-['Open Sans'] my-2">
             Courses in Cart: {shopingCartCourses.length}
           </h3>
-          <button className="w-[150px] mx-auto bg-blue-700 rounded-[25px] p-2 my-2 text-white hover:bg-blue-950 transition duration-300 ease-in-out">
+          <button className="w-[9.3rem] mx-auto bg-blue-700 rounded-[1.5rem] p-2 my-2 text-white hover:bg-blue-950 transition duration-300 ease-in-out">
             Checkout
           </button>
         </div>
