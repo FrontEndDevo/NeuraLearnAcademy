@@ -203,21 +203,18 @@ function ShopingCart() {
       <div className="flex flex-col md:flex-row mx-4 mb-8">
         <div className="ml-0 md:ml-10 xl:ml-32 mt-20 w-full md:w-11/12 lg:w-7/12">
           <div className="mb-3">
-            <h1 className="text-2xl font-bold">Courses</h1>
+            <h1 className="text-2xl font-bold text-center md:text-left ">Courses</h1>
           </div>
           {shopingCartCourses
             .slice((currentPage - 1) * productsPerPage, currentPage * productsPerPage)
             .map((item) => (
               <div key={item.id} className="mb-2 relative flex flex-col md:flex-row pl-3 pr-5 pt-4 pb-3 bg-white rounded-lg border-b border-black border-opacity-60 ml-1">
-                <img src={item.image} className=" w-screen h-32  md:w-32  md:h-28" alt={item.title} loading="lazy" />
+                <img src={item.image} className=" w-screen h-32  md:w-32  md:h-28 mb-1 md:mb-0" alt={item.title} loading="lazy" />
                 <div className="md:ml-5 flex-grow">
-                  <div className="flex justify-between items-center">
-                    <Link to={`/${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-base md:text-lg font-semibold tracking-tight mt-2 md:mt-0">
+                  <div className="">
+                    <Link to={`/${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-base md:text-lg font-semibold tracking-tight ">
                       {item.title}
                     </Link>
-                    <h2 className="text-black text-base md:text-lg font-semibold tracking-tight">
-                      ${item.price}
-                    </h2>
                   </div>
                   <h2 className="text-black text-opacity-40 text-base md:text-sm font-medium tracking-tight mt-1 md:mt-0">
                     by {item.author}
@@ -241,10 +238,14 @@ function ShopingCart() {
                     <h3 className="text-black hidden lg:block text-opacity-40 text-sm font-medium tracking-tight ml-5">
                       {item.numOfSections} Sections
                     </h3>
-                    <button onClick={() => handleRemoveCourse(item.id)} className="absolute right-1 text-blue-700 text-base font-semibold tracking-tight hover:text-blue-950 transition duration-300 ease-in-out">
-                      <FontAwesomeIcon icon={faTimes} /> Remove
-                    </button>
+
                   </div>
+                  <h2 className=" md:absolute md:right-1 md:top-8 lg:top-10 xl:top-4 text-black text-base md:text-lg font-semibold tracking-tight">
+                    ${item.price}
+                  </h2>
+                  <button onClick={() => handleRemoveCourse(item.id)} className="md:absolute md:right-1 md:bottom-2 text-blue-700 text-base font-semibold tracking-tight hover:text-blue-950 transition duration-300 ease-in-out">
+                    <FontAwesomeIcon icon={faTimes} /> Remove
+                  </button>
                 </div>
               </div>
             ))}
