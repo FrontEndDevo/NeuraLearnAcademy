@@ -209,7 +209,7 @@ function ShopingCart() {
                 <img src={item.image} className=" w-screen h-32  md:w-32  md:h-28 mb-1 md:mb-0" alt={item.title} loading="lazy" />
                 <div className="md:ml-5 flex-grow">
                   <div className="">
-                    <Link to={`/${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-base md:text-lg font-semibold tracking-tight ">
+                    <Link to={`/${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="text-blue-900 hover:text-blue-950 transition duration-300 ease-in-out text-base md:text-lg md:font-semibold tracking-tight ">
                       {item.title}
                     </Link>
                   </div>
@@ -240,7 +240,7 @@ function ShopingCart() {
                   <h2 className=" md:absolute md:right-1 md:top-8 lg:top-10 xl:top-4 text-black text-base md:text-lg font-semibold tracking-tight">
                     ${item.price}
                   </h2>
-                  <button onClick={() => handleRemoveCourse(item.id)} className=" mt-1 md:mt-0 md:absolute md:right-1 md:bottom-2 text-blue-700 text-base font-semibold tracking-tight hover:text-blue-950 transition duration-300 ease-in-out">
+                  <button onClick={() => handleRemoveCourse(item.id)} className="mt-1 md:mt-0 md:absolute md:right-1 md:bottom-2 text-white md:text-blue-700 text-base font-semibold tracking-tight hover:text-blue-950 transition duration-300 ease-in-out bg-blue-900 md:bg-white hover:bg-blue-300 md:hover:bg-white w-full py-2 md:w-auto md:py-0 px-4 md:px-2 rounded-xl">
                     <FontAwesomeIcon icon={faTimes} /> Remove
                   </button>
                 </div>
