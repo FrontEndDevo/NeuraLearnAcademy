@@ -52,7 +52,7 @@ const FeaturesSection = () => {
       >
         <div className="container">
           <div className="grid grid-cols-1 pb-10 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 place-items-center">
-            {cardData.map((card, index) => {
+            {cardData.forEach((card, index) => {
               return (
                 <>
                   <div key={index} className="p-4">

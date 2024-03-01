@@ -53,7 +53,7 @@ function TopCategories() {
           Top Categories
         </h3>
         <ul className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap:0 ">
-          {CategoriesData.map((item, index) => {
+          {CategoriesData.forEach((item, index) => {
             return (
               <>
                 <li key={index} className="my-2 md:my-5">
