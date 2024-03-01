@@ -1,11 +1,10 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCertificate } from "@fortawesome/free-solid-svg-icons";
 import { faHandPointer } from "@fortawesome/free-solid-svg-icons";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-const benifitsUlClass =
+const benefitsUlClass =
   "relative z-0 grid w-full grid-cols-2 gap-5 p-3 mx-auto mt-8 text-center bg-white border shadow-md -mb-28 rounded-xl md:p-8 md:w-11/12 md:grid-cols-2 lg:grid-cols-5 md:text-left";
-const benifitsArray = [
+const benefitsArray = [
   {
     icon: faCertificate,
     title: "Discover",
@@ -27,8 +26,8 @@ const benifitsArray = [
     content: "and boost your chances at launching or advancing your career.",
   },
 ];
-const Benifits = () => {
-  const items = benifitsArray.map((item, index) => (
+const Benefits = () => {
+  const ourBenefits = benefitsArray.map((item, index) => (
     <li key={index}>
       <FontAwesomeIcon
         icon={item.icon}
@@ -40,7 +39,7 @@ const Benifits = () => {
     </li>
   ));
   return (
-    <ul className={benifitsUlClass}>
+    <ul className={benefitsUlClass}>
       <li className="col-span-2 md:col-span-1">
         <p className="mb-6 text-2xl font-extrabold">
           Take the first step toward your new career
@@ -51,9 +50,9 @@ const Benifits = () => {
           size="3x"
         />
       </li>
-      {items}
+      {ourBenefits}
     </ul>
   );
 };
 
-export default Benifits;
+export default Benefits;
