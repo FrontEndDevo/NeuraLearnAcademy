@@ -5,8 +5,10 @@ import { sortFilterClasses } from "./SortUserCourses";
 const FilterUserCourses = () => {
   return (
     <div className={sortFilterClasses.div}>
-      <FontAwesomeIcon icon={faSliders} />
-      <h4 className={sortFilterClasses.h4}>Filter</h4>
+      <div className="flex items-center gap-2">
+        <FontAwesomeIcon icon={faSliders} />
+        <h4 className={sortFilterClasses.header}>Filter</h4>
+      </div>
       <FontAwesomeIcon icon={faAngleDown} />
     </div>
   );
