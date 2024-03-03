@@ -157,7 +157,7 @@ const UserCourses = () => {
           : "Continue Learning";
       return (
         <li key={index}>
-          <div className="border shadow-lg h-[500px] md:h-[550px] lg:h-[700px] xl:h-[650px] 2xl:h-[600px] rounded-3xl">
+          <div className="border shadow-lg h-[34rem] md:h-[36rem] lg:h-[44rem] xl:h-[40rem] 2xl:h-[38rem] rounded-3xl">
             <img
               src={course.image}
               alt={course.title}
@@ -195,7 +195,7 @@ const UserCourses = () => {
               </div>
               <Link
                 to="/"
-                className="flex px-12 py-2 mx-auto text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm w-fit bg-primary-500 hover:bg-primary-700"
+                className="flex items-center justify-center px-12 py-2 text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm bg-primary-500 hover:bg-primary-700"
               >
                 {progressButton}
               </Link>
@@ -206,7 +206,7 @@ const UserCourses = () => {
     });
 
   return (
-    <section className="container grid grid-cols-1 gap-10 py-10 md:grid-cols-3 lg:gap-20 lg:grid-cols-4">
+    <section className="container grid grid-cols-1 px-2 py-10 gap-y-10 md:gap-x-8 md:grid-cols-3 lg:gap-10 lg:grid-cols-4">
       <UserCoursesOptions
         option={currentOption}
         chooseUserOption={memorizedUserOptions}
@@ -220,7 +220,7 @@ const UserCourses = () => {
             You don&apos;t have any courses yet, buy one.
           </p>
         ) : (
-          <ul className="grid grid-cols-1 gap-4 mx-8 md:mx-0 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-4 mx-4 md:mx-0 md:grid-cols-2 lg:grid-cols-3">
             {renderedUserCourses}
           </ul>
         )}
