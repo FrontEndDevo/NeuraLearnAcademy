@@ -48,11 +48,14 @@ const SearchUserCourses = React.memo(() => {
           id="courses"
           placeholder="Search my courses"
           className="w-full px-1 md:px-4 font-semibold py-3 text-xs border border-r-0 outline-none tracking-wide rounded-[3px] border-zinc-600 caret-gray-color-700"
+          disabled={!isSearchOpen}
         />
         <FontAwesomeIcon
           onClick={searchCoursesHandler}
           icon={faMagnifyingGlass}
-          className="absolute top-0 cursor-pointer right-0 px-2 rounded-r-[3px] w-[35px] h-[42px] text-white bg-zinc-600 duration-200 hover:bg-zinc-800"
+          className={`absolute top-0 cursor-pointer right-0 px-2 rounded-r-[3px] w-[35px] h-[42px] text-white bg-zinc-600 duration-200 hover:bg-zinc-800 ${
+            !isSearchOpen ? "pointer-events-none" : ""
+          }`}
         />
       </form>
     </div>
