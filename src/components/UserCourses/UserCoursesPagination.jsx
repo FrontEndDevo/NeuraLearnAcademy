@@ -14,7 +14,7 @@ const UserCoursesPagination = React.memo((props) => {
     "relative inline-flex items-center p-2 mx-1 text-sm font-bold text-primary-700 duration-300 rounded-lg hover:bg-primary-500 hover:text-white";
 
   const prevNextBtnsClasses =
-    "py-2 px-4 mx-2 text-xl rounded-full disabled:text-gray-400 border disabled:border-gray-400 border-black";
+    "py-2 px-4 mx-2 text-xl hover:bg-gray-800 hover:text-white duration-200 rounded-full disabled:text-gray-400 border disabled:border-gray-400 border-black disabled:hover:bg-inherit";
 
   // Number of products we want to show per page:
   const productsPerPage = 6;
@@ -61,11 +61,12 @@ const UserCoursesPagination = React.memo((props) => {
     >
       <div className="flex flex-col items-center gap-2">
         <div className="flex">
-          <button disabled={currentPage == 1} className={prevNextBtnsClasses}>
-            <FontAwesomeIcon
-              onClick={previousPageHandler}
-              icon={faChevronLeft}
-            />
+          <button
+            disabled={currentPage == 1}
+            onClick={previousPageHandler}
+            className={prevNextBtnsClasses}
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
           </button>
 
           <div>
@@ -109,8 +110,9 @@ const UserCoursesPagination = React.memo((props) => {
           <button
             disabled={currentPage == totalPages}
             className={prevNextBtnsClasses}
+            onClick={nextPageHandler}
           >
-            <FontAwesomeIcon onClick={nextPageHandler} icon={faChevronRight} />
+            <FontAwesomeIcon icon={faChevronRight} />
           </button>
         </div>
       </div>
