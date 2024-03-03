@@ -20,7 +20,7 @@ const SearchUserCourses = React.memo(() => {
   };
 
   return (
-    <div className="my-6">
+    <div className="md:my-6">
       <div className="items-center justify-between hidden md:flex">
         <h4 className="text-xs font-bold tracking-wide lg:text-base">
           Search your enrollments
