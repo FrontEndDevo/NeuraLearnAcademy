@@ -84,14 +84,6 @@ const UserCoursesPagination = React.memo((props) => {
 
             {renderedPages}
 
-            {/* <button
-              onClick={() => changePageHandler(currentPage + 1)}
-              className={pageNumberClasses}
-              page-number={currentPage + 1}
-            >
-              {currentPage + 1}
-            </button> */}
-
             {currentPage != totalPages - 2 && (
               <span className="text-2xl text-primary-700">
                 {currentPage != totalPages - 1 && "..."}
