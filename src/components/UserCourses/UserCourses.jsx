@@ -311,14 +311,14 @@ const allUserCourses = [
   },
 ];
 const UserCourses = () => {
+  // The number of elements to be rendered per page.
+  const elementsPerPage = 6;
+
   const [currentOption, setCurrentOption] = useState(0);
   const [paginationIndices, setPaginationIndices] = useState({
     start: 0,
-    end: 6,
+    end: elementsPerPage,
   });
-
-  // The number of elements to be rendered per page.
-  const elementsPerPage = 6;
 
   // Get the search keyword from the Redux store
   const searchKeyword = useSelector(
