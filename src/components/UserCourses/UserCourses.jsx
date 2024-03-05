@@ -4,8 +4,8 @@ import course1 from "../../assets/images/homepage/course_9.jpg";
 import course2 from "../../assets/images/homepage/course_8.jpg";
 import course3 from "../../assets/images/homepage/course_7.jpg";
 import { Link } from "react-router-dom";
-import UserCoursesPagination from "./UserCoursesPagination";
 import { useSelector } from "react-redux";
+import Pagination from "../../shared/Pagination";
 const userCourses = ["courses", "my lists", "wishlist", "archived", "purchase"];
 const allUserCourses = [
   {
@@ -99,12 +99,225 @@ const allUserCourses = [
     category: "Programming",
     progress: 100,
   },
+  {
+    image: course1,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 50,
+  },
+  {
+    image: course2,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 80,
+  },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
+  {
+    image: course1,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 50,
+  },
+  {
+    image: course2,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 80,
+  },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of object oriented programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
+  {
+    image: course1,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 50,
+  },
+  {
+    image: course2,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 80,
+  },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
+  {
+    image: course1,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 50,
+  },
+  {
+    image: course2,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 80,
+  },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
+  {
+    image: course1,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 50,
+  },
+  {
+    image: course2,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 80,
+  },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of object oriented programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
+  {
+    image: course1,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 50,
+  },
+  {
+    image: course2,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 80,
+  },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
+  {
+    image: course1,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 50,
+  },
+  {
+    image: course2,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 80,
+  },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
+  {
+    image: course1,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 50,
+  },
+  {
+    image: course2,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 80,
+  },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of object oriented programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
+  {
+    image: course1,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 50,
+  },
+  {
+    image: course2,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 80,
+  },
+  {
+    image: course3,
+    author: "Adel nsiem",
+    title: "The complete course of programming for beginners",
+    category: "Programming",
+    progress: 100,
+  },
 ];
 const UserCourses = () => {
+  // The number of elements to be rendered per page.
+  const elementsPerPage = 6;
+
   const [currentOption, setCurrentOption] = useState(0);
   const [paginationIndices, setPaginationIndices] = useState({
     start: 0,
-    end: 6,
+    end: elementsPerPage,
   });
 
   // Get the search keyword from the Redux store
@@ -122,10 +335,10 @@ const UserCourses = () => {
     setCurrentOption(index);
   }, []);
 
-  const memorizedUserCoursesPagination = useCallback((cur, productsPerPage) => {
+  const memorizedUserCoursesPagination = useCallback((cur) => {
     // Calc the first and last product index that should be rendered.
-    const startIndex = (cur - 1) * productsPerPage;
-    const endIndex = startIndex + productsPerPage;
+    const startIndex = (cur - 1) * elementsPerPage;
+    const endIndex = startIndex + elementsPerPage;
 
     setPaginationIndices({ start: startIndex, end: endIndex });
   }, []);
@@ -157,7 +370,7 @@ const UserCourses = () => {
           : "Continue Learning";
       return (
         <li key={index}>
-          <div className="border shadow-lg h-[500px] md:h-[550px] lg:h-[700px] xl:h-[650px] 2xl:h-[600px] rounded-3xl">
+          <div className="border shadow-lg h-[34rem] md:h-[36rem] lg:h-[44rem] xl:h-[40rem] 2xl:h-[38rem] rounded-3xl">
             <img
               src={course.image}
               alt={course.title}
@@ -195,7 +408,7 @@ const UserCourses = () => {
               </div>
               <Link
                 to="/"
-                className="flex px-12 py-2 mx-auto text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm w-fit bg-primary-500 hover:bg-primary-700"
+                className="flex items-center justify-center px-12 py-2 text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm bg-primary-500 hover:bg-primary-700"
               >
                 {progressButton}
               </Link>
@@ -206,7 +419,7 @@ const UserCourses = () => {
     });
 
   return (
-    <section className="container grid grid-cols-1 gap-10 py-10 md:grid-cols-3 lg:gap-20 lg:grid-cols-4">
+    <section className="container grid grid-cols-1 px-2 py-10 gap-y-10 md:gap-x-8 md:grid-cols-3 lg:gap-10 lg:grid-cols-4">
       <UserCoursesOptions
         option={currentOption}
         chooseUserOption={memorizedUserOptions}
@@ -220,14 +433,14 @@ const UserCourses = () => {
             You don&apos;t have any courses yet, buy one.
           </p>
         ) : (
-          <ul className="grid grid-cols-1 gap-4 mx-8 md:mx-0 md:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-4 mx-4 md:mx-0 md:grid-cols-2 lg:grid-cols-3">
             {renderedUserCourses}
           </ul>
         )}
-        <UserCoursesPagination
-          coursesLength={correctCoursesArray.length}
+        <Pagination
+          elementsPerPage={elementsPerPage}
+          length={correctCoursesArray.length}
           getCurrentPage={memorizedUserCoursesPagination}
-          paginationIndices={paginationIndices}
         />
       </div>
     </section>
