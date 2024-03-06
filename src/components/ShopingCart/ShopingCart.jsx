@@ -289,24 +289,24 @@ function ShopingCart() {
           </div>
         </div>
 
-        <div className="order-first md:order-none w-full md:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-20 2xl:ml-40 my-5 md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center">
+        <div className="order-first md:order-none w-full  md:w-[300px]  lg:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-10 2xl:ml-40 my-5  md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center">
           <h1 className="text-xl font-semibold tracking-tight text-black"></h1>
-          <div className="order-first md:order-none w-full  md:w-[300px]  lg:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-10 2xl:ml-40 my-5  md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center">
-            <h1 className="text-xl font-semibold tracking-tight text-black">
-              Total Price:
-            </h1>
-            <h2 className="text-black text-[32px] font-semibold">
-              ${totalPrice}
-            </h2>
-            <h3 className="text-black text-sm font-semibold font-['Open Sans'] my-2">
-              Courses in Cart: {shopingCartCourses.length}
-            </h3>
-            <button className="w-[9.3rem] mx-auto bg-blue-700 rounded-[1.5rem] p-2 my-2 text-white hover:bg-blue-950 transition duration-300 ease-in-out">
-              Checkout
-            </button>
-          </div>
+
+          <h1 className="text-xl font-semibold tracking-tight text-black">
+            Total Price:
+          </h1>
+          <h2 className="text-black text-[32px] font-semibold">
+            ${totalPrice}
+          </h2>
+          <h3 className="text-black text-sm font-semibold font-['Open Sans'] my-2">
+            Courses in Cart: {shopingCartCourses.length}
+          </h3>
+          <button className="w-[9.3rem] mx-auto bg-blue-700 rounded-[1.5rem] p-2 my-2 text-white hover:bg-blue-950 transition duration-300 ease-in-out">
+            Checkout
+          </button>
         </div>
       </div>
+
     </>
   );
 }
