@@ -209,102 +209,98 @@ function ShopingCart() {
 
       {/* render courses */}
       <div className="flex flex-col mx-4 mb-8 md:flex-row">
-        <div className="w-full mt-20 ml-0 md:ml-10 xl:ml-32 md:w-7/12">
-          <div className="flex flex-col mx-4 mb-8 md:flex-row">
-            <div className="w-full mt-20 ml-0 md:ml-10 xl:ml-32 md:w-11/12 lg:w-7/12">
-              <div className="mb-3">
-                <h1 className="text-2xl font-bold text-center md:text-left md:ml-4 ">
-                  Courses
-                </h1>
-              </div>
-              {shopingCartCourses
-                .slice(paginationIndices.start, paginationIndices.end)
-                .map((item) => (
-                  <div
-                    key={item.id}
-                    className="relative flex flex-col pt-4 pb-3 pl-3 pr-5 mb-2 ml-1 bg-white border-b border-black rounded-lg md:flex-row border-opacity-60"
-                  >
-                    <img
-                      src={item.image}
-                      className="w-screen h-32 mb-1 md:w-32 md:h-28 md:mb-0"
-                      alt={item.title}
-                      loading="lazy"
-                    />
-                    <div className="flex-grow md:ml-5">
-                      <div className="">
-                        <Link
-                          to={`/${item.title
-                            .toLowerCase()
-                            .replace(/\s+/g, "-")}`}
-                          className="text-base tracking-tight text-blue-900 transition duration-300 ease-in-out hover:text-blue-950 md:text-lg md:font-semibold "
-                        >
-                          {item.title}
-                        </Link>
-                      </div>
-                      <h2 className="mt-1 text-base font-medium tracking-tight text-black text-opacity-40 md:text-sm md:mt-0">
-                        by {item.author}
-                      </h2>
-                      <span className="text-lg text-black">{item.rating}</span>
-                      {Array.from({ length: 5 }, (_, index) => (
-                        <FontAwesomeIcon
-                          key={index}
-                          icon={faStar}
-                          className={
-                            index < item.rating
-                              ? "text-yellow-500 ml-1"
-                              : "ml-1"
-                          }
-                        />
-                      ))}
-                      <div className="flex flex-wrap my-1">
-                        <h3 className="text-sm font-medium tracking-tight text-black text-opacity-40">
-                          <FontAwesomeIcon className="mr-1" icon={faVideo} />
-                          {item.numOfVideos} videos
-                        </h3>
-                        <h3 className="hidden ml-5 text-sm font-medium tracking-tight text-black lg:block text-opacity-40">
-                          {item.numOfLectures} Lectures
-                        </h3>
-                        <h3 className="hidden ml-5 text-sm font-medium tracking-tight text-black lg:block text-opacity-40">
-                          {item.numOfSections} Sections
-                        </h3>
-                      </div>
-                      <h2 className="text-base font-semibold tracking-tight text-black md:absolute md:right-1 md:top-8 lg:top-10 xl:top-4 md:text-lg">
-                        ${item.price}
-                      </h2>
-                      <button
-                        onClick={() => handleRemoveCourse(item.id)}
-                        className="w-full px-4 py-2 mt-1 text-base font-semibold tracking-tight text-white transition duration-300 ease-in-out bg-blue-900 md:mt-0 md:absolute md:right-1 md:bottom-2 md:text-blue-700 hover:text-blue-950 md:bg-white hover:bg-blue-300 md:hover:bg-white md:w-auto md:py-0 md:px-2 rounded-xl"
-                      >
-                        <FontAwesomeIcon icon={faTimes} /> Remove
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              <Pagination
-                elementsPerPage={elementsPerPage}
-                length={shopingCartCourses.length}
-                getCurrentPage={getCurrentPage}
-              />
-            </div>
+        <div className="w-full mt-20 ml-0 md:ml-10 xl:ml-32 md:w-11/12 lg:w-7/12">
+          <div className="mb-3">
+            <h1 className="text-2xl font-bold text-center md:text-left md:ml-4 ">
+              Courses
+            </h1>
           </div>
+          {shopingCartCourses
+            .slice(paginationIndices.start, paginationIndices.end)
+            .map((item) => (
+              <div
+                key={item.id}
+                className="relative flex flex-col pt-4 pb-3 pl-3 pr-5 mb-2 ml-1 bg-white border-b border-black rounded-lg md:flex-row border-opacity-60"
+              >
+                <img
+                  src={item.image}
+                  className="w-screen h-32 mb-1 md:w-32 md:h-28 md:mb-0"
+                  alt={item.title}
+                  loading="lazy"
+                />
+                <div className="flex-grow md:ml-5">
+                  <div className="">
+                    <Link
+                      to={`/${item.title
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`}
+                      className="text-base tracking-tight text-blue-900 transition duration-300 ease-in-out hover:text-blue-950 md:text-lg md:font-semibold "
+                    >
+                      {item.title}
+                    </Link>
+                  </div>
+                  <h2 className="mt-1 text-base font-medium tracking-tight text-black text-opacity-40 md:text-sm md:mt-0">
+                    by {item.author}
+                  </h2>
+                  <span className="text-lg text-black">{item.rating}</span>
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <FontAwesomeIcon
+                      key={index}
+                      icon={faStar}
+                      className={
+                        index < item.rating
+                          ? "text-yellow-500 ml-1"
+                          : "ml-1"
+                      }
+                    />
+                  ))}
+                  <div className="flex flex-wrap my-1">
+                    <h3 className="text-sm font-medium tracking-tight text-black text-opacity-40">
+                      <FontAwesomeIcon className="mr-1" icon={faVideo} />
+                      {item.numOfVideos} videos
+                    </h3>
+                    <h3 className="hidden ml-5 text-sm font-medium tracking-tight text-black lg:block text-opacity-40">
+                      {item.numOfLectures} Lectures
+                    </h3>
+                    <h3 className="hidden ml-5 text-sm font-medium tracking-tight text-black lg:block text-opacity-40">
+                      {item.numOfSections} Sections
+                    </h3>
+                  </div>
+                  <h2 className="text-base font-semibold tracking-tight text-black md:absolute md:right-1 md:top-8 lg:top-10 xl:top-4 md:text-lg">
+                    ${item.price}
+                  </h2>
+                  <button
+                    onClick={() => handleRemoveCourse(item.id)}
+                    className="w-full px-4 py-2 mt-1 text-base font-semibold tracking-tight text-white transition duration-300 ease-in-out bg-blue-900 md:mt-0 md:absolute md:right-1 md:bottom-2 md:text-blue-700 hover:text-blue-950 md:bg-white hover:bg-blue-300 md:hover:bg-white md:w-auto md:py-0 md:px-2 rounded-xl"
+                  >
+                    <FontAwesomeIcon icon={faTimes} /> Remove
+                  </button>
+                </div>
+              </div>
+            ))}
+          <Pagination
+            elementsPerPage={elementsPerPage}
+            length={shopingCartCourses.length}
+            getCurrentPage={getCurrentPage}
+          />
         </div>
+      </div>
 
-        <div className="order-first md:order-none w-full  md:w-[300px]  lg:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-10 2xl:ml-40 my-5  md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center">
-          <h1 className="text-xl font-semibold tracking-tight text-black"></h1>
+      <div className="order-first md:order-none w-full  md:w-[300px]  lg:w-[316px] h-[214px] pt-4 pl-7 ml-0 md:ml-10 2xl:ml-40 my-5  md:mt-16 bg-white rounded-[1.5rem] shadow-xl flex flex-col justify-center">
+        <h1 className="text-xl font-semibold tracking-tight text-black"></h1>
 
-          <h1 className="text-xl font-semibold tracking-tight text-black">
-            Total Price:
-          </h1>
-          <h2 className="text-black text-[32px] font-semibold">
-            ${totalPrice}
-          </h2>
-          <h3 className="text-black text-sm font-semibold font-['Open Sans'] my-2">
-            Courses in Cart: {shopingCartCourses.length}
-          </h3>
-          <button className="w-[9.3rem] mx-auto bg-blue-700 rounded-[1.5rem] p-2 my-2 text-white hover:bg-blue-950 transition duration-300 ease-in-out">
-            Checkout
-          </button>
-        </div>
+        <h1 className="text-xl font-semibold tracking-tight text-black">
+          Total Price:
+        </h1>
+        <h2 className="text-black text-[32px] font-semibold">
+          ${totalPrice}
+        </h2>
+        <h3 className="text-black text-sm font-semibold font-['Open Sans'] my-2">
+          Courses in Cart: {shopingCartCourses.length}
+        </h3>
+        <button className="w-[9.3rem] mx-auto bg-blue-700 rounded-[1.5rem] p-2 my-2 text-white hover:bg-blue-950 transition duration-300 ease-in-out">
+          Checkout
+        </button>
       </div>
 
     </>
