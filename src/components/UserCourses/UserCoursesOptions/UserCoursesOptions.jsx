@@ -57,7 +57,7 @@ const UserCoursesOptions = React.memo(({ option, chooseUserOption }) => {
       <ul className="flex flex-wrap justify-center gap-4 md:border-b-4 md:flex-col">
         {renderedAllUserOptions}
       </ul>
-      <div className="grid grid-cols-2 gap-2 md:block">
+      <div className="grid grid-cols-1 mx-auto md:block">
         <SearchUserCourses />
         <UserCoursesActions />
       </div>

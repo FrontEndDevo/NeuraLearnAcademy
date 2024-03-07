@@ -8,7 +8,7 @@ const UserCoursesActions = React.memo(() => {
   const [areActionsOpen, setAreActionsOpen] = useState(false);
 
   return (
-    <div className="my-6">
+    <div className="md:my-6">
       <div className="items-center justify-between hidden md:flex">
         <h4 className="text-xs font-bold tracking-wide lg:text-base">
           List Actions
