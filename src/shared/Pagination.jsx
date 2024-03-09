@@ -66,59 +66,58 @@ const Pagination = React.memo(({ elementsPerPage, length, getCurrentPage }) => {
     <div
       className={`${
         totalPages <= 1 ? "hidden" : "flex"
-      } flex-col items-center justify-center flex-1 gap-4 mx-2 mt-8 md:flex-row`}
+      } flex-col items-center justify-between flex-1 gap-4 mx-2 mt-8 md:flex-row`}
     >
-      <div className="flex items-center justify-between w-full gap-2">
-        <p className="text-xl font-bold select-none">
-          Page:{" "}
-          <span className="text-[#008374] underline border-b-2 border-[#008374]">
-            {currentPage}
-          </span>
-        </p>
-        <div className="flex flex-col items-center gap-2">
-          <div className="flex">
+      <div className="flex items-center font-bold gap-2">
+        <p className="text-xl select-none">Page: </p>
+        <span className="text-[#008374] underline border-b-2 border-[#008374]">
+          {currentPage}
+        </span>
+      </div>
+
+      <div className="flex flex-col items-center gap-2">
+        <div className="flex">
+          <button
+            disabled={currentPage == 1}
+            onClick={previousPageHandler}
+            className={prevNextBtnsClasses}
+          >
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </button>
+
+          <div>
             <button
-              disabled={currentPage == 1}
-              onClick={previousPageHandler}
-              className={prevNextBtnsClasses}
+              onClick={() => changePageHandler(1)}
+              className={pageNumberClasses}
             >
-              <FontAwesomeIcon icon={faChevronLeft} />
+              1
             </button>
 
-            <div>
-              <button
-                onClick={() => changePageHandler(1)}
-                className={pageNumberClasses}
-              >
-                1
-              </button>
+            {currentPage > 2 && (
+              <span className="text-2xl text-primary-700">...</span>
+            )}
 
-              {currentPage > 2 && (
-                <span className="text-2xl text-primary-700">...</span>
-              )}
+            {renderedPages}
 
-              {renderedPages}
-
-              {currentPage < totalPages - 1 && (
-                <span className="text-2xl text-primary-700">...</span>
-              )}
-
-              <button
-                onClick={() => changePageHandler(totalPages)}
-                className={pageNumberClasses}
-              >
-                {totalPages}
-              </button>
-            </div>
+            {currentPage < totalPages - 1 && (
+              <span className="text-2xl text-primary-700">...</span>
+            )}
 
             <button
-              disabled={currentPage == totalPages}
-              className={prevNextBtnsClasses}
-              onClick={nextPageHandler}
+              onClick={() => changePageHandler(totalPages)}
+              className={pageNumberClasses}
             >
-              <FontAwesomeIcon icon={faChevronRight} />
+              {totalPages}
             </button>
           </div>
+
+          <button
+            disabled={currentPage == totalPages}
+            className={prevNextBtnsClasses}
+            onClick={nextPageHandler}
+          >
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
         </div>
       </div>
     </div>
