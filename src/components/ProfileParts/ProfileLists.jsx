@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import userPhoto from "../../assets/images/LoginSigin/logo.png";
+import userPhoto from "../../assets/images/profile/unknown_user.webp";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
+
 const userInfo = {
   name: "Ahmed Ashraf",
   photo: userPhoto,
