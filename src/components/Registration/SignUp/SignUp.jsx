@@ -82,6 +82,7 @@ const SignUp = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfir, setPasswordConfir] = useState("");
   const [errors, setErrors] = useState({
     email: "",
     password: "",
@@ -193,6 +194,26 @@ const SignUp = () => {
                 className={`w-full pl-2 mb-3 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
                   }  md:w-80`}
                 value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onBlur={validatePassword}
+              />
+              {errors.password && (
+                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+              )}
+            </div>
+            <div>
+              <label
+                htmlFor="passwordConfir"
+                className="block mb-1 text-base font-semibold text-neutral-600"
+              >
+              Repeat Password
+              </label>
+              <input
+                type="password"
+                id="passwordConfir"
+                className={`w-full pl-2 mb-3 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
+                  }  md:w-80`}
+                value={passwordConfir}
                 onChange={(e) => setPassword(e.target.value)}
                 onBlur={validatePassword}
               />
