@@ -191,7 +191,7 @@ const SignUp = () => {
               <input
                 type="password"
                 id="password"
-                className={`w-full pl-2 mb-3 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
+                className={`w-full pl-2 mb-1 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
                   }  md:w-80`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -206,25 +206,23 @@ const SignUp = () => {
                 htmlFor="passwordConfir"
                 className="block mb-1 text-base font-semibold text-neutral-600"
               >
-              Repeat Password
+                Repeat Password
               </label>
               <input
                 type="password"
                 id="passwordConfir"
-                className={`w-full pl-2 mb-3 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
+                className={`w-full pl-2 mb-1 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
                   }  md:w-80`}
                 value={passwordConfir}
-                onChange={(e) => setPassword(e.target.value)}
-                onBlur={validatePassword}
+                onChange={(e) => setPasswordConfir(e.target.value)}
+
               />
-              {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
-              )}
+
             </div>
 
             <button
               type="submit"
-              className="w-5/6 py-2.5 text-xl font-semibold text-white bg-blue-700  hover:bg-blue-600"
+              className="w-5/6 py-1.5 text-xl font-semibold text-white bg-blue-700  hover:bg-blue-600"
             >
               Sign up
             </button>
