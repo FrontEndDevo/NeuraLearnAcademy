@@ -13,98 +13,17 @@ import image1 from "../../../assets/images/LoginSigin/logo.png";
 //files
 import CopyRights from "../CopyRights/CopyRights";
 
-// Validation is here
-export const validateEmail = (email, setErrors) => {
-  const emailRegex = /^[a-zA-Z][a-zA-Z0-9]*@[a-zA-Z]+\.[a-zA-Z]+$/;
-  if (!email) {
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      email: "Email is required",
-    }));
-  } else if (!emailRegex.test(email)) {
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      email: "Invalid email address",
-    }));
-  } else {
-    setErrors((prevErrors) => ({ ...prevErrors, email: "" }));
-  }
-};
-
-export const validatePassword = (password, setErrors) => {
-  if (!password) {
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      password: "Password is required",
-    }));
-  } else {
-    let passwordStrength = "Weak";
-
-    // Check password strength based on criteria (e.g., length, uppercase, lowercase, numbers, special characters)
-    if (
-      password.length >= 8 &&
-      /[a-z]/.test(password) &&
-      /[A-Z]/.test(password) &&
-      /\d/.test(password) &&
-      /[!@#$%^&*]/.test(password)
-    ) {
-      passwordStrength = "Strong";
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        password: `Password strength: ${passwordStrength}`,
-      }));
-    } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        password: "Password is weak, choose strong password.",
-      }));
-    }
-  }
-};
-
-export const validateFullName = (fullName, setErrors) => {
-  const fullNameRegex = /^[a-zA-Z\s]+$/;
-  if (!fullName) {
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      fullName: "Full name is required",
-    }));
-  } else if (!fullNameRegex.test(fullName)) {
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      fullName: "Invalid characters in full name",
-    }));
-  } else {
-    setErrors((prevErrors) => ({ ...prevErrors, fullName: "" }));
-  }
-};
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfir, setPasswordConfir] = useState("");
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-    fullName: "",
-  });
+  const [errors, setErrors] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    validateEmail(email, setErrors); // Pass email and setErrors
-    validatePassword(password, setErrors); // Pass password and setErrors
-    validateFullName(fullName, setErrors); // Pass fullName and setErrors
-
-    // perform logic
-
-    if (fullName && email && password) {
-      console.log("Full Name:", fullName);
-      console.log("Email:", email);
-      console.log("Password:", password);
-    } else {
-      console.error("Error: Please fill in all required fields.");
-    }
+    setErrors(true);
   };
 
   return (
@@ -159,9 +78,9 @@ const SignUp = () => {
                 </label>
                 <input
                   type="text"
-                  id="fullName2"
+                  id="lastName"
                   class="w-full pl-2 py-2 border {{ errors.fullName ? 'border-red-500' : 'border-gray-300' }} md:w-40"
-                  value=""
+                  value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
@@ -177,15 +96,12 @@ const SignUp = () => {
               <input
                 type="email"
                 id="email"
-                className={`w-full pl-2 py-2 border ${errors.email ? "border-red-500" : "border-gray-300"
-                  }  md:w-80`}
+                className="w-full pl-2 py-2 border border-gray-300 md:w-80"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                onBlur={validateEmail}
+                required
               />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-              )}
+
             </div>
 
             <div>
@@ -198,15 +114,16 @@ const SignUp = () => {
               <input
                 type="password"
                 id="password"
-                className={`w-full pl-2 mb-1 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
-                  }  md:w-80`}
+                className="w-full pl-2 mb-1 py-2 border border-gray-300 md:w-80"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                onBlur={validatePassword}
               />
-              {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+              {password.length < 8 && errors && (
+                <p className="text-red-700 my-1">
+                  password should at least 8 characters
+                </p>
               )}
+
             </div>
             <div>
               <label
@@ -218,11 +135,9 @@ const SignUp = () => {
               <input
                 type="password"
                 id="passwordConfir"
-                className={`w-full pl-2 mb-1 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
-                  }  md:w-80`}
+                className="w-full pl-2 mb-1 py-2 border border-gray-300 md:w-80"
                 value={passwordConfir}
                 onChange={(e) => setPasswordConfir(e.target.value)}
-
               />
 
             </div>
