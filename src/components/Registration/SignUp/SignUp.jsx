@@ -79,7 +79,8 @@ export const validateFullName = (fullName, setErrors) => {
   }
 };
 const SignUp = () => {
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfir, setPasswordConfir] = useState("");
@@ -108,16 +109,16 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center pt-10 pb-4">
+      <div className="flex flex-col items-center px-10 pt-10 pb-20">
         <div
           style={{
             boxShadow: "0px 4px 4px 3px rgba(0, 0, 0, 0.25)",
           }}
-          className="w-full max-w-md px-8 py-4 rounded-[15px] bg-slate-50 	"
+          className="w-full max-w-md px-8 py-4 rounded-[15px] bg-slate-50"
         >
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col items-center space-y-2 "
+            className="flex flex-col items-center space-y-3 "
           >
             <div className="flex items-center">
               <img src={image1} className="w-20 md:w-24" alt="logo" loading="lazy" />
@@ -139,35 +140,30 @@ const SignUp = () => {
               </div>
             </div>
 
-            <div className="flex">
-              <div className="mr-2">
-                <label htmlFor="fullName1" className="block mb-1 text-base font-semibold text-neutral-600">
+            <div class="flex flex-col md:flex-row">
+              <div class="mb-1 md:mr-2">
+                <label for="firstName" class="block mb-1 text-base font-semibold text-neutral-600">
                   First Name
                 </label>
                 <input
                   type="text"
-                  id="fullName1"
-                  className={`w-full pl-2 py-2 border ${errors.fullName ? "border-red-500" : "border-gray-300"
-                    } md:w-40`}
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                // onBlur={validateFullName}
+                  id="firstName"
+                  class="w-full pl-2 py-2 border {{ errors.fullName ? 'border-red-500' : 'border-gray-300' }} md:w-40"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
               <div>
-                <label htmlFor="fullName2" className="block mb-1 text-base font-semibold text-neutral-600">
+                <label for="fullName2" class="block mb-1 text-base font-semibold text-neutral-600">
                   Last Name
                 </label>
                 <input
                   type="text"
                   id="fullName2"
-                  className={`w-full pl-2 py-2 border ${errors.fullName ? "border-red-500" : "border-gray-300"
-                    } md:w-40`}
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
-                // onBlur={validateFullName}
+                  class="w-full pl-2 py-2 border {{ errors.fullName ? 'border-red-500' : 'border-gray-300' }} md:w-40"
+                  value=""
+                  onChange={(e) => setLastName(e.target.value)}
                 />
-
               </div>
             </div>
 
