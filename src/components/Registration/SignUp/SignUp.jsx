@@ -108,7 +108,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center px-10 pt-10 pb-4">
+      <div className="flex flex-col items-center pt-10 pb-4">
         <div
           style={{
             boxShadow: "0px 4px 4px 3px rgba(0, 0, 0, 0.25)",
@@ -117,7 +117,7 @@ const SignUp = () => {
         >
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col items-center space-y-4 "
+            className="flex flex-col items-center space-y-2 "
           >
             <div className="flex items-center">
               <img src={image1} className="w-20 md:w-24" alt="logo" loading="lazy" />
@@ -139,46 +139,35 @@ const SignUp = () => {
               </div>
             </div>
 
-            <div className=" flex">
-              <div>
-                <label
-                  htmlFor="fullName"
-                  className="block mb-1 text-base font-semibold text-neutral-600"
-                >
-                  Full Name
+            <div className="flex">
+              <div className="mr-2">
+                <label htmlFor="fullName1" className="block mb-1 text-base font-semibold text-neutral-600">
+                  First Name
                 </label>
                 <input
                   type="text"
-                  id="fullName"
+                  id="fullName1"
                   className={`w-full pl-2 py-2 border ${errors.fullName ? "border-red-500" : "border-gray-300"
-                    }  md:w-80`}
+                    } md:w-40`}
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  onBlur={validateFullName}
+                // onBlur={validateFullName}
                 />
-                {errors.fullName && (
-                  <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>
-                )}
               </div>
               <div>
-                <label
-                  htmlFor="fullName"
-                  className="block mb-1 text-base font-semibold text-neutral-600"
-                >
-                  Full Name
+                <label htmlFor="fullName2" className="block mb-1 text-base font-semibold text-neutral-600">
+                  Last Name
                 </label>
                 <input
                   type="text"
-                  id="fullName"
+                  id="fullName2"
                   className={`w-full pl-2 py-2 border ${errors.fullName ? "border-red-500" : "border-gray-300"
-                    }  md:w-80`}
+                    } md:w-40`}
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  onBlur={validateFullName}
+                // onBlur={validateFullName}
                 />
-                {errors.fullName && (
-                  <p className="mt-1 text-sm text-red-600">{errors.fullName}</p>
-                )}
+
               </div>
             </div>
 
