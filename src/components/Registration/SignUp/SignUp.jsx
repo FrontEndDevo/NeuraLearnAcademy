@@ -251,7 +251,7 @@ const SignUp = () => {
             {/* end social media icon */}
             <div className="text-lg font-bold text-center text-neutral-600 ">
               Already have an account?
-              <Link>
+              <Link to='/login'>
                 <span className="text-lg font-bold text-blue-700 underline">
                   {" "}
                   Log in
