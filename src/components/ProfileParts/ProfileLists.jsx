@@ -9,6 +9,7 @@ import {
   faShield,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const userInfo = {
   name: "Ahmed Ashraf",
@@ -58,23 +59,35 @@ const ProfileLists = () => {
     reader.readAsDataURL(file);
   };
 
+  const navigate = useNavigate();
+  const handleClick = (sectionName) => {
+    const sanitizedSectionName = sectionName
+      .replace(/[^a-zA-Z0-9 ]/g, "")
+      .replace(/\s+/g, "-");
+    navigate(`/${sanitizedSectionName}`, { replace: true });
+  };
+
   // render the profile sections:
   const userProfileSections = profileSections.map((section, index) => (
-    <li key={index}>
-      <FontAwesomeIcon icon={section.icon} />
-      <span>{section.name}</span>
+    <li
+      key={index}
+      className="flex items-center gap-2 p-2 duration-200 cursor-pointer hover:before:hidden hover:bg-blue-400"
+      onClick={() => handleClick(section.name)}
+    >
+      <FontAwesomeIcon icon={section.icon} className="w-5 h-5" />
+      <span className="text-base font-semibold capitalize">{section.name}</span>
     </li>
   ));
 
   return (
     <aside>
-      <div className="relative">
+      <div className="relative flex flex-col">
         <img
           src={userPhoto}
           alt={userInfo.name}
           className="w-40 h-40 rounded-full"
         />
-        <div className="absolute">
+        <div className="absolute bottom-0 left-28">
           <input
             type="file"
             name="photo"
@@ -83,12 +96,16 @@ const ProfileLists = () => {
             className="hidden"
             onChange={handleFileChange}
           />
-          <FontAwesomeIcon icon={faCamera} onClick={handleIconClick} />
+          <FontAwesomeIcon
+            icon={faCamera}
+            onClick={handleIconClick}
+            className="w-5 h-5 p-2 rounded-full cursor-pointer bg-zinc-300"
+          />
         </div>
-        <h1>{userInfo.name}</h1>
       </div>
+      <h1 className="mt-2 mb-4 text-lg font-semibold">{userInfo.name}</h1>
 
-      <ul>{userProfileSections}</ul>
+      <ul className="flex flex-col gap-4">{userProfileSections}</ul>
     </aside>
   );
 };
