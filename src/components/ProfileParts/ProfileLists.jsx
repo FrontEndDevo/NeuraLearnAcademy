@@ -1,6 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import userPhoto from "../../assets/images/profile/unknown_user.webp";
-import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBan,
+  faBell,
+  faCamera,
+  faIdCard,
+  faLock,
+  faShield,
+} from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
 
 const userInfo = {
@@ -9,11 +16,26 @@ const userInfo = {
 };
 
 const profileSections = [
-  "profile",
-  "password & security",
-  "privacy",
-  "notification",
-  "close account",
+  {
+    name: "profile",
+    icon: faIdCard,
+  },
+  {
+    name: "password & security",
+    icon: faLock,
+  },
+  {
+    name: "privacy",
+    icon: faShield,
+  },
+  {
+    name: "notification",
+    icon: faBell,
+  },
+  {
+    name: "close account",
+    icon: faBan,
+  },
 ];
 const ProfileLists = () => {
   const fileInput = useRef(null);
@@ -38,7 +60,10 @@ const ProfileLists = () => {
 
   // render the profile sections:
   const userProfileSections = profileSections.map((section, index) => (
-    <li key={index}>{section}</li>
+    <li key={index}>
+      <FontAwesomeIcon icon={section.icon} />
+      <span>{section.name}</span>
+    </li>
   ));
 
   return (
