@@ -40,7 +40,12 @@ const SignUp = () => {
             className="flex flex-col items-center space-y-3"
           >
             <div className="flex items-center">
-              <img src={image1} className="w-20 md:w-24" alt="logo" loading="lazy" />
+              <img
+                src={image1}
+                className="w-20 md:w-24"
+                alt="logo"
+                loading="lazy"
+              />
               <div className="w-[1px] h-28  bg-neutral-500 mx-2"></div>{" "}
               {/* Adjust the height and margin as needed */}
               <div>
@@ -61,7 +66,10 @@ const SignUp = () => {
 
             <div className="flex flex-col md:flex-row">
               <div className="mb-1 md:mr-2">
-                <label htmlFor="firstName" className="block mb-1 text-base font-semibold text-neutral-600">
+                <label
+                  htmlFor="firstName"
+                  className="block mb-1 text-base font-semibold text-neutral-600"
+                >
                   First Name
                 </label>
                 <input
@@ -73,7 +81,10 @@ const SignUp = () => {
                 />
               </div>
               <div>
-                <label htmlFor="fullName2" className="block mb-1 text-base font-semibold text-neutral-600">
+                <label
+                  htmlFor="fullName2"
+                  className="block mb-1 text-base font-semibold text-neutral-600"
+                >
                   Last Name
                 </label>
                 <input
@@ -101,7 +112,6 @@ const SignUp = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-
             </div>
 
             <div>
@@ -114,8 +124,11 @@ const SignUp = () => {
               <input
                 type="password"
                 id="password"
-                className={`w-full pl-2 mb-1 py-2 border ${errors && password.length < 8 ? "border-red-500" : "border-gray-300"
-                  } md:w-96`}
+                className={`w-full pl-2 mb-1 py-2 border ${
+                  errors && password.length < 8
+                    ? "border-red-500"
+                    : "border-gray-300"
+                } md:w-96`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -163,19 +176,25 @@ const SignUp = () => {
               </Link>
               <Link>
                 <button className="p-2 border border-blue-700 rounded-full">
-                  <FontAwesomeIcon icon={faLinkedin} className="text-blue-700" />
+                  <FontAwesomeIcon
+                    icon={faLinkedin}
+                    className="text-blue-700"
+                  />
                 </button>
               </Link>
               <Link>
                 <button className="p-2 border border-blue-800 rounded-full">
-                  <FontAwesomeIcon icon={faFacebook} className="text-blue-800" />
+                  <FontAwesomeIcon
+                    icon={faFacebook}
+                    className="text-blue-800"
+                  />
                 </button>
               </Link>
             </div>
             {/* end social media icon */}
             <div className="text-lg font-bold text-center text-neutral-600 ">
               Already have an account?
-              <Link to='/login'>
+              <Link to="/login">
                 <span className="text-lg font-bold text-blue-700 underline">
                   {" "}
                   Log in
@@ -184,7 +203,7 @@ const SignUp = () => {
             </div>
           </form>
         </div>
-      </div >
+      </div>
 
       <CopyRights />
     </>
