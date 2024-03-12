@@ -74,6 +74,7 @@ const SignUp = () => {
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
+                {firstName == "" && errors && <p className="text-red-700 my-1">First Name is required</p>}
               </div>
               <div>
                 <label
@@ -85,10 +86,11 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="lastName"
-                  className="w-full pl-2 py-2 border {{ errors.fullName ? 'border-red-500' : 'border-gray-300' }} md:w-48"
+                  className="w-full sm:w-96 pl-2 py-2 border {{ errors.fullName ? 'border-red-500' : 'border-gray-300' }}  md:w-48 "
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
+                {lastName == "" && errors && <p className="text-red-700 my-1">Last Name is required</p>}
               </div>
             </div>
 
@@ -102,7 +104,7 @@ const SignUp = () => {
               <input
                 type="email"
                 id="email"
-                className="w-full pl-2 py-2 border border-gray-300 md:w-96"
+                className="w-full sm:w-96 pl-2 py-2 border border-gray-300 md:w-96"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -120,14 +122,14 @@ const SignUp = () => {
                 type="password"
                 id="password"
                 className={`w-full pl-2 mb-1 py-2 border ${errors && password.length < 8
-                    ? "border-red-500"
-                    : "border-gray-300"
-                  } md:w-96`}
+                  ? "border-red-500"
+                  : "border-gray-300"
+                  } md:w-96 sm:w-96`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               {password.length < 8 && errors && (
-                <p className="text-red-700 my-1">
+                <p className="text-red-700 my-1 text-wrap">
                   Password should be at least 8 characters.
                 </p>
               )}
@@ -142,7 +144,7 @@ const SignUp = () => {
               <input
                 type="password"
                 id="passwordConfir"
-                className="w-full pl-2 mb-2 py-2 border border-gray-300 md:w-96"
+                className="w-full sm:w-96 pl-2 mb-2 py-2 border border-gray-300 md:w-96"
                 value={passwordConfir}
                 onChange={(e) => setPasswordConfir(e.target.value)}
               />
