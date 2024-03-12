@@ -1,16 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-// icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLinkedin,
   faGoogle,
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
-// images
 import image1 from "../../../assets/images/LoginSigin/logo.png";
-//files
 import CopyRights from "../CopyRights/CopyRights";
 
 const SignUp = () => {
@@ -47,7 +43,6 @@ const SignUp = () => {
                 loading="lazy"
               />
               <div className="w-[1px] h-28  bg-neutral-500 mx-2"></div>{" "}
-              {/* Adjust the height and margin as needed */}
               <div>
                 <div className="font-bold text-black text-1xl md:text-2xl">
                   <span className="text-2xl font-bold text-blue-700">N</span>
@@ -124,11 +119,10 @@ const SignUp = () => {
               <input
                 type="password"
                 id="password"
-                className={`w-full pl-2 mb-1 py-2 border ${
-                  errors && password.length < 8
+                className={`w-full pl-2 mb-1 py-2 border ${errors && password.length < 8
                     ? "border-red-500"
                     : "border-gray-300"
-                } md:w-96`}
+                  } md:w-96`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />

@@ -128,19 +128,25 @@ const Login = () => {
 
             <div className="flex space-x-12 ">
               <Link>
-                <div className="bg-red-600 p-2.5 rounded-[50%]  ">
-                  <FontAwesomeIcon icon={faGoogle} className="text-white" />
-                </div>
+                <button className="p-2 border border-red-600 rounded-full">
+                  <FontAwesomeIcon icon={faGoogle} className="text-red-600" />
+                </button>
               </Link>
               <Link>
-                <div className="bg-sky-600	 p-2.5 rounded-[50%]  ">
-                  <FontAwesomeIcon icon={faLinkedin} className="text-white" />
-                </div>
+                <button className="p-2 border border-blue-700 rounded-full">
+                  <FontAwesomeIcon
+                    icon={faLinkedin}
+                    className="text-blue-700"
+                  />
+                </button>
               </Link>
               <Link>
-                <div className="bg-blue-700 p-2.5 rounded-[50%]">
-                  <FontAwesomeIcon className="text-white" icon={faFacebook} />
-                </div>
+                <button className="p-2 border border-blue-800 rounded-full">
+                  <FontAwesomeIcon
+                    icon={faFacebook}
+                    className="text-blue-800"
+                  />
+                </button>
               </Link>
             </div>
           </form>
