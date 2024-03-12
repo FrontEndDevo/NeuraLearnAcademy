@@ -33,11 +33,11 @@ const SignUp = () => {
           style={{
             boxShadow: "0px 4px 4px 3px rgba(0, 0, 0, 0.25)",
           }}
-          className="w-full max-w-md px-8 py-4 rounded-[15px] bg-slate-50"
+          className="w-full max-w-lg px-6 py-4 rounded-[15px] bg-slate-50"
         >
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col items-center space-y-3 "
+            className="flex flex-col items-center space-y-3"
           >
             <div className="flex items-center">
               <img src={image1} className="w-20 md:w-24" alt="logo" loading="lazy" />
@@ -59,27 +59,27 @@ const SignUp = () => {
               </div>
             </div>
 
-            <div class="flex flex-col md:flex-row">
-              <div class="mb-1 md:mr-2">
-                <label for="firstName" class="block mb-1 text-base font-semibold text-neutral-600">
+            <div className="flex flex-col md:flex-row">
+              <div className="mb-1 md:mr-2">
+                <label htmlFor="firstName" className="block mb-1 text-base font-semibold text-neutral-600">
                   First Name
                 </label>
                 <input
                   type="text"
                   id="firstName"
-                  class="w-full pl-2 py-2 border {{ errors.fullName ? 'border-red-500' : 'border-gray-300' }} md:w-40"
+                  className="w-full pl-2 py-2 border {{ errors.fullName ? 'border-red-500' : 'border-gray-300' }} md:w-48"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
               <div>
-                <label for="fullName2" class="block mb-1 text-base font-semibold text-neutral-600">
+                <label htmlFor="fullName2" className="block mb-1 text-base font-semibold text-neutral-600">
                   Last Name
                 </label>
                 <input
                   type="text"
                   id="lastName"
-                  class="w-full pl-2 py-2 border {{ errors.fullName ? 'border-red-500' : 'border-gray-300' }} md:w-40"
+                  className="w-full pl-2 py-2 border {{ errors.fullName ? 'border-red-500' : 'border-gray-300' }} md:w-48"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
@@ -96,7 +96,7 @@ const SignUp = () => {
               <input
                 type="email"
                 id="email"
-                className="w-full pl-2 py-2 border border-gray-300 md:w-80"
+                className="w-full pl-2 py-2 border border-gray-300 md:w-96"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -114,16 +114,16 @@ const SignUp = () => {
               <input
                 type="password"
                 id="password"
-                className="w-full pl-2 mb-1 py-2 border border-gray-300 md:w-80"
+                className={`w-full pl-2 mb-1 py-2 border ${errors && password.length < 8 ? "border-red-500" : "border-gray-300"
+                  } md:w-96`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               {password.length < 8 && errors && (
                 <p className="text-red-700 my-1">
-                  password should at least 8 characters
+                  Password should be at least 8 characters.
                 </p>
               )}
-
             </div>
             <div>
               <label
@@ -135,16 +135,18 @@ const SignUp = () => {
               <input
                 type="password"
                 id="passwordConfir"
-                className="w-full pl-2 mb-1 py-2 border border-gray-300 md:w-80"
+                className="w-full pl-2 mb-2 py-2 border border-gray-300 md:w-96"
                 value={passwordConfir}
                 onChange={(e) => setPasswordConfir(e.target.value)}
               />
-
+              {passwordConfir !== password && errors && (
+                <p className="text-red-700 my-1">Passwords do not match.</p>
+              )}
             </div>
 
             <button
               type="submit"
-              className="w-5/6 py-1.5 text-xl font-semibold text-white bg-blue-700  hover:bg-blue-600"
+              className="w-full md:w-96 py-2  text-xl font-semibold text-white bg-blue-700  hover:bg-blue-600"
             >
               Sign up
             </button>
@@ -155,19 +157,19 @@ const SignUp = () => {
             {/* start social media icon */}
             <div className="flex space-x-12 ">
               <Link>
-                <div className="bg-red-600 p-2.5 rounded-[50%]  ">
-                  <FontAwesomeIcon icon={faGoogle} className="text-white" />
-                </div>
+                <button className="p-2 border border-red-600 rounded-full">
+                  <FontAwesomeIcon icon={faGoogle} className="text-red-600" />
+                </button>
               </Link>
               <Link>
-                <div className="bg-sky-600	 p-2.5 rounded-[50%]  ">
-                  <FontAwesomeIcon icon={faLinkedin} className="text-white" />
-                </div>
+                <button className="p-2 border border-blue-700 rounded-full">
+                  <FontAwesomeIcon icon={faLinkedin} className="text-blue-700" />
+                </button>
               </Link>
               <Link>
-                <div className="bg-blue-700 p-2.5 rounded-[50%]">
-                  <FontAwesomeIcon className="text-white" icon={faFacebook} />
-                </div>
+                <button className="p-2 border border-blue-800 rounded-full">
+                  <FontAwesomeIcon icon={faFacebook} className="text-blue-800" />
+                </button>
               </Link>
             </div>
             {/* end social media icon */}
@@ -182,7 +184,7 @@ const SignUp = () => {
             </div>
           </form>
         </div>
-      </div>
+      </div >
 
       <CopyRights />
     </>

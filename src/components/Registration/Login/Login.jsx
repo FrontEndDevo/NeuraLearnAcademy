@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-//icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLinkedin,
@@ -9,22 +8,18 @@ import {
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
 
-//images
 import image1 from "../../../assets/images/LoginSigin/logo.png";
-//files & functions
 import CopyRights from "../CopyRights/CopyRights";
-import { validateEmail, validatePassword } from "../SignUp/SignUp";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState("");
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    validateEmail(email, setErrors); // Pass email and setErrors
-    validatePassword(password, setErrors); // Pass password and setErrors
+
 
     // perform logic
 
@@ -42,7 +37,7 @@ const Login = () => {
         <div className="flex items-center justify-between mb-10">
           <h1 className="font-bold text-neutral-600 md:text-lg">
             New To NLA ?{" "}
-            <Link to="/register">
+            <Link to="/signup">
               <span className="text-lg font-bold text-blue-700">
                 Create Account
               </span>
@@ -89,15 +84,11 @@ const Login = () => {
               <input
                 type="email"
                 id="email"
-                className={`w-full pl-2 py-2 border ${errors.email ? "border-red-500" : "border-gray-300"
-                  }  md:w-80`}
+                className="w-full pl-2 py-2 border border-gray-300 md:w-80"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                onBlur={validateEmail}
               />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-              )}
+
             </div>
 
             <div>
@@ -110,15 +101,11 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
-                className={`w-full pl-2 mb-3 py-2 border ${errors.password ? "border-red-500" : "border-gray-300"
-                  }  md:w-80`}
+                className="w-full pl-2 mb-3 py-2 border border-gray-300 md:w-80"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                onBlur={validatePassword}
               />
-              {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
-              )}
+
             </div>
 
             <button
