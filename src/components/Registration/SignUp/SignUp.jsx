@@ -29,7 +29,7 @@ const SignUp = () => {
           style={{
             boxShadow: "0px 4px 4px 3px rgba(0, 0, 0, 0.25)",
           }}
-          className="w-full max-w-lg px-6 py-4 rounded-[15px] bg-slate-50"
+          className="w-full max-w-lg px-6 py-6 rounded-[15px] bg-slate-50"
         >
           <form
             onSubmit={handleSubmit}
