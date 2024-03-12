@@ -70,7 +70,10 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="firstName"
-                  className="w-full pl-2 py-2 border {{ errors.fullName ? 'border-red-500' : 'border-gray-300' }} md:w-48"
+                  className={`w-full sm:w-96 pl-2 py-2 border ${errors && lastName === ""
+                    ? "border-red-500"
+                    : "border-gray-300"
+                    } md:w-48`}
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
@@ -78,7 +81,7 @@ const SignUp = () => {
               </div>
               <div>
                 <label
-                  htmlFor="fullName2"
+                  htmlFor="lastName"
                   className="block mb-1 text-base font-semibold text-neutral-600"
                 >
                   Last Name
@@ -86,7 +89,10 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="lastName"
-                  className="w-full sm:w-96 pl-2 py-2 border {{ errors.fullName ? 'border-red-500' : 'border-gray-300' }}  md:w-48 "
+                  className={`w-full sm:w-96 pl-2 py-2 border ${errors && lastName === ""
+                    ? "border-red-500"
+                    : "border-gray-300"
+                    } md:w-48`}
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
@@ -144,7 +150,10 @@ const SignUp = () => {
               <input
                 type="password"
                 id="passwordConfir"
-                className="w-full sm:w-96 pl-2 mb-2 py-2 border border-gray-300 md:w-96"
+                className={`w-full sm:w-96 pl-2 mb-2 py-2 border ${errors && passwordConfir !== password
+                  ? "border-red-500"
+                  : "border-gray-300"
+                  } md:w-96`}
                 value={passwordConfir}
                 onChange={(e) => setPasswordConfir(e.target.value)}
               />
