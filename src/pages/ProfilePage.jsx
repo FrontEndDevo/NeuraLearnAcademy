@@ -2,9 +2,11 @@ import ProfileLists from "../components/ProfileParts/ProfileLists";
 
 const ProfilePage = () => {
   return (
-    <section>
+    <section className="container grid grid-cols-4 gap-2 py-20">
       <ProfileLists />
-      <p>Profile Sections</p>
+      <div className="col-span-3">
+        <p>Profile Sections</p>
+      </div>
     </section>
   );
 };
