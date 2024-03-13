@@ -71,7 +71,7 @@ const ProfileLists = () => {
   const userProfileSections = profileSections.map((section, index) => (
     <li
       key={index}
-      className="flex items-center gap-2 p-2 duration-200 cursor-pointer hover:before:hidden hover:bg-blue-400"
+      className="flex items-center gap-2 p-2 duration-200 border-blue-700 cursor-pointer hover:before:hidden hover:border-l-4"
       onClick={() => handleClick(section.name)}
     >
       <FontAwesomeIcon icon={section.icon} className="w-5 h-5" />
@@ -81,7 +81,7 @@ const ProfileLists = () => {
 
   return (
     <aside>
-      <div className="relative flex flex-col">
+      <div className="relative flex flex-col w-40 mx-auto">
         <img
           src={userPhoto}
           alt={userInfo.name}
@@ -103,7 +103,9 @@ const ProfileLists = () => {
           />
         </div>
       </div>
-      <h1 className="mt-2 mb-4 text-lg font-semibold">{userInfo.name}</h1>
+      <h1 className="mt-2 mb-4 text-lg font-semibold text-center">
+        {userInfo.name}
+      </h1>
 
       <ul className="flex flex-col gap-4">{userProfileSections}</ul>
     </aside>
