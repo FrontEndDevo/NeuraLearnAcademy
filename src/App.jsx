@@ -8,6 +8,7 @@ import ShoppingCartPage from "./pages/ShoppingCartPage";
 import ProfilePage from "./pages/ProfilePage";
 import ProfileInfoPage from "./pages/ProfileInfoPage";
 import ProfilePasswordSecurityPage from "./pages/ProfilePassword&SecurityPage";
+import ProfilePrivacyPage from "./pages/ProfilePrivacyPage";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/profile" element={<ProfilePage />}>
           <Route index element={<ProfileInfoPage />} />
           <Route path="password" element={<ProfilePasswordSecurityPage />} />
+          <Route path="privacy" element={<ProfilePrivacyPage />} />
         </Route>
       </Routes>
     </>
