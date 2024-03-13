@@ -7,6 +7,7 @@ import PageNotFound from "./pages/PageNotFound";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import ProfilePage from "./pages/ProfilePage";
 import ProfileInfoPage from "./pages/ProfileInfoPage";
+import ProfilePasswordSecurityPage from "./pages/ProfilePassword&SecurityPage";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/cart" element={<ShoppingCartPage />} />
         <Route path="/profile" element={<ProfilePage />}>
           <Route index element={<ProfileInfoPage />} />
+          <Route path="password" element={<ProfilePasswordSecurityPage />} />
         </Route>
       </Routes>
     </>
