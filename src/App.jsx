@@ -10,6 +10,7 @@ import ProfileInfoPage from "./pages/ProfileInfoPage";
 import ProfilePasswordSecurityPage from "./pages/ProfilePassword&SecurityPage";
 import ProfilePrivacyPage from "./pages/ProfilePrivacyPage";
 import ProfileNotificationPage from "./pages/ProfileNotificationPage";
+import ProfileCloseAcountPage from "./pages/ProfileCloseAcountPage";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="password" element={<ProfilePasswordSecurityPage />} />
           <Route path="privacy" element={<ProfilePrivacyPage />} />
           <Route path="Notification" element={<ProfileNotificationPage />} />
+          <Route path="CloseAcount" element={<ProfileCloseAcountPage />} />
         </Route>
       </Routes>
     </>
