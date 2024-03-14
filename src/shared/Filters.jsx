@@ -1,8 +1,9 @@
+import React from "react";
 import { faAngleDown, faSliders } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { sortFilterClasses } from "./SortUserCourses";
+import { sortFilterClasses } from "../components/UserCourses/UserCoursesOptions/UserCoursesActions/SortUserCourses";
 
-const FilterUserCourses = () => {
+const Filters = React.memo(() => {
   return (
     <div className={sortFilterClasses.div}>
       <div className="flex items-center gap-2">
@@ -12,5 +13,8 @@ const FilterUserCourses = () => {
       <FontAwesomeIcon icon={faAngleDown} />
     </div>
   );
-};
-export default FilterUserCourses;
+});
+
+Filters.displayName = "Filters";
+
+export default Filters;
