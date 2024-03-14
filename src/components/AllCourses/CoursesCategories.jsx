@@ -27,7 +27,7 @@ const settings = {
   verticalSwiping: true,
   swipeToSlide: true,
   autoplay: true,
-  speed: 1000,
+  speed: 1500,
   autoplaySpeed: 3000,
   cssEase: "ease-in-out",
 };
