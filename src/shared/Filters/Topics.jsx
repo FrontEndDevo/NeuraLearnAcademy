@@ -18,6 +18,18 @@ const topics = [
 const Topics = () => {
   const [areTopicsOpen, setAreTopicsOpen] = useState(true);
   const [showMore, setShowMore] = useState(false);
+  const [selectedTopics, setSelectedTopics] = useState([]);
+  console.log(selectedTopics);
+  const selectTopicHandler = (e) => {
+    const selectedTopic = e.target.value;
+    if (selectedTopics.includes(selectedTopic)) {
+      setSelectedTopics((prevTopics) =>
+        prevTopics.filter((topic) => topic !== selectedTopic)
+      );
+    } else {
+      setSelectedTopics((prevTopics) => [...prevTopics, selectedTopic]);
+    }
+  };
 
   // Render all topics.
   const allTopics = topics
@@ -30,6 +42,8 @@ const Topics = () => {
           name={item.topic}
           value={item.topic}
           className="mr-2"
+          checked={selectedTopics.includes(item.topic)}
+          onChange={selectTopicHandler}
         />
         <label htmlFor={item.topic} className="mr-1 font-semibold capitalize">
           {item.topic}
