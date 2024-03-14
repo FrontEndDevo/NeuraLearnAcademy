@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Slider from "react-slick/lib/slider";
+import SearchBar from "../../shared/SearchBar";
 
 const allCategories = [
   "all",
@@ -49,6 +50,7 @@ const CoursesCategories = () => {
       <div className="border-b-2 border-gray-700">
         <Slider {...settings}>{renderedCoursesCategories}</Slider>
       </div>
+      <SearchBar />
     </aside>
   );
 };
