@@ -2,7 +2,7 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import SortUserCourses from "./SortUserCourses";
-import Filters from "../../../../shared/Filters/Filters";
+import AllFilters from "../../../../shared/Filters/AllFilters";
 
 const UserCoursesActions = React.memo(() => {
   const [areActionsOpen, setAreActionsOpen] = useState(false);
@@ -30,7 +30,7 @@ const UserCoursesActions = React.memo(() => {
         }`}
       >
         <SortUserCourses />
-        <Filters />
+        <AllFilters />
       </div>
     </div>
   );
