@@ -41,7 +41,7 @@ const Topics = () => {
     ));
 
   return (
-    <div className="my-4">
+    <div className="py-4 border-b-2">
       <div className="items-center justify-between hidden mb-4 md:flex">
         <h2 className="text-lg font-semibold">Topics</h2>
         <FontAwesomeIcon
