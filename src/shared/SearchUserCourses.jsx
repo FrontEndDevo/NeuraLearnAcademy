@@ -5,7 +5,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSearchKeyword } from "../../../redux/slices/searchCourses";
+import { setSearchKeyword } from "../redux/slices/searchCourses";
 
 const SearchUserCourses = React.memo(() => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);

@@ -7,7 +7,7 @@ import {
   faTableList,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SearchUserCourses from "./SearchUserCourses";
+import SearchUserCourses from "../../../shared/SearchUserCourses";
 import React from "react";
 import UserCoursesActions from "./UserCoursesActions/UserCoursesActions";
 
