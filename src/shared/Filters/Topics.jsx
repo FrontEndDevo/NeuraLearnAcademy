@@ -35,7 +35,7 @@ const Topics = () => {
   const allTopics = topics
     .slice(0, showMore ? topics.length : 5)
     .map((item, index) => (
-      <div key={index} className="flex items-center mb-2 text-sm">
+      <li key={index} className="flex items-center mb-2 text-sm">
         <input
           type="checkbox"
           id={item.topic}
@@ -51,9 +51,8 @@ const Topics = () => {
         <span className="text-gray-500 text-opacity-60 ">
           ({item.totalCourses})
         </span>
-      </div>
+      </li>
     ));
-
   return (
     <div className="py-4 border-b-2">
       <div className="items-center justify-between hidden mb-4 md:flex">
@@ -68,14 +67,29 @@ const Topics = () => {
       </div>
 
       {areTopicsOpen && (
-        <div>
+        <ul
+          className={
+            !showMore &&
+            topics.length > 5 &&
+            "relative overflow-hidden before:absolute before:bottom-0 before:left-0 before:w-full before:h-1/4 before:bg-white before:opacity-80 before:shadow-innerwhite"
+          }
+        >
           {allTopics}
-          {topics.length > 5 && (
-            <button onClick={() => setShowMore((prevState) => !prevState)}>
-              {showMore ? "Show Less" : "Show More"}
-            </button>
-          )}
-        </div>
+        </ul>
+      )}
+      {areTopicsOpen && topics.length > 5 && (
+        <button
+          className="flex items-center gap-1 font-bold text-sm duration-300 cursor-pointer text-[#5624D8] hover:text-[#401b9c]"
+          onClick={() => setShowMore((prevState) => !prevState)}
+        >
+          {showMore ? "Show less" : "Show more"}
+          <FontAwesomeIcon
+            icon={faAngleDown}
+            className={`duration-300 mr-2 text-zinc-800 cursor-pointer ${
+              showMore ? "rotate-180" : ""
+            }`}
+          />
+        </button>
       )}
     </div>
   );
