@@ -3,6 +3,7 @@ import { faAngleDown, faSliders } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Topics from "./Topics";
 import Price from "./Price";
+import Ratings from "./Ratings";
 
 const AllFilters = React.memo(() => {
   const [areFiltersOpen, setAreFiltersOpen] = useState(true);
@@ -26,6 +27,7 @@ const AllFilters = React.memo(() => {
         />
       </div>
       <div className={`${areFiltersOpen ? "block" : "hidden"}`}>
+        <Ratings />
         <Topics />
         <Price />
       </div>
