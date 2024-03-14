@@ -11,11 +11,23 @@ const ratings = [
 ];
 const Ratings = () => {
   const [areRatingOpen, setAreRatingOpen] = useState(true);
+  const [selectedRating, setSelectedRating] = useState(null);
+
+  // Select the rating.
+  const selectRateHandler = (e) => {
+    setSelectedRating(+e.target.value);
+  };
 
   // Render the prices.
   const renderRatings = ratings.map((item, index) => (
     <div key={index} className="flex items-center mb-2 text-sm">
-      <input type="radio" id={item.rate} name="rating" value={item.rate} />
+      <input
+        type="radio"
+        id={item.rate}
+        name="rating"
+        value={item.rate}
+        onChange={selectRateHandler}
+      />
       <div className="mx-1">
         {Array.from({ length: 5 }, (_, i) => (
           <FontAwesomeIcon
