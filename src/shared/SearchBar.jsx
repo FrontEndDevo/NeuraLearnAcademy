@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { setSearchKeyword } from "../redux/slices/searchCourses";
 
 const SearchBar = React.memo(() => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(true);
 
   // To store the final value of the search input.
   const searchInputRef = useRef();
