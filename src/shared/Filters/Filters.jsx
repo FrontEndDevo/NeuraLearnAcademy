@@ -1,7 +1,7 @@
 import React from "react";
 import { faAngleDown, faSliders } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { sortFilterClasses } from "../components/UserCourses/UserCoursesOptions/UserCoursesActions/SortUserCourses";
+import { sortFilterClasses } from "../../components/UserCourses/UserCoursesOptions/UserCoursesActions/SortUserCourses";
 
 const Filters = React.memo(() => {
   return (
