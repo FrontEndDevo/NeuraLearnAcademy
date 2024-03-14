@@ -23,7 +23,7 @@ const SearchBar = React.memo(() => {
     <div className="md:my-6">
       <div className="items-center justify-between hidden md:flex">
         <h4 className="text-xs font-bold tracking-wide lg:text-base">
-          Search your enrollments
+          Search for a course
         </h4>
         <FontAwesomeIcon
           icon={faAngleDown}
@@ -46,7 +46,7 @@ const SearchBar = React.memo(() => {
           type="text"
           name="courses"
           id="courses"
-          placeholder="Search my courses"
+          placeholder="Write a course name"
           className="w-full px-1 md:px-4 font-semibold py-3 text-xs border border-r-0 outline-none tracking-wide rounded-[3px] border-zinc-600 caret-gray-color-700"
           disabled={!isSearchOpen}
         />
