@@ -7,7 +7,7 @@ import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSearchKeyword } from "../redux/slices/searchCourses";
 
-const SearchUserCourses = React.memo(() => {
+const SearchBar = React.memo(() => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   // To store the final value of the search input.
@@ -62,6 +62,6 @@ const SearchUserCourses = React.memo(() => {
   );
 });
 
-SearchUserCourses.displayName = "SearchUserCourses";
+SearchBar.displayName = "SearchBar";
 
-export default SearchUserCourses;
+export default SearchBar;
