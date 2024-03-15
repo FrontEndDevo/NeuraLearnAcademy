@@ -9,7 +9,7 @@ import {
   faShield,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const userInfo = {
   name: "Ahmed Ashraf",
@@ -18,11 +18,11 @@ const userInfo = {
 
 const profileSections = [
   {
-    name: "profile",
+    name: "profileInfo",
     icon: faIdCard,
   },
   {
-    name: "password & security",
+    name: "password&security",
     icon: faLock,
   },
   {
@@ -34,24 +34,21 @@ const profileSections = [
     icon: faBell,
   },
   {
-    name: "close account",
+    name: "close-account",
     icon: faBan,
   },
 ];
+
 const ProfileLists = () => {
   const fileInput = useRef(null);
-  const [userPhoto, setUserPhoto] = useState(userInfo.photo); // initial image (Unknown user)
+  const [userPhoto, setUserPhoto] = useState(userInfo.photo);
 
-  // handle the icon click to open the file input
   const handleIconClick = () => {
-    // trigger the file input
     fileInput.current.click();
   };
 
-  // handle the file change to update the photo of the user profile
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    // update the photo
     const reader = new FileReader();
     reader.onloadend = () => {
       setUserPhoto(reader.result);
@@ -59,24 +56,20 @@ const ProfileLists = () => {
     reader.readAsDataURL(file);
   };
 
-  const navigate = useNavigate();
-  const handleClick = (sectionName) => {
-    const sanitizedSectionName = sectionName
-      .replace(/[^a-zA-Z0-9 ]/g, "")
-      .replace(/\s+/g, "-");
-    navigate(`/${sanitizedSectionName}`, { replace: true });
-  };
-
-  // render the profile sections:
   const userProfileSections = profileSections.map((section, index) => (
-    <li
+    <NavLink
       key={index}
-      className="flex items-center gap-2 p-2 duration-200 border-blue-700 cursor-pointer hover:before:hidden hover:border-l-4"
-      onClick={() => handleClick(section.name)}
+      to={`/profile/${section.name}`}
+      style={({ isActive }) => ({
+        borderLeftStyle: isActive ? "solid" : "none",
+        borderLeftColor: isActive ? "blue" : "none",
+        borderLeftWidth: isActive ? "0.3rem" : "none",
+      })}
+      className="flex items-center gap-2 p-2 duration-200 cursor-pointer hover:before:hidden"
     >
       <FontAwesomeIcon icon={section.icon} className="w-5 h-5" />
       <span className="text-base font-semibold capitalize">{section.name}</span>
-    </li>
+    </NavLink>
   ));
 
   return (

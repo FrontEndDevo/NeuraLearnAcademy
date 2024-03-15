@@ -23,11 +23,14 @@ const App = () => {
         <Route path="/*" element={<PageNotFound />} />
         <Route path="/cart" element={<ShoppingCartPage />} />
         <Route path="/profile" element={<ProfilePage />}>
-          <Route index element={<ProfileInfoPage />} />
-          <Route path="password" element={<ProfilePasswordSecurityPage />} />
+          <Route path="profileInfo" element={<ProfileInfoPage />} />
+          <Route
+            path="password&security"
+            element={<ProfilePasswordSecurityPage />}
+          />
           <Route path="privacy" element={<ProfilePrivacyPage />} />
           <Route path="Notification" element={<ProfileNotificationPage />} />
-          <Route path="CloseAcount" element={<ProfileCloseAcountPage />} />
+          <Route path="close-account" element={<ProfileCloseAcountPage />} />
         </Route>
       </Routes>
     </>
