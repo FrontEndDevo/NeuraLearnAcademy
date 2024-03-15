@@ -73,7 +73,7 @@ const ProfileLists = () => {
   ));
 
   return (
-    <aside>
+    <aside className="col-span-6 mx-3 lg:col-span-1 md:col-span-2 md:mx-0">
       <div className="relative flex flex-col w-40 mx-auto">
         <img
           src={userPhoto}
