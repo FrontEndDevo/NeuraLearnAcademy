@@ -8,8 +8,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
-import UserCoursesActions from "./UserCoursesActions/UserCoursesActions";
-import SearchBar from "../../../shared/SearchBar";
+import UserCoursesActions from "./UserCoursesActions";
+import SearchBar from "../../shared/SearchBar";
 
 const userOptions = [
   {
