@@ -19,7 +19,7 @@ const Topics = () => {
   const [areTopicsOpen, setAreTopicsOpen] = useState(true);
   const [showMore, setShowMore] = useState(false);
   const [selectedTopics, setSelectedTopics] = useState([]);
-  console.log(selectedTopics);
+
   const selectTopicHandler = (e) => {
     const selectedTopic = e.target.value;
     if (selectedTopics.includes(selectedTopic)) {
