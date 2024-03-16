@@ -23,16 +23,12 @@ const CourseCard = ({
       ? "Review"
       : "Continue Learning";
 
-  // Classes:
-  const progressBarClasses = "absolute top-0 left-0 h-1 rounded-full";
-  const threeDotsClasses = "w-2 h-2 rounded-full bg-gray-color-500";
-
   return (
-    <li className="border shadow-lg h-[34rem] md:h-[36rem] lg:h-[44rem] xl:h-[40rem] 2xl:h-[38rem] rounded-3xl">
+    <li className="border shadow-lg rounded-3xl">
       <img
         src={image}
         alt={title}
-        className="w-full h-1/2 rounded-t-3xl"
+        className="w-full h-[250px] rounded-t-3xl"
         loading="lazy"
       />
       <div className="p-2">
@@ -42,7 +38,10 @@ const CourseCard = ({
           </span>
           <div className="flex gap-1 p-2 cursor-pointer lg:hover:animate-pulse">
             {Array.from({ length: 3 }, (_, i) => (
-              <span key={i} className={threeDotsClasses} />
+              <span
+                key={i}
+                className="w-2 h-2 rounded-full bg-gray-color-500"
+              />
             ))}
           </div>
         </div>
@@ -55,14 +54,14 @@ const CourseCard = ({
             {category}
           </h6>
         )}
-        {progress && (
+        {progress != null && (
           <div className="relative my-4">
             <span
               style={{ width: `${progress}%` }}
-              className={`${progressBarClasses} duration-500 bg-primary-500`}
+              className={`absolute top-0 left-0 h-1 rounded-full duration-500 bg-primary-500`}
             />
             <span
-              className={`${progressBarClasses} w-full bg-[#82818166] -z-10`}
+              className={`absolute top-0 left-0 h-1 rounded-full w-full bg-[#82818166] -z-10`}
             />
             <p className="text-[9px] mb-4 pt-3 md:text-sm font-semibold">
               {progress}% complete
@@ -75,7 +74,7 @@ const CourseCard = ({
             </Link>
           </div>
         )}
-        {rate && (
+        {rate != null && (
           <div>
             <p>{rate.toFixed(1)}</p>
             <div>
@@ -91,7 +90,7 @@ const CourseCard = ({
             </div>
           </div>
         )}
-        {price && (
+        {price != null && (
           <p>
             $
             {discount
