@@ -28,7 +28,7 @@ const CourseCard = ({
   const threeDotsClasses = "w-2 h-2 rounded-full bg-gray-color-500";
 
   return (
-    <div className="border shadow-lg h-[34rem] md:h-[36rem] lg:h-[44rem] xl:h-[40rem] 2xl:h-[38rem] rounded-3xl">
+    <li className="border shadow-lg h-[34rem] md:h-[36rem] lg:h-[44rem] xl:h-[40rem] 2xl:h-[38rem] rounded-3xl">
       <img
         src={image}
         alt={title}
@@ -102,7 +102,7 @@ const CourseCard = ({
         )}
         {discount && <p>{discount == 100 ? "free" : `${discount}%`}</p>}
       </div>
-    </div>
+    </li>
   );
 };
 
