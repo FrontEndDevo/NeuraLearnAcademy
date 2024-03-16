@@ -1,3 +1,4 @@
+import AllCourses from "../components/AllCourses/AllCourses";
 import CoursesCategories from "../components/AllCourses/CoursesCategories";
 
 const allCategories = [
@@ -25,7 +26,7 @@ const AllCoursesPage = () => {
       </div>
 
       <div className="col-span-5">
-        <h1>courses</h1>
+        <AllCourses />
       </div>
     </section>
   );
