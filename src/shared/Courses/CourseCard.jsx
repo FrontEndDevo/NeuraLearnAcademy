@@ -75,8 +75,8 @@ const CourseCard = ({
           </div>
         )}
         {rate != null && (
-          <div>
-            <p>{rate.toFixed(1)}</p>
+          <div className="flex items-center gap-1">
+            <p className="text-sm font-semibold">{rate.toFixed(1)}</p>
             <div>
               {[...Array(5)].map((_, i) => (
                 <FontAwesomeIcon
@@ -92,19 +92,22 @@ const CourseCard = ({
         )}
         {price != null && (
           <div className="flex items-center gap-2">
-            <p className="text-2xl font-bold">
-              $
-              {discount
-                ? (price - (price * discount) / 100).toFixed(2)
-                : price.toFixed(2)}{" "}
+            <p
+              className={`text-2xl font-bold ${
+                discount === 100 ? "text-[#3AA552]" : ""
+              }`}
+            >
+              {discount === 100
+                ? "Free"
+                : `$${(price - (price * discount) / 100).toFixed(2)}`}
             </p>
-            <span className="text-base font-semibold text-gray-500 line-through">
-              ${price.toFixed(2)}
-            </span>
-            {discount && (
-              <p className="text-base font-semibold">
-                {discount == 100 ? "free" : `${discount}%`}
-              </p>
+            {discount > 0 && discount < 100 && (
+              <>
+                <span className="text-base font-semibold text-gray-500 line-through">
+                  ${price.toFixed(2)}
+                </span>
+                <p className="text-base font-semibold">{`${discount}% off`}</p>
+              </>
             )}
           </div>
         )}
