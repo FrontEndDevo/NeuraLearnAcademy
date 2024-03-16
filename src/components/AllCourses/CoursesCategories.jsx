@@ -2,22 +2,8 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick/lib/slider";
 import SearchBar from "../../shared/SearchBar";
 import Filters from "../../shared/Filters/AllFilters";
+import PropTypes from "prop-types";
 
-const allCategories = [
-  "all",
-  "programming",
-  "development",
-  "data science",
-  "business",
-  "marketing",
-  "sales",
-  "drawing",
-  "photography",
-  "category_1",
-  "category_2",
-  "category_3",
-  "category_4",
-];
 // Slider settings.
 const settings = {
   dots: false,
@@ -33,9 +19,9 @@ const settings = {
   autoplaySpeed: 3000,
   cssEase: "ease-in-out",
 };
-const CoursesCategories = () => {
+const CoursesCategories = ({ categories }) => {
   // Render the courses categories first.
-  const renderedCoursesCategories = allCategories.map((cat, i) => (
+  const renderedCoursesCategories = categories.map((cat, i) => (
     <Link
       key={i}
       to={cat.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, "-")}
@@ -55,6 +41,11 @@ const CoursesCategories = () => {
       <Filters />
     </aside>
   );
+};
+
+// Prop types for the CoursesCategories component from (ESLint).
+CoursesCategories.propTypes = {
+  categories: PropTypes.array.isRequired,
 };
 
 export default CoursesCategories;
