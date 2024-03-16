@@ -31,7 +31,7 @@ const CourseCard = ({
         className="w-full h-[250px] rounded-t-3xl"
         loading="lazy"
       />
-      <div className="p-2">
+      <div className="px-4 py-2">
         <div className="flex items-center justify-between px-2">
           <span className="text-xs font-bold text-gray-color-500 md:text-sm">
             {instructor}
@@ -91,15 +91,23 @@ const CourseCard = ({
           </div>
         )}
         {price != null && (
-          <p>
-            $
-            {discount
-              ? (price - (price * discount) / 100).toFixed(2)
-              : price.toFixed(2)}
-            {<span>{price.toFixed(2)}</span>}
-          </p>
+          <div className="flex items-center gap-2">
+            <p className="text-2xl font-bold">
+              $
+              {discount
+                ? (price - (price * discount) / 100).toFixed(2)
+                : price.toFixed(2)}{" "}
+            </p>
+            <span className="text-base font-semibold text-gray-500 line-through">
+              ${price.toFixed(2)}
+            </span>
+            {discount && (
+              <p className="text-base font-semibold">
+                {discount == 100 ? "free" : `${discount}%`}
+              </p>
+            )}
+          </div>
         )}
-        {discount && <p>{discount == 100 ? "free" : `${discount}%`}</p>}
       </div>
     </li>
   );
