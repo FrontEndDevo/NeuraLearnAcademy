@@ -75,7 +75,7 @@ const CourseCard = ({
           </div>
         )}
         {rate != null && (
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1 mb-4">
             <p className="text-sm font-semibold">{rate.toFixed(1)}</p>
             <div>
               {[...Array(5)].map((_, i) => (
