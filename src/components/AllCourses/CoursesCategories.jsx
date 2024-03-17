@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick/lib/slider";
 import SearchBar from "../../shared/SearchBar";
 import Filters from "../../shared/Filters/AllFilters";
+import Sort from "../../shared/Sort";
 import PropTypes from "prop-types";
 import { formatUrlString } from "../../utils/Utils";
+import { useEffect, useState } from "react";
+import Dropdown from "../../shared/Dropdown";
 
 // Slider settings.
 const settings = {
@@ -21,6 +24,28 @@ const settings = {
   cssEase: "ease-in-out",
 };
 const CoursesCategories = ({ categories }) => {
+  const isMobile = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      isMobile[1](window.innerWidth < 768);
+    });
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        isMobile[1](window.innerWidth < 768);
+      });
+    };
+  }, [isMobile]);
+
+  // Navigate to the selected category when receive the clicked option from Dropdown component.
+  const navigate = useNavigate();
+  const selectCategory = (option) => {
+    const formattedCategoryForUrl = formatUrlString(option);
+
+    navigate(formattedCategoryForUrl);
+  };
+
   // Render the courses categories first.
   const renderedCoursesCategories = categories.map((cat, i) => {
     const formattedCategoryForUrl = formatUrlString(cat);
@@ -37,13 +62,32 @@ const CoursesCategories = ({ categories }) => {
       </Link>
     );
   });
+
   return (
-    <aside>
-      <div className="border-b-2 border-gray-700">
-        <Slider {...settings}>{renderedCoursesCategories}</Slider>
+    <aside className="my-10">
+      {!isMobile[0] && (
+        <div className="border-b-2 border-gray-700">
+          <Slider {...settings}>{renderedCoursesCategories}</Slider>
+        </div>
+      )}
+      <div>
+        <SearchBar />
+        <div
+          className={`grid ${
+            isMobile[0] ? "grid-cols-2" : "grid-cols-1"
+          } gap-4 items-center my-4 md:my-0`}
+        >
+          {isMobile[0] && (
+            <Dropdown
+              options={categories}
+              label="all"
+              getSelectedOption={selectCategory}
+            />
+          )}
+          <Sort />
+        </div>
+        <Filters />
       </div>
-      <SearchBar />
-      <Filters />
     </aside>
   );
 };
