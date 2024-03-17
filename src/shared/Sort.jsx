@@ -10,6 +10,7 @@ const Sort = React.memo(() => {
 
   const chooseSortOption = (option) => {
     setSelectedOption(option);
+    setIsSortOpen(false);
   };
 
   const sortDropdown = sortOptions.map((opt, i) => (
@@ -43,7 +44,7 @@ const Sort = React.memo(() => {
         className={`absolute z-50 duration-200 w-full p-2 bg-white border shadow-lg rounded-md ${
           isSortOpen
             ? "opacity-100 translate-y-0"
-            : "md:opacity-0 md:-translate-y-5"
+            : "md:opacity-0 md:-translate-y-5 pointer-events-none"
         }`}
       >
         {sortDropdown}
