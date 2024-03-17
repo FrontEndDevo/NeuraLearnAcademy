@@ -4,7 +4,46 @@ import CourseCard from "../../shared/Courses/CourseCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { formatUrlString } from "../../utils/Utils";
+import Pagination from "../../shared/Pagination";
+import { useCallback, useState } from "react";
 const coursesOfCategories = [
+  {
+    category: "top courses",
+    courses: [
+      {
+        image: courseImage,
+        instructor: "Instructor 1",
+        title: "Course 1",
+        rate: 4,
+        price: 19.99,
+        discount: 10,
+      },
+      {
+        image: courseImage,
+        instructor: "Instructor 2",
+        title: "Course 2",
+        rate: 4.2,
+        price: 24.99,
+        discount: 20,
+      },
+      {
+        image: courseImage,
+        instructor: "Instructor 3",
+        title: "Course 3",
+        rate: 4.7,
+        price: 29.99,
+        discount: 0,
+      },
+      {
+        image: courseImage,
+        instructor: "Instructor 4",
+        title: "Course 4",
+        rate: 4.9,
+        price: 34.99,
+        discount: 100,
+      },
+    ],
+  },
   {
     category: "programming",
     courses: [
@@ -230,12 +269,29 @@ const coursesOfCategories = [
 ];
 
 const AllCourses = () => {
-  const availableCategoriesOfCourses = coursesOfCategories.map(
-    (category, index) => {
+  // The number of elements to be rendered per page.
+  const elementsPerPage = 4;
+
+  const [paginationIndices, setPaginationIndices] = useState({
+    start: 0,
+    end: elementsPerPage,
+  });
+
+  const memorizedUserCoursesPagination = useCallback((cur) => {
+    // Calc the first and last product index that should be rendered.
+    const startIndex = (cur - 1) * elementsPerPage;
+    const endIndex = startIndex + elementsPerPage;
+
+    setPaginationIndices({ start: startIndex, end: endIndex });
+  }, []);
+
+  const availableCategoriesOfCourses = coursesOfCategories
+    .slice(paginationIndices.start, paginationIndices.end)
+    .map((category, index) => {
       const formattedTitleForUrl = formatUrlString(category.category);
 
       return (
-        <div key={index} className="relative p-2 m-2">
+        <div key={index} className="relative p-2 mb-10">
           <h2 className="mb-4 text-xl font-bold capitalize text-indigo-950">
             {category.category}
           </h2>
@@ -266,12 +322,16 @@ const AllCourses = () => {
           </Link>
         </div>
       );
-    }
-  );
+    });
 
   return (
     <section>
       {availableCategoriesOfCourses}
+      <Pagination
+        elementsPerPage={elementsPerPage}
+        length={coursesOfCategories.length}
+        getCurrentPage={memorizedUserCoursesPagination}
+      />
       {/* Still Pagination and Responsive-Design */}
     </section>
   );
