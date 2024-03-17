@@ -6,7 +6,8 @@ import Price from "./Price";
 import Ratings from "./Ratings";
 
 const AllFilters = React.memo(() => {
-  const [areFiltersOpen, setAreFiltersOpen] = useState(true);
+  const [areFiltersOpen, setAreFiltersOpen] = useState(window.innerWidth > 768);
+
   return (
     <>
       <div
