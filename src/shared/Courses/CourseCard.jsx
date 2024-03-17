@@ -79,7 +79,7 @@ const CourseCard = ({
             </div>
           )}
           {rate != null && (
-            <div className="flex items-center gap-1 mb-4">
+            <div className="flex flex-wrap md:flex-nowrap items-center gap-1 mb-4">
               <p className="text-sm font-semibold">{rate.toFixed(1)}</p>
               <div>
                 {[...Array(5)].map((_, i) => (
@@ -95,7 +95,7 @@ const CourseCard = ({
             </div>
           )}
           {price != null && (
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap md:flex-nowrap items-center gap-2">
               <p
                 className={`text-2xl font-bold ${
                   discount === 100 ? "text-[#3AA552]" : ""
