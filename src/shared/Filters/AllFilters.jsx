@@ -27,7 +27,7 @@ const AllFilters = React.memo(() => {
           }`}
         />
       </div>
-      <div className={`${areFiltersOpen ? "block" : "hidden"}`}>
+      <div className={`col-span-full ${areFiltersOpen ? "grid" : "hidden"}`}>
         <Ratings />
         <Topics />
         <Price />

@@ -23,7 +23,7 @@ const UserCoursesActions = React.memo(() => {
       </div>
 
       <div
-        className={`grid items-center grid-cols-1 relative duration-300 w-full gap-4 xl:w-5/6 mt-6 ${
+        className={`grid items-center grid-cols-2 md:grid-cols-1 relative duration-300 w-full gap-4 xl:w-5/6 mt-6 ${
           areActionsOpen
             ? "opacity-100 translate-y-0"
             : "md:opacity-0 md:-translate-y-5"
