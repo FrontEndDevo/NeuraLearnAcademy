@@ -46,7 +46,7 @@ const Price = () => {
 
   return (
     <div className="py-4 border-b-2">
-      <div className="items-center justify-between hidden mb-4 md:flex">
+      <div className="items-center justify-between mb-4 flex">
         <h2 className="text-lg font-semibold">Price</h2>
         <FontAwesomeIcon
           icon={faAngleDown}

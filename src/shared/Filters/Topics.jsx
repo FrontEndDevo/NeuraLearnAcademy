@@ -55,7 +55,7 @@ const Topics = () => {
     ));
   return (
     <div className="py-4 border-b-2">
-      <div className="items-center justify-between hidden mb-4 md:flex">
+      <div className="items-center justify-between flex mb-4">
         <h2 className="text-lg font-semibold">Topics</h2>
         <FontAwesomeIcon
           icon={faAngleDown}
