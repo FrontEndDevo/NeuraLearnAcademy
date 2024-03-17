@@ -5,7 +5,7 @@ import Sort from "../../shared/Sort";
 import AllFilters from "../../shared/Filters/AllFilters";
 
 const UserCoursesActions = React.memo(() => {
-  const [areActionsOpen, setAreActionsOpen] = useState(false);
+  const [areActionsOpen, setAreActionsOpen] = useState(true);
 
   return (
     <div className="md:my-6">
