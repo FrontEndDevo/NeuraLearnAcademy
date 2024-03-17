@@ -19,7 +19,7 @@ const Dropdown = ({ options, getSelectedOption, label }) => {
     setIsDropdownOpen(false);
   };
   return (
-    <div className="relative">
+    <div className="relative my-4">
       <div
         onClick={() => setIsDropdownOpen((prevState) => !prevState)}
         className="items-center justify-between py-3 md:py-4 px-2 rounded-[5px] cursor-pointer duration-200 hover:bg-slate-50 border-2 flex"
@@ -36,9 +36,9 @@ const Dropdown = ({ options, getSelectedOption, label }) => {
       </div>
 
       <ul
-        className={`absolute grid grid-cols-2 gap-2 z-50 duration-200 w-full p-2 border-2 bg-white shadow-lg rounded-md ${
+        className={`absolute gap-2 z-50 duration-200 w-full p-2 border-2 bg-white shadow-lg rounded-md ${
           isDropdownOpen
-            ? "opacity-100 translate-y-0 w-[90vw]"
+            ? "opacity-100 translate-y-0"
             : "opacity-0 -translate-y-5 pointer-events-none"
         }`}
       >
