@@ -1,5 +1,8 @@
+import { Link } from "react-router-dom";
 import courseImage from "../../assets/images/homepage/course_5.jpg";
 import CourseCard from "../../shared/Courses/CourseCard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 const coursesOfCategories = [
   {
     category: "programming",
@@ -227,26 +230,44 @@ const coursesOfCategories = [
 
 const AllCourses = () => {
   const availableCategoriesOfCourses = coursesOfCategories.map(
-    (category, index) => {
-      return (
-        <div key={index} className="p-2 m-2 bg-gray-100">
-          <h2 className="text-blue-400">{category.category}</h2>
-          <ul className="flex items-center gap-4">
-            {category.courses.map((course, i) => (
-              <CourseCard
-                key={i}
-                image={course.image}
-                title={course.title}
-                instructor={course.instructor}
-                rate={course.rate}
-                price={course.price}
-                discount={course.discount}
-              />
-            ))}
-          </ul>
-        </div>
-      );
-    }
+    (category, index) => (
+      <div key={index} className="relative p-2 m-2">
+        <h2 className="mb-4 text-xl font-bold capitalize text-indigo-950">
+          {category.category}
+        </h2>
+        <ul className="flex items-center gap-4">
+          {category.courses.map((course, i) => (
+            <CourseCard
+              key={i}
+              image={course.image}
+              title={course.title}
+              instructor={course.instructor}
+              rate={course.rate}
+              price={course.price}
+              discount={course.discount}
+            />
+          ))}
+        </ul>
+        <Link
+          to={category.category
+            .toLowerCase()
+            .replace(/[^a-zA-Z0-9 ]/g, "")
+            .replace(/\s+/g, "-")}
+          className="absolute bottom-2 right-2 h-[90%] p-5 flex items-center duration-200 hover:opacity-75 justify-center bg-white opacity-50"
+        >
+          <FontAwesomeIcon icon={faAngleRight} className="text-3xl" />
+        </Link>
+        <Link
+          to={category.category
+            .toLowerCase()
+            .replace(/[^a-zA-Z0-9 ]/g, "")
+            .replace(/\s+/g, "-")}
+          className="absolute text-lg font-bold duration-500 top-2 right-4 text-indigo-950 hover:text-indigo-700"
+        >
+          Show all
+        </Link>
+      </div>
+    )
   );
 
   return <section>{availableCategoriesOfCourses}</section>;
