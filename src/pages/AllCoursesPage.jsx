@@ -19,7 +19,7 @@ const allCategories = [
 
 const AllCoursesPage = () => {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 m-4 xl:m-10">
+    <section className="grid my-10 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 m-4 xl:m-10">
       <div>
         <CoursesCategories categories={allCategories} />
       </div>

@@ -13,7 +13,7 @@ const settings = {
   dots: false,
   arrows: false,
   infinite: true,
-  slidesToShow: 9,
+  slidesToShow: 10,
   slidesToScroll: 1,
   vertical: true,
   verticalSwiping: true,
@@ -64,7 +64,7 @@ const CoursesCategories = ({ categories }) => {
   });
 
   return (
-    <aside className="my-10">
+    <aside>
       {!isMobile[0] && (
         <div className="border-b-2 border-gray-700">
           <Slider {...settings}>{renderedCoursesCategories}</Slider>
