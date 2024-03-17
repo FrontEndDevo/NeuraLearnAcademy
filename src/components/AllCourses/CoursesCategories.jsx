@@ -3,6 +3,7 @@ import Slider from "react-slick/lib/slider";
 import SearchBar from "../../shared/SearchBar";
 import Filters from "../../shared/Filters/AllFilters";
 import PropTypes from "prop-types";
+import { formatUrlString } from "../../utils/Utils";
 
 // Slider settings.
 const settings = {
@@ -21,17 +22,21 @@ const settings = {
 };
 const CoursesCategories = ({ categories }) => {
   // Render the courses categories first.
-  const renderedCoursesCategories = categories.map((cat, i) => (
-    <Link
-      key={i}
-      to={cat.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, "-")}
-      className={`px-4 py-2 -my-10 duration-200 hover:bg-primary-500 hover:text-white capitalize text-lg font-semibold ${
-        cat.toLocaleLowerCase() == "all" ? "bg-primary-500 text-white" : ""
-      }`}
-    >
-      {cat}
-    </Link>
-  ));
+  const renderedCoursesCategories = categories.map((cat, i) => {
+    const formattedCategoryForUrl = formatUrlString(cat);
+
+    return (
+      <Link
+        key={i}
+        to={formattedCategoryForUrl}
+        className={`px-4 py-2 -my-10 duration-200 hover:bg-primary-500 hover:text-white capitalize text-lg font-semibold ${
+          cat.toLocaleLowerCase() == "all" ? "bg-primary-500 text-white" : ""
+        }`}
+      >
+        {cat}
+      </Link>
+    );
+  });
   return (
     <aside>
       <div className="border-b-2 border-gray-700">
