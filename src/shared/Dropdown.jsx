@@ -1,8 +1,14 @@
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-/* eslint-disable react/prop-types */
+/*
+ Dropdown Component:
+ - options: An array of strings representing the dropdown options.
+ - getSelectedOption: A function that will be called when an option is selected. It will receive the selected option as a parameter.
+ - label: A string representing the label to display when no option is selected.
+ */
 const Dropdown = ({ options, getSelectedOption, label }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
@@ -13,10 +19,10 @@ const Dropdown = ({ options, getSelectedOption, label }) => {
     setIsDropdownOpen(false);
   };
   return (
-    <>
+    <div className="relative">
       <div
         onClick={() => setIsDropdownOpen((prevState) => !prevState)}
-        className="items-center justify-between py-3 md:py-4 px-2 rounded-[5px] cursor-pointer border-b-2 border-zinc-600 duration-200 hover:bg-zinc-700 hover:text-white flex"
+        className="items-center justify-between py-3 md:py-4 px-2 rounded-[5px] cursor-pointer duration-200 hover:bg-slate-50 border-2 flex"
       >
         <h4 className="text-xs font-bold tracking-wide capitalize lg:text-sm xl:text-base">
           {selectedOption ? selectedOption : label}
@@ -30,9 +36,9 @@ const Dropdown = ({ options, getSelectedOption, label }) => {
       </div>
 
       <ul
-        className={`z-50 duration-200 w-full p-2 bg-white border shadow-lg rounded-md ${
+        className={`absolute grid grid-cols-2 gap-2 z-50 duration-200 w-full p-2 border-2 bg-white shadow-lg rounded-md ${
           isDropdownOpen
-            ? "opacity-100 translate-y-0"
+            ? "opacity-100 translate-y-0 w-[90vw]"
             : "opacity-0 -translate-y-5 pointer-events-none"
         }`}
       >
@@ -46,8 +52,14 @@ const Dropdown = ({ options, getSelectedOption, label }) => {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
+};
+
+Dropdown.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  getSelectedOption: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 export default Dropdown;
