@@ -19,12 +19,12 @@ const allCategories = [
 
 const AllCoursesPage = () => {
   return (
-    <section className="grid grid-cols-6 gap-2 m-10">
-      <div className="col-span-1">
+    <section className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 m-4 xl:m-10">
+      <div>
         <CoursesCategories categories={allCategories} />
       </div>
 
-      <div className="col-span-5">
+      <div className="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-4">
         <AllCourses />
       </div>
     </section>

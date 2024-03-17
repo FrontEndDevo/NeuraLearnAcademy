@@ -6,6 +6,7 @@ import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { formatUrlString } from "../../utils/Utils";
 import Pagination from "../../shared/Pagination";
 import { useCallback, useState } from "react";
+import Slider from "react-slick";
 const coursesOfCategories = [
   {
     category: "top courses",
@@ -268,6 +269,36 @@ const coursesOfCategories = [
   },
 ];
 
+const settings = {
+  infinite: false,
+  arrows: false,
+  dots: false,
+  speed: 1500,
+  cssEase: "ease-in-out",
+  slidesToShow: 4,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 1280,
+      settings: {
+        slidesToShow: 3,
+      },
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+  ],
+};
+
 const AllCourses = () => {
   // The number of elements to be rendered per page.
   const elementsPerPage = 4;
@@ -292,10 +323,10 @@ const AllCourses = () => {
 
       return (
         <div key={index} className="relative p-2 mb-10">
-          <h2 className="mb-4 text-xl font-bold capitalize text-indigo-950">
+          <h2 className="mb-4 text-2xl font-bold capitalize text-indigo-950">
             {category.category}
           </h2>
-          <ul className="flex items-center gap-4">
+          <Slider {...settings}>
             {category.courses.map((course, i) => (
               <CourseCard
                 key={i}
@@ -307,7 +338,8 @@ const AllCourses = () => {
                 discount={course.discount}
               />
             ))}
-          </ul>
+          </Slider>
+
           <Link
             to={formattedTitleForUrl}
             className="absolute bottom-2 right-2 h-[90%] p-5 flex items-center duration-200 hover:opacity-75 justify-center bg-white opacity-50"
@@ -332,7 +364,6 @@ const AllCourses = () => {
         length={coursesOfCategories.length}
         getCurrentPage={memorizedUserCoursesPagination}
       />
-      {/* Still Pagination and Responsive-Design */}
     </section>
   );
 };
