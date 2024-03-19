@@ -2,7 +2,7 @@ import { faAngleDown, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import setRatings from "../../redux/slices/Filters/ratings";
+import { setRatings } from "../../redux/slices/Filters/ratings";
 
 const ratings = [
   { rate: 5, totalCourses: 10 },
@@ -16,8 +16,8 @@ const Ratings = () => {
 
   const dispatch = useDispatch();
 
-  const selectRateHandler = (e) => {
-    dispatch(setRatings(e.target.value));
+  const selectRateHandler = (rate) => {
+    dispatch(setRatings(rate.target.value));
   };
 
   // Render the prices.
