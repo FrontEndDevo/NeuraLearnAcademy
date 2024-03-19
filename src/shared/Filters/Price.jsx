@@ -1,28 +1,21 @@
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-
+import { useDispatch } from "react-redux";
+import { setPrice } from "../../redux/slices/Filters/prices";
 const prices = [
   { price: "paid", totalCourses: 10 },
   { price: "free", totalCourses: 5 },
 ];
 const Price = () => {
   const [arePricesOpen, setArePricesOpen] = useState(true);
-  const [selectedPrices, setSelectedPrices] = useState([]);
 
-  // Select the price.
-  const selectPriceHandler = (e) => {
-    const selectedPrice = e.target.value;
-    // If the price is already selected, remove it from the selected prices.
-    if (selectedPrices.includes(selectedPrice)) {
-      setSelectedPrices((prevPrices) =>
-        prevPrices.filter((price) => price !== selectedPrice)
-      );
-      // If the price is not selected, add it to the selected prices.
-    } else {
-      setSelectedPrices((prevPrices) => [...prevPrices, selectedPrice]);
-    }
+  const dispatch = useDispatch();
+
+  const selectPriceHandler = (price) => {
+    dispatch(setPrice(price.target.value));
   };
+
   // Render the prices.
   const renderPrices = prices.map((item, index) => (
     <div key={index} className="flex items-center mb-2 text-sm">
@@ -32,7 +25,6 @@ const Price = () => {
         name="price"
         value={item.price}
         className="mr-2"
-        checked={selectedPrices.includes(item.price)}
         onChange={selectPriceHandler}
       />
       <label htmlFor={item.price} className="mr-1 font-semibold capitalize">
