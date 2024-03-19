@@ -1,6 +1,8 @@
 import { faAngleDown, faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import setRatings from "../../redux/slices/Filters/ratings";
 
 const ratings = [
   { rate: 5, totalCourses: 10 },
@@ -11,11 +13,11 @@ const ratings = [
 ];
 const Ratings = () => {
   const [areRatingOpen, setAreRatingOpen] = useState(true);
-  const [selectedRating, setSelectedRating] = useState(null);
 
-  // Select the rating.
+  const dispatch = useDispatch();
+
   const selectRateHandler = (e) => {
-    setSelectedRating(+e.target.value);
+    dispatch(setRatings(e.target.value));
   };
 
   // Render the prices.
@@ -50,7 +52,7 @@ const Ratings = () => {
 
   return (
     <div className="py-4 border-b-2">
-      <div className="items-center justify-between mb-4 flex">
+      <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">Ratings</h2>
         <FontAwesomeIcon
           icon={faAngleDown}
