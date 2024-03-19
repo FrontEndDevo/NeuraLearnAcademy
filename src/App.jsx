@@ -6,6 +6,7 @@ import MyLearningsPage from "./pages/MyLearningsPage";
 import PageNotFound from "./pages/PageNotFound";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import ProfilePage from "./pages/ProfilePage";
+import AllCoursesPage from "./pages/AllCoursesPage";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/*" element={<PageNotFound />} />
         <Route path="/cart" element={<ShoppingCartPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/all-courses" element={<AllCoursesPage />} />
       </Routes>
     </>
   );

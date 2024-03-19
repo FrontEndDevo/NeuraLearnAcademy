@@ -9,9 +9,13 @@ const searchCoursesSlice = createSlice({
     setSearchKeyword: (state, action) => {
       state.searchKeyword = action.payload.trim();
     },
+    resetSearchKeyword: (state) => {
+      state.searchKeyword = "";
+    },
   },
 });
 
-export const { setSearchKeyword } = searchCoursesSlice.actions;
+export const { setSearchKeyword, resetSearchKeyword } =
+  searchCoursesSlice.actions;
 
 export default searchCoursesSlice.reducer;
