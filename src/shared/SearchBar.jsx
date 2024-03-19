@@ -13,6 +13,8 @@ import {
 const SearchBar = React.memo(() => {
   const [isSearchOpen, setIsSearchOpen] = useState(true);
 
+  const dispatch = useDispatch();
+
   // Reset the search keyword when the component is mounted for the first time.
   useEffect(() => {
     dispatch(resetSearchKeyword());
@@ -21,7 +23,6 @@ const SearchBar = React.memo(() => {
   // To store the final value of the search input.
   const searchInputRef = useRef();
 
-  const dispatch = useDispatch();
   // Store the search keyword in the redux store.
   const searchCoursesHandler = () => {
     dispatch(setSearchKeyword(searchInputRef.current.value));
