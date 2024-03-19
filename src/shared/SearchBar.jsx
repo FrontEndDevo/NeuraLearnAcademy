@@ -3,12 +3,20 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSearchKeyword } from "../redux/slices/searchCourses";
+import {
+  resetSearchKeyword,
+  setSearchKeyword,
+} from "../redux/slices/searchCourses";
 
 const SearchBar = React.memo(() => {
   const [isSearchOpen, setIsSearchOpen] = useState(true);
+
+  // Reset the search keyword when the component is mounted for the first time.
+  useEffect(() => {
+    dispatch(resetSearchKeyword());
+  }, [dispatch]);
 
   // To store the final value of the search input.
   const searchInputRef = useRef();
