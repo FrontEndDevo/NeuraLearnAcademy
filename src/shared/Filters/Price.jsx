@@ -27,9 +27,9 @@ const Price = () => {
   const renderPrices = prices.map((item, index) => (
     <div key={index} className="flex items-center mb-2 text-sm">
       <input
-        type="checkbox"
+        type="radio"
         id={item.price}
-        name={item.price}
+        name="price"
         value={item.price}
         className="mr-2"
         checked={selectedPrices.includes(item.price)}
@@ -46,7 +46,7 @@ const Price = () => {
 
   return (
     <div className="py-4 border-b-2">
-      <div className="items-center justify-between mb-4 flex">
+      <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">Price</h2>
         <FontAwesomeIcon
           icon={faAngleDown}
