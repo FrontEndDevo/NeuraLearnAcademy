@@ -1,6 +1,8 @@
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { toggleTopic } from "../../redux/slices/Filters/topics";
 
 const topics = [
   { topic: "Python", totalCourses: 10 },
@@ -18,17 +20,11 @@ const topics = [
 const Topics = () => {
   const [areTopicsOpen, setAreTopicsOpen] = useState(true);
   const [showMore, setShowMore] = useState(false);
-  const [selectedTopics, setSelectedTopics] = useState([]);
 
-  const selectTopicHandler = (e) => {
-    const selectedTopic = e.target.value;
-    if (selectedTopics.includes(selectedTopic)) {
-      setSelectedTopics((prevTopics) =>
-        prevTopics.filter((topic) => topic !== selectedTopic)
-      );
-    } else {
-      setSelectedTopics((prevTopics) => [...prevTopics, selectedTopic]);
-    }
+  const dispatch = useDispatch();
+
+  const selectTopicHandler = (topic) => {
+    dispatch(toggleTopic(topic.target.value));
   };
 
   // Render all topics.
@@ -42,7 +38,6 @@ const Topics = () => {
           name={item.topic}
           value={item.topic}
           className="mr-2"
-          checked={selectedTopics.includes(item.topic)}
           onChange={selectTopicHandler}
         />
         <label htmlFor={item.topic} className="mr-1 font-semibold capitalize">
@@ -55,7 +50,7 @@ const Topics = () => {
     ));
   return (
     <div className="py-4 border-b-2">
-      <div className="items-center justify-between flex mb-4">
+      <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">Topics</h2>
         <FontAwesomeIcon
           icon={faAngleDown}
