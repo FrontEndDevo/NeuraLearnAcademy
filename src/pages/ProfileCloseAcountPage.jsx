@@ -1,15 +1,13 @@
+import ProfileHeader from "../shared/ProfileHeader";
+
 const ProfileCloseAcountPage = () => {
   const borderStyle = "border border-gray-400";
+  const title = "Close Account";
+  const description = "Close your account permanently.";
   return (
     <div>
       <section className={`py-8 border-b-0 ${borderStyle}`}>
-        <h1 className="text-2xl font-semibold text-center md:text-3xl">
-          Close Account
-        </h1>
-        <p className="pb-8 text-center border-b border-gray-400 text-l md:text-xl">
-          Close your account permanently.
-        </p>
-
+        <ProfileHeader title={title} description={description} />
         <div className="px-3 pb-12 border-b border-gray-400 md:px-5 lg:px-10">
           <div className="flex flex-wrap justify-between gap-5 py-5">
             <p className="text-l md:text-xl">
