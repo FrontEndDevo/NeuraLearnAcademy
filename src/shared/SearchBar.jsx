@@ -3,17 +3,26 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setSearchKeyword } from "../../../redux/slices/searchCourses";
+import {
+  resetSearchKeyword,
+  setSearchKeyword,
+} from "../redux/slices/searchCourses";
 
-const SearchUserCourses = React.memo(() => {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+const SearchBar = React.memo(() => {
+  const [isSearchOpen, setIsSearchOpen] = useState(true);
+
+  const dispatch = useDispatch();
+
+  // Reset the search keyword when the component is mounted for the first time.
+  useEffect(() => {
+    dispatch(resetSearchKeyword());
+  }, [dispatch]);
 
   // To store the final value of the search input.
   const searchInputRef = useRef();
 
-  const dispatch = useDispatch();
   // Store the search keyword in the redux store.
   const searchCoursesHandler = () => {
     dispatch(setSearchKeyword(searchInputRef.current.value));
@@ -23,7 +32,7 @@ const SearchUserCourses = React.memo(() => {
     <div className="md:my-6">
       <div className="items-center justify-between hidden md:flex">
         <h4 className="text-xs font-bold tracking-wide lg:text-base">
-          Search your enrollments
+          Search for a course
         </h4>
         <FontAwesomeIcon
           icon={faAngleDown}
@@ -46,7 +55,7 @@ const SearchUserCourses = React.memo(() => {
           type="text"
           name="courses"
           id="courses"
-          placeholder="Search my courses"
+          placeholder="Write a course name"
           className="w-full px-1 md:px-4 font-semibold py-3 text-xs border border-r-0 outline-none tracking-wide rounded-[3px] border-zinc-600 caret-gray-color-700"
           disabled={!isSearchOpen}
         />
@@ -62,6 +71,6 @@ const SearchUserCourses = React.memo(() => {
   );
 });
 
-SearchUserCourses.displayName = "SearchUserCourses";
+SearchBar.displayName = "SearchBar";
 
-export default SearchUserCourses;
+export default SearchBar;
