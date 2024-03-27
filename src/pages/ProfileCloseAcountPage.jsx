@@ -1,3 +1,4 @@
+import ButtonProfile from "../shared/ButtonProfile";
 import ProfileHeader from "../shared/ProfileHeader";
 
 const ProfileCloseAcountPage = () => {
@@ -25,9 +26,7 @@ const ProfileCloseAcountPage = () => {
               <option value="">1 Month</option>
             </select>
           </div>
-          <button className="px-3 py-2 mt-6 text-white bg-black rounded">
-            Save & log out
-          </button>
+          <ButtonProfile> Save & log out</ButtonProfile>
         </div>
 
         <div className="p-3 lg:p-12 md:p-6">
@@ -36,10 +35,7 @@ const ProfileCloseAcountPage = () => {
             close your account, you will be unsubscribed from all your 24
             courses, and will lose access forever
           </p>
-
-          <button className="px-3 py-2 mt-6 text-white bg-black rounded">
-            Close Account
-          </button>
+          <ButtonProfile> Close Account</ButtonProfile>
         </div>
       </section>
     </div>
