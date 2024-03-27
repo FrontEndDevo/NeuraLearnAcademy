@@ -1,3 +1,4 @@
+import ButtonProfile from "../shared/ButtonProfile";
 import ProfileHeader from "../shared/ProfileHeader";
 import SwitchComponent from "../shared/SwitichComponent";
 /* eslint-disable */
@@ -22,10 +23,7 @@ const ProfileNotificationPage = () => {
           <p>Don't send me any promotional emails.</p>
           <SwitchComponent />
         </div>
-
-        <button className="px-8 py-3 mt-6 text-white bg-black rounded">
-          Save
-        </button>
+        <ButtonProfile addStyle={`px-8 py-3`}>Save</ButtonProfile>
       </div>
     </section>
   );
