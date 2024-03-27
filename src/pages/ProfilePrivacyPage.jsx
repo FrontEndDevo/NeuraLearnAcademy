@@ -1,3 +1,4 @@
+import ButtonProfile from "../shared/ButtonProfile";
 import ProfileHeader from "../shared/ProfileHeader";
 import SwitchComponent from "../shared/SwitichComponent";
 /* eslint-disable */
@@ -17,10 +18,8 @@ const ProfilePrivacyPage = () => {
           <p>Share social platforms on my profile.</p>
           <SwitchComponent />
         </div>
-
-        <button className="px-8 py-3 mt-12 text-white bg-black rounded">
-          Save
-        </button>
+        
+        <ButtonProfile addStyle={`px-8 py-3`}>Save</ButtonProfile>
       </div>
     </section>
   );
