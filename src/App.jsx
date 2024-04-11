@@ -7,6 +7,7 @@ import PageNotFound from "./pages/PageNotFound";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import ProfilePage from "./pages/ProfilePage";
 import AllCoursesPage from "./pages/AllCoursesPage";
+import InstructorPage from "./pages/Instructor/InstructorPage";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="/cart" element={<ShoppingCartPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/all-courses" element={<AllCoursesPage />} />
+        <Route path="/instructor" element={<InstructorPage />} />
       </Routes>
     </>
   );
