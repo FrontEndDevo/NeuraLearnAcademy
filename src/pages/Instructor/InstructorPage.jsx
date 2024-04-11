@@ -3,7 +3,7 @@ import InstructorSidebar from "../../components/Instructor/InstructorSideBar";
 
 const InstructorPage = () => {
   return (
-    <div>
+    <div className="flex">
       <InstructorSidebar />
       <InstructorCourses />
     </div>
