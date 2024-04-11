@@ -26,11 +26,11 @@ const InstructorCourseCard = ({
       <img
         src={img}
         alt={title}
-        className="w-full h-[250px] rounded-t-3xl"
+        className="w-[25rem] h-[15rem] rounded-t-3xl"
         loading="lazy"
       />
       <div className="px-4 py-2">
-        <div className="flex items-center justify-between px-2">
+        <div className="flex items-center justify-between">
           <h3 className="my-4 text-base font-semibold leading-6 tracking-wide lg:text-xl text-gray-color-700">
             {courseTitle}
           </h3>
