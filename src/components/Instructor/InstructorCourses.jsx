@@ -5,6 +5,7 @@ import img4 from "../../assets/images/homepage/course_4.jpg";
 import img5 from "../../assets/images/homepage/course_5.jpg";
 import img6 from "../../assets/images/homepage/course_6.jpg";
 import img7 from "../../assets/images/homepage/course_7.jpg";
+import InstructorCourseCard from "../../shared/Courses/InstructorCourseCard";
 
 // Temp data: replace with actual data from API
 const instructorCourses = [
@@ -81,9 +82,15 @@ const instructorCourses = [
 ];
 
 const InstructorCourses = () => {
+  const instructorCoursesList = instructorCourses.map((course, index) => (
+    <InstructorCourseCard key={index} {...course} />
+  ));
+
   return (
-    <section>
-      <h1>Instructor Courses</h1>
+    <section className="p-20">
+      <ul className="flex items-center gap-4 flex-wrap">
+        {instructorCoursesList}
+      </ul>
     </section>
   );
 };
