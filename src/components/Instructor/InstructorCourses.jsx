@@ -6,6 +6,7 @@ import img5 from "../../assets/images/homepage/course_5.jpg";
 import img6 from "../../assets/images/homepage/course_6.jpg";
 import img7 from "../../assets/images/homepage/course_7.jpg";
 import InstructorCourseCard from "../../shared/Courses/InstructorCourseCard";
+import InstructorSidebar from "../../components/Instructor/InstructorSideBar";
 
 // Temp data: replace with actual data from API
 const instructorCourses = [
@@ -87,8 +88,9 @@ const InstructorCourses = () => {
   ));
 
   return (
-    <section className="px-10 py-20">
-      <ul className="flex items-center gap-x-6 gap-y-16 flex-wrap">
+    <section className="flex">
+      <InstructorSidebar />
+      <ul className="flex px-10 py-20 items-center gap-x-6 gap-y-16 flex-wrap">
         {instructorCoursesList}
       </ul>
     </section>
