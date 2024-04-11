@@ -87,7 +87,7 @@ const InstructorCourses = () => {
   ));
 
   return (
-    <section className="p-20">
+    <section className="px-10 py-20">
       <ul className="flex items-center gap-x-6 gap-y-16 flex-wrap">
         {instructorCoursesList}
       </ul>
