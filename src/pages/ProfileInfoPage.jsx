@@ -6,7 +6,7 @@ import {
   faLinkedin,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
-import { faLaptop } from "@fortawesome/free-solid-svg-icons";
+import { faLaptop, faLanguage } from "@fortawesome/free-solid-svg-icons";
 import ButtonProfile from "../shared/ButtonProfile";
 
 const DEFAULT_DATA = {
@@ -76,13 +76,13 @@ const ProfileInfoPage = () => {
   return (
     <section className="relative py-8 border border-b-0 border-gray-400">
       <form
-        className="grid grid-cols-8 gap-6 px-3 py-10 font-bold leading-8 md:text-xl md:px-5 lg:px-10"
+        className="grid grid-cols-12 gap-6 px-3 py-10 font-bold leading-8 md:text-xl md:px-5 lg:px-10"
         onSubmit={handleSubmit}
       >
         {/* First Name input */}
         <input
           type="text"
-          className={`${inputStyle} col-span-8 md:col-span-4`}
+          className={`${inputStyle} col-span-12 md:col-span-6`}
           placeholder="First Name "
           value={formState.firstName}
           onChange={(e) => handleChange(e, "firstName")}
@@ -91,7 +91,7 @@ const ProfileInfoPage = () => {
         {/* Last Name input */}
         <input
           type="text"
-          className={`${inputStyle} col-span-8 md:col-span-4`}
+          className={`${inputStyle} col-span-12 md:col-span-6`}
           placeholder="Last Name"
           value={formState.secondName}
           onChange={(e) => handleChange(e, "secondName")}
@@ -100,7 +100,7 @@ const ProfileInfoPage = () => {
         {/* Description input */}
         <input
           type="text"
-          className={`${inputStyle} col-span-8`}
+          className={`${inputStyle} col-span-12`}
           placeholder="Description"
           value={formState.description}
           onChange={(e) => handleChange(e, "description")}
@@ -109,23 +109,29 @@ const ProfileInfoPage = () => {
         {/* Job input */}
         <input
           type="text"
-          className={`${inputStyle} col-span-8 md:col-span-6`}
+          className={`${inputStyle} col-span-12 md:col-span-7 lg:col-span-8`}
           placeholder="Add your job (Student)"
           value={formState.jop}
           onChange={(e) => handleChange(e, "jop")}
         />
 
         {/* Add Job button */}
-        <ButtonProfile type="button" addStyle={`col-span-8 md:col-span-2`}>
-          add jop
-        </ButtonProfile>
+        <button
+          type="button"
+          className="flex items-center justify-between h-12 col-span-7 text-white bg-black rounded-full md:h-14 s md:col-span-5 lg:col-span-4"
+        >
+          <span className=" text-black bg-white border-gray-400 rounded-full border-[2px] py-[0.4rem] md:py-[0.8rem] mr-3 w-full">
+            + Add{" "}
+          </span>
+          <p className="w-full">a Jop</p>
+        </button>
       </form>
 
       {/* Divider */}
-      <div className="absolute w-full mt-10 border-b border-gray-400"></div>
+      <div className="absolute w-full mt-5 border-b border-gray-400"></div>
 
       {/* Social Networks inputs */}
-      <h1 className="col-span-8 mt-16">Social Networks:</h1>
+      <h1 className="col-span-8 mt-16 ml-10">Social Networks:</h1>
       <form
         className="grid grid-cols-8 gap-6 px-3 py-10 font-bold leading-8 md:text-xl md:px-5 lg:px-10"
         onSubmit={handleSubmit}
@@ -142,7 +148,7 @@ const ProfileInfoPage = () => {
             />
             <input
               type="url"
-              className={`${inputStyle} border-0 border-l-2  md:w-10/12 w-8/12`}
+              className={`${inputStyle} border-y-0 border-r-0 border-l-2  md:w-10/12 w-8/12 `}
               placeholder={network.name}
               value={formState[network.key]}
               onChange={(e) => handleChange(e, network.key)}
@@ -150,7 +156,21 @@ const ProfileInfoPage = () => {
           </li>
         ))}
         {/* Save button */}
-        <ButtonProfile addStyle={`py-3 col-span-2`}>Save</ButtonProfile>
+        <div className="flex justify-between col-span-8">
+          <ButtonProfile
+            addStyle={`py-0 md:py-2 w-4/12 lg:w-2/12 md:w-3/12 bg-transparent border border-2 rounded-full  flex items-center justify-between`}
+            type="button"
+          >
+            <FontAwesomeIcon
+              icon={faLanguage}
+              className="text-lg text-blue-600 h-7 w-7"
+            />
+            <p className="text-black">EN</p>
+          </ButtonProfile>
+          <ButtonProfile addStyle={`md:py-3 md:w-3/12 lg:w-2/12 px-4`}>
+            Save
+          </ButtonProfile>
+        </div>
       </form>
     </section>
   );
