@@ -1,7 +1,9 @@
+import InstructorCourses from "../../components/Instructor/InstructorCourses";
+
 const InstructorPage = () => {
   return (
     <>
-      <h1>Hello Instructor</h1>
+      <InstructorCourses />
     </>
   );
 };
