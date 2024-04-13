@@ -1,3 +1,4 @@
+import { useState } from "react";
 import img1 from "../../assets/images/homepage/course_1.jpg";
 import img2 from "../../assets/images/homepage/course_2.jpg";
 import img3 from "../../assets/images/homepage/course_3.jpg";
@@ -7,8 +8,7 @@ import img6 from "../../assets/images/homepage/course_6.jpg";
 import img7 from "../../assets/images/homepage/course_7.jpg";
 import InstructorCourseCard from "../../shared/Courses/InstructorCourseCard";
 import InstructorSidebar from "../../components/Instructor/InstructorSideBar";
-import { useState } from "react";
-import DefaultInstructorCourse from "./DefaultInstructorCourse";
+import DefaultInstructorCourse from "../../shared/Courses/DefaultInstructorCourse";
 
 // Temp data: replace with actual data from API
 const instructorCourses = [
