@@ -22,11 +22,11 @@ const InstructorCourseCard = ({
   const numberOfStudents = formatNumbersInThousands(students);
 
   return (
-    <li className="border shadow-lg rounded-3xl duration-300 hover:shadow-innerwhite">
+    <li className="duration-300 w-[25rem] h-[30rem] border shadow-lg rounded-3xl hover:shadow-innerwhite">
       <img
         src={img}
         alt={title}
-        className="w-[25rem] h-[15rem] rounded-t-3xl"
+        className="w-full h-3/5 rounded-t-3xl"
         loading="lazy"
       />
       <div className="px-4 py-2">
@@ -44,7 +44,7 @@ const InstructorCourseCard = ({
           </div>
         </div>
 
-        <div className="grid grid-cols-3 justify-items-center items-center">
+        <div className="grid items-center grid-cols-3 justify-items-center">
           <div className="flex items-center gap-2">
             <FontAwesomeIcon icon={faVideo} />
             <span className="text-sm tracking-tight">{videos} Videos</span>
@@ -64,7 +64,7 @@ const InstructorCourseCard = ({
         </h6>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1 tracking-tight text-sm">
+          <div className="flex items-center gap-1 text-sm tracking-tight">
             <FontAwesomeIcon icon={faUserGraduate} />
             <p className="font-semibold">{numberOfStudents}</p>
             <span className="text-gray-400">({students}) Students</span>
