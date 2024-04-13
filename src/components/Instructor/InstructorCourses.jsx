@@ -8,6 +8,7 @@ import img7 from "../../assets/images/homepage/course_7.jpg";
 import InstructorCourseCard from "../../shared/Courses/InstructorCourseCard";
 import InstructorSidebar from "../../components/Instructor/InstructorSideBar";
 import { useState } from "react";
+import DefaultInstructorCourse from "./DefaultInstructorCourse";
 
 // Temp data: replace with actual data from API
 const instructorCourses = [
@@ -103,12 +104,14 @@ const InstructorCourses = () => {
       />
       <div className="px-10 py-20">
         <div className="flex items-center justify-between mb-10">
-          <h2 className="capitalize text-2xl font-bold">
+          <h2 className="text-2xl font-bold capitalize">
             my {instructorOption}
           </h2>
           {/* Sort */}
         </div>
-        <ul className="flex items-center gap-x-6 gap-y-16 flex-wrap">
+
+        <ul className="flex flex-wrap items-center gap-x-6 gap-y-16">
+          <DefaultInstructorCourse />
           {instructorCoursesList}
         </ul>
       </div>
