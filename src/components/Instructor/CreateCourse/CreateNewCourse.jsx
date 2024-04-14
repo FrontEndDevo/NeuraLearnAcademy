@@ -27,7 +27,10 @@ const CreateNewCourse = () => {
     "p-2 text-base rounded-sm w-full outline-none caret-indigo-800 border border-black border-opacity-80";
   return (
     <>
-      <div className="fixed z-40 w-screen h-screen bg-white backdrop-blur-sm bg-opacity-20"></div>
+      <div
+        onClick={handleCloseCreateCourse}
+        className="fixed z-40 w-screen h-screen bg-white backdrop-blur-sm bg-opacity-20"
+      ></div>
       <div className="w-[50vw] h-[70vh] z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
         <div className="flex items-center w-full px-4 py-4 bg-green-400 rounded-t-lg">
           <div className="flex items-center gap-2">
