@@ -6,8 +6,15 @@ import {
   faLinkedin,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
-import { faLaptop, faLanguage } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLaptop,
+  faLanguage,
+  faBookOpen,
+  faArchive,
+} from "@fortawesome/free-solid-svg-icons";
+
 import ButtonProfile from "../shared/ButtonProfile";
+import profileImg from "../assets/images/profile/profile.png";
 
 const DEFAULT_DATA = {
   firstName: "",
@@ -61,6 +68,7 @@ const socialNetwork = [
 
 const ProfileInfoPage = () => {
   const inputStyle = "p-2 border-2 border-current md:p-4 focus:outline-none";
+  const iconStyle = "w-3 h-3 mx-2 text-lg text-gray-500 md:h-5 md:w-5";
 
   const [formState, setFormState] = useState(DEFAULT_DATA);
 
@@ -74,7 +82,28 @@ const ProfileInfoPage = () => {
   };
 
   return (
-    <section className="relative py-8 border border-b-0 border-gray-400">
+    <section className="relative pb-8 border border-b-0 border-gray-400">
+      <div className="flex flex-wrap justify-between gap-2 p-4">
+        <div className="flex">
+          <img src={profileImg} alt="profile image" className="w-20 mr-3" />
+          <div>
+            <h1 className="font-bold">Ahmed Ashraf</h1>
+            <p className="text-gray-500">No risk No Fun</p>
+            <p className="text-gray-500">Jop tittle</p>
+          </div>
+        </div>
+        <div>
+          <p>
+            <FontAwesomeIcon icon={faBookOpen} className={iconStyle} />
+            <span className="font-bold text-blue-600"> 4 Learning</span>
+          </p>
+          <p>
+            <FontAwesomeIcon icon={faArchive} className={iconStyle} />
+            <span className="font-bold text-blue-600"> 2 Achieved</span>
+          </p>
+        </div>
+      </div>
+      <div className="absolute w-full border-b border-gray-400"></div>
       <form
         className="grid grid-cols-12 gap-6 px-3 py-10 font-bold leading-8 md:text-xl md:px-5 lg:px-10"
         onSubmit={handleSubmit}
@@ -128,12 +157,12 @@ const ProfileInfoPage = () => {
       </form>
 
       {/* Divider */}
-      <div className="absolute w-full mt-5 border-b border-gray-400"></div>
+      <div className="absolute w-full border-b border-gray-400"></div>
 
       {/* Social Networks inputs */}
-      <h1 className="col-span-8 mt-16 ml-10">Social Networks:</h1>
+      <h1 className="col-span-8 mt-6 mb-3 ml-10 font-bold">Social Networks:</h1>
       <form
-        className="grid grid-cols-8 gap-6 px-3 py-10 font-bold leading-8 md:text-xl md:px-5 lg:px-10"
+        className="grid grid-cols-8 gap-6 px-3 py-10 pt-0 font-bold leading-8 md:text-xl md:px-5 lg:px-10"
         onSubmit={handleSubmit}
       >
         {socialNetwork.map((network, index) => (
