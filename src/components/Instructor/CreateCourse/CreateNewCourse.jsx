@@ -129,7 +129,7 @@ const CreateNewCourse = () => {
                 name="price"
                 className={`${inputClasses} font-semibold pl-10`}
               />
-              <p className="text-xs font-medium opacity-50">
+              <p className="mt-2 text-xs font-medium opacity-50">
                 Note: Dealing only in US dollars
               </p>
             </div>
@@ -137,7 +137,7 @@ const CreateNewCourse = () => {
             <div className="relative py-1 pl-10 pr-4 mt-4 duration-300 rounded-full cursor-pointer w-fit bg-zinc-800 hover:bg-zinc-900">
               <FontAwesomeIcon
                 icon={faEye}
-                className="absolute top-0 p-2 bg-white rounded-full text-zinc-800 -left-1"
+                className="absolute top-0 p-2 duration-300 bg-white rounded-full text-zinc-800 hover:text-zinc-900 -left-1"
               />
               <span className="text-base font-semibold tracking-tight text-white">
                 Visibility
