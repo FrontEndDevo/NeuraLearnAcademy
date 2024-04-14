@@ -1,13 +1,13 @@
 import { faCheck, faPlus, faTv } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import React, { useState } from "react";
 const createNewCourseBenefits = [
   "Start building your course.",
   "Set the price as appropriate.",
   "Add the appropriate description.",
   "Add models as you wish.",
 ];
-const DefaultInstructorCourse = () => {
+const DefaultInstructorCourse = React.memo(() => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleEnterCard = () => {
@@ -75,6 +75,8 @@ const DefaultInstructorCourse = () => {
       </div>
     </li>
   );
-};
+});
+
+DefaultInstructorCourse.displayName = "DefaultInstructorCourse";
 
 export default DefaultInstructorCourse;
