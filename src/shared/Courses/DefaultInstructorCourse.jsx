@@ -1,6 +1,8 @@
 import { faCheck, faPlus, faTv } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { openCreateCourse } from "../../redux/slices/Instructor/OpenClose";
 const createNewCourseBenefits = [
   "Start building your course.",
   "Set the price as appropriate.",
@@ -18,11 +20,18 @@ const DefaultInstructorCourse = React.memo(() => {
     setIsHovered(false);
   };
 
+  const dispatch = useDispatch();
+  const handleOpenCreateCourse = () => {
+    // Open the create course modal:
+    dispatch(openCreateCourse());
+  };
+
   return (
     <li
       onMouseEnter={handleEnterCard}
       onMouseLeave={handleLeaveCard}
       className="px-4 py-12 duration-200 w-[25rem] h-[30rem] cursor-pointer border shadow-lg rounded-3xl"
+      onClick={handleOpenCreateCourse}
     >
       <div className="text-center">
         <FontAwesomeIcon

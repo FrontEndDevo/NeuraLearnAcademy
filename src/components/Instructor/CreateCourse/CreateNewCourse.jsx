@@ -8,9 +8,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import thumbnail from "../../../assets/images/Instructor/thumbnail.webp";
 import { allCategories } from "../../../pages/AllCoursesPage";
 import Dropdown from "../../../shared/Dropdown";
+import { closeCreateCourse } from "../../../redux/slices/Instructor/OpenClose";
+import { useDispatch } from "react-redux";
 const CreateNewCourse = () => {
   const handleSelectedCategory = (category) => {
     console.log(category);
+  };
+
+  const dispatch = useDispatch();
+  const handleCloseCreateCourse = () => {
+    // Close the create course modal:
+    dispatch(closeCreateCourse());
   };
 
   // Classes for styling:
@@ -32,7 +40,10 @@ const CreateNewCourse = () => {
             />
           </div>
 
-          <button className="p-2 ml-auto text-base font-semibold tracking-tight duration-300 rounded-lg bg-zinc-300 hover:bg-zinc-400">
+          <button
+            onClick={handleCloseCreateCourse}
+            className="p-2 ml-auto text-base font-semibold tracking-tight duration-300 rounded-lg bg-zinc-300 hover:bg-zinc-400"
+          >
             Cancel
           </button>
         </div>
