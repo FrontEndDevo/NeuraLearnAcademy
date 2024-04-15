@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import ButtonProfile from "../shared/Profile/ButtonProfile";
-import profileImg from "../assets/images/profile/profile.png";
+import profileImg from "../assets/images/profile/unknown_user.webp";
 
 const DEFAULT_DATA = {
   firstName: "",
@@ -110,7 +110,11 @@ const ProfileInfoPage = () => {
     <section className="relative pb-8 border border-b-0 border-gray-400">
       <div className="flex flex-wrap justify-between gap-2 p-4">
         <div className="flex">
-          <img src={profileImg} alt="profile image" className="w-20 mr-3" />
+          <img
+            src={profileImg}
+            alt={`${userData.name} image`}
+            className="w-20 mr-3"
+          />
           <div>
             <h1 className="font-bold">{userData.name}</h1>
             <p className="text-gray-500">{userData.description}</p>
