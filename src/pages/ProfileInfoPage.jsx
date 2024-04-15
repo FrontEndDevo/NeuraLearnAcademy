@@ -20,7 +20,7 @@ const DEFAULT_DATA = {
   firstName: "",
   secondName: "",
   description: "",
-  jop: "",
+  Job: "",
   websiteUrl: "",
   facebookUrl: "",
   twitterUrl: "",
@@ -72,7 +72,7 @@ const ProfileInfoPage = () => {
 
   const [formState, setFormState] = useState(DEFAULT_DATA);
 
-  const handleChange = (event, key) => {
+  const handleStoringUserData = (event, key) => {
     setFormState({ ...formState, [key]: event.target.value });
   };
 
@@ -81,25 +81,50 @@ const ProfileInfoPage = () => {
     console.log(formState);
   };
 
+  const userData = {
+    name: "Ahmed Ashraf",
+    description: "No risk No Fun",
+    job: "Job tittle",
+    learning: "4 Learning",
+    archived: "2 Achieved",
+  };
+  
+  const socialNetworkS = socialNetwork.map((network, index) => (
+    <li className="col-span-8 list-none border-2 border-current" key={index}>
+      <FontAwesomeIcon
+        icon={network.icon}
+        className="w-4 h-4 mx-5 text-lg md:h-6 md:w-6 "
+        style={{ color: network.color, background: network.bg_color }}
+      />
+      <input
+        type="url"
+        className={`${inputStyle} border-y-0 border-r-0 border-l-2  md:w-10/12 w-8/12 `}
+        placeholder={network.name}
+        value={formState[network.key]}
+        onChange={(e) => handleStoringUserData(e, network.key)}
+      />
+    </li>
+  ));
+  
   return (
     <section className="relative pb-8 border border-b-0 border-gray-400">
       <div className="flex flex-wrap justify-between gap-2 p-4">
         <div className="flex">
           <img src={profileImg} alt="profile image" className="w-20 mr-3" />
           <div>
-            <h1 className="font-bold">Ahmed Ashraf</h1>
-            <p className="text-gray-500">No risk No Fun</p>
-            <p className="text-gray-500">Jop tittle</p>
+            <h1 className="font-bold">{userData.name}</h1>
+            <p className="text-gray-500">{userData.description}</p>
+            <p className="text-gray-500">{userData.job}</p>
           </div>
         </div>
         <div>
           <p>
             <FontAwesomeIcon icon={faBookOpen} className={iconStyle} />
-            <span className="font-bold text-blue-600"> 4 Learning</span>
+            <span className="font-bold text-blue-600">{userData.learning}</span>
           </p>
           <p>
             <FontAwesomeIcon icon={faArchive} className={iconStyle} />
-            <span className="font-bold text-blue-600"> 2 Achieved</span>
+            <span className="font-bold text-blue-600">{userData.archived}</span>
           </p>
         </div>
       </div>
@@ -114,7 +139,7 @@ const ProfileInfoPage = () => {
           className={`${inputStyle} col-span-12 md:col-span-6`}
           placeholder="First Name "
           value={formState.firstName}
-          onChange={(e) => handleChange(e, "firstName")}
+          onChange={(e) => handleStoringUserData(e, "firstName")}
         />
 
         {/* Last Name input */}
@@ -123,7 +148,7 @@ const ProfileInfoPage = () => {
           className={`${inputStyle} col-span-12 md:col-span-6`}
           placeholder="Last Name"
           value={formState.secondName}
-          onChange={(e) => handleChange(e, "secondName")}
+          onChange={(e) => handleStoringUserData(e, "secondName")}
         />
 
         {/* Description input */}
@@ -132,7 +157,7 @@ const ProfileInfoPage = () => {
           className={`${inputStyle} col-span-12`}
           placeholder="Description"
           value={formState.description}
-          onChange={(e) => handleChange(e, "description")}
+          onChange={(e) => handleStoringUserData(e, "description")}
         />
 
         {/* Job input */}
@@ -140,8 +165,8 @@ const ProfileInfoPage = () => {
           type="text"
           className={`${inputStyle} col-span-12 md:col-span-7 lg:col-span-8`}
           placeholder="Add your job (Student)"
-          value={formState.jop}
-          onChange={(e) => handleChange(e, "jop")}
+          value={formState.Job}
+          onChange={(e) => handleStoringUserData(e, "Job")}
         />
 
         {/* Add Job button */}
@@ -152,7 +177,7 @@ const ProfileInfoPage = () => {
           <span className=" text-black bg-white border-gray-400 rounded-full border-[2px] py-[0.4rem] md:py-[0.8rem] mr-3 w-full">
             + Add{" "}
           </span>
-          <p className="w-full">a Jop</p>
+          <p className="w-full">a Job</p>
         </button>
       </form>
 
@@ -165,25 +190,7 @@ const ProfileInfoPage = () => {
         className="grid grid-cols-8 gap-6 px-3 py-10 pt-0 font-bold leading-8 md:text-xl md:px-5 lg:px-10"
         onSubmit={handleSubmit}
       >
-        {socialNetwork.map((network, index) => (
-          <li
-            className="col-span-8 list-none border-2 border-current"
-            key={index}
-          >
-            <FontAwesomeIcon
-              icon={network.icon}
-              className="w-4 h-4 mx-5 text-lg md:h-6 md:w-6 "
-              style={{ color: network.color, background: network.bg_color }}
-            />
-            <input
-              type="url"
-              className={`${inputStyle} border-y-0 border-r-0 border-l-2  md:w-10/12 w-8/12 `}
-              placeholder={network.name}
-              value={formState[network.key]}
-              onChange={(e) => handleChange(e, network.key)}
-            />
-          </li>
-        ))}
+        {socialNetworkS}
         {/* Save button */}
         <div className="flex justify-between col-span-8">
           <ButtonProfile
