@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ButtonProfile from "../shared/ButtonProfile";
-import ProfileHeader from "../shared/ProfileHeader";
+import ButtonProfile from "../shared/Profile/ButtonProfile";
+import ProfileHeader from "../shared/Profile/ProfileHeader";
 
 const ProfilePasswordSecurityPage = () => {
   const title = "Security";

@@ -13,7 +13,7 @@ import {
   faArchive,
 } from "@fortawesome/free-solid-svg-icons";
 
-import ButtonProfile from "../shared/ButtonProfile";
+import ButtonProfile from "../shared/Profile/ButtonProfile";
 import profileImg from "../assets/images/profile/profile.png";
 
 const DEFAULT_DATA = {
@@ -88,7 +88,7 @@ const ProfileInfoPage = () => {
     learning: "4 Learning",
     archived: "2 Achieved",
   };
-  
+
   const socialNetworkS = socialNetwork.map((network, index) => (
     <li className="col-span-8 list-none border-2 border-current" key={index}>
       <FontAwesomeIcon
@@ -105,7 +105,7 @@ const ProfileInfoPage = () => {
       />
     </li>
   ));
-  
+
   return (
     <section className="relative pb-8 border border-b-0 border-gray-400">
       <div className="flex flex-wrap justify-between gap-2 p-4">
