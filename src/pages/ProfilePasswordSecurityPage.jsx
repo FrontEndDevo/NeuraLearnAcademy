@@ -15,19 +15,19 @@ const ProfilePasswordSecurityPage = () => {
   };
 
   const [formState, setFormState] = useState(DEFAULT_DATA);
-  const Emailhandler = (event) => {
+  const emailHandler = (event) => {
     setFormState({ ...formState, email: event.target.value });
   };
-  const passwordhandler = (event) => {
+  const passwordHandler = (event) => {
     setFormState({ ...formState, password: event.target.value });
   };
-  const newPasswordhandler = (event) => {
+  const newPasswordHandler = (event) => {
     setFormState({ ...formState, newPassword: event.target.value });
   };
-  const confirmNewPasswordhandler = (event) => {
+  const confirmNewPasswordHandler = (event) => {
     setFormState({ ...formState, confirmNewPassword: event.target.value });
   };
-  const submithandler = (event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
     if (formState.newPassword != formState.confirmNewPassword) return;
     console.log(formState);
@@ -36,7 +36,7 @@ const ProfilePasswordSecurityPage = () => {
   return (
     <section className="py-8 border border-b-0 border-gray-400 ">
       <ProfileHeader title={title} description={description} />
-      <form className="font-bold leading-8 md:text-xl" onSubmit={submithandler}>
+      <form className="font-bold leading-8 md:text-xl" onSubmit={submitHandler}>
         <div className="px-3 py-8 md:px-5 lg:px-10">
           <label htmlFor="Email">Email:</label>
           <input
@@ -44,7 +44,7 @@ const ProfilePasswordSecurityPage = () => {
             className="w-full p-2 mt-2 border-2 border-current md:p-4"
             placeholder="ex:aboutrika22@hotmail.com"
             value={formState.email}
-            onChange={Emailhandler}
+            onChange={emailHandler}
             required
           />
         </div>
@@ -56,7 +56,7 @@ const ProfilePasswordSecurityPage = () => {
             className={inputStyle}
             placeholder="Enter Current Password"
             value={formState.password}
-            onChange={passwordhandler}
+            onChange={passwordHandler}
             required
           />
           <input
@@ -64,7 +64,7 @@ const ProfilePasswordSecurityPage = () => {
             className={inputStyle}
             placeholder="Enter New Password"
             value={formState.newPassword}
-            onChange={newPasswordhandler}
+            onChange={newPasswordHandler}
             required
           />
           <input
@@ -72,7 +72,7 @@ const ProfilePasswordSecurityPage = () => {
             className={`${inputStyle} mb-3`}
             placeholder="Re-type New Password"
             value={formState.confirmNewPassword}
-            onChange={confirmNewPasswordhandler}
+            onChange={confirmNewPasswordHandler}
             required
           />
           <ButtonProfile>Change Password</ButtonProfile>
