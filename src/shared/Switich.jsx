@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function SwitchComponent() {
+function Switch() {
   const [isChecked, setIsChecked] = useState(false);
 
   const toggleSwitch = () => {
@@ -33,4 +33,4 @@ function SwitchComponent() {
   );
 }
 
-export default SwitchComponent;
+export default Switch;

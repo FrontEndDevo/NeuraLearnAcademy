@@ -1,7 +1,7 @@
-import ButtonProfile from "../shared/ButtonProfile";
-import ProfileHeader from "../shared/ProfileHeader";
-import SwitchComponent from "../shared/SwitichComponent";
-/* eslint-disable */
+import ButtonProfile from "../shared/Profile/ButtonProfile";
+import ProfileHeader from "../shared/Profile/ProfileHeader";
+import Switch from "../shared/Switich";
+
 const ProfileNotificationPage = () => {
   const title = "Notifications";
   const description =
@@ -13,15 +13,15 @@ const ProfileNotificationPage = () => {
         <h3 className="mb-4">I want to receive:</h3>
         <div className="flex items-center justify-between mb-4">
           <p>Promotions, course recommendations, and helpful resources.</p>
-          <SwitchComponent />
+          <Switch />
         </div>
         <div className="flex items-center justify-between mb-4">
           <p>Announcements from instructors whose course(s) I’m enrolled in.</p>
-          <SwitchComponent />
+          <Switch />
         </div>
         <div className="flex items-center justify-between mb-4">
           <p>Don't send me any promotional emails.</p>
-          <SwitchComponent />
+          <Switch />
         </div>
         <ButtonProfile addStyle={`px-8 py-3`}>Save</ButtonProfile>
       </div>

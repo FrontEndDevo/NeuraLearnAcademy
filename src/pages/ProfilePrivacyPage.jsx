@@ -1,7 +1,7 @@
-import ButtonProfile from "../shared/ButtonProfile";
-import ProfileHeader from "../shared/ProfileHeader";
-import SwitchComponent from "../shared/SwitichComponent";
-/* eslint-disable */
+import ButtonProfile from "../shared/Profile/ButtonProfile";
+import ProfileHeader from "../shared/Profile/ProfileHeader";
+import Switch from "../shared/Switich";
+
 const ProfilePrivacyPage = () => {
   const title = "Privacy";
   const description = "Modify your privacy settings here.";
@@ -12,11 +12,11 @@ const ProfilePrivacyPage = () => {
         <h3 className="mb-4">Profile page settings:</h3>
         <div className="flex items-center justify-between mb-4">
           <p>Share social platforms on my profile.</p>
-          <SwitchComponent />
+          <Switch />
         </div>
         <div className="flex items-center justify-between mb-4">
           <p>Share social platforms on my profile.</p>
-          <SwitchComponent />
+          <Switch />
         </div>
         
         <ButtonProfile addStyle={`px-8 py-3`}>Save</ButtonProfile>
