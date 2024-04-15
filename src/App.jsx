@@ -7,7 +7,7 @@ import PageNotFound from "./pages/PageNotFound";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import ProfilePage from "./pages/ProfilePage";
 import ProfileInfoPage from "./pages/ProfileInfoPage";
-import ProfilePasswordSecurityPage from "./pages/ProfilePassword&SecurityPage";
+import ProfilePasswordSecurityPage from "./pages/ProfilePasswordSecurityPage";
 import ProfilePrivacyPage from "./pages/ProfilePrivacyPage";
 import ProfileNotificationPage from "./pages/ProfileNotificationPage";
 import ProfileCloseAcountPage from "./pages/ProfileCloseAcountPage";
