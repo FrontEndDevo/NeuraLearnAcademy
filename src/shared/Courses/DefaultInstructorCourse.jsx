@@ -30,7 +30,7 @@ const DefaultInstructorCourse = React.memo(() => {
     <li
       onMouseEnter={handleEnterCard}
       onMouseLeave={handleLeaveCard}
-      className="px-4 py-12 duration-200 w-[25rem] h-[30rem] cursor-pointer border shadow-lg rounded-3xl"
+      className="px-4 py-12 duration-200 select-none w-[25rem] h-[30rem] cursor-pointer border shadow-lg rounded-3xl"
       onClick={handleOpenCreateCourse}
     >
       <div className="text-center">
