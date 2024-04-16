@@ -11,6 +11,7 @@ import ProfilePasswordSecurityPage from "./pages/ProfilePasswordSecurityPage";
 import ProfilePrivacyPage from "./pages/ProfilePrivacyPage";
 import ProfileNotificationPage from "./pages/ProfileNotificationPage";
 import ProfileCloseAcountPage from "./pages/ProfileCloseAcountPage";
+import AllCoursesPage from "./pages/AllCoursesPage";
 
 const App = () => {
   return (
@@ -22,7 +23,9 @@ const App = () => {
         <Route path="/my-learnings" element={<MyLearningsPage />} />
         <Route path="/*" element={<PageNotFound />} />
         <Route path="/cart" element={<ShoppingCartPage />} />
-        <Route path="/profile" element={<ProfilePage />}>
+        <Route path="/all-courses" element={<AllCoursesPage />} />
+        
+          <Route path="/profile" element={<ProfilePage />}>
           <Route path="profileInfo" element={<ProfileInfoPage />} />
           <Route
             path="password&security"

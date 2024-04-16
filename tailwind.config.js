@@ -17,6 +17,11 @@ export default {
           700: "#342E34",
         },
       },
+
+      boxShadow: {
+        innerwhite:
+          "white 0px 54px 55px, white 0px -12px 30px, white 0px 4px 6px, white 0px 12px 13px, white 0px -3px 5px;",
+      },
     },
 
     fontFamily: {
