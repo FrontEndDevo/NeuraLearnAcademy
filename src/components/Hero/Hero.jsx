@@ -1,4 +1,4 @@
-import Benifits from "./Benifits";
+import Benefits from "./Benefits";
 import hero from "/src/assets/images/homepage/hero.png";
 import { Link } from "react-router-dom";
 
@@ -26,7 +26,7 @@ const Hero = () => {
           <img src={hero} alt="" />
         </div>
       </section>
-      <Benifits/>
+      <Benefits/>
     </div>
   );
 };
