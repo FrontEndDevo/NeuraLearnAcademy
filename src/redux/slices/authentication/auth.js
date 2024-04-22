@@ -17,7 +17,13 @@ const authSlice = createSlice({
         isAuthenticated: true,
       };
     },
-    LOGIN_SUCCESS(state, action) {
+    AUTHENTICATED_FAIL(state) {
+      return {
+        ...state,
+        isAuthenticated: false,
+      };
+    },
+    AUTH_SUCCESS(state, action) {
       localStorage.setItem("access", action.payload.access);
       localStorage.setItem("refresh", action.payload.refresh);
       return {
@@ -27,43 +33,26 @@ const authSlice = createSlice({
         refresh: action.payload.refresh,
       };
     },
+    AUTH_FAIL(state) {
+      localStorage.removeItem("access");
+      localStorage.removeItem("refresh");
+      return {
+        ...state,
+        access: null,
+        refresh: null,
+        isAuthenticated: false,
+        user: null,
+      };
+    },
     USER_LOADED_SUCCESS(state, action) {
       return {
         ...state,
         user: action.payload,
       };
     },
-    AUTHENTICATED_FAIL(state) {
-      return {
-        ...state,
-        isAuthenticated: false,
-      };
-    },
     USER_LOADED_FAIL(state) {
       return {
         ...state,
-        user: null,
-      };
-    },
-    LOGIN_FAIL(state) {
-      localStorage.removeItem("access");
-      localStorage.removeItem("refresh");
-      return {
-        ...state,
-        access: null,
-        refresh: null,
-        isAuthenticated: false,
-        user: null,
-      };
-    },
-    LOGOUT(state) {
-      localStorage.removeItem("access");
-      localStorage.removeItem("refresh");
-      return {
-        ...state,
-        access: null,
-        refresh: null,
-        isAuthenticated: false,
         user: null,
       };
     },
@@ -77,12 +66,11 @@ const authSlice = createSlice({
 
 export const {
   AUTHENTICATED_SUCCESS,
-  LOGIN_SUCCESS,
+  AUTH_SUCCESS,
   USER_LOADED_SUCCESS,
   AUTHENTICATED_FAIL,
   USER_LOADED_FAIL,
-  LOGIN_FAIL,
-  LOGOUT,
+  AUTH_FAIL,
   RESET,
 } = authSlice.actions;
 export default authSlice.reducer;
