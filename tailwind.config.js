@@ -11,6 +11,7 @@ export default {
         secondary: {
           500: "#65D6D6",
           700: "#00A5A5",
+          900: "#1E84BE",
         },
         "gray-color": {
           500: "#494747",
