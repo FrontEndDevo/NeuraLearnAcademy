@@ -7,9 +7,9 @@ import {
   faTableList,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SearchUserCourses from "./SearchUserCourses";
 import React from "react";
-import UserCoursesActions from "./UserCoursesActions";
-import SearchBar from "../../shared/SearchBar";
+import UserCoursesActions from "./UserCoursesActions/UserCoursesActions";
 
 const userOptions = [
   {
@@ -58,7 +58,7 @@ const UserCoursesOptions = React.memo(({ option, chooseUserOption }) => {
         {renderedAllUserOptions}
       </ul>
       <div className="grid grid-cols-1 mx-auto md:block">
-        <SearchBar />
+        <SearchUserCourses />
         <UserCoursesActions />
       </div>
     </aside>

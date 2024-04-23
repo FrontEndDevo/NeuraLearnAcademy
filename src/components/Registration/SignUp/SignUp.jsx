@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLinkedin,
@@ -8,20 +8,29 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import image1 from "../../../assets/images/LoginSigin/logo.png";
 import CopyRights from "../CopyRights/CopyRights";
+import { signup } from "../../../redux/actions/auth-methods";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordConfir, setPasswordConfir] = useState("");
+  const [re_password, setRe_password] = useState("");
   const [errors, setErrors] = useState(false);
+  const isAuthenticated = useSelector(
+    (state) => state.userAuth.isAuthenticated
+  );
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    signup(dispatch, firstName, lastName, email, password, re_password);
     setErrors(true);
   };
-
+  if (isAuthenticated) {
+    return redirect("/");
+  }
   return (
     <>
       <div className="flex flex-col items-center px-10 pt-10 pb-20">
@@ -79,7 +88,7 @@ const SignUp = () => {
                   onChange={(e) => setFirstName(e.target.value)}
                 />
                 {firstName == "" && errors && (
-                  <p className="text-red-700 my-1">First Name is required</p>
+                  <p className="my-1 text-red-700">First Name is required</p>
                 )}
               </div>
               <div>
@@ -101,7 +110,7 @@ const SignUp = () => {
                   onChange={(e) => setLastName(e.target.value)}
                 />
                 {lastName == "" && errors && (
-                  <p className="text-red-700 my-1">Last Name is required</p>
+                  <p className="my-1 text-red-700">Last Name is required</p>
                 )}
               </div>
             </div>
@@ -116,7 +125,7 @@ const SignUp = () => {
               <input
                 type="email"
                 id="email"
-                className="w-full sm:w-96 pl-2 py-2 border border-gray-300 md:w-96"
+                className="w-full py-2 pl-2 border border-gray-300 sm:w-96 md:w-96"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -142,37 +151,37 @@ const SignUp = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
               {password.length < 8 && errors && (
-                <p className="text-red-700 my-1 text-wrap">
+                <p className="my-1 text-red-700 text-wrap">
                   Password should be at least 8 characters.
                 </p>
               )}
             </div>
             <div>
               <label
-                htmlFor="passwordConfir"
+                htmlFor="re_password"
                 className="block mb-1 text-base font-semibold text-neutral-600"
               >
                 Repeat Password
               </label>
               <input
                 type="password"
-                id="passwordConfir"
+                id="re_password"
                 className={`w-full sm:w-96 pl-2 mb-2 py-2 border ${
-                  errors && passwordConfir !== password
+                  errors && re_password !== password
                     ? "border-red-500"
                     : "border-gray-300"
                 } md:w-96`}
-                value={passwordConfir}
-                onChange={(e) => setPasswordConfir(e.target.value)}
+                value={re_password}
+                onChange={(e) => setRe_password(e.target.value)}
               />
-              {passwordConfir !== password && errors && (
-                <p className="text-red-700 my-1">Passwords do not match.</p>
+              {re_password !== password && errors && (
+                <p className="my-1 text-red-700">Passwords do not match.</p>
               )}
             </div>
 
             <button
               type="submit"
-              className="w-full md:w-96 py-2  text-xl font-semibold text-white bg-blue-700  hover:bg-blue-600"
+              className="w-full py-2 text-xl font-semibold text-white bg-blue-700 md:w-96 hover:bg-blue-600"
             >
               Sign up
             </button>
