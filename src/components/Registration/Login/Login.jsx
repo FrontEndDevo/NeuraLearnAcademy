@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -34,8 +34,10 @@ const Login = () => {
     }
   };
 
+  const navigate = useNavigate();
+
   if (isAuthenticated) {
-    return redirect("/");
+    navigate("/");
   }
 
   return (
