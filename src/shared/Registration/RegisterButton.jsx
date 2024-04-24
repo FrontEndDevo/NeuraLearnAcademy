@@ -1,7 +1,11 @@
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-const RegisterButton = ({ isLoading, keyword, clickButton }) => {
+const RegisterButton = ({
+  isLoading = false,
+  keyword = "register",
+  clickButton = () => {},
+}) => {
   return (
     <button
       type="button"
