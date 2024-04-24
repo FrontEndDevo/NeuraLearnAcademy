@@ -63,6 +63,12 @@ const activateAccountReducer = (state) => {
   };
 };
 
+const resetPasswordReducer = (state) => {
+  return {
+    ...state,
+  };
+};
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -73,6 +79,10 @@ const authSlice = createSlice({
     ACTIVATION_FAIL: activateAccountReducer,
     LOGIN_SUCCESS: registrationSuccessReducer,
     LOGIN_FAIL: registrationFailReducer,
+    PASSWORD_RESET_SUCCESS: resetPasswordReducer,
+    PASSWORD_RESET_FAIL: resetPasswordReducer,
+    PASSWORD_RESET_CONFIRM_SUCCESS: resetPasswordReducer,
+    PASSWORD_RESET_CONFIRM_FAIL: resetPasswordReducer,
     AUTHENTICATED_SUCCESS: authenticationSuccessReducer,
     AUTHENTICATED_FAIL: authenticationFailReducer,
     USER_LOADED_SUCCESS: loadUserSuccessReducer,
@@ -88,6 +98,10 @@ export const {
   ACTIVATION_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_FAIL,
+  PASSWORD_RESET_CONFIRM_SUCCESS,
+  PASSWORD_RESET_CONFIRM_FAIL,
   AUTHENTICATED_SUCCESS,
   AUTHENTICATED_FAIL,
   USER_LOADED_SUCCESS,
