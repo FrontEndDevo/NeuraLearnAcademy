@@ -4,6 +4,7 @@ import ratingsSlice from "./slices/Filters/ratings";
 import priceSlice from "./slices/Filters/prices";
 import topicSlice from "./slices/Filters/topics";
 import OpenCloseSlice from "./slices/Instructor/OpenClose";
+import authSlice from "./slices/authentication/auth";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     prices: priceSlice,
     topics: topicSlice,
     openClose: OpenCloseSlice,
+    userAuth: authSlice,
   },
 });
