@@ -56,7 +56,7 @@ const authSlice = createSlice({
         user: null,
       };
     },
-    RESET(state) {
+    ACTIVATION_STATE(state) {
       return {
         ...state,
       };
@@ -71,6 +71,6 @@ export const {
   AUTHENTICATED_FAIL,
   USER_LOADED_FAIL,
   AUTH_FAIL,
-  RESET,
+  ACTIVATION_STATE,
 } = authSlice.actions;
 export default authSlice.reducer;

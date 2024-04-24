@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import axios from "axios";
 import {
+  ACTIVATION_STATE,
   AUTHENTICATED_FAIL,
   AUTHENTICATED_SUCCESS,
   AUTH_FAIL,
@@ -134,3 +135,25 @@ export async function signup(
   }
 }
 
+export async function verify(dispatch, uid, token) {
+  // Prepare the request headers and body for the API call to the backend.
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify({ uid, token });
+
+  try {
+    await axios.post(
+      `http://localhost:8000/auth/users/activation/`,
+      body,
+      config
+    );
+
+    dispatch(ACTIVATION_STATE());
+  } catch (err) {
+    dispatch(ACTIVATION_STATE());
+  }
+}
