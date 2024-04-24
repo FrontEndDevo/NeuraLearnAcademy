@@ -2,14 +2,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { verify } from "../../../redux/actions/auth-methods";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faEnvelope,
-  faSpinner,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faFaceSmileWink } from "@fortawesome/free-regular-svg-icons";
 import logo from "../../../assets/images/LoginSigin/logo.png";
 import { useState } from "react";
+import RegisterButton from "../../../shared/Registration/RegisterButton";
 const Activation = () => {
   const [spinner, setSpinner] = useState(false);
 
@@ -63,17 +60,12 @@ const Activation = () => {
           <p className="mb-2">
             In order to activate your account please click the button below
           </p>
-          <button
-            type="button"
-            onClick={handleVerifyAccount}
-            className="py-2 mt-4 font-bold text-white duration-200 bg-indigo-500 rounded-full outline-none md:mt-8 px-14 hover:bg-indigo-700"
-          >
-            {spinner ? (
-              <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
-            ) : (
-              "Verify"
-            )}
-          </button>
+
+          <RegisterButton
+            keyword="verify"
+            isLoading={spinner}
+            clickButton={handleVerifyAccount}
+          />
         </div>
       </div>
     </div>
