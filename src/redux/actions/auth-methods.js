@@ -158,3 +158,8 @@ export async function verify(dispatch, uid, token) {
     dispatch(ACTIVATION_STATE());
   }
 }
+
+// Log out the user by removing the token from the local storage and setting the user to null.
+export async function logout(dispatch) {
+  dispatch(AUTH_FAIL());
+}
