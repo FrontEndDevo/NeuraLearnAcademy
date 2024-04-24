@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,25 +10,33 @@ import {
 
 import image1 from "../../../assets/images/LoginSigin/logo.png";
 import CopyRights from "../CopyRights/CopyRights";
+import { login } from "../../../redux/actions/auth-methods";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState("");
 
+  const isAuthenticated = useSelector(
+    (state) => state.userAuth.isAuthenticated
+  );
+
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-
 
     // perform logic
 
     if (email && password) {
-      console.log("Email:", email);
-      console.log("Password:", password);
+      login(dispatch, email, password);
     } else {
       console.error("Error: Please fill in all required fields.");
     }
   };
+
+  if (isAuthenticated) {
+    return redirect("/");
+  }
 
   return (
     <>
@@ -83,11 +91,10 @@ const Login = () => {
               <input
                 type="email"
                 id="email"
-                className="w-full pl-2 py-2 border border-gray-300 md:w-80"
+                className="w-full py-2 pl-2 border border-gray-300 md:w-80"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-
             </div>
 
             <div>
@@ -100,11 +107,10 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
-                className="w-full pl-2 mb-3 py-2 border border-gray-300 md:w-80"
+                className="w-full py-2 pl-2 mb-3 border border-gray-300 md:w-80"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-
             </div>
 
             <button
