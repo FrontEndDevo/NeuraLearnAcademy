@@ -7,6 +7,10 @@ import {
   ACTIVATION_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_FAIL,
+  PASSWORD_RESET_CONFIRM_SUCCESS,
+  PASSWORD_RESET_CONFIRM_FAIL,
   AUTHENTICATED_SUCCESS,
   AUTHENTICATED_FAIL,
   USER_LOADED_SUCCESS,
@@ -161,6 +165,60 @@ export async function verify(dispatch, uid, token) {
     dispatch(ACTIVATION_SUCCESS());
   } catch (err) {
     dispatch(ACTIVATION_FAIL());
+  }
+}
+
+// Send a request to the backend to reset the password.
+export async function reset_password(dispatch, email) {
+  // Prepare the request headers and body for the API call to the backend.
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify({ email });
+
+  try {
+    await axios.post(
+      `http://localhost:8000/auth/users/reset_password/`,
+      body,
+      config
+    );
+
+    dispatch(PASSWORD_RESET_SUCCESS());
+  } catch (err) {
+    dispatch(PASSWORD_RESET_FAIL());
+  }
+}
+
+// Send a request to the backend to confirm the password reset.
+export async function reset_password_confirm(
+  dispatch,
+  uid,
+  token,
+  new_password,
+  re_new_password
+) {
+  // Prepare the request headers and body for the API call to the backend.
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify({ uid, token, new_password, re_new_password });
+
+  try {
+    await axios.post(
+      `http://localhost:8000/auth/users/reset_password_confirm/`,
+      body,
+      config
+    );
+
+    dispatch(PASSWORD_RESET_CONFIRM_SUCCESS());
+  } catch (err) {
+    dispatch(PASSWORD_RESET_CONFIRM_FAIL());
   }
 }
 
