@@ -25,12 +25,12 @@ const SignUp = () => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors(true);
 
     if (password === rePassword) {
-      signup(dispatch, firstName, lastName, email, password, rePassword);
+      await signup(dispatch, firstName, lastName, email, password, rePassword);
     }
   };
 

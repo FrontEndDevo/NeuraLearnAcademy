@@ -22,15 +22,11 @@ const Login = () => {
   );
 
   const dispatch = useDispatch();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // perform logic
-
     if (email && password) {
-      login(dispatch, email, password);
-    } else {
-      console.error("Error: Please fill in all required fields.");
+      await login(dispatch, email, password);
     }
   };
 
