@@ -1,13 +1,17 @@
 /* eslint-disable no-undef */
 import axios from "axios";
 import {
-  ACTIVATION_STATE,
-  AUTHENTICATED_FAIL,
+  SIGNUP_SUCCESS,
+  SIGNUP_FAIL,
+  ACTIVATION_SUCCESS,
+  ACTIVATION_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
   AUTHENTICATED_SUCCESS,
-  AUTH_FAIL,
-  AUTH_SUCCESS,
-  USER_LOADED_FAIL,
+  AUTHENTICATED_FAIL,
   USER_LOADED_SUCCESS,
+  USER_LOADED_FAIL,
+  LOGOUT,
 } from "../slices/authentication/auth";
 
 // Load the user information from the backend.
@@ -91,10 +95,11 @@ export async function login(dispatch, email, password) {
       config
     );
 
-    dispatch(AUTH_SUCCESS(res.data));
+    dispatch(LOGIN_SUCCESS(res.data));
+
     load_user(dispatch);
   } catch (err) {
-    dispatch(AUTH_FAIL());
+    dispatch(LOGIN_FAIL());
   }
 }
 
@@ -129,9 +134,9 @@ export async function signup(
       config
     );
 
-    dispatch(AUTH_SUCCESS(res.data));
+    dispatch(SIGNUP_SUCCESS(res.data));
   } catch (err) {
-    dispatch(AUTH_FAIL());
+    dispatch(SIGNUP_FAIL());
   }
 }
 
@@ -153,13 +158,13 @@ export async function verify(dispatch, uid, token) {
       config
     );
 
-    dispatch(ACTIVATION_STATE());
+    dispatch(ACTIVATION_SUCCESS());
   } catch (err) {
-    dispatch(ACTIVATION_STATE());
+    dispatch(ACTIVATION_FAIL());
   }
 }
 
 // Log out the user by removing the token from the local storage and setting the user to null.
 export async function logout(dispatch) {
-  dispatch(AUTH_FAIL());
+  dispatch(LOGOUT());
 }
