@@ -13,6 +13,7 @@ import ProfileNotificationPage from "./pages/ProfileNotificationPage";
 import ProfileCloseAcountPage from "./pages/ProfileCloseAcountPage";
 import AllCoursesPage from "./pages/AllCoursesPage";
 import InstructorPage from "./pages/Instructor/InstructorPage";
+import Activation from "./components/Registration/Activation/Activation";
 
 const App = () => {
   return (
@@ -26,8 +27,8 @@ const App = () => {
         <Route path="/cart" element={<ShoppingCartPage />} />
         <Route path="/all-courses" element={<AllCoursesPage />} />
         <Route path="/instructor" element={<InstructorPage />} />
-        
-          <Route path="/profile" element={<ProfilePage />}>
+
+        <Route path="/profile" element={<ProfilePage />}>
           <Route path="profileInfo" element={<ProfileInfoPage />} />
           <Route
             path="password&security"
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="Notification" element={<ProfileNotificationPage />} />
           <Route path="close-account" element={<ProfileCloseAcountPage />} />
         </Route>
+        <Route path="/activate/:uid/:token" element={<Activation />} />
       </Routes>
     </>
   );
