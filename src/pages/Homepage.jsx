@@ -15,8 +15,8 @@ const Homepage = () => {
   const isAuthenticated = useSelector(
     (state) => state.userAuth.isAuthenticated
   );
-  console.log(isAuthenticated);
 
+  // Redirect to login page if user is not authenticated.
   useEffect(() => {
     if (isAuthenticated !== true) {
       navigate("/login");
