@@ -118,12 +118,15 @@ const Login = () => {
               Log in
             </button>
 
-            <Link
-              to="/forgot-password"
-              className="inline-block text-base font-semibold tracking-wide text-black underline"
-            >
-              Forgot Password
-            </Link>
+            <div className="flex font-semibold text-lg items-center gap-4">
+              <h4>Forget Password?</h4>
+              <Link
+                to="/reset-password"
+                className="inline-block tracking-wide underline"
+              >
+                Reset Now
+              </Link>
+            </div>
 
             <h2 className="font-normal text-black text-1xl md:text-1xl md:font-semibold">
               Continue in another way
