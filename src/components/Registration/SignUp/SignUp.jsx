@@ -10,6 +10,7 @@ import CopyRights from "../CopyRights/CopyRights";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../../redux/actions/auth-methods";
 import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
+import RegisterButton from "../../../shared/Registration/RegisterButton";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -18,6 +19,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [errors, setErrors] = useState(false);
+  const [spinner, setSpinner] = useState(false);
 
   const isAuthenticated = useSelector(
     (state) => state.userAuth.isAuthenticated
@@ -30,7 +32,9 @@ const SignUp = () => {
     setErrors(true);
 
     if (password === rePassword) {
+      setSpinner(true);
       await signup(dispatch, firstName, lastName, email, password, rePassword);
+      setSpinner(false);
     }
   };
 
@@ -166,12 +170,11 @@ const SignUp = () => {
               )}
             </div>
 
-            <button
-              type="submit"
-              className="w-full py-2 text-xl font-semibold text-white bg-blue-700 md:w-96 hover:bg-blue-600"
-            >
-              Sign up
-            </button>
+            <RegisterButton
+              keyword="Signup"
+              isLoading={spinner}
+              clickButton={handleSubmit}
+            />
 
             <h2 className="text-base font-semibold tracking-wide text-black">
               Sign in another way
