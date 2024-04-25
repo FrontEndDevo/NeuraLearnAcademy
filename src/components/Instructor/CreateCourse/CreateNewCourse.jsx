@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import defaultThumbnail from "../../../assets/images/Instructor/thumbnail.webp";
 import { allCategories } from "../../../pages/AllCoursesPage";
 import Dropdown from "../../../shared/Dropdown";
-import { closeCreateCourse } from "../../../redux/slices/Instructor/OpenClose";
+import { closeModal } from "../../../redux/slices/Instructor/OpenClose";
 import { useDispatch } from "react-redux";
 import { useRef, useState } from "react";
 import ImageFileUploader from "../../../shared/Inputs/ImageFileUploader";
@@ -42,7 +42,7 @@ const CreateNewCourse = () => {
   // Close the create course modal:
   const dispatch = useDispatch();
   const handleCloseCreateCourse = () => {
-    dispatch(closeCreateCourse());
+    dispatch(closeModal());
   };
 
   // Handle the uploaded thumbnail and store it in the state:

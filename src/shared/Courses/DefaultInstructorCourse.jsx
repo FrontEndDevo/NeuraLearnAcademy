@@ -2,7 +2,7 @@ import { faCheck, faPlus, faTv } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { openCreateCourse } from "../../redux/slices/Instructor/OpenClose";
+import { openModal } from "../../redux/slices/Instructor/OpenClose";
 const createNewCourseBenefits = [
   "Start building your course.",
   "Set the price as appropriate.",
@@ -23,7 +23,7 @@ const DefaultInstructorCourse = React.memo(() => {
   const dispatch = useDispatch();
   const handleOpenCreateCourse = () => {
     // Open the create course modal:
-    dispatch(openCreateCourse());
+    dispatch(openModal("createUserCourse"));
   };
 
   return (
