@@ -6,7 +6,6 @@ import {
   faGoogle,
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
-import image1 from "../../../assets/images/LoginSigin/logo.png";
 import CopyRights from "../CopyRights/CopyRights";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../../redux/actions/auth-methods";
