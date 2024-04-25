@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,10 +12,12 @@ import CopyRights from "../CopyRights/CopyRights";
 import { login } from "../../../redux/actions/auth-methods";
 import { useDispatch, useSelector } from "react-redux";
 import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
-
+import RegisterButton from "../../../shared/Registration/RegisterButton";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [spinner, setSpinner] = useState(false);
 
   const isAuthenticated = useSelector(
     (state) => state.userAuth.isAuthenticated
@@ -26,15 +28,19 @@ const Login = () => {
     e.preventDefault();
 
     if (email && password) {
+      setSpinner(true);
       await login(dispatch, email, password);
+      setSpinner(false);
     }
   };
 
   const navigate = useNavigate();
 
-  if (isAuthenticated) {
-    navigate("/");
-  }
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <>
@@ -94,12 +100,11 @@ const Login = () => {
               />
             </div>
 
-            <button
-              type="submit"
-              className="w-[72%] py-2.5  text-xl font-semibold text-white bg-blue-700  hover:bg-blue-900"
-            >
-              Log in
-            </button>
+            <RegisterButton
+              keyword="Login"
+              isLoading={spinner}
+              clickButton={handleSubmit}
+            />
 
             <div className="flex font-semibold text-lg items-center gap-4">
               <h4>Forget Password?</h4>
