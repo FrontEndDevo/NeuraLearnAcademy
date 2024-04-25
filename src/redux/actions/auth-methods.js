@@ -49,8 +49,9 @@ export async function load_user(dispatch) {
 
 // Check if the user is authenticated by checking the token in the local storage.
 export async function checkAuthenticated(dispatch) {
+  const access = localStorage.getItem("access");
   // Check for the token in the local storage.
-  if (localStorage.getItem("access")) {
+  if (access) {
     // Prepare the request headers and body for the API call to the backend.
     const config = {
       headers: {
@@ -59,7 +60,7 @@ export async function checkAuthenticated(dispatch) {
       },
     };
 
-    const body = JSON.stringify({ token: localStorage.getItem("access") });
+    const body = JSON.stringify({ token: access });
 
     try {
       const res = await axios.post(
@@ -100,7 +101,7 @@ export async function login(dispatch, email, password) {
     );
 
     dispatch(LOGIN_SUCCESS(res.data));
-
+    // Load the user information after logging in.
     load_user(dispatch);
   } catch (err) {
     dispatch(LOGIN_FAIL());
@@ -137,7 +138,6 @@ export async function signup(
       body,
       config
     );
-
     dispatch(SIGNUP_SUCCESS(res.data));
   } catch (err) {
     dispatch(SIGNUP_FAIL());
