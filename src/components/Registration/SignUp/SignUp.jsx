@@ -10,6 +10,7 @@ import image1 from "../../../assets/images/LoginSigin/logo.png";
 import CopyRights from "../CopyRights/CopyRights";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../../redux/actions/auth-methods";
+import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -53,29 +54,7 @@ const SignUp = () => {
             onSubmit={handleSubmit}
             className="flex flex-col items-center space-y-3"
           >
-            <div className="flex items-center">
-              <img
-                src={image1}
-                className="w-20 md:w-24"
-                alt="logo"
-                loading="lazy"
-              />
-              <div className="w-[1px] h-28  bg-neutral-500 mx-2"></div>{" "}
-              <div>
-                <div className="font-bold text-black text-1xl md:text-2xl">
-                  <span className="text-2xl font-bold text-blue-700">N</span>
-                  eura
-                </div>
-                <div className="font-bold text-black text-1xl md:text-2xl">
-                  <span className="text-2xl font-bold text-blue-700">L</span>
-                  earn
-                </div>
-                <div className="font-bold text-black text-1xl md:text-2xl">
-                  <span className="text-2xl font-bold text-blue-700">A</span>
-                  cademy
-                </div>
-              </div>
-            </div>
+            <NeuraLearnAcademy />
 
             <div className="flex flex-col md:flex-row">
               <div className="mb-1 md:mr-2">
