@@ -1,23 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  openCloseCreateCourse: false,
-};
-
-const OpenCloseSlice = createSlice({
-  name: "open_Close",
-  initialState,
+const openCloseSlice = createSlice({
+  name: "openClose",
+  initialState: { modalName: null },
   reducers: {
-    // Open and close create course modal:
-    openCreateCourse: (state) => {
-      state.openCloseCreateCourse = true;
+    openModal: (state, action) => {
+      state.modalName = action.payload;
     },
-    closeCreateCourse: (state) => {
-      state.openCloseCreateCourse = false;
+    closeModal: (state) => {
+      state.modalName = null;
     },
   },
 });
 
-export const { openCreateCourse, closeCreateCourse } = OpenCloseSlice.actions;
+export const { openModal, closeModal } = openCloseSlice.actions;
 
-export default OpenCloseSlice.reducer;
+export default openCloseSlice.reducer;
