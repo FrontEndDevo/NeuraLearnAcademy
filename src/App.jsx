@@ -14,6 +14,8 @@ import ProfileCloseAcountPage from "./pages/ProfileCloseAcountPage";
 import AllCoursesPage from "./pages/AllCoursesPage";
 import InstructorPage from "./pages/Instructor/InstructorPage";
 import Activation from "./components/Registration/Activation/Activation";
+import ResetPassword from "./components/Registration/ResetPassword/ResetPassword";
+import ResetPasswordConfirm from "./components/Registration/ResetPassword/ResetPasswordConfirm";
 
 const App = () => {
   return (
@@ -22,12 +24,17 @@ const App = () => {
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route
+          path="/password/reset/confirm/:uid/:token"
+          element={<ResetPasswordConfirm />}
+        />
+        <Route path="/activate/:uid/:token" element={<Activation />} />
         <Route path="/my-learnings" element={<MyLearningsPage />} />
         <Route path="/*" element={<PageNotFound />} />
         <Route path="/cart" element={<ShoppingCartPage />} />
         <Route path="/all-courses" element={<AllCoursesPage />} />
         <Route path="/instructor" element={<InstructorPage />} />
-
         <Route path="/profile" element={<ProfilePage />}>
           <Route path="profileInfo" element={<ProfileInfoPage />} />
           <Route
@@ -38,7 +45,6 @@ const App = () => {
           <Route path="Notification" element={<ProfileNotificationPage />} />
           <Route path="close-account" element={<ProfileCloseAcountPage />} />
         </Route>
-        <Route path="/activate/:uid/:token" element={<Activation />} />
       </Routes>
     </>
   );
