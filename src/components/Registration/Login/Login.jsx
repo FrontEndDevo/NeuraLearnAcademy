@@ -8,10 +8,10 @@ import {
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
 
-import image1 from "../../../assets/images/LoginSigin/logo.png";
 import CopyRights from "../CopyRights/CopyRights";
 import { login } from "../../../redux/actions/auth-methods";
 import { useDispatch, useSelector } from "react-redux";
+import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -60,24 +60,7 @@ const Login = () => {
             onSubmit={handleSubmit}
             className="flex flex-col items-center space-y-4"
           >
-            <div className="flex items-center">
-              <img src={image1} className="w-24" alt="Logo" loading="lazy" />
-              <div className="w-[1px] h-28 bg-neutral-500 mx-2"></div>
-              <div>
-                <div className="font-bold text-black text-1xl md:text-2xl">
-                  <span className="text-2xl font-bold text-blue-700">N</span>
-                  eura
-                </div>
-                <div className="font-bold text-black text-1xl md:text-2xl">
-                  <span className="text-2xl font-bold text-blue-700">L</span>
-                  earn
-                </div>
-                <div className="font-bold text-black text-1xl md:text-2xl">
-                  <span className="text-2xl font-bold text-blue-700">A</span>
-                  cademy
-                </div>
-              </div>
-            </div>
+            <NeuraLearnAcademy />
 
             <div>
               <label
