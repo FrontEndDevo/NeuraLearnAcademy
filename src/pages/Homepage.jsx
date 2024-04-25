@@ -6,7 +6,23 @@ import ResourceGuide from "../components/ResourceGuide/ResourceGuide";
 import TopCategories from "../components/TopCategories/TopCategories";
 import Hero from "../components/Hero/Hero";
 import Specializations from "../components/Specializations/Specializations";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 const Homepage = () => {
+  const navigate = useNavigate();
+
+  const isAuthenticated = useSelector(
+    (state) => state.userAuth.isAuthenticated
+  );
+  console.log(isAuthenticated);
+
+  useEffect(() => {
+    if (isAuthenticated !== true) {
+      navigate("/login");
+    }
+  }, [isAuthenticated, navigate]);
+
   return (
     <>
       <Hero />
