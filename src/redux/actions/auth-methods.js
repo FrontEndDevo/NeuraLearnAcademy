@@ -18,6 +18,14 @@ import {
   LOGOUT,
 } from "../slices/authentication/auth";
 
+import {
+  LOGIN_ERROR,
+  SIGNUP_ERROR,
+  AUTHENTICATION_ERROR,
+  ACTIVATION_ERROR,
+  RESET,
+} from "../slices/authentication/errors";
+
 // Load the user information from the backend.
 export async function load_user(dispatch) {
   // Check if the token is in the local storage.
@@ -37,7 +45,6 @@ export async function load_user(dispatch) {
         `http://localhost:8000/auth/users/me/`,
         config
       );
-
       dispatch(USER_LOADED_SUCCESS(res.data));
     } catch (err) {
       dispatch(USER_LOADED_FAIL());
@@ -101,10 +108,12 @@ export async function login(dispatch, email, password) {
     );
 
     dispatch(LOGIN_SUCCESS(res.data));
+    dispatch(RESET());
     // Load the user information after logging in.
     load_user(dispatch);
   } catch (err) {
     dispatch(LOGIN_FAIL());
+    dispatch(LOGIN_ERROR(err.response.data.detail));
   }
 }
 
@@ -138,9 +147,19 @@ export async function signup(
       body,
       config
     );
+
     dispatch(SIGNUP_SUCCESS(res.data));
+    dispatch(RESET());
   } catch (err) {
     dispatch(SIGNUP_FAIL());
+    dispatch(SIGNUP_ERROR(err.response.data));
+    // console.log(err);
+    // console.log(err.response.data);
+    // console.log(err.response.data.first_name[0]);
+    // console.log(err.response.data.last_name[0]);
+    // console.log(err.response.data.email[0]);
+    // console.log(err.response.data.non_field_errors[0]);
+    // console.log(err.response.data.password[0]);
   }
 }
 
@@ -163,8 +182,13 @@ export async function verify(dispatch, uid, token) {
     );
 
     dispatch(ACTIVATION_SUCCESS());
+    dispatch(RESET());
   } catch (err) {
     dispatch(ACTIVATION_FAIL());
+    console.log(err);
+    ACTIVATION_ERROR(err.response.data);
+    // console.log(err.response.data.uid[0])
+    // console.log(err.response.data.token[0])
   }
 }
 
@@ -187,8 +211,12 @@ export async function reset_password(dispatch, email) {
     );
 
     dispatch(PASSWORD_RESET_SUCCESS());
+    dispatch(RESET());
   } catch (err) {
     dispatch(PASSWORD_RESET_FAIL());
+    console.log(err);
+    console.log(err.response.data);
+    // console.log(err.response.data.email[0]);
   }
 }
 
@@ -217,8 +245,12 @@ export async function reset_password_confirm(
     );
 
     dispatch(PASSWORD_RESET_CONFIRM_SUCCESS());
+    dispatch(RESET());
   } catch (err) {
     dispatch(PASSWORD_RESET_CONFIRM_FAIL());
+    console.log(err);
+    console.log(err.response.data);
+    // console.log(err.response.data.new_password[0]);
   }
 }
 
