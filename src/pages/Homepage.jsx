@@ -19,11 +19,15 @@ const Homepage = () => {
 
   // Redirect to login page if user is not authenticated.
   useEffect(() => {
+    // Check if the user is authenticated.
     async function checkAuthentication() {
       await checkAuthenticated(dispatch);
     }
     checkAuthentication();
+  }, [navigate, dispatch]);
 
+  //  Load the user information if the user is authenticated.
+  useEffect(() => {
     async function loadUserInformation() {
       await load_user(dispatch);
     }
