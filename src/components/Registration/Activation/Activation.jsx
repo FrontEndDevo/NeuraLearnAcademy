@@ -22,7 +22,7 @@ const Activation = () => {
     setSpinner(true);
     await verify(dispatch, uid, token);
     setSpinner(false);
-    navigate("/");
+    // navigate("/");
   };
 
   const stepsParentDiv = "flex flex-col items-center gap-2";
