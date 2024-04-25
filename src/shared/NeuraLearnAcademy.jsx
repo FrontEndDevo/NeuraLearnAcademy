@@ -1,7 +1,7 @@
 import logo from "../assets/images/LoginSigin/logo.png";
 const NeuraLearnAcademy = () => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center select-none">
       <img src={logo} className="w-20 md:w-24" alt="logo" loading="lazy" />
       <div className="w-[1px] h-28  bg-neutral-500 mx-2"></div>{" "}
       <div>
