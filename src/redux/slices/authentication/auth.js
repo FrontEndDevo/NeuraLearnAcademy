@@ -46,6 +46,7 @@ const registrationFailReducer = (state) => {
 const loadUserSuccessReducer = (state, action) => {
   return {
     ...state,
+    isAuthenticated: true,
     user: action.payload,
   };
 };
@@ -53,6 +54,7 @@ const loadUserSuccessReducer = (state, action) => {
 const loadUserFailReducer = (state) => {
   return {
     ...state,
+    isAuthenticated: false,
     user: null,
   };
 };
