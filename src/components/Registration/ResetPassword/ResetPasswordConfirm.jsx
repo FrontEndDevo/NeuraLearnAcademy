@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { reset_password_confirm } from "../../../redux/actions/auth-methods";
@@ -6,6 +6,7 @@ import RegisterButton from "../../../shared/Registration/RegisterButton";
 import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
 
 const ResetPasswordConfirm = () => {
+  const [spinner, setSpinner] = useState(false);
   // To navigate to the home page after the account is verified.
   const dispatch = useDispatch();
 
@@ -21,7 +22,9 @@ const ResetPasswordConfirm = () => {
     const rePassword = rePasswordRef.current.value;
 
     if (password == rePassword) {
+      setSpinner(true);
       await reset_password_confirm(dispatch, uid, token, password, rePassword);
+      setSpinner(false);
     }
   };
 
@@ -65,6 +68,7 @@ const ResetPasswordConfirm = () => {
 
         <RegisterButton
           keyword="reset password now"
+          isLoading={spinner}
           clickButton={handleResetPasswordConfirm}
         />
       </div>

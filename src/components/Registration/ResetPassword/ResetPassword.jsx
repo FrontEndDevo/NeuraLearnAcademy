@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import RegisterButton from "../../../shared/Registration/RegisterButton";
 import { reset_password } from "../../../redux/actions/auth-methods";
 import { useDispatch } from "react-redux";
@@ -6,13 +6,16 @@ import { Link } from "react-router-dom";
 import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
 
 const ResetPassword = () => {
+  const [spinner, setSpinner] = useState(false);
   const dispatch = useDispatch();
 
   const emailRef = useRef();
 
   const handleResetPassword = async (e) => {
+    setSpinner(true);
     e.preventDefault();
     await reset_password(dispatch, emailRef.current.value);
+    setSpinner(false);
   };
 
   return (
@@ -43,6 +46,7 @@ const ResetPassword = () => {
 
         <RegisterButton
           keyword="reset password"
+          isLoading={spinner}
           clickButton={handleResetPassword}
         />
         <div className="flex items-center justify-center mt-4 gap-40">
