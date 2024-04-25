@@ -21,6 +21,7 @@ const Activation = () => {
   const handleVerifyAccount = async () => {
     setSpinner(true);
     await verify(dispatch, uid, token);
+    setSpinner(false);
     navigate("/");
   };
 
