@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,10 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../../redux/actions/auth-methods";
 import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
 import RegisterButton from "../../../shared/Registration/RegisterButton";
-import { createPortal } from "react-dom";
-import Success from "../SuccessFailed/Success";
 import { openModal } from "../../../redux/slices/Instructor/OpenClose";
-import Failed from "../SuccessFailed/Failed";
 import SucessFailedBox from "../../../shared/Registration/SucessFailedBox";
 
 const SignUp = () => {
@@ -44,9 +41,11 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-  if (isAuthenticated) {
-    navigate("/");
-  }
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <>
