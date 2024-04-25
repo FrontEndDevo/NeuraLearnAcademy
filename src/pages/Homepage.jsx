@@ -6,22 +6,35 @@ import ResourceGuide from "../components/ResourceGuide/ResourceGuide";
 import TopCategories from "../components/TopCategories/TopCategories";
 import Hero from "../components/Hero/Hero";
 import Specializations from "../components/Specializations/Specializations";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { checkAuthenticated, load_user } from "../redux/actions/auth-methods";
 const Homepage = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector(
     (state) => state.userAuth.isAuthenticated
   );
 
   // Redirect to login page if user is not authenticated.
   useEffect(() => {
-    if (isAuthenticated !== true) {
+    async function checkAuthentication() {
+      await checkAuthenticated(dispatch);
+    }
+    checkAuthentication();
+
+    async function loadUserInformation() {
+      await load_user(dispatch);
+    }
+
+    if (isAuthenticated == true) {
+      loadUserInformation();
+      navigate("/");
+    } else {
       navigate("/login");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, dispatch]);
 
   return (
     <>
