@@ -11,6 +11,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../../redux/actions/auth-methods";
 import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
 import RegisterButton from "../../../shared/Registration/RegisterButton";
+import { createPortal } from "react-dom";
+import Success from "../SuccessFailed/Success";
+import { openModal } from "../../../redux/slices/Instructor/OpenClose";
+
+const registrationModalId = document.getElementById("registration__modal");
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -18,23 +23,24 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-  const [errors, setErrors] = useState(false);
   const [spinner, setSpinner] = useState(false);
 
   const isAuthenticated = useSelector(
     (state) => state.userAuth.isAuthenticated
   );
 
+  const modalName = useSelector((state) => state.openClose.modalName);
+
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors(true);
 
-    if (password === rePassword) {
+    if (firstName && lastName && email && password && rePassword) {
       setSpinner(true);
       await signup(dispatch, firstName, lastName, email, password, rePassword);
       setSpinner(false);
+      dispatch(openModal("registration"));
     }
   };
 
@@ -70,17 +76,10 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="firstName"
-                  className={`w-full sm:w-96 pl-2 py-2 border ${
-                    errors && lastName === ""
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } md:w-48`}
+                  className={`w-full sm:w-96 pl-2 py-2 border  md:w-48`}
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
-                {firstName == "" && errors && (
-                  <p className="my-1 text-red-700">First Name is required</p>
-                )}
               </div>
               <div>
                 <label
@@ -92,17 +91,10 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="lastName"
-                  className={`w-full sm:w-96 pl-2 py-2 border ${
-                    errors && lastName === ""
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } md:w-48`}
+                  className={`w-full sm:w-96 pl-2 py-2 border md:w-48`}
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
-                {lastName == "" && errors && (
-                  <p className="my-1 text-red-700">Last Name is required</p>
-                )}
               </div>
             </div>
 
@@ -133,19 +125,10 @@ const SignUp = () => {
               <input
                 type="password"
                 id="password"
-                className={`w-full pl-2 mb-1 py-2 border ${
-                  errors && password.length < 8
-                    ? "border-red-500"
-                    : "border-gray-300"
-                } md:w-96 sm:w-96`}
+                className={`w-full pl-2 mb-1 py-2 border  md:w-96 sm:w-96`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              {password.length < 8 && errors && (
-                <p className="my-1 text-red-700 text-wrap">
-                  Password should be at least 8 characters.
-                </p>
-              )}
             </div>
             <div>
               <label
@@ -157,17 +140,10 @@ const SignUp = () => {
               <input
                 type="password"
                 id="rePassword"
-                className={`w-full sm:w-96 pl-2 mb-2 py-2 border ${
-                  errors && rePassword !== password
-                    ? "border-red-500"
-                    : "border-gray-300"
-                } md:w-96`}
+                className={`w-full sm:w-96 pl-2 mb-2 py-2 border  md:w-96`}
                 value={rePassword}
                 onChange={(e) => setRePassword(e.target.value)}
               />
-              {rePassword !== password && errors && (
-                <p className="my-1 text-red-700">Passwords do not match.</p>
-              )}
             </div>
 
             <RegisterButton
@@ -216,7 +192,8 @@ const SignUp = () => {
           </form>
         </div>
       </div>
-
+      {modalName === "registration" &&
+        createPortal(<Success />, registrationModalId)}
       <CopyRights />
     </>
   );
