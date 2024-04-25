@@ -10,7 +10,7 @@ const RegisterButton = ({
     <button
       type="button"
       onClick={clickButton}
-      className="py-2 mt-4 font-bold text-white capitalize duration-200 bg-indigo-500 rounded-full outline-none md:mt-8 px-14 hover:bg-indigo-700"
+      className="py-2 mt-4 font-bold text-white capitalize duration-200 bg-primary-500 rounded-full outline-none md:mt-8 px-14 hover:bg-primary-700"
     >
       {isLoading ? (
         <FontAwesomeIcon icon={faSpinner} className="animate-spin" />
