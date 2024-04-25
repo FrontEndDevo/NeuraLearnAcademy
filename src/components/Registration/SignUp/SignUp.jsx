@@ -14,8 +14,8 @@ import RegisterButton from "../../../shared/Registration/RegisterButton";
 import { createPortal } from "react-dom";
 import Success from "../SuccessFailed/Success";
 import { openModal } from "../../../redux/slices/Instructor/OpenClose";
-
-const registrationModalId = document.getElementById("registration__modal");
+import Failed from "../SuccessFailed/Failed";
+import SucessFailedBox from "../../../shared/Registration/SucessFailedBox";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -28,8 +28,6 @@ const SignUp = () => {
   const isAuthenticated = useSelector(
     (state) => state.userAuth.isAuthenticated
   );
-
-  const modalName = useSelector((state) => state.openClose.modalName);
 
   const dispatch = useDispatch();
 
@@ -192,8 +190,9 @@ const SignUp = () => {
           </form>
         </div>
       </div>
-      {modalName === "registration" &&
-        createPortal(<Success />, registrationModalId)}
+
+      <SucessFailedBox page="signup" />
+
       <CopyRights />
     </>
   );
