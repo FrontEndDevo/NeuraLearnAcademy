@@ -4,6 +4,8 @@ const initialState = {
   login: null,
   signup: null,
   activation: null,
+  reset_password: null,
+  reset_password_confirm: null,
 };
 
 const authErrorsSlice = createSlice({
@@ -19,6 +21,12 @@ const authErrorsSlice = createSlice({
     ACTIVATION_ERROR: (state, action) => {
       state.activation = action.payload;
     },
+    RESET_PASSWORD_ERROR: (state, action) => {
+      state.reset_password = action.payload;
+    },
+    RESET_PASSWORD_CONFIRM_ERROR: (state, action) => {
+      state.reset_password_confirm = action.payload;
+    },
     RESET: (state) => {
       state.login = null;
       state.signup = null;
@@ -32,6 +40,8 @@ export const {
   SIGNUP_ERROR,
   AUTHENTICATION_ERROR,
   ACTIVATION_ERROR,
+  RESET_PASSWORD_ERROR,
+  RESET_PASSWORD_CONFIRM_ERROR,
   RESET,
 } = authErrorsSlice.actions;
 

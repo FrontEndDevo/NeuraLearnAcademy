@@ -22,6 +22,8 @@ import {
   LOGIN_ERROR,
   SIGNUP_ERROR,
   ACTIVATION_ERROR,
+  RESET_PASSWORD_ERROR,
+  RESET_PASSWORD_CONFIRM_ERROR,
   RESET,
 } from "../slices/authentication/errors";
 
@@ -182,7 +184,7 @@ export async function activation(dispatch, uid, token) {
     dispatch(RESET());
   } catch (err) {
     dispatch(ACTIVATION_FAIL());
-    ACTIVATION_ERROR(err.response.data);
+    dispatch(ACTIVATION_ERROR(err.response.data));
     // console.log(err.response.data.uid[0])
     // console.log(err.response.data.token[0])
   }
@@ -210,8 +212,9 @@ export async function reset_password(dispatch, email) {
     dispatch(RESET());
   } catch (err) {
     dispatch(PASSWORD_RESET_FAIL());
-    console.log(err);
-    console.log(err.response.data);
+    dispatch(RESET_PASSWORD_ERROR(err.response.data));
+    // console.log(err);
+    // console.log(err.response.data);
     // console.log(err.response.data.email[0]);
   }
 }
@@ -244,8 +247,9 @@ export async function reset_password_confirm(
     dispatch(RESET());
   } catch (err) {
     dispatch(PASSWORD_RESET_CONFIRM_FAIL());
-    console.log(err);
-    console.log(err.response.data);
+    dispatch(RESET_PASSWORD_CONFIRM_ERROR(err.response.data));
+    // console.log(err);
+    // console.log(err.response.data);
     // console.log(err.response.data.new_password[0]);
   }
 }
