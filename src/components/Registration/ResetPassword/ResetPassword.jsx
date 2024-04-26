@@ -11,7 +11,7 @@ const ResetPassword = () => {
   const [spinner, setSpinner] = useState(false);
   const dispatch = useDispatch();
 
-  const emailRef = useRef();
+  const emailRef = useRef("");
 
   const handleResetPassword = async (e) => {
     setSpinner(true);
