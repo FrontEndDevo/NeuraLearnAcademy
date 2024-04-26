@@ -190,7 +190,12 @@ const SignUp = () => {
         </div>
       </div>
 
-      <SucessFailedBox page="signup" navigatePage="/login" />
+      <SucessFailedBox
+        page="signup"
+        navigatePage="/login"
+        successMessage="Your account has been created successfully. please verify your email.
+          We have sent you an activation link to your email."
+      />
 
       <CopyRights />
     </>

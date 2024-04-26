@@ -151,7 +151,11 @@ const Login = () => {
         </div>
       </div>
 
-      <SucessFailedBox page="login" navigatePage="/" />
+      <SucessFailedBox
+        page="login"
+        navigatePage="/"
+        successMessage="Login successfully"
+      />
 
       <CopyRights />
     </>

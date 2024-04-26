@@ -88,7 +88,11 @@ const Activation = () => {
           </div>
         </div>
       </div>
-      <SucessFailedBox page="activation" navigatePage="/" />
+      <SucessFailedBox
+        page="activation"
+        navigatePage="/"
+        successMessage="Account activated successfully"
+      />
     </>
   );
 };
