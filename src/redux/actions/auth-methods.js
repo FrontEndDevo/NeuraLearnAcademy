@@ -109,8 +109,6 @@ export async function login(dispatch, email, password) {
 
     dispatch(LOGIN_SUCCESS(res.data));
     dispatch(RESET());
-    // Load the user information after logging in.
-    load_user(dispatch);
   } catch (err) {
     dispatch(LOGIN_FAIL());
     dispatch(LOGIN_ERROR(err.response.data));
@@ -185,7 +183,6 @@ export async function activation(dispatch, uid, token) {
     dispatch(RESET());
   } catch (err) {
     dispatch(ACTIVATION_FAIL());
-    console.log(err);
     ACTIVATION_ERROR(err.response.data);
     // console.log(err.response.data.uid[0])
     // console.log(err.response.data.token[0])
