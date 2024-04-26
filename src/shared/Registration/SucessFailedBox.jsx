@@ -21,6 +21,7 @@ const SucessFailedBox = React.memo(
         {/* Success Modal */}
         {modalName === "registration" &&
           !error &&
+          page !== "login" &&
           createPortal(
             <Success navigatePage={navigatePage} message={successMessage} />,
             registrationModalId
