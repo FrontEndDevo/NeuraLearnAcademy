@@ -18,14 +18,12 @@ const Activation = () => {
   const { uid, token } = useParams();
 
   // To navigate to the home page after the account is verified.
-  const navigate = useNavigate();
 
   const handleVerifyAccount = async () => {
     setSpinner(true);
     await activation(dispatch, uid, token);
     setSpinner(false);
     dispatch(openModal("registration"));
-    // navigate("/");
   };
 
   const stepsParentDiv = "flex flex-col items-center gap-2";
