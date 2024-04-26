@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { activation, login } from "../../../redux/actions/auth-methods";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,7 +18,7 @@ const Activation = () => {
   const { uid, token } = useParams();
 
   // Handle the account activation.
-  const handleVerifyAccount = async () => {
+  const handleActivateAccount = async () => {
     setSpinner(true);
     await activation(dispatch, uid, token);
     setSpinner(false);
@@ -32,7 +32,7 @@ const Activation = () => {
   useEffect(() => {
     // Login the user if the account was created and activated.
     const loginUserIfActivated = async () => {
-      if (activateError !== null && userInfo === null) {
+      if (activateError !== null && userInfo !== null) {
         await login(dispatch, userInfo.email, userInfo.password);
       }
     };
@@ -80,11 +80,32 @@ const Activation = () => {
               In order to activate your account please click the button below
             </p>
 
-            <RegisterButton
-              keyword="verify"
-              isLoading={spinner}
-              clickButton={handleVerifyAccount}
-            />
+            <div>
+              <RegisterButton
+                keyword="verify"
+                isLoading={spinner}
+                clickButton={handleActivateAccount}
+              />
+              <div className="flex flex-col items-center justify-between gap-4 mt-4 md:flex-row">
+                <div>
+                  <Link
+                    to="/registration"
+                    className="italic font-semibold text-indigo-600 duration-200 hover:text-indigo-800"
+                  >
+                    Create Account
+                  </Link>
+                </div>
+                <div>
+                  Already have an account? &nbsp;
+                  <Link
+                    to="/login"
+                    className="italic font-semibold text-indigo-600 duration-200 hover:text-indigo-800"
+                  >
+                    Login
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
