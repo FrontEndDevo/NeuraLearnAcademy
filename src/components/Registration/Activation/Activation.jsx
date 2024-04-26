@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { activation } from "../../../redux/actions/auth-methods";
-import { useDispatch } from "react-redux";
+import { activation, login } from "../../../redux/actions/auth-methods";
+import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faFaceSmileWink } from "@fortawesome/free-regular-svg-icons";
 import logo from "../../../assets/images/LoginSigin/logo.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RegisterButton from "../../../shared/Registration/RegisterButton";
 import SucessFailedBox from "../../../shared/Registration/SucessFailedBox";
 import { openModal } from "../../../redux/slices/Instructor/OpenClose";
@@ -17,14 +17,27 @@ const Activation = () => {
   // Extract the uid and token from the URL.
   const { uid, token } = useParams();
 
-  // To navigate to the home page after the account is verified.
-
+  // Handle the account activation.
   const handleVerifyAccount = async () => {
     setSpinner(true);
     await activation(dispatch, uid, token);
     setSpinner(false);
     dispatch(openModal("registration"));
   };
+
+  // Get the activation error and the user information from the redux store.
+  const activateError = useSelector((state) => state.authErrors.activation);
+  const userInfo = useSelector((state) => state.userAuth.user);
+
+  useEffect(() => {
+    // Login the user if the account was created and activated.
+    const loginUserIfActivated = async () => {
+      if (activateError !== null && userInfo === null) {
+        await login(dispatch, userInfo.email, userInfo.password);
+      }
+    };
+    loginUserIfActivated();
+  }, [activateError, userInfo, dispatch]);
 
   const stepsParentDiv = "flex flex-col items-center gap-2";
   const stepsClasses =
