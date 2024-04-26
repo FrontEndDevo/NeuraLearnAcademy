@@ -190,7 +190,7 @@ const SignUp = () => {
         </div>
       </div>
 
-      <SucessFailedBox page="signup" />
+      <SucessFailedBox page="signup" navigatePage="/login" />
 
       <CopyRights />
     </>

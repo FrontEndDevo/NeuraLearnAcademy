@@ -110,7 +110,7 @@ const Login = () => {
               clickButton={handleSubmit}
             />
 
-            <div className="flex font-semibold text-lg items-center gap-4">
+            <div className="flex items-center gap-4 text-lg font-semibold">
               <h4>Forget Password?</h4>
               <Link
                 to="/reset-password"
@@ -151,7 +151,7 @@ const Login = () => {
         </div>
       </div>
 
-      <SucessFailedBox page="login" />
+      <SucessFailedBox page="login" navigatePage="/" />
 
       <CopyRights />
     </>

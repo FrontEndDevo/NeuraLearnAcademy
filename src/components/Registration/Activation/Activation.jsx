@@ -77,7 +77,7 @@ const Activation = () => {
           </div>
         </div>
       </div>
-      <SucessFailedBox page="activation" />
+      <SucessFailedBox page="activation" navigatePage="/" />
     </>
   );
 };
