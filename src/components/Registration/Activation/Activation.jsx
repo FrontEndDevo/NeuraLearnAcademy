@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { verify } from "../../../redux/actions/auth-methods";
+import { activation } from "../../../redux/actions/auth-methods";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEnvelope } from "@fortawesome/free-solid-svg-icons";
@@ -20,7 +20,7 @@ const Activation = () => {
 
   const handleVerifyAccount = async () => {
     setSpinner(true);
-    await verify(dispatch, uid, token);
+    await activation(dispatch, uid, token);
     setSpinner(false);
     // navigate("/");
   };
