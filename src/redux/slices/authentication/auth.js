@@ -14,10 +14,11 @@ const authenticationSuccessReducer = (state) => {
   };
 };
 
-const authenticationFailReducer = (state) => {
+const authenticationFailReducer = (state, action) => {
   return {
     ...state,
     isAuthenticated: false,
+    user: action.payload,
   };
 };
 
