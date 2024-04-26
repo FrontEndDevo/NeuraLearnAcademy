@@ -24,10 +24,8 @@ const Homepage = () => {
       await checkAuthenticated(dispatch);
     }
     checkAuthentication();
-  }, [navigate, dispatch]);
 
-  //  Load the user information if the user is authenticated.
-  useEffect(() => {
+    //  Load the user information if the user is authenticated.
     async function loadUserInformation() {
       await load_user(dispatch);
     }
