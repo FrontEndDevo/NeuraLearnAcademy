@@ -7,7 +7,7 @@ import React from "react";
 
 const registrationModalId = document.getElementById("registration__modal");
 
-const SucessFailedBox = React.memo(({ page }) => {
+const SucessFailedBox = React.memo(({ page, navigatePage }) => {
   const modalName = useSelector((state) => state.openClose.modalName);
 
   const errorsSlice = useSelector((state) => state.authErrors);
@@ -25,7 +25,10 @@ const SucessFailedBox = React.memo(({ page }) => {
       {/* Success Modal */}
       {modalName === "registration" &&
         !error &&
-        createPortal(<Success />, registrationModalId)}
+        createPortal(
+          <Success navigatePage={navigatePage} />,
+          registrationModalId
+        )}
 
       {/* Faliure Modal */}
       {modalName === "registration" &&
@@ -37,6 +40,7 @@ const SucessFailedBox = React.memo(({ page }) => {
 
 SucessFailedBox.propTypes = {
   page: PropTypes.string.isRequired,
+  navigatePage: PropTypes.string.isRequired,
 };
 
 SucessFailedBox.displayName = "SucessFailedBox";

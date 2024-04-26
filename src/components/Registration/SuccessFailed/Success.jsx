@@ -5,8 +5,9 @@ import { useDispatch } from "react-redux";
 import { closeModal } from "../../../redux/slices/Instructor/OpenClose";
 import BlurModal from "../../../shared/BlurModal";
 import { useNavigate } from "react-router-dom";
+import propTypes from "prop-types";
 
-const Success = () => {
+const Success = ({ navigatePage }) => {
   // Close the create course modal:
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,34 +18,34 @@ const Success = () => {
 
   const handleRegistrationContinue = () => {
     dispatch(closeModal());
-    navigate("/login");
+    navigate(navigatePage);
   };
 
   return (
     <>
       <BlurModal />
 
-      <div className="p-10 bg-white text-center z-50 md:w-1/2 xl:w-1/3 2xl:w-1/5 flex flex-col rounded border border-neutral-300 shadow items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div className="fixed z-50 flex flex-col items-center p-10 text-center -translate-x-1/2 -translate-y-1/2 bg-white border rounded shadow md:w-1/2 xl:w-1/3 2xl:w-1/5 border-neutral-300 top-1/2 left-1/2">
         <FontAwesomeIcon
           icon={faXmark}
           onClick={handleCloseSuccessModal}
-          className="absolute text-gray-500 top-4 right-4 text-xl cursor-pointer duration-200 hover:text-gray-700"
+          className="absolute text-xl text-gray-500 duration-200 cursor-pointer top-4 right-4 hover:text-gray-700"
         />
 
-        <h2 className="text-3xl text-neutral-900 font-semibold mb-6">
+        <h2 className="mb-6 text-3xl font-semibold text-neutral-900">
           Success!
         </h2>
-        <p className="text-gray-500 my-2">
+        <p className="my-2 text-gray-500">
           Your account has been created successfully.
         </p>
-        <p className="text-gray-500 my-2">
+        <p className="my-2 text-gray-500">
           please verify your email. We have sent you an activation link to your
           email.
         </p>
 
         <FontAwesomeIcon
           icon={faCircleCheck}
-          className="text-9xl my-20 text-green-500"
+          className="my-20 text-green-500 text-9xl"
         />
 
         <button
@@ -56,6 +57,10 @@ const Success = () => {
       </div>
     </>
   );
+};
+
+Success.propTypes = {
+  navigatePage: propTypes.string.isRequired,
 };
 
 export default Success;
