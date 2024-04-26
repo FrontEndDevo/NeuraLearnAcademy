@@ -7,7 +7,7 @@ import BlurModal from "../../../shared/BlurModal";
 import { useNavigate } from "react-router-dom";
 import propTypes from "prop-types";
 
-const Success = ({ navigatePage }) => {
+const Success = ({ navigatePage = "/", message = "" }) => {
   // Close the create course modal:
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,16 +32,9 @@ const Success = ({ navigatePage }) => {
           className="absolute text-xl text-gray-500 duration-200 cursor-pointer top-4 right-4 hover:text-gray-700"
         />
 
-        <h2 className="mb-6 text-3xl font-semibold text-neutral-900">
-          Success!
-        </h2>
-        <p className="my-2 text-gray-500">
-          Your account has been created successfully.
-        </p>
-        <p className="my-2 text-gray-500">
-          please verify your email. We have sent you an activation link to your
-          email.
-        </p>
+        <h2 className="mb-6 text-3xl font-semibold text-green-500">Success</h2>
+
+        <p className="my-2 text-neutral-900">{message}</p>
 
         <FontAwesomeIcon
           icon={faCircleCheck}
@@ -61,6 +54,7 @@ const Success = ({ navigatePage }) => {
 
 Success.propTypes = {
   navigatePage: propTypes.string.isRequired,
+  message: propTypes.string.isRequired,
 };
 
 export default Success;
