@@ -13,12 +13,7 @@ const SucessFailedBox = React.memo(({ page, navigatePage }) => {
   const errorsSlice = useSelector((state) => state.authErrors);
   const correctError = errorsSlice[page];
 
-  console.log("correctError", correctError);
-
-  // const authError = useSelector((state) => state.authErrors.page);
   const error = correctError ? Object.values(correctError) : null;
-
-  console.log("error", error);
 
   return (
     <>
