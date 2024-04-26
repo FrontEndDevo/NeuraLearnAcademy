@@ -113,7 +113,7 @@ export async function login(dispatch, email, password) {
     load_user(dispatch);
   } catch (err) {
     dispatch(LOGIN_FAIL());
-    dispatch(LOGIN_ERROR(err.response.data.detail));
+    dispatch(LOGIN_ERROR(err.response.data));
   }
 }
 
@@ -164,7 +164,7 @@ export async function signup(
 }
 
 // Send vertification mail to the user to activate the account.
-export async function verify(dispatch, uid, token) {
+export async function activation(dispatch, uid, token) {
   // Prepare the request headers and body for the API call to the backend.
   const config = {
     headers: {
