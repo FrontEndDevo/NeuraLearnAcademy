@@ -13,6 +13,8 @@ import { login } from "../../../redux/actions/auth-methods";
 import { useDispatch, useSelector } from "react-redux";
 import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
 import RegisterButton from "../../../shared/Registration/RegisterButton";
+import SucessFailedBox from "../../../shared/Registration/SucessFailedBox";
+import { openModal } from "../../../redux/slices/Instructor/OpenClose";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +26,7 @@ const Login = () => {
   );
 
   const dispatch = useDispatch();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -31,6 +34,7 @@ const Login = () => {
       setSpinner(true);
       await login(dispatch, email, password);
       setSpinner(false);
+      dispatch(openModal("registration"));
     }
   };
 
@@ -146,6 +150,8 @@ const Login = () => {
           </form>
         </div>
       </div>
+
+      <SucessFailedBox page="login" />
 
       <CopyRights />
     </>
