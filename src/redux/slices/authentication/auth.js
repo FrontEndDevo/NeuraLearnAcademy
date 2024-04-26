@@ -14,7 +14,14 @@ const authenticationSuccessReducer = (state) => {
   };
 };
 
-const authenticationFailReducer = (state, action) => {
+const authenticationFailReducer = (state) => {
+  return {
+    ...state,
+    isAuthenticated: false,
+  };
+};
+
+const signupSuccessReducer = (state, action) => {
   return {
     ...state,
     isAuthenticated: false,
@@ -77,7 +84,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    SIGNUP_SUCCESS: authenticationFailReducer,
+    SIGNUP_SUCCESS: signupSuccessReducer,
     SIGNUP_FAIL: registrationFailReducer,
     ACTIVATION_SUCCESS: activateAccountReducer,
     ACTIVATION_FAIL: activateAccountReducer,
