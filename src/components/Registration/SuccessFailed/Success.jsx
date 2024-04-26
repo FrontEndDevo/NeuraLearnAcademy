@@ -32,7 +32,9 @@ const Success = ({ navigatePage = "/", message = "" }) => {
           className="absolute text-xl text-gray-500 duration-200 cursor-pointer top-4 right-4 hover:text-gray-700"
         />
 
-        <h2 className="mb-6 text-3xl font-semibold text-green-500">Success</h2>
+        <h2 className="mb-6 text-3xl font-semibold text-neutral-900">
+          Success
+        </h2>
 
         <p className="my-2 text-neutral-900">{message}</p>
 
