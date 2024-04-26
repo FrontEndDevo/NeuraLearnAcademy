@@ -26,6 +26,7 @@ const registrationSuccessReducer = (state, action) => {
   localStorage.setItem("refresh", action.payload.refresh);
   return {
     ...state,
+    isAuthenticated: true,
     access: action.payload.access,
     refresh: action.payload.refresh,
   };
