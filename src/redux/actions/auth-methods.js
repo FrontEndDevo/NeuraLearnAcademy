@@ -21,7 +21,6 @@ import {
 import {
   LOGIN_ERROR,
   SIGNUP_ERROR,
-  AUTHENTICATION_ERROR,
   ACTIVATION_ERROR,
   RESET,
 } from "../slices/authentication/errors";
