@@ -77,11 +77,7 @@ export async function checkAuthenticated(dispatch) {
         body,
         config
       );
-      if (!res.data) {
-        dispatch(AUTHENTICATED_SUCCESS());
-      } else {
-        dispatch(AUTHENTICATED_FAIL());
-      }
+      dispatch(AUTHENTICATED_SUCCESS(res));
     } catch (err) {
       dispatch(AUTHENTICATED_FAIL());
       dispatch(AUTHENTICATION_ERROR(err.response.data));
