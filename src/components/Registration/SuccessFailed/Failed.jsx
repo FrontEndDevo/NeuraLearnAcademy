@@ -27,7 +27,9 @@ const Failed = ({ error }) => {
         <h2 className="mb-6 text-3xl font-semibold">
           Oops! Something went wrong.
         </h2>
-        <p className="my-2 text-lg font-semibold text-gray-200">{error}</p>
+        <p className="my-2 text-lg font-semibold text-gray-200">
+          {Array.isArray(error) ? error.join(", ") : error}
+        </p>
 
         <FontAwesomeIcon
           icon={faCircleXmark}
