@@ -21,6 +21,7 @@ import {
 import {
   LOGIN_ERROR,
   SIGNUP_ERROR,
+  AUTHENTICATION_ERROR,
   ACTIVATION_ERROR,
   RESET_PASSWORD_ERROR,
   RESET_PASSWORD_CONFIRM_ERROR,
@@ -76,14 +77,18 @@ export async function checkAuthenticated(dispatch) {
         body,
         config
       );
-
-      if (res.data.code !== "token_not_valid") {
+      if (!res.data) {
         dispatch(AUTHENTICATED_SUCCESS());
       } else {
         dispatch(AUTHENTICATED_FAIL());
       }
     } catch (err) {
       dispatch(AUTHENTICATED_FAIL());
+      dispatch(AUTHENTICATION_ERROR(err.response.data));
+      // console.log(err);
+      // console.log(err.response.data);
+      // console.log(err.response.data.detail);
+      // console.log(err.response.data.code);
     }
   } else {
     dispatch(AUTHENTICATED_FAIL());
