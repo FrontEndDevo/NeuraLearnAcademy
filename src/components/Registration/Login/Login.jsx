@@ -25,6 +25,8 @@ const Login = () => {
     (state) => state.userAuth.isAuthenticated
   );
 
+  const authenticationError = useSelector((state) => state.authErrors);
+
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
@@ -41,10 +43,16 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Redirect to the homepage if the user is authenticated.
     if (isAuthenticated === true) {
       navigate("/");
     }
-  }, [isAuthenticated, navigate]);
+
+    // Show error message if user is not authenticated.
+    if (authenticationError.authentication) {
+      dispatch(openModal("registration"));
+    }
+  }, [isAuthenticated, authenticationError, navigate, dispatch]);
 
   return (
     <>
@@ -152,7 +160,7 @@ const Login = () => {
       </div>
 
       <SucessFailedBox
-        page="login"
+        page={authenticationError.authentication ? "authentication" : "login"}
         navigatePage="/"
         successMessage="Login successfully"
       />
