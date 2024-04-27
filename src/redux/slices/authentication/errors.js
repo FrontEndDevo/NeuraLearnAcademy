@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   login: null,
   signup: null,
+  authentication: null,
   activation: null,
   reset_password: null,
   reset_password_confirm: null,
@@ -17,6 +18,9 @@ const authErrorsSlice = createSlice({
     },
     SIGNUP_ERROR: (state, action) => {
       state.signup = action.payload;
+    },
+    AUTHENTICATION_ERROR: (state, action) => {
+      state.authentication = action.payload;
     },
     ACTIVATION_ERROR: (state, action) => {
       state.activation = action.payload;
