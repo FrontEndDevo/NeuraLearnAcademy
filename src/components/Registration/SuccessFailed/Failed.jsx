@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../../redux/slices/Instructor/OpenClose";
 import BlurModal from "../../../shared/BlurModal";
-import PropTypes from "prop-types";
 const Failed = ({ error }) => {
   // Close the create course modal:
   const dispatch = useDispatch();
@@ -21,17 +21,17 @@ const Failed = ({ error }) => {
         <FontAwesomeIcon
           icon={faXmark}
           onClick={handleCloseFailedModal}
-          className="absolute text-gray-200 top-4 right-4 text-xl cursor-pointer duration-200 hover:text-gray-400"
+          className="absolute text-xl text-gray-200 duration-200 cursor-pointer top-4 right-4 hover:text-gray-400"
         />
 
-        <h2 className="text-3xl font-semibold mb-6">
+        <h2 className="mb-6 text-3xl font-semibold">
           Oops! Something went wrong.
         </h2>
-        <p className="text-gray-200 font-semibold text-lg my-2">{error}</p>
+        <p className="my-2 text-lg font-semibold text-gray-200">{error}</p>
 
         <FontAwesomeIcon
           icon={faCircleXmark}
-          className="text-9xl my-20 text-white"
+          className="my-20 text-white text-9xl"
         />
 
         <button
@@ -43,10 +43,6 @@ const Failed = ({ error }) => {
       </div>
     </>
   );
-};
-
-Failed.propsTypes = {
-  error: PropTypes.string.isRequired,
 };
 
 export default Failed;
