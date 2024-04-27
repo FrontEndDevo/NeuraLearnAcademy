@@ -9,22 +9,13 @@ const registrationModalId = document.getElementById("registration__modal");
 
 const SucessFailedBox = React.memo(
   ({ page = "login", navigatePage = "/", successMessage = "" }) => {
-    let modalName = useSelector((state) => state.openClose.modalName);
+    const modalName = useSelector((state) => state.openClose.modalName);
 
-    // Get the error state from the redux store.
     const errorsSlice = useSelector((state) => state.authErrors);
 
-    // Check first the authentication error and then the page error, because the authentication error is the parent error.
-    const correctError =
-      errorsSlice[errorsSlice.authentication ? "authentication" : page];
+    const correctError = errorsSlice[page];
 
-    // Get the error message from the error object.
     const error = correctError ? Object.values(correctError) : null;
-
-    // Set the modal name to registration if the user is not on the login page to open the error modal.
-    if (errorsSlice.authentication) {
-      modalName = "registration";
-    }
 
     return (
       <>
