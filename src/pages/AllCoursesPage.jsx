@@ -1,5 +1,6 @@
 import AllCourses from "../components/AllCourses/AllCourses";
 import CoursesCategories from "../components/AllCourses/CoursesCategories";
+import { useAuthenticationChecking } from "../shared/Registration/useAuthenticationChecking";
 
 export const allCategories = [
   "all",
@@ -18,6 +19,8 @@ export const allCategories = [
 ];
 
 const AllCoursesPage = () => {
+  useAuthenticationChecking();
+
   return (
     <section className="grid grid-cols-1 gap-2 m-4 my-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:m-10">
       <div>
