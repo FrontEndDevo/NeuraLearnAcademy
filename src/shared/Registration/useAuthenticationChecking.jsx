@@ -7,6 +7,7 @@ import {
   login,
 } from "../../redux/actions/auth-methods";
 
+// Check if the user is authenticated and load the user information.
 export const useAuthenticationChecking = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,8 +29,6 @@ export const useAuthenticationChecking = () => {
         } else {
           if (userData) {
             await login(dispatch, userData.email, userData.password);
-          } else {
-            navigate("/login");
           }
         }
       };
