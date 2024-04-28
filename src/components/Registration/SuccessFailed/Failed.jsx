@@ -13,6 +13,14 @@ const Failed = ({ error }) => {
     dispatch(closeModal());
   };
 
+  const proccessedError = Array.isArray(error)
+    ? error.map((err, i) => (
+        <p key={i} className="my-2 text-lg font-semibold text-gray-200">
+          {err}
+        </p>
+      ))
+    : error;
+
   return (
     <>
       <BlurModal />
@@ -27,14 +35,8 @@ const Failed = ({ error }) => {
         <h2 className="mb-6 text-3xl font-semibold">
           Oops! Something went wrong.
         </h2>
-        <div className="text-start">
-          {Array.isArray(error)
-            ? error[0].map((err, i) => (
-                <p key={i} className="my-2 text-lg font-semibold text-gray-200">
-                  {err}
-                </p>
-              ))
-            : error}
+        <div className="flex flex-col items-center text-start">
+          {proccessedError}
         </div>
 
         <FontAwesomeIcon
