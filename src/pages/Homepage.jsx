@@ -6,7 +6,9 @@ import ResourceGuide from "../components/ResourceGuide/ResourceGuide";
 import TopCategories from "../components/TopCategories/TopCategories";
 import Hero from "../components/Hero/Hero";
 import Specializations from "../components/Specializations/Specializations";
+import { useAuthenticationChecking } from "../shared/Registration/useAuthenticationChecking";
 const Homepage = () => {
+  useAuthenticationChecking();
   return (
     <>
       <Hero />
