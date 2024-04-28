@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,27 +8,50 @@ import {
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
 
-import image1 from "../../../assets/images/LoginSigin/logo.png";
 import CopyRights from "../CopyRights/CopyRights";
-
+import { login } from "../../../redux/actions/auth-methods";
+import { useDispatch, useSelector } from "react-redux";
+import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
+import RegisterButton from "../../../shared/Registration/RegisterButton";
+import SucessFailedBox from "../../../shared/Registration/SucessFailedBox";
+import { openModal } from "../../../redux/slices/Instructor/OpenClose";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState("");
 
-  const handleSubmit = (e) => {
+  const [spinner, setSpinner] = useState(false);
+
+  const isAuthenticated = useSelector(
+    (state) => state.userAuth.isAuthenticated
+  );
+
+  const authenticationError = useSelector((state) => state.authErrors);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-    // perform logic
-
     if (email && password) {
-      console.log("Email:", email);
-      console.log("Password:", password);
-    } else {
-      console.error("Error: Please fill in all required fields.");
+      setSpinner(true);
+      await login(dispatch, email, password);
+      setSpinner(false);
+      dispatch(openModal("registration"));
     }
   };
+
+  useEffect(() => {
+    // Redirect to the homepage if the user is authenticated.
+    if (isAuthenticated === true) {
+      navigate("/");
+    }
+
+    // Show error message if user is not authenticated.
+    if (authenticationError.authentication) {
+      dispatch(openModal("registration"));
+    }
+  }, [isAuthenticated, authenticationError, navigate, dispatch]);
 
   return (
     <>
@@ -54,24 +77,7 @@ const Login = () => {
             onSubmit={handleSubmit}
             className="flex flex-col items-center space-y-4"
           >
-            <div className="flex items-center">
-              <img src={image1} className="w-24" alt="Logo" loading="lazy" />
-              <div className="w-[1px] h-28 bg-neutral-500 mx-2"></div>
-              <div>
-                <div className="font-bold text-black text-1xl md:text-2xl">
-                  <span className="text-2xl font-bold text-blue-700">N</span>
-                  eura
-                </div>
-                <div className="font-bold text-black text-1xl md:text-2xl">
-                  <span className="text-2xl font-bold text-blue-700">L</span>
-                  earn
-                </div>
-                <div className="font-bold text-black text-1xl md:text-2xl">
-                  <span className="text-2xl font-bold text-blue-700">A</span>
-                  cademy
-                </div>
-              </div>
-            </div>
+            <NeuraLearnAcademy />
 
             <div>
               <label
@@ -83,11 +89,10 @@ const Login = () => {
               <input
                 type="email"
                 id="email"
-                className="w-full pl-2 py-2 border border-gray-300 md:w-80"
+                className="w-full py-2 pl-2 border border-gray-300 md:w-80"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-
             </div>
 
             <div>
@@ -100,26 +105,27 @@ const Login = () => {
               <input
                 type="password"
                 id="password"
-                className="w-full pl-2 mb-3 py-2 border border-gray-300 md:w-80"
+                className="w-full py-2 pl-2 mb-3 border border-gray-300 md:w-80"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-
             </div>
 
-            <button
-              type="submit"
-              className="w-[72%] py-2.5  text-xl font-semibold text-white bg-blue-700  hover:bg-blue-900"
-            >
-              Log in
-            </button>
+            <RegisterButton
+              keyword="Login"
+              isLoading={spinner}
+              clickButton={handleSubmit}
+            />
 
-            <Link
-              to="/forgot-password"
-              className="inline-block text-base font-semibold tracking-wide text-black underline"
-            >
-              Forgot Password
-            </Link>
+            <div className="flex items-center gap-4 text-lg font-semibold">
+              <h4>Forget Password?</h4>
+              <Link
+                to="/reset-password"
+                className="inline-block tracking-wide underline"
+              >
+                Reset Now
+              </Link>
+            </div>
 
             <h2 className="font-normal text-black text-1xl md:text-1xl md:font-semibold">
               Continue in another way
@@ -151,6 +157,12 @@ const Login = () => {
           </form>
         </div>
       </div>
+
+      <SucessFailedBox
+        page={authenticationError.authentication ? "authentication" : "login"}
+        navigatePage="/"
+        successMessage="Login successfully"
+      />
 
       <CopyRights />
     </>
