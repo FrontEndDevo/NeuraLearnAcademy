@@ -29,6 +29,8 @@ export const useAuthenticationChecking = () => {
         } else {
           if (userData) {
             await login(dispatch, userData.email, userData.password);
+          } else {
+            navigate("/login");
           }
         }
       };
