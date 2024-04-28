@@ -26,13 +26,13 @@ const Activation = () => {
   };
 
   // Get the activation error and the user information from the redux store.
-  const activateError = useSelector((state) => state.authErrors.activation);
+  const activateError = useSelector((state) => state.authErrors);
   const userInfo = useSelector((state) => state.userAuth.user);
 
   useEffect(() => {
     // Login the user if the account was created and activated.
     const loginUserIfActivated = async () => {
-      if (activateError !== null && userInfo !== null) {
+      if (activateError.activation == null && userInfo !== null) {
         await login(dispatch, userInfo.email, userInfo.password);
       }
     };
