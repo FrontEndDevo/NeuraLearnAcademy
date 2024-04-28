@@ -28,6 +28,7 @@ const Login = () => {
   const authenticationError = useSelector((state) => state.authErrors);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +41,8 @@ const Login = () => {
     }
   };
 
-  const navigate = useNavigate();
+  // Get the activation error and the user information from the redux store.
+  const userInfo = useSelector((state) => state.userAuth.user);
 
   useEffect(() => {
     // Redirect to the homepage if the user is authenticated.
@@ -52,7 +54,15 @@ const Login = () => {
     if (authenticationError.authentication) {
       dispatch(openModal("registration"));
     }
-  }, [isAuthenticated, authenticationError, navigate, dispatch]);
+
+    // Login the user if the account was created and activated.
+    const loginUserIfActivated = async () => {
+      if (authenticationError.activation == null && userInfo !== null) {
+        await login(dispatch, userInfo.email, userInfo.password);
+      }
+    };
+    loginUserIfActivated();
+  }, [isAuthenticated, authenticationError, userInfo, navigate, dispatch]);
 
   return (
     <>
