@@ -111,7 +111,7 @@ const Activation = () => {
       </div>
       <SucessFailedBox
         page="activation"
-        navigatePage="/"
+        navigatePage="/login"
         successMessage="Account activated successfully"
       />
     </>
