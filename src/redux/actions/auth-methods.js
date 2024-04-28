@@ -72,12 +72,8 @@ export async function checkAuthenticated(dispatch) {
     const body = JSON.stringify({ token: access });
 
     try {
-      const res = await axios.post(
-        `http://localhost:8000/auth/jwt/verify/`,
-        body,
-        config
-      );
-      dispatch(AUTHENTICATED_SUCCESS(res));
+      await axios.post(`http://localhost:8000/auth/jwt/verify/`, body, config);
+      dispatch(AUTHENTICATED_SUCCESS());
     } catch (err) {
       dispatch(AUTHENTICATED_FAIL());
       dispatch(AUTHENTICATION_ERROR(err.response.data));
