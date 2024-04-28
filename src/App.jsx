@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
@@ -16,8 +16,53 @@ import InstructorPage from "./pages/Instructor/InstructorPage";
 import Activation from "./components/Registration/Activation/Activation";
 import ResetPassword from "./components/Registration/ResetPassword/ResetPassword";
 import ResetPasswordConfirm from "./components/Registration/ResetPassword/ResetPasswordConfirm";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import {
+  load_user,
+  checkAuthenticated,
+  login,
+} from "./redux/actions/auth-methods";
 
 const App = () => {
+  /*
+ Here I want to check if the user is auth or not using checkAuthenticated method,
+  if authenticated, check if the data is there in the user property of authSlice,
+  if there, it's okay,
+  if not, get it from load_user method,
+  if not authenticated, check if there is any information in the user property of authSlice,
+  if there, login for user, if not, redirect the user to login.
+   */
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userAuth = useSelector((state) => state.userAuth.isAuthenticated);
+  const userData = useSelector((state) => state.userAuth.user);
+
+  useEffect(() => {
+    if (userAuth == true) {
+      if (!userData) {
+        load_user(dispatch);
+      }
+    } else {
+      const checkIfUserAuthenticated = async () => {
+        const isAuthenticated = await checkAuthenticated(dispatch);
+        if (isAuthenticated) {
+          if (!userData) {
+            load_user(dispatch);
+          }
+        } else {
+          if (userData) {
+            await login(dispatch, userData.email, userData.password);
+          } else {
+            navigate("/login");
+          }
+        }
+      };
+      checkIfUserAuthenticated();
+    }
+  }, [navigate, dispatch, userData, userAuth]);
+
   return (
     <>
       <Routes>
