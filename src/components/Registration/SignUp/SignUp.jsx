@@ -1,36 +1,52 @@
-import { useState } from "react";
-import { Link, redirect } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faLinkedin,
   faGoogle,
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
-import image1 from "../../../assets/images/LoginSigin/logo.png";
 import CopyRights from "../CopyRights/CopyRights";
-import { signup } from "../../../redux/actions/auth-methods";
 import { useDispatch, useSelector } from "react-redux";
+import { signup } from "../../../redux/actions/auth-methods";
+import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
+import RegisterButton from "../../../shared/Registration/RegisterButton";
+import { openModal } from "../../../redux/slices/Instructor/OpenClose";
+import SucessFailedBox from "../../../shared/Registration/SucessFailedBox";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [re_password, setRe_password] = useState("");
-  const [errors, setErrors] = useState(false);
+  const [rePassword, setRePassword] = useState("");
+  const [spinner, setSpinner] = useState(false);
+
   const isAuthenticated = useSelector(
     (state) => state.userAuth.isAuthenticated
   );
+
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signup(dispatch, firstName, lastName, email, password, re_password);
-    setErrors(true);
+
+    if (firstName && lastName && email && password && rePassword) {
+      setSpinner(true);
+      await signup(dispatch, firstName, lastName, email, password, rePassword);
+      setSpinner(false);
+      dispatch(openModal("registration"));
+    }
   };
-  if (isAuthenticated) {
-    return redirect("/");
-  }
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      navigate("/");
+    }
+  }, [isAuthenticated, navigate]);
+
   return (
     <>
       <div className="flex flex-col items-center px-10 pt-10 pb-20">
@@ -44,29 +60,7 @@ const SignUp = () => {
             onSubmit={handleSubmit}
             className="flex flex-col items-center space-y-3"
           >
-            <div className="flex items-center">
-              <img
-                src={image1}
-                className="w-20 md:w-24"
-                alt="logo"
-                loading="lazy"
-              />
-              <div className="w-[1px] h-28  bg-neutral-500 mx-2"></div>{" "}
-              <div>
-                <div className="font-bold text-black text-1xl md:text-2xl">
-                  <span className="text-2xl font-bold text-blue-700">N</span>
-                  eura
-                </div>
-                <div className="font-bold text-black text-1xl md:text-2xl">
-                  <span className="text-2xl font-bold text-blue-700">L</span>
-                  earn
-                </div>
-                <div className="font-bold text-black text-1xl md:text-2xl">
-                  <span className="text-2xl font-bold text-blue-700">A</span>
-                  cademy
-                </div>
-              </div>
-            </div>
+            <NeuraLearnAcademy />
 
             <div className="flex flex-col md:flex-row">
               <div className="mb-1 md:mr-2">
@@ -79,11 +73,7 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="firstName"
-                  className={`w-full sm:w-96 pl-2 py-2 border ${
-                    errors && lastName === ""
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } md:w-48`}
+                  className={`w-full sm:w-96 pl-2 py-2 border  md:w-48`}
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
@@ -101,11 +91,7 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="lastName"
-                  className={`w-full sm:w-96 pl-2 py-2 border ${
-                    errors && lastName === ""
-                      ? "border-red-500"
-                      : "border-gray-300"
-                  } md:w-48`}
+                  className={`w-full sm:w-96 pl-2 py-2 border md:w-48`}
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
@@ -142,11 +128,7 @@ const SignUp = () => {
               <input
                 type="password"
                 id="password"
-                className={`w-full pl-2 mb-1 py-2 border ${
-                  errors && password.length < 8
-                    ? "border-red-500"
-                    : "border-gray-300"
-                } md:w-96 sm:w-96`}
+                className={`w-full pl-2 mb-1 py-2 border  md:w-96 sm:w-96`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -158,23 +140,23 @@ const SignUp = () => {
             </div>
             <div>
               <label
-                htmlFor="re_password"
+                htmlFor="passwordConfir"
                 className="block mb-1 text-base font-semibold text-neutral-600"
               >
-                Repeat Password
+                Confirm Password
               </label>
               <input
                 type="password"
-                id="re_password"
+                id="passwordConfir"
                 className={`w-full sm:w-96 pl-2 mb-2 py-2 border ${
-                  errors && re_password !== password
+                  errors && passwordConfir !== password
                     ? "border-red-500"
                     : "border-gray-300"
                 } md:w-96`}
-                value={re_password}
-                onChange={(e) => setRe_password(e.target.value)}
+                value={passwordConfir}
+                onChange={(e) => setPasswordConfir(e.target.value)}
               />
-              {re_password !== password && errors && (
+              {passwordConfir !== password && errors && (
                 <p className="my-1 text-red-700">Passwords do not match.</p>
               )}
             </div>
@@ -226,6 +208,13 @@ const SignUp = () => {
           </form>
         </div>
       </div>
+
+      <SucessFailedBox
+        page="signup"
+        navigatePage="/login"
+        successMessage="Your account has been created successfully. please verify your email.
+          We have sent you an activation link to your email."
+      />
 
       <CopyRights />
     </>

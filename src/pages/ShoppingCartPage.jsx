@@ -1,12 +1,11 @@
-import React from 'react'
-import ShopingCart from '../components/ShopingCart/ShopingCart';
+import ShopingCart from "../components/ShopingCart/ShopingCart";
 
 function ShoppingCartPage() {
   return (
-      <>
-          <ShopingCart/>
-      </>
-  )
+    <>
+      <ShopingCart />
+    </>
+  );
 }
 
 export default ShoppingCartPage;

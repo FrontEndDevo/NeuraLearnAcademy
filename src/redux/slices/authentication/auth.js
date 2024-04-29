@@ -7,70 +7,116 @@ const initialState = {
   user: null,
 };
 
+const authenticationSuccessReducer = (state) => {
+  return {
+    ...state,
+    isAuthenticated: true,
+  };
+};
+
+const authenticationFailReducer = (state) => {
+  return {
+    ...state,
+    isAuthenticated: false,
+  };
+};
+
+const signupSuccessReducer = (state, action) => {
+  return {
+    ...state,
+    isAuthenticated: false,
+    user: action.payload,
+  };
+};
+
+const registrationSuccessReducer = (state, action) => {
+  localStorage.setItem("access", action.payload.access);
+  localStorage.setItem("refresh", action.payload.refresh);
+  return {
+    ...state,
+    isAuthenticated: true,
+    access: action.payload.access,
+    refresh: action.payload.refresh,
+  };
+};
+
+const registrationFailReducer = (state) => {
+  localStorage.removeItem("access");
+  localStorage.removeItem("refresh");
+  return {
+    ...state,
+    access: null,
+    refresh: null,
+    isAuthenticated: false,
+    user: null,
+  };
+};
+
+const loadUserSuccessReducer = (state, action) => {
+  return {
+    ...state,
+    isAuthenticated: true,
+    user: action.payload,
+  };
+};
+
+const loadUserFailReducer = (state) => {
+  return {
+    ...state,
+    isAuthenticated: false,
+    user: null,
+  };
+};
+
+const activateAccountReducer = (state) => {
+  return {
+    ...state,
+  };
+};
+
+const resetPasswordReducer = (state) => {
+  return {
+    ...state,
+  };
+};
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    AUTHENTICATED_SUCCESS(state) {
-      return {
-        ...state,
-        isAuthenticated: true,
-      };
-    },
-    AUTHENTICATED_FAIL(state) {
-      return {
-        ...state,
-        isAuthenticated: false,
-      };
-    },
-    AUTH_SUCCESS(state, action) {
-      localStorage.setItem("access", action.payload.access);
-      localStorage.setItem("refresh", action.payload.refresh);
-      return {
-        ...state,
-        isAuthenticated: true,
-        access: action.payload.access,
-        refresh: action.payload.refresh,
-      };
-    },
-    AUTH_FAIL(state) {
-      localStorage.removeItem("access");
-      localStorage.removeItem("refresh");
-      return {
-        ...state,
-        access: null,
-        refresh: null,
-        isAuthenticated: false,
-        user: null,
-      };
-    },
-    USER_LOADED_SUCCESS(state, action) {
-      return {
-        ...state,
-        user: action.payload,
-      };
-    },
-    USER_LOADED_FAIL(state) {
-      return {
-        ...state,
-        user: null,
-      };
-    },
-    RESET(state) {
-      return {
-        ...state,
-      };
-    },
+    SIGNUP_SUCCESS: signupSuccessReducer,
+    SIGNUP_FAIL: registrationFailReducer,
+    ACTIVATION_SUCCESS: activateAccountReducer,
+    ACTIVATION_FAIL: activateAccountReducer,
+    LOGIN_SUCCESS: registrationSuccessReducer,
+    LOGIN_FAIL: registrationFailReducer,
+    PASSWORD_RESET_SUCCESS: resetPasswordReducer,
+    PASSWORD_RESET_FAIL: resetPasswordReducer,
+    PASSWORD_RESET_CONFIRM_SUCCESS: resetPasswordReducer,
+    PASSWORD_RESET_CONFIRM_FAIL: resetPasswordReducer,
+    AUTHENTICATED_SUCCESS: authenticationSuccessReducer,
+    AUTHENTICATED_FAIL: authenticationFailReducer,
+    USER_LOADED_SUCCESS: loadUserSuccessReducer,
+    USER_LOADED_FAIL: loadUserFailReducer,
+    LOGOUT: registrationFailReducer,
   },
 });
 
 export const {
+  SIGNUP_SUCCESS,
+  SIGNUP_FAIL,
+  ACTIVATION_SUCCESS,
+  ACTIVATION_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_FAIL,
+  PASSWORD_RESET_CONFIRM_SUCCESS,
+  PASSWORD_RESET_CONFIRM_FAIL,
   AUTHENTICATED_SUCCESS,
-  AUTH_SUCCESS,
-  USER_LOADED_SUCCESS,
   AUTHENTICATED_FAIL,
+  USER_LOADED_SUCCESS,
   USER_LOADED_FAIL,
-  AUTH_FAIL,
-  RESET,
+  LOGOUT,
 } = authSlice.actions;
 export default authSlice.reducer;
