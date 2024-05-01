@@ -46,10 +46,7 @@ const FeaturesSection = () => {
         Stories from those that have completed Professional Certificates
       </h3>
 
-      <section
-        className="grid px-0 py-20 place-items-center"
-        style={divStyle}
-      >
+      <section className="grid px-0 py-20 place-items-center" style={divStyle}>
         <div className="container">
           <div className="grid grid-cols-1 pb-10 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 place-items-center">
             {cardData.forEach((card, index) => {
