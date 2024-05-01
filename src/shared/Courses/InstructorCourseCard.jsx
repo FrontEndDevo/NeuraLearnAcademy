@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import {
   faDatabase,
+  faListUl,
+  faPenToSquare,
   faSheetPlastic,
   faUserGraduate,
   faVideo,
@@ -22,7 +24,7 @@ const InstructorCourseCard = ({
   const numberOfStudents = formatNumbersInThousands(students);
 
   return (
-    <li className="duration-300 w-[25rem] h-[30rem] border shadow-lg rounded-3xl hover:shadow-innerwhite">
+    <li className="duration-300 w-[25rem] h-[40rem] border shadow-lg rounded-3xl hover:shadow-innerwhite">
       <img
         src={img}
         alt={title}
@@ -70,6 +72,27 @@ const InstructorCourseCard = ({
             <span className="text-gray-400">({students}) Students</span>
           </div>
           <p className="text-base font-semibold">${price.toFixed(2)}</p>
+        </div>
+      </div>
+      <div className="flex items-center justify-between mx-2 mt-4">
+        <div className="relative flex items-center gap-2">
+          <FontAwesomeIcon
+            icon={faPenToSquare}
+            className="absolute top-0 left-0 p-3 bg-white rounded-full text-primary-500"
+          />
+          <button className="px-4 py-2 pl-12 text-base font-semibold text-white duration-200 rounded-full bg-primary-500 hover:bg-primary-700">
+            Edit
+          </button>
+        </div>
+
+        <div className="relative flex items-center gap-2">
+          <FontAwesomeIcon
+            icon={faListUl}
+            className="absolute top-0 left-0 p-3 bg-white rounded-full text-primary-500"
+          />
+          <button className="px-4 py-2 pl-12 text-base font-semibold text-white duration-200 rounded-full bg-primary-500 hover:bg-primary-700">
+            Edit Sections
+          </button>
         </div>
       </div>
     </li>
