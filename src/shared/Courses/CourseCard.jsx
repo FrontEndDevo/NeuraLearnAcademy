@@ -32,7 +32,7 @@ const CourseCard = ({
         <img
           src={image}
           alt={title}
-          className="w-full h-[250px] rounded-t-3xl"
+          className="w-full h-80 rounded-t-3xl"
           loading="lazy"
         />
         <div className="px-4 py-2">
@@ -79,7 +79,7 @@ const CourseCard = ({
             </div>
           )}
           {rate != null && (
-            <div className="flex flex-wrap items-center gap-1 mb-4 md:flex-nowrap">
+            <div className="flex flex-wrap items-center gap-1 my-4 md:flex-nowrap">
               <p className="text-sm font-semibold">{rate.toFixed(1)}</p>
               <div>
                 {[...Array(5)].map((_, i) => (
