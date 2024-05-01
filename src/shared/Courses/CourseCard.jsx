@@ -27,7 +27,7 @@ const CourseCard = ({
       : "Continue Learning";
 
   return (
-    <li className="border shadow-lg rounded-3xl duration-300 hover:shadow-innerwhite">
+    <li className="duration-300 border shadow-lg rounded-3xl hover:shadow-innerwhite">
       <Link to={formattedTitleForUrl}>
         <img
           src={image}
@@ -79,7 +79,7 @@ const CourseCard = ({
             </div>
           )}
           {rate != null && (
-            <div className="flex flex-wrap md:flex-nowrap items-center gap-1 mb-4">
+            <div className="flex flex-wrap items-center gap-1 mb-4 md:flex-nowrap">
               <p className="text-sm font-semibold">{rate.toFixed(1)}</p>
               <div>
                 {[...Array(5)].map((_, i) => (
@@ -94,27 +94,29 @@ const CourseCard = ({
               </div>
             </div>
           )}
-          {price != null && (
-            <div className="flex flex-wrap md:flex-nowrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 md:flex-nowrap">
+            {price != null && (
               <p
                 className={`text-2xl font-bold ${
-                  discount === 100 ? "text-[#3AA552]" : ""
+                  discount && discount === 100 ? "text-[#3AA552]" : ""
                 }`}
               >
-                {discount === 100
-                  ? "Free"
-                  : `$${(price - (price * discount) / 100).toFixed(2)}`}
+                {discount
+                  ? discount === 100
+                    ? "Free"
+                    : `$${(price - (price * discount) / 100).toFixed(2)}`
+                  : `$${price.toFixed(2)}`}
               </p>
-              {discount > 0 && discount < 100 && (
-                <>
-                  <span className="text-base font-semibold text-gray-500 line-through">
-                    ${price.toFixed(2)}
-                  </span>
-                  <p className="text-base font-semibold">{`${discount}% off`}</p>
-                </>
-              )}
-            </div>
-          )}
+            )}
+            {discount > 0 && discount < 100 && (
+              <>
+                <span className="text-base font-semibold text-gray-500 line-through">
+                  ${price.toFixed(2)}
+                </span>
+                <p className="text-base font-semibold">{`${discount}% off`}</p>
+              </>
+            )}
+          </div>
         </div>
       </Link>
     </li>
