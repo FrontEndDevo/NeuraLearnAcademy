@@ -8,6 +8,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faStar as mainStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
+import { formatUrlString } from "../../utils/Utils";
 
 const categories = [
   "all courses",
@@ -59,14 +61,17 @@ const settings = {
 };
 
 const Courses = () => {
-  const coursesCategories = categories.map((item, i) => (
-    <li
-      key={i}
-      className="p-2 font-playfair font-bold flex items-center justify-center text-black text-[11px] lg:text-sm duration-300 bg-white border-2 rounded-lg lg:rounded-full hover:bg-black hover:text-white"
-    >
-      <button className="capitalize">{item}</button>
-    </li>
-  ));
+  const coursesCategories = categories.map((item, i) => {
+    const formattedUrl = formatUrlString(item);
+    return (
+      <li
+        key={i}
+        className="p-2 font-playfair capitalize font-bold flex items-center justify-center text-black text-[11px] lg:text-sm duration-300 bg-white border-2 rounded-lg lg:rounded-full hover:bg-black hover:text-white"
+      >
+        <Link to={`/all-courses/${formattedUrl}`}>{item}</Link>
+      </li>
+    );
+  });
 
   // This is a temporary array of objects (courses) until fetch all of these from DB.
   const suggestedCourses = [
