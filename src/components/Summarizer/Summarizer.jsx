@@ -8,6 +8,9 @@ const Summarizer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdowns, setActiveDropdowns] = useState([false, false]);
   const [isShort, setIsShort] = useState(true);
+  const [modelInput, setModelInput] = useState("");
+  const [paragraphInput, setParagraphInput] = useState("");
+
 
   const handleToggle = () => {
     setIsShort(!isShort);
@@ -106,6 +109,7 @@ const Summarizer = () => {
                     <input
                       type="checkbox"
                       checked={item.isChecked}
+                      onChange={() => handleCheckboxChange(index, itemIndex)}
                       className={`mr-2 ${item.isChecked ? "bg-blue-500 text-white" : ""
                         }`}
                     />
@@ -171,6 +175,27 @@ const Summarizer = () => {
             </div>
           </div>
         </div>
+        <div className=" flex  ">
+          <div className=" w-full">
+            <textarea
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50  border border-gray-300 h-48 resize"
+              value={modelInput}
+              onChange={(e) => setModelInput(e.target.value)}
+              placeholder="Enter your model input"
+            />
+          </div>
+
+          <div className=" w-full">
+            <textarea
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50  border border-gray-300 focus:ring-blue-500 focus:border-blue-500 h-48 resize"
+              value={paragraphInput}
+              onChange={(e) => setParagraphInput(e.target.value)}
+              placeholder="Enter your paragraph input"
+            />
+          </div>
+        </div>
+
+
       </div>
     </div>
   );
