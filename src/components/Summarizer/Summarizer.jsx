@@ -56,6 +56,11 @@ const Summarizer = () => {
     console.log("Save button clicked");
     // Add your save logic here
   };
+  const handleDelete = () => {
+    console.log("Delete button clicked");
+    // Add your save logic here
+  };
+
 
   const handleDropdownItemClick = (index, itemIndex, section) => {
     console.log(`Dropdown item ${section.items[itemIndex].name} clicked`);
@@ -190,6 +195,7 @@ const Summarizer = () => {
                 {isShort ? "Short" : "Long"}
               </span>
               <FontAwesomeIcon
+                onClick={handleDelete}
                 icon={faTrashAlt}
                 className="text-white cursor-pointer hover:text-slate-300 transition duration-700"
               />
