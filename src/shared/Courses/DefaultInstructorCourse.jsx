@@ -30,7 +30,7 @@ const DefaultInstructorCourse = React.memo(() => {
     <li
       onMouseEnter={handleEnterCard}
       onMouseLeave={handleLeaveCard}
-      className="px-4 py-24 duration-200 select-none w-[25rem] h-[40rem] cursor-pointer border shadow-lg rounded-3xl"
+      className="lg:px-4 p-4 lg:py-24 duration-200 select-none w-full md:w-fit lg:w-[25rem] lg:h-[40rem] cursor-pointer border shadow-lg rounded-3xl"
       onClick={handleOpenCreateCourse}
     >
       <div className="text-center">
@@ -68,7 +68,7 @@ const DefaultInstructorCourse = React.memo(() => {
       )}
 
       <div
-        className={`relative py-1 pl-10 pr-4 ml-auto duration-200 rounded-full mt-[60%] w-fit ${
+        className={`relative py-1 pl-10 pr-4 ml-auto duration-200 rounded-full mt-10 lg:mt-[60%] w-fit ${
           isHovered
             ? "bg-stone-700 -translate-y-2 -translate-x-2"
             : "bg-primary-500 translate-y-0 translate-x-0"

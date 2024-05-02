@@ -24,13 +24,14 @@ const InstructorCourseCard = ({
   const numberOfStudents = formatNumbersInThousands(students);
 
   return (
-    <li className="duration-300 w-[25rem] h-[40rem] border shadow-lg rounded-3xl hover:shadow-innerwhite">
+    <li className="duration-300 w-[90vw] md:w-fit lg:w-[25rem] h-[40rem] border shadow-lg rounded-3xl hover:shadow-innerwhite">
       <img
         src={img}
         alt={title}
         className="w-full h-3/5 rounded-t-3xl"
         loading="lazy"
       />
+
       <div className="px-4 py-2">
         <div className="flex items-center justify-between">
           <h3 className="my-4 text-base font-semibold leading-6 tracking-wide lg:text-xl text-gray-color-700">
@@ -47,21 +48,23 @@ const InstructorCourseCard = ({
         </div>
 
         <div className="grid items-center grid-cols-3 justify-items-center">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col items-center gap-2 md:flex-row">
             <FontAwesomeIcon icon={faVideo} />
             <span className="text-sm tracking-tight">{videos} Videos</span>
           </div>
-          <div className="flex items-center gap-2">
+
+          <div className="flex flex-col items-center gap-2 md:flex-row">
             <FontAwesomeIcon icon={faDatabase} />
             <span className="text-sm tracking-tight ">{sections} Sections</span>
           </div>
-          <div className="flex items-center gap-2">
+
+          <div className="flex flex-col items-center gap-2 md:flex-row">
             <FontAwesomeIcon icon={faSheetPlastic} />
             <span className="text-sm tracking-tight ">{quizzes} Quizzes</span>
           </div>
         </div>
 
-        <h6 className="px-3 py-1 text-[10px] my-3 lg:text-base capitalize font-bold text-white rounded-full bg-secondary-900 w-fit">
+        <h6 className="px-3 py-1 text-[10px] my-2 lg:text-base capitalize font-bold text-white rounded-full bg-secondary-900 text-center md:text-start md:w-fit">
           {category}
         </h6>
 
@@ -74,13 +77,13 @@ const InstructorCourseCard = ({
           <p className="text-base font-semibold">${price.toFixed(2)}</p>
         </div>
       </div>
-      <div className="flex items-center justify-between mx-2 mt-4">
+      <div className="flex items-center justify-between mx-2 mt-1 mb-2 md:mt-4">
         <div className="relative flex items-center gap-2">
           <FontAwesomeIcon
             icon={faPenToSquare}
-            className="absolute top-0 left-0 p-3 bg-white rounded-full text-primary-500"
+            className="absolute top-0 left-0 p-2 bg-white rounded-full md:p-3 text-primary-500"
           />
-          <button className="px-4 py-2 pl-12 text-base font-semibold text-white duration-200 rounded-full bg-primary-500 hover:bg-primary-700">
+          <button className="p-2 pl-12 text-sm font-semibold text-white duration-200 rounded-full md:text-base bg-primary-500 hover:bg-primary-700">
             Edit
           </button>
         </div>
@@ -88,9 +91,9 @@ const InstructorCourseCard = ({
         <div className="relative flex items-center gap-2">
           <FontAwesomeIcon
             icon={faListUl}
-            className="absolute top-0 left-0 p-3 bg-white rounded-full text-primary-500"
+            className="absolute top-0 left-0 p-2 bg-white rounded-full md:p-3 text-primary-500"
           />
-          <button className="px-4 py-2 pl-12 text-base font-semibold text-white duration-200 rounded-full bg-primary-500 hover:bg-primary-700">
+          <button className="p-2 pl-12 text-sm font-semibold text-white duration-200 rounded-full md:text-base bg-primary-500 hover:bg-primary-700">
             Edit Sections
           </button>
         </div>
