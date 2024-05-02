@@ -1,12 +1,10 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import course_one from "../../assets/images/homepage/course_1.jpg";
 import course_two from "../../assets/images/homepage/course_2.jpg";
 import course_three from "../../assets/images/homepage/course_3.jpg";
 import course_four from "../../assets/images/homepage/course_4.jpg";
 import course_five from "../../assets/images/homepage/course_5.jpg";
-import { faUser, faStar as mainStar } from "@fortawesome/free-solid-svg-icons";
-import { faStar } from "@fortawesome/free-regular-svg-icons";
 import Slider from "react-slick";
+import CourseCard from "../../shared/Courses/CourseCard";
 
 const settings = {
   dots: true,
@@ -45,115 +43,103 @@ const settings = {
   ],
 };
 
+// This is a temporary array of objects (courses) until fetch all of these from DB.
+const recomendedCourses = [
+  {
+    title: "The complete course of Bussines for beginners",
+    img: course_one,
+    instructor: "Adel nsiem",
+    price: 30,
+    rate: 4.7,
+    category: "web programming",
+  },
+  {
+    title: "The complete course of Balence",
+    img: course_two,
+    instructor: "Adel nsiem",
+    price: 30,
+    rate: 4.7,
+    category: "web programming",
+  },
+  {
+    title: "The complete course Swintific Rwriting",
+    img: course_three,
+    instructor: "Adel nsiem",
+    price: 30,
+    rate: 4.7,
+    category: "web programming",
+  },
+  {
+    title: "The complete course of Machine Learing",
+    img: course_four,
+    instructor: "Adel nsiem",
+    price: 30,
+    rate: 4.7,
+    category: "web programming",
+  },
+  {
+    title: "The complete course of Artfical for beginners",
+    img: course_five,
+    instructor: "Adel nsiem",
+    price: 30,
+    rate: 4.7,
+    category: "web programming",
+  },
+  {
+    title: "The complete course of Bussines for beginners",
+    img: course_one,
+    instructor: "Adel nsiem",
+    price: 30,
+    rate: 4.7,
+    category: "web programming",
+  },
+  {
+    title: "The complete course of Balence",
+    img: course_two,
+    instructor: "Adel nsiem",
+    price: 30,
+    rate: 4.7,
+    category: "web programming",
+  },
+  {
+    title: "The complete course Swintific Rwriting",
+    img: course_three,
+    instructor: "Adel nsiem",
+    price: 30,
+    rate: 4.7,
+    category: "web programming",
+  },
+  {
+    title: "The complete course of Machine Learing",
+    img: course_four,
+    instructor: "Adel nsiem",
+    price: 30,
+    rate: 4.7,
+    category: "web programming",
+  },
+  {
+    title: "The complete course of Artfical for beginners",
+    img: course_five,
+    instructor: "Adel nsiem",
+    price: 30,
+    rate: 4.7,
+    category: "web programming",
+  },
+];
 const NewCareerRecommendations = () => {
-  // This is a temporary array of objects (courses) until fetch all of these from DB.
-  const recomendedCourses = [
-    {
-      title: "The complete course of Bussines for beginners",
-      img: course_one,
-      instructor: "Adel nsiem",
-      price: 30,
-      review: 4.7,
-    },
-    {
-      title: "The complete course of Balence",
-      img: course_two,
-      instructor: "Adel nsiem",
-      price: 30,
-      review: 4.7,
-    },
-    {
-      title: "The complete course Swintific Rwriting",
-      img: course_three,
-      instructor: "Adel nsiem",
-      price: 30,
-      review: 4.7,
-    },
-    {
-      title: "The complete course of Machine Learing",
-      img: course_four,
-      instructor: "Adel nsiem",
-      price: 30,
-      review: 4.7,
-    },
-    {
-      title: "The complete course of Artfical for beginners",
-      img: course_five,
-      instructor: "Adel nsiem",
-      price: 30,
-      review: 4.7,
-    },
-    {
-      title: "The complete course of Bussines for beginners",
-      img: course_one,
-      instructor: "Adel nsiem",
-      price: 30,
-      review: 4.7,
-    },
-    {
-      title: "The complete course of Balence",
-      img: course_two,
-      instructor: "Adel nsiem",
-      price: 30,
-      review: 4.7,
-    },
-    {
-      title: "The complete course Swintific Rwriting",
-      img: course_three,
-      instructor: "Adel nsiem",
-      price: 30,
-      review: 4.7,
-    },
-    {
-      title: "The complete course of Machine Learing",
-      img: course_four,
-      instructor: "Adel nsiem",
-      price: 30,
-      review: 4.7,
-    },
-    {
-      title: "The complete course of Artfical for beginners",
-      img: course_five,
-      instructor: "Adel nsiem",
-      price: 30,
-      review: 4.7,
-    },
-  ];
-
   // Render all courses inside a slider:
   const renderedCourses = (
     <Slider {...settings}>
       {recomendedCourses.map((item, i) => (
-        <div key={i} className="bg-gray-100 border-2">
-          <img src={item.img} alt={item.title} className="w-full h-[300px]" />
-          <div className="px-3 py-4">
-            <h4 className="text-xl font-bold">{item.title}</h4>
-
-            <div className="flex items-center gap-1 my-3 text-gray-600">
-              <FontAwesomeIcon icon={faUser} /> <span>{item.instructor}</span>
-            </div>
-
-            <div className="flex items-center gap-1 my-3 font-bold">
-              <span>{item.review}</span>{" "}
-              <div className="flex items-center gap-1">
-                {Array.from({ length: Math.floor(item.review) }, (_, index) => (
-                  <FontAwesomeIcon
-                    key={index}
-                    icon={mainStar}
-                    className="text-yellow-600"
-                  />
-                ))}
-                {Array.from(
-                  { length: 5 - Math.floor(item.review) },
-                  (_, index) => (
-                    <FontAwesomeIcon key={index} icon={faStar} />
-                  )
-                )}
-              </div>
-            </div>
-            <span className="text-xl font-bold">${item.price.toFixed(2)}</span>
-          </div>
-        </div>
+        <CourseCard
+          key={i}
+          image={item.img}
+          title={item.title}
+          instructor={item.instructor}
+          category={item.category}
+          price={item.price}
+          rate={item.rate}
+        />
       ))}
     </Slider>
   );
