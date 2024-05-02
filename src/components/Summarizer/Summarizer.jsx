@@ -106,7 +106,6 @@ const Summarizer = () => {
                     <input
                       type="checkbox"
                       checked={item.isChecked}
-                      onChange={() => handleCheckboxChange(index, itemIndex)}
                       className={`mr-2 ${item.isChecked ? "bg-blue-500 text-white" : ""
                         }`}
                     />
