@@ -175,25 +175,34 @@ const Summarizer = () => {
             </div>
           </div>
         </div>
-        <div className=" flex  ">
-          <div className=" w-full">
+        <div className="flex">
+          <div className="w-full relative">
             <textarea
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50  border border-gray-300 h-48 resize"
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 h-48 resize"
               value={modelInput}
               onChange={(e) => setModelInput(e.target.value)}
               placeholder="Enter your model input"
             />
+            <div className="absolute bottom-0 right-0 p-2 ">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-lg mr-2">
+                Summarizer
+              </button>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-lg">
+                Button 2
+              </button>
+            </div>
           </div>
 
-          <div className=" w-full">
+          <div className="w-full">
             <textarea
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50  border border-gray-300 focus:ring-blue-500 focus:border-blue-500 h-48 resize"
+              className="block p-2.5 w-full text-sm text-gray-900 bg-neutral-100 shadow  focus:ring-blue-500 focus:border-blue-500 h-48 resize"
               value={paragraphInput}
               onChange={(e) => setParagraphInput(e.target.value)}
               placeholder="Enter your paragraph input"
             />
           </div>
         </div>
+
 
 
       </div>
