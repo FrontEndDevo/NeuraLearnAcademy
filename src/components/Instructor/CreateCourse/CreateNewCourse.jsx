@@ -66,7 +66,7 @@ const CreateNewCourse = () => {
   // Classes for styling:
   const labelClasses = "block mb-1 text-sm lg:text-base lg:font-semibold";
   const inputClasses =
-    "p-1 lg:p-2 text-base rounded-sm w-full mb-2 outline-none caret-indigo-800 border border-black border-opacity-80";
+    "p-2 text-base rounded-sm w-full mb-2 outline-none caret-indigo-800 border border-black border-opacity-80";
   return (
     <>
       <BlurModal />
@@ -198,7 +198,7 @@ const CreateNewCourse = () => {
               <label htmlFor="price" className={labelClasses}>
                 Price:
               </label>
-              <span className="absolute text-2xl font-bold select-none lg:top-8 left-2">
+              <span className="absolute text-2xl font-bold select-none top-7 lg:top-8 left-2">
                 $
               </span>
               <input
@@ -207,7 +207,7 @@ const CreateNewCourse = () => {
                 id="price"
                 name="price"
                 min={0}
-                className={`${inputClasses} font-semibold pl-10`}
+                className={`${inputClasses} font-semibold pl-6`}
               />
               <p className="text-xs font-medium opacity-50 lg:mt-2">
                 Note: Dealing only in US dollars
