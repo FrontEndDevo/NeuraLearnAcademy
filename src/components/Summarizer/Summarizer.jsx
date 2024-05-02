@@ -11,7 +11,6 @@ const Summarizer = () => {
   const [modelInput, setModelInput] = useState("");
   const [paragraphInput, setParagraphInput] = useState("");
 
-
   const handleToggle = () => {
     setIsShort(!isShort);
   };
@@ -61,7 +60,6 @@ const Summarizer = () => {
     // Add your save logic here
   };
 
-
   const handleDropdownItemClick = (index, itemIndex, section) => {
     console.log(`Dropdown item ${section.items[itemIndex].name} clicked`);
     // Add your dropdown item click logic here
@@ -69,8 +67,9 @@ const Summarizer = () => {
   return (
     <div className="flex h-screen">
       <div
-        className={`bg-neutral-100 text-white w-64 transition-all duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+        className={`bg-neutral-100 text-white w-64 transition-all duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         <div className="px-3 pt-10 pb-4 flex flex-col  ">
           <img
@@ -112,7 +111,9 @@ const Summarizer = () => {
               <ul>
                 {section.items.map((item, itemIndex) => (
                   <li
-                    onClick={() => handleDropdownItemClick(index, itemIndex, section)}
+                    onClick={() =>
+                      handleDropdownItemClick(index, itemIndex, section)
+                    }
                     key={item.id}
                     className="flex space-x-1 items-center text-black font-normal  tracking-wide"
                   >
@@ -134,10 +135,12 @@ const Summarizer = () => {
                     <input
                       type="checkbox"
                       checked={item.isChecked}
-                      onClick={() => handleDropdownItemClick(index, itemIndex, section)}
-                      className={`mr-2 ${item.isChecked ? "bg-blue-500 text-white" : ""
-                        }`}
-                      
+                      onClick={() =>
+                        handleDropdownItemClick(index, itemIndex, section)
+                      }
+                      className={`mr-2 ${
+                        item.isChecked ? "bg-blue-500 text-white" : ""
+                      }`}
                     />
                   </li>
                 ))}
@@ -211,11 +214,17 @@ const Summarizer = () => {
               placeholder="Enter your model input"
             />
             <div className="absolute bottom-0 right-0 flex justify-between w-full px-2 mb-2">
-              <button onClick={handleFileUpload} className="text-black font-bold py-1 px-2">
+              <button
+                onClick={handleFileUpload}
+                className="text-black font-bold py-1 px-2"
+              >
                 <FontAwesomeIcon icon={faUpload} className="mr-3" />
                 Upload Doc
               </button>
-              <button onClick={handleSummarize} className="bg-sky-800 hover:bg-sky-900 text-white font-bold py-1 px-2 rounded-full">
+              <button
+                onClick={handleSummarize}
+                className="bg-sky-800 hover:bg-sky-900 text-white font-bold py-1 px-2 rounded-full"
+              >
                 Summarizer
               </button>
             </div>
@@ -229,13 +238,15 @@ const Summarizer = () => {
               placeholder="Enter your model input"
             />
             <div className="absolute bottom-0 flex justify-end w-full px-2 mb-2">
-              <button onClick={handleSave} className="bg-sky-800 hover:bg-sky-900 text-white font-bold py-1 px-2 rounded-full">
+              <button
+                onClick={handleSave}
+                className="bg-sky-800 hover:bg-sky-900 text-white font-bold py-1 px-2 rounded-full"
+              >
                 Save
               </button>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
