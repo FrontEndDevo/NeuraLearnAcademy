@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import sideBarImage from "../../assets/images/homepage/course_4.jpg";
 import summarizerImage from "../../assets/images/homepage/ai-creative.png";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Summarizer = () => {
@@ -42,6 +42,25 @@ const Summarizer = () => {
     });
   };
 
+  const handleFileUpload = () => {
+    console.log("File upload button clicked");
+    // Add your file upload logic here
+  };
+
+  const handleSummarize = () => {
+    console.log("Summarize button clicked");
+    // Add your summarization logic here
+  };
+
+  const handleSave = () => {
+    console.log("Save button clicked");
+    // Add your save logic here
+  };
+
+  const handleDropdownItemClick = (index, itemIndex, section) => {
+    console.log(`Dropdown item ${section.items[itemIndex].name} clicked`);
+    // Add your dropdown item click logic here
+  };
   return (
     <div className="flex h-screen">
       <div
@@ -88,6 +107,7 @@ const Summarizer = () => {
               <ul>
                 {section.items.map((item, itemIndex) => (
                   <li
+                    onClick={() => handleDropdownItemClick(index, itemIndex, section)}
                     key={item.id}
                     className="flex space-x-1 items-center text-black font-normal  tracking-wide"
                   >
@@ -109,9 +129,10 @@ const Summarizer = () => {
                     <input
                       type="checkbox"
                       checked={item.isChecked}
-                      onChange={() => handleCheckboxChange(index, itemIndex)}
+                      onClick={() => handleDropdownItemClick(index, itemIndex, section)}
                       className={`mr-2 ${item.isChecked ? "bg-blue-500 text-white" : ""
                         }`}
+                      
                     />
                   </li>
                 ))}
@@ -175,35 +196,39 @@ const Summarizer = () => {
             </div>
           </div>
         </div>
-        <div className="flex">
-          <div className="w-full relative">
+        <div className="flex flex-col md:flex-row">
+          <div className="w-full md:w-1/2 relative mb-4 md:mb-0">
             <textarea
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 h-48 resize"
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 h-64 md:h-96 overflow-auto"
               value={modelInput}
               onChange={(e) => setModelInput(e.target.value)}
               placeholder="Enter your model input"
             />
-            <div className="absolute bottom-0 right-0 p-2 ">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-lg mr-2">
-                Summarizer
+            <div className="absolute bottom-0 right-0 flex justify-between w-full px-2 mb-2">
+              <button onClick={handleFileUpload} className="text-black font-bold py-1 px-2">
+                <FontAwesomeIcon icon={faUpload} className="mr-3" />
+                Upload Doc
               </button>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-lg">
-                Button 2
+              <button onClick={handleSummarize} className="bg-sky-800 hover:bg-sky-900 text-white font-bold py-1 px-2 rounded-full">
+                Summarizer
               </button>
             </div>
           </div>
 
-          <div className="w-full">
+          <div className="w-full md:w-1/2 relative">
             <textarea
-              className="block p-2.5 w-full text-sm text-gray-900 bg-neutral-100 shadow  focus:ring-blue-500 focus:border-blue-500 h-48 resize"
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 h-64 md:h-96 overflow-auto"
               value={paragraphInput}
               onChange={(e) => setParagraphInput(e.target.value)}
-              placeholder="Enter your paragraph input"
+              placeholder="Enter your model input"
             />
+            <div className="absolute bottom-0 flex justify-end w-full px-2 mb-2">
+              <button onClick={handleSave} className="bg-sky-800 hover:bg-sky-900 text-white font-bold py-1 px-2 rounded-full">
+                Save
+              </button>
+            </div>
           </div>
         </div>
-
-
 
       </div>
     </div>
