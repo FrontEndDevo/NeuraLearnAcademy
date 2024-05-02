@@ -1,6 +1,5 @@
 import {
   faCircleInfo,
-  faEye,
   faTrashCan,
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
@@ -17,7 +16,6 @@ import BlurModal from "../../../shared/BlurModal";
 const CreateNewCourse = () => {
   const [thumbnail, setThumbnail] = useState("");
   const [category, setCategory] = useState("all");
-  const [visibility, setVisibility] = useState(true);
   const [missingError, setMissingError] = useState(false);
 
   // Input Refs:
@@ -33,11 +31,6 @@ const CreateNewCourse = () => {
   // Handle the deletion of the thumbnail:
   const handleDeleteThumbnail = () => {
     setThumbnail("");
-  };
-
-  // Handle the visibility of the course:
-  const handleCourseVisibility = () => {
-    setVisibility((prev) => !prev);
   };
 
   // Close the create course modal:
@@ -63,7 +56,7 @@ const CreateNewCourse = () => {
     } else {
       // Do something with this course information like sending it to the server.
       console.log(
-        `Title: ${title} Description: ${description} Price: ${price} Category: ${category} Visibility: ${visibility} Thumbnail: ${thumbnail}`
+        `Title: ${title} Description: ${description} Price: ${price} Category: ${category} Thumbnail: ${thumbnail}`
       );
       // Close the modal:
       handleCloseCreateCourse();
@@ -78,7 +71,7 @@ const CreateNewCourse = () => {
     <>
       <BlurModal />
 
-      <div className="lg:w-[70vw] w-[95vw] h-[90vh] lg:h-[75vh] overflow-y-scroll lg:overflow-y-hidden z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
+      <div className="lg:w-[70vw] w-[95vw] h-[75vh] lg:h-[70vh] overflow-y-scroll lg:overflow-y-hidden z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
         <div className="flex items-center w-full px-4 py-4 bg-green-400 rounded-t-lg">
           <div className="flex items-center gap-2">
             <h2 className="text-base font-extrabold lg:text-2xl text-indigo-950">
@@ -219,25 +212,6 @@ const CreateNewCourse = () => {
               <p className="text-xs font-medium opacity-50 lg:mt-2">
                 Note: Dealing only in US dollars
               </p>
-            </div>
-
-            <div
-              onClick={handleCourseVisibility}
-              className={`relative py-1 px-4 mt-4 duration-300 rounded-full cursor-pointer w-fit ${
-                visibility
-                  ? "bg-sky-800 hover:bg-sky-900 pl-10"
-                  : "bg-zinc-800 hover:bg-zinc-900 pr-10"
-              }`}
-            >
-              <FontAwesomeIcon
-                icon={faEye}
-                className={`absolute top-0 p-2 duration-300 bg-white rounded-full text-zinc-800 hover:text-zinc-900 ${
-                  visibility ? "-left-1" : "left-3/4"
-                }`}
-              />
-              <span className="text-base font-semibold tracking-tight text-white select-none">
-                {visibility ? "Visibility" : "Invisibility"}
-              </span>
             </div>
           </div>
         </div>
