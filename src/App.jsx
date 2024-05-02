@@ -16,6 +16,7 @@ import InstructorPage from "./pages/Instructor/InstructorPage";
 import Activation from "./components/Registration/Activation/Activation";
 import ResetPassword from "./components/Registration/ResetPassword/ResetPassword";
 import ResetPasswordConfirm from "./components/Registration/ResetPassword/ResetPasswordConfirm";
+import Summarizers from './pages/Summarizers';
 
 const App = () => {
   return (
@@ -45,6 +46,8 @@ const App = () => {
           <Route path="Notification" element={<ProfileNotificationPage />} />
           <Route path="close-account" element={<ProfileCloseAcountPage />} />
         </Route>
+
+        <Route path="summarizer" element={<Summarizers/>} />
       </Routes>
     </>
   );
