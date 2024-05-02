@@ -42,20 +42,19 @@ const Summarizer = () => {
   return (
     <div className="flex h-screen">
       <div
-        className={`bg-neutral-100 text-white w-64 transition-all duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`bg-neutral-100 text-white w-64 transition-all duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
-        <div className="px-3 pt-10 pb-4 flex flex-col  items-center ">
+        <div className="px-3 pt-10 pb-4 flex flex-col  ">
           <img
             src={sideBarImage}
             alt="Logo"
-            className="  rounded-tl-md rounded-tr-md"
+            className="rounded-tl-md rounded-tr-md"
             loading="lazy"
           />
-          <h2 className="text-black font-bold py-2">Course Machine learning</h2>
+          <h2 className="text-black font-bold py-1">Course Machine learning</h2>
 
-          <div className="flex text-black text-opacity-70 text-sm font-medium tracking-tight mb-8">
+          <div className="flex text-black text-opacity-70 text-sm font-medium tracking-tight mb-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -108,9 +107,8 @@ const Summarizer = () => {
                       type="checkbox"
                       checked={item.isChecked}
                       onChange={() => handleCheckboxChange(index, itemIndex)}
-                      className={`mr-2 ${
-                        item.isChecked ? "bg-blue-500 text-white" : ""
-                      }`}
+                      className={`mr-2 ${item.isChecked ? "bg-blue-500 text-white" : ""
+                        }`}
                     />
                   </li>
                 ))}
@@ -134,7 +132,7 @@ const Summarizer = () => {
           <img
             src={summarizerImage}
             alt="Logo"
-            className="w-20 h-24 "
+            className="w-20 h-20 "
             loading="lazy"
           />
           <div className="text-sky-800 text-xl font-extrabold tracking-wider">
