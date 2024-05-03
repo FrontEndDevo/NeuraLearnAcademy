@@ -16,6 +16,9 @@ import {
 import ButtonProfile from "../shared/Profile/ButtonProfile";
 import profileImg from "../assets/images/profile/unknown_user.webp";
 
+import { useSelector } from "react-redux";
+import { updateUserData } from "../backend/Requests";
+
 const DEFAULT_DATA = {
   firstName: "",
   secondName: "",
@@ -69,16 +72,23 @@ const socialNetwork = [
 const ProfileInfoPage = () => {
   const inputStyle = "p-2 border-2 border-current md:p-4 focus:outline-none";
   const iconStyle = "w-3 h-3 mx-2 text-lg text-gray-500 md:h-5 md:w-5";
-
+  const email = "754d383336@emailbbox.pro";
   const [formState, setFormState] = useState(DEFAULT_DATA);
-
+  const access = useSelector((state) => state.userAuth.access);
   const handleStoringUserData = (event, key) => {
     setFormState({ ...formState, [key]: event.target.value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
+    const res = await updateUserData(
+      access,
+      email,
+      formState.firstName,
+      formState.secondName
+    );
+    console.log(res);
   };
 
   const userData = {
@@ -133,6 +143,17 @@ const ProfileInfoPage = () => {
         </div>
       </div>
       <div className="absolute w-full border-b border-gray-400"></div>
+      {/* {error &&
+        error.length > 0 &&
+        error.map((error, index) => (
+          <div key={index}>
+            {Object.keys(error).map((key) => (
+              <p key={key}>
+                {key}: {error[key]}
+              </p>
+            ))}
+          </div>
+        ))} */}
       <form
         className="grid grid-cols-12 gap-6 px-3 py-10 font-bold leading-8 md:text-xl md:px-5 lg:px-10"
         onSubmit={handleSubmit}
