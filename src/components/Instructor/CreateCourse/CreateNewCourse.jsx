@@ -6,38 +6,46 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import defaultThumbnail from "../../../assets/images/Instructor/thumbnail.webp";
-import { allCategories } from "../../../pages/AllCoursesPage";
 import Dropdown from "../../../shared/Dropdown";
 import { closeModal } from "../../../redux/slices/Instructor/OpenClose";
-import { useDispatch } from "react-redux";
-import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
 import ImageFileUploader from "../../../shared/Inputs/ImageFileUploader";
 import BlurModal from "../../../shared/BlurModal";
+import {
+  getSubjectCourses,
+} from "../../../redux/actions/courses-methods";
+import { createCourse } from "../../../backend/Requests";
 
 const CreateNewCourse = () => {
   const [thumbnail, setThumbnail] = useState("");
-  const [category, setCategory] = useState("all");
-  const [visibility, setVisibility] = useState(true);
+  // const thumbnailRef = useRef();
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [missingError, setMissingError] = useState(false);
-
+  const access = useSelector((state) => state.userAuth.access);
   // Input Refs:
   const titleRef = useRef("");
   const descriptionRef = useRef("");
   const priceRef = useRef(0);
-
+  const subject = useSelector((state) => state.courseData.subjectCourses);
+  useEffect(() => {
+    getSubjectCourses(dispatch, access);
+  }, []);
   // Handle the selected category:
-  const handleSelectedCategory = (category) => {
-    setCategory(category);
+  const handleSelectedSubject = (selectedOption) => {
+        const selectedSubject = subject.find(
+          (item) => item.title === selectedOption
+        );
+        if (selectedSubject) {
+          setSelectedCategoryId(selectedSubject.id);
+        } else {
+          console.error("Selected subject not found");
+        }
   };
 
   // Handle the deletion of the thumbnail:
   const handleDeleteThumbnail = () => {
     setThumbnail("");
-  };
-
-  // Handle the visibility of the course:
-  const handleCourseVisibility = () => {
-    setVisibility((prev) => !prev);
   };
 
   // Close the create course modal:
@@ -57,13 +65,19 @@ const CreateNewCourse = () => {
     const title = titleRef.current.value.trim();
     const description = descriptionRef.current.value.trim();
     const price = +priceRef.current.value;
+    // const subject = 1;
 
     if (!title || !price) {
       setMissingError(true);
     } else {
       // Do something with this course information like sending it to the server.
-      console.log(
-        `Title: ${title} Description: ${description} Price: ${price} Category: ${category} Visibility: ${visibility} Thumbnail: ${thumbnail}`
+      createCourse(
+        access,
+        selectedCategoryId,
+        title,
+        description,
+        price,
+        // thumbnailRef.current.files[0]
       );
       // Close the modal:
       handleCloseCreateCourse();
@@ -120,6 +134,7 @@ const CreateNewCourse = () => {
                     name="thumbnail"
                     getImage={handleUploadedThumbnail}
                   />
+                  {/* <input type="file" ref={thumbnailRef} /> */}
                 </div>
 
                 <div
@@ -167,11 +182,13 @@ const CreateNewCourse = () => {
           <div>
             <div>
               <p className={`${labelClasses} -mb-2`}>Category:</p>
-              <Dropdown
-                options={allCategories}
-                getSelectedOption={handleSelectedCategory}
-                label="Select an option"
-              />
+              {subject && (
+                <Dropdown
+                  options={subject.map((item) => item.title)}
+                  getSelectedOption={handleSelectedSubject}
+                  label="Select a subject"
+                />
+              )}
             </div>
 
             <div>
@@ -219,25 +236,6 @@ const CreateNewCourse = () => {
               <p className="mt-2 text-xs font-medium opacity-50">
                 Note: Dealing only in US dollars
               </p>
-            </div>
-
-            <div
-              onClick={handleCourseVisibility}
-              className={`relative py-1 px-4 mt-4 duration-300 rounded-full cursor-pointer w-fit ${
-                visibility
-                  ? "bg-sky-800 hover:bg-sky-900 pl-10"
-                  : "bg-zinc-800 hover:bg-zinc-900 pr-10"
-              }`}
-            >
-              <FontAwesomeIcon
-                icon={faEye}
-                className={`absolute top-0 p-2 duration-300 bg-white rounded-full text-zinc-800 hover:text-zinc-900 ${
-                  visibility ? "-left-1" : "left-3/4"
-                }`}
-              />
-              <span className="text-base font-semibold tracking-tight text-white select-none">
-                {visibility ? "Visibility" : "Invisibility"}
-              </span>
             </div>
           </div>
         </div>
