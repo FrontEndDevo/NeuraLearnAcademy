@@ -6,6 +6,8 @@ import topicSlice from "./slices/Filters/topics";
 import OpenCloseSlice from "./slices/Instructor/OpenClose";
 import authSlice from "./slices/authentication/auth";
 import authErrorsSlice from "./slices/authentication/errors";
+import coursesSlice from "./slices/courses/courses-slice";
+import courseErrorsSlice from "./slices/courses/errors";
 export const store = configureStore({
   reducer: {
     searchCourses: searchCoursesReducer,
@@ -15,5 +17,7 @@ export const store = configureStore({
     openClose: OpenCloseSlice,
     userAuth: authSlice,
     authErrors: authErrorsSlice,
+    courseData: coursesSlice,
+    courseDataErrors: courseErrorsSlice,
   },
 });
