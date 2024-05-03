@@ -10,7 +10,7 @@ import { formatNumbersInThousands } from "../../utils/Utils";
 const InstructorCourseCard = ({
   img,
   title,
-  category,
+  subject,
   videos,
   sections,
   quizzes,
@@ -60,7 +60,7 @@ const InstructorCourseCard = ({
         </div>
 
         <h6 className="px-3 py-1 text-[10px] my-3 lg:text-base capitalize font-bold text-white rounded-full bg-secondary-900 w-fit">
-          {category}
+          {subject}
         </h6>
 
         <div className="flex items-center justify-between">
@@ -69,7 +69,7 @@ const InstructorCourseCard = ({
             <p className="font-semibold">{numberOfStudents}</p>
             <span className="text-gray-400">({students}) Students</span>
           </div>
-          <p className="text-base font-semibold">${price.toFixed(2)}</p>
+          <p className="text-base font-semibold">${price}</p>
         </div>
       </div>
     </li>
@@ -79,7 +79,7 @@ const InstructorCourseCard = ({
 InstructorCourseCard.propTypes = {
   img: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
+  subject: PropTypes.string.isRequired,
   videos: PropTypes.number.isRequired,
   sections: PropTypes.number.isRequired,
   quizzes: PropTypes.number.isRequired,
