@@ -28,20 +28,22 @@ const InstructorCourses = () => {
   );
 
   return (
-    <section className="flex">
+    <section className="flex flex-col lg:flex-row">
       <InstructorSidebar
         selectedOption={instructorOption}
         getInstructorOption={handleInstructorOption}
       />
-      <div className="px-10 py-20">
+      <div className="mx-4 lg:px-10 lg:py-20">
         <div className="flex items-center justify-between mb-10">
-          <h2 className="text-2xl font-bold capitalize">
+          <h2 className="mx-auto text-2xl font-bold capitalize lg:mx-0">
             my {instructorOption}
           </h2>
         </div>
 
-        <ul className="flex flex-wrap items-center gap-x-6 gap-y-16">
-          <DefaultInstructorCourse />
+        <ul className="grid grid-cols-1 gap-4 lg:flex lg:flex-wrap lg:items-center lg:justify-center md:grid-cols-2 lg:gap-y-16">
+          <div className="md:col-span-2">
+            <DefaultInstructorCourse />
+          </div>
           {instructorCoursesList}
         </ul>
       </div>

@@ -1,6 +1,5 @@
 import {
   faCircleInfo,
-  faEye,
   faTrashCan,
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
@@ -85,17 +84,17 @@ const CreateNewCourse = () => {
   };
 
   // Classes for styling:
-  const labelClasses = "block mb-1 text-base font-semibold";
+  const labelClasses = "block mb-1 text-sm lg:text-base lg:font-semibold";
   const inputClasses =
     "p-2 text-base rounded-sm w-full mb-2 outline-none caret-indigo-800 border border-black border-opacity-80";
   return (
     <>
       <BlurModal />
 
-      <div className="w-[50vw] h-[75vh] z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
+      <div className="lg:w-[70vw] w-[95vw] h-[75vh] lg:h-[70vh] overflow-y-scroll lg:overflow-y-hidden z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
         <div className="flex items-center w-full px-4 py-4 bg-green-400 rounded-t-lg">
           <div className="flex items-center gap-2">
-            <h2 className="text-2xl font-extrabold text-indigo-950">
+            <h2 className="text-base font-extrabold lg:text-2xl text-indigo-950">
               Course Info
             </h2>
             <FontAwesomeIcon
@@ -106,22 +105,22 @@ const CreateNewCourse = () => {
 
           <button
             onClick={handleCloseCreateCourse}
-            className="p-2 ml-auto text-base font-semibold tracking-tight duration-300 rounded-lg bg-zinc-300 hover:bg-zinc-400"
+            className="p-1 ml-auto text-base font-semibold tracking-tight duration-300 rounded-lg md:p-2 bg-zinc-300 hover:bg-zinc-400"
           >
             Cancel
           </button>
         </div>
 
-        <div className="grid grid-cols-2 gap-10 px-20 py-10">
-          <div className="flex flex-col items-start justify-between">
-            <div className="w-full">
+        <div className="grid grid-cols-1 gap-6 px-4 py-4 lg:gap-10 lg:py-10 lg:px-20 lg:grid-cols-2">
+          <div className="flex flex-col items-start justify-between gap-6">
+            <div className="w-full md:flex md:items-center md:justify-between lg:block">
               <img
                 src={thumbnail ? thumbnail : defaultThumbnail}
                 alt="course thumbnail"
-                className="h-48 mx-auto border border-black border-opacity-50 w-80"
+                className="h-48 mx-auto border border-black border-opacity-50 w-80 lg:w-3/4"
               />
 
-              <div className="flex flex-wrap items-center justify-between gap-4 mt-10">
+              <div className="flex flex-wrap items-center justify-center gap-4 mt-4 lg:mt-10 lg:justify-between">
                 <div>
                   <label
                     htmlFor="thumbnail"
@@ -160,7 +159,7 @@ const CreateNewCourse = () => {
               </div>
             </div>
 
-            <div className="flex items-end gap-4">
+            <div className="flex items-center gap-4 lg:items-end">
               <button
                 onClick={handleSavingCourseInformation}
                 className={`px-6 py-2 text-lg font-semibold tracking-tight text-white duration-300 rounded-lg hover:animate-pulse ${
@@ -200,7 +199,7 @@ const CreateNewCourse = () => {
                 ref={titleRef}
                 id="title"
                 name="title"
-                className={`${inputClasses} font-bold`}
+                className={`${inputClasses} lg:font-bold`}
               />
             </div>
 
@@ -222,7 +221,7 @@ const CreateNewCourse = () => {
               <label htmlFor="price" className={labelClasses}>
                 Price:
               </label>
-              <span className="absolute text-2xl font-bold select-none top-8 left-2">
+              <span className="absolute text-2xl font-bold select-none top-7 lg:top-8 left-2">
                 $
               </span>
               <input
@@ -231,9 +230,9 @@ const CreateNewCourse = () => {
                 id="price"
                 name="price"
                 min={0}
-                className={`${inputClasses} font-semibold pl-10`}
+                className={`${inputClasses} font-semibold pl-6`}
               />
-              <p className="mt-2 text-xs font-medium opacity-50">
+              <p className="text-xs font-medium opacity-50 lg:mt-2">
                 Note: Dealing only in US dollars
               </p>
             </div>
