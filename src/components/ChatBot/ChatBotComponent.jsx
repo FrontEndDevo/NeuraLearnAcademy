@@ -72,7 +72,7 @@ const ChatBotComponent = () => {
                 {/* Chat History */}
                 <div className="h-full overflow-y-auto">
                     {chatHistory.map((msg, index) => (
-                        <div key={index} className="my-2">
+                        <div key={index} className="my-2 flex justify-center">
                             <p className="">{msg}</p>
                         </div>
                     ))}
