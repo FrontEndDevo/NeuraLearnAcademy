@@ -68,19 +68,18 @@ const ChatBotComponent = () => {
 
                 {/* Input Area */}
                 <div className="absolute bottom-0 left-0 right-0  p-4  flex justify-center">
-                    <div className="w-3/5 flex">
+                    <div className="w-3/5 flex space-x-6">
                         <input
                             type="text"
-                            className="flex-1 border px-8 py-2 bg-gray-100 rounded-[25px]"
+                            className="flex-1 border px-8 py-2 bg-gray-100 rounded-[25px] text-neutral-600 text-[15px] font-normal font-['Outfit'] tracking-wide"
                             placeholder="Message me I can help you for any question about the course material ..."
                             value={message}
                             onChange={handleInputChange}
                         />
                         <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r"
+                            className=" text-sky-800 hover:text-sky-900 transition duration-700 font-bold py-2 px-4 rounded-r"
                             onClick={handleSendMessage}
-                        >
-                            Send
+                        >      <FontAwesomeIcon className="text-xl" icon={faPaperPlane} />
                         </button>
                     </div>
                 </div>
