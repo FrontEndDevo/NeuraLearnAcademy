@@ -57,13 +57,13 @@ const ChatBotComponent = () => {
 
                 {/* Initial Text and Image */}
                 {showInitialText && (
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-00 text-2xl flex flex-col items-center">
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  flex flex-col items-center">
                         <img
                             src={AIAssistantImage}
                             alt="AI Assistant"
                             className="w-20 mb-4"
                         />
-                        <span className="text-sky-800 text-[26px] font-bold font-['Outfit'] tracking-wide">
+                        <span className="text-sky-800 text-[10px] md:text-[18px] xl:text-[26px] font-bold font-['Outfit'] tracking-wide">
                             Ask Nerualearn AI assistant ?
                         </span>
                     </div>
