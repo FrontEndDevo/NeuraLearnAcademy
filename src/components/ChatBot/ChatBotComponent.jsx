@@ -25,7 +25,7 @@ const ChatBotComponent = () => {
         <div className="flex h-screen w-full relative">
             {/* Sidebar */}
             {isOpen && (
-                <div className="bg-stone-50 w-64 h-full flex flex-col justify-between fixed top-0 left-0 z-10">
+                <div className="bg-stone-50 w-64 h-full flex flex-col justify-between absolute top-0 left-0 z-10">
                     <button className="flex justify-center opacity-90 text-black text-[17px] tracking-wide bg-white hover:bg-slate-50 transition duration-700 rounded-[25px] shadow-md py-2 mt-10 mx-8 font-bold">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@ const ChatBotComponent = () => {
             )}
 
             {/* Chat Area */}
-            <div className="flex-1 p-4 relative bg-neutral-100 shadow ml-0 md:ml-64">
+            <div className="flex-1 p-4 relative bg-neutral-100 shadow w-full">
                 <button
                     className="fixed top-4 left-72 bg-gray-800 text-white p-2 rounded-md"
                     onClick={() => setIsOpen(!isOpen)}
@@ -57,13 +57,13 @@ const ChatBotComponent = () => {
 
                 {/* Initial Text and Image */}
                 {showInitialText && (
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  flex flex-col items-center">
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-00 text-2xl flex flex-col items-center">
                         <img
                             src={AIAssistantImage}
                             alt="AI Assistant"
                             className="w-20 mb-4"
                         />
-                        <span className="text-sky-800 text-[10px] md:text-[18px] xl:text-[26px] font-bold font-['Outfit'] tracking-wide">
+                        <span className="text-sky-800 text-[26px] font-bold font-['Outfit'] tracking-wide">
                             Ask Nerualearn AI assistant ?
                         </span>
                     </div>
