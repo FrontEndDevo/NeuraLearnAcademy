@@ -83,7 +83,7 @@ const ChatBotComponent = () => {
                     <div className="md:w-3/5 flex md:space-x-6">
                         <input
                             type="text"
-                            className="flex-1 border border-2 px-8 py-2 bg-gray-100 rounded-[25px] text-neutral-600 text-[15px] font-normal font-['Outfit'] tracking-wide"
+                            className="flex-1  border-2 px-8 py-2 bg-gray-100 rounded-[25px] text-neutral-600 text-[15px] font-normal font-['Outfit'] tracking-wide"
                             placeholder="Message me I can help you for any question about the course material ..."
                             value={message}
                             onChange={handleInputChange}
