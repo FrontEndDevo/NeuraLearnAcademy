@@ -17,6 +17,7 @@ import Activation from "./components/Registration/Activation/Activation";
 import ResetPassword from "./components/Registration/ResetPassword/ResetPassword";
 import ResetPasswordConfirm from "./components/Registration/ResetPassword/ResetPasswordConfirm";
 import Summarizers from './pages/Summarizers';
+import ChatBot from "./pages/ChatBot";
 
 const App = () => {
   return (
@@ -47,7 +48,8 @@ const App = () => {
           <Route path="close-account" element={<ProfileCloseAcountPage />} />
         </Route>
 
-        <Route path="summarizer" element={<Summarizers/>} />
+        <Route path="summarizer" element={<Summarizers />} />
+        <Route path="ChatBot" element={<ChatBot />} />
       </Routes>
     </>
   );
