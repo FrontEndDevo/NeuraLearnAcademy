@@ -64,7 +64,9 @@ const Courses = () => {
     return (
       <li
         key={i}
-        className="p-2 font-playfair capitalize font-bold flex items-center justify-center text-black text-[11px] lg:text-sm duration-300 bg-white border-2 rounded-lg lg:rounded-full hover:bg-black hover:text-white"
+        className={`p-2 font-playfair capitalize font-bold flex items-center justify-center text-[11px] lg:text-sm duration-300 border-2 rounded-lg lg:rounded-full hover:bg-black hover:text-white ${
+          i === 0 ? "bg-black text-white" : ""
+        }`}
       >
         <Link to={`/all-courses/${formattedUrl}`}>{item}</Link>
       </li>
@@ -224,9 +226,12 @@ const Courses = () => {
               humans have achieved.
             </p>
           </div>
-          <button className="flex justify-end px-4 py-2 ml-auto text-[10px] text-white capitalize duration-200 rounded-lg lg:px-8 lg:py-4 lg:text-xl bg-primary-700 hover:bg-primary-500">
+          <Link
+            to="/all-courses/programming"
+            className="flex justify-end px-4 py-2 ml-auto text-[10px] text-white capitalize duration-200 rounded-lg lg:px-8 lg:py-4 lg:text-xl bg-primary-700 hover:bg-primary-500"
+          >
             explore programming
-          </button>
+          </Link>
         </div>
       </div>
 
