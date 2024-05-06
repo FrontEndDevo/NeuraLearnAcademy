@@ -7,8 +7,12 @@ import TopCategories from "../components/TopCategories/TopCategories";
 import Hero from "../components/Hero/Hero";
 import Specializations from "../components/Specializations/Specializations";
 import { useAuthenticationChecking } from "../shared/Registration/useAuthenticationChecking";
+import { public_courses } from "../redux/actions/courses-methods";
+import { useDispatch } from "react-redux";
 const Homepage = () => {
   useAuthenticationChecking();
+  const dispatch = useDispatch();
+  public_courses(dispatch);
   return (
     <>
       <Hero />
