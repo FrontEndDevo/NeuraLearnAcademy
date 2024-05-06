@@ -94,7 +94,7 @@ const CourseCard = ({
               </div>
             </div>
           )}
-          <div className="flex flex-wrap items-center gap-2 md:flex-nowrap">
+          <div className="flex flex-wrap items-center mt-2 gap-2 md:flex-nowrap">
             {price != null && (
               <p
                 className={`text-2xl font-bold ${
@@ -127,7 +127,7 @@ CourseCard.propTypes = {
   image: PropTypes.string.isRequired,
   instructor: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  category: PropTypes.string,
+  category: PropTypes.string.isRequired,
   progress: PropTypes.number,
   rate: PropTypes.number,
   price: PropTypes.number,
