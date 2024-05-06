@@ -56,7 +56,7 @@ const InstructorCourseCard = ({
       <img
         src={img}
         alt={title}
-        className="w-full h-2/5 rounded-t-3xl"
+        className="w-full h-60 rounded-t-3xl"
         loading="lazy"
       />
 
@@ -91,7 +91,7 @@ const InstructorCourseCard = ({
         </div>
       </div>
 
-      <div className="flex items-center justify-between mx-2 mt-2 mb-2 md:mt-4 flex-wrap gap-4">
+      <div className="flex items-center justify-between mx-2 mt-2 mb-4 md:mt-4 flex-wrap gap-4">
         <div className="relative flex items-center gap-2">
           <FontAwesomeIcon
             icon={faPenToSquare}
