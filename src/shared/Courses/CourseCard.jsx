@@ -32,7 +32,7 @@ const CourseCard = ({
         <img
           src={image}
           alt={title}
-          className="w-full h-80 rounded-t-3xl"
+          className="w-full h-60 rounded-t-3xl"
           loading="lazy"
         />
         <div className="px-4 py-2">
@@ -49,7 +49,7 @@ const CourseCard = ({
               ))}
             </div>
           </div>
-          <h3 className="my-4 text-base font-semibold leading-6 tracking-wide lg:text-xl text-gray-color-700">
+          <h3 className="my-2 text-start text-base font-semibold lg:text-xl text-gray-color-700">
             {courseTitle}
           </h3>
 
@@ -127,10 +127,10 @@ CourseCard.propTypes = {
   image: PropTypes.string.isRequired,
   instructor: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  category: PropTypes.string,
   progress: PropTypes.number,
   rate: PropTypes.number,
-  price: PropTypes.number,
   discount: PropTypes.number,
 };
 
