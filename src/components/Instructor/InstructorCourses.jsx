@@ -179,10 +179,8 @@ const InstructorCourses = () => {
           </h2>
         </div>
 
-        <ul className="grid grid-cols-1 gap-4 lg:flex lg:flex-wrap lg:items-center lg:justify-center md:grid-cols-2 lg:gap-y-16">
-          <div className="md:col-span-2">
-            <DefaultInstructorCourse />
-          </div>
+        <ul className="grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+          <DefaultInstructorCourse />
           {instructorCoursesList}
         </ul>
       </div>

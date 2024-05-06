@@ -33,12 +33,30 @@ const InstructorCourseCard = ({
     // Open the create course modal:
     dispatch(openModal("createUserCourse"));
   };
+
+  // Courses properties like videos, sections, and quizzes:
+  const courseProperties = [
+    { title: "Videos", icon: faVideo, value: videos },
+    { title: "Sections", icon: faDatabase, value: sections },
+    { title: "Quizzes", icon: faSheetPlastic, value: quizzes },
+  ].map((item, i) => (
+    <div
+      key={i}
+      className="flex flex-col items-center flex-wrap justify-center text-center gap-2 lg:flex-row"
+    >
+      <FontAwesomeIcon icon={item.icon} className="w-5 h-5" />
+      <span className="text-sm tracking-tight">
+        {item.value} {item.title}
+      </span>
+    </div>
+  ));
+
   return (
-    <li className="duration-300 w-[90vw] md:w-fit lg:w-[25rem] h-[40rem] border shadow-lg rounded-3xl hover:shadow-innerwhite">
+    <li className="duration-300 border shadow-lg rounded-3xl hover:shadow-innerwhite">
       <img
         src={img}
         alt={title}
-        className="w-full h-3/5 rounded-t-3xl"
+        className="w-full h-2/5 rounded-t-3xl"
         loading="lazy"
       />
 
@@ -57,22 +75,7 @@ const InstructorCourseCard = ({
           </div>
         </div>
 
-        <div className="grid items-center grid-cols-3 justify-items-center">
-          <div className="flex flex-col items-center gap-2 md:flex-row">
-            <FontAwesomeIcon icon={faVideo} />
-            <span className="text-sm tracking-tight">{videos} Videos</span>
-          </div>
-
-          <div className="flex flex-col items-center gap-2 md:flex-row">
-            <FontAwesomeIcon icon={faDatabase} />
-            <span className="text-sm tracking-tight ">{sections} Sections</span>
-          </div>
-
-          <div className="flex flex-col items-center gap-2 md:flex-row">
-            <FontAwesomeIcon icon={faSheetPlastic} />
-            <span className="text-sm tracking-tight ">{quizzes} Quizzes</span>
-          </div>
-        </div>
+        <div className="grid gap-4 grid-cols-3">{courseProperties}</div>
 
         <h6 className="px-3 py-1 text-[10px] my-2 lg:text-base capitalize font-bold text-white rounded-full bg-secondary-900 text-center md:text-start md:w-fit">
           {category}
@@ -88,7 +91,7 @@ const InstructorCourseCard = ({
         </div>
       </div>
 
-      <div className="flex items-center justify-between mx-2 mt-1 mb-2 md:mt-4">
+      <div className="flex items-center justify-between mx-2 mt-2 mb-2 md:mt-4 flex-wrap gap-4">
         <div className="relative flex items-center gap-2">
           <FontAwesomeIcon
             icon={faPenToSquare}
