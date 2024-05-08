@@ -8,8 +8,9 @@ import DataScienec from "../../assets/images/homepage/cartoon/men-woman-wearing-
 import StrategyImage from "../../assets/images/homepage/cartoon/6.jpg";
 import BuisnessImage from "../../assets/images/homepage/cartoon/58074.jpg";
 import PhtographyImage from "../../assets/images/homepage/cartoon/42429.jpg";
+import { formatUrlString } from "../../utils/Utils";
 
-const CategoriesData = [
+const tempCategories = [
   {
     category: "Development",
     img: programming,
@@ -19,7 +20,7 @@ const CategoriesData = [
     img: DevelopmentImage,
   },
   {
-    category: "Sales & Markting",
+    category: "Sales",
     img: SalesMarktingImage,
   },
   {
@@ -46,6 +47,28 @@ const CategoriesData = [
 ];
 
 function TopCategories() {
+  const renderCategories = tempCategories.map((item, index) => {
+    const formattedUrl = formatUrlString(item.category);
+    return (
+      <li key={index} className="my-2 md:my-5">
+        <Link
+          className="flex flex-col items-center justify-center"
+          to={`/all-courses/${formattedUrl}`}
+        >
+          <img
+            src={item.img}
+            className="transition duration-300 transform border-4 rounded-full border-secondary-700 h-28 w-28 sm:h-32 sm:w-32 md:w-40 md:h-40 lg:w-56 lg:h-56 hover:scale-105"
+            alt={item.category}
+            loading="lazy"
+          />
+          <h2 className="my-3 text-sm font-extrabold md:text-lg">
+            {item.category}
+          </h2>
+        </Link>
+      </li>
+    );
+  });
+
   return (
     <>
       <div className="container my-10 xl:my-20 ">
@@ -53,30 +76,9 @@ function TopCategories() {
           Top Categories
         </h3>
         <ul className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap:0 ">
-          {CategoriesData.forEach((item, index) => {
-            return (
-              <>
-                <li key={index} className="my-2 md:my-5">
-                  <Link
-                    className="flex flex-col items-center justify-center"
-                    to={item.category.toLowerCase().replace(' & ', '-')}
-                  >
-                    <img
-                      src={item.img}
-                      className="transition duration-300 transform border-4 rounded-full border-secondary-700 h-28 w-28 sm:h-32 sm:w-32 md:w-40 md:h-40 lg:w-56 lg:h-56 hover:scale-105"
-                      alt={item.category}
-                      loading="lazy"
-                    />
-                    <h2 className="my-3 text-sm font-extrabold md:text-lg">
-                      {item.category}
-                    </h2>
-                  </Link>
-                </li >
-              </>
-            );
-          })}
+          {renderCategories}
         </ul>
-      </div >
+      </div>
     </>
   );
 }

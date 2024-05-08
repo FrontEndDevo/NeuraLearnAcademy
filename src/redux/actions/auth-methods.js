@@ -44,7 +44,7 @@ export async function load_user(dispatch) {
     try {
       // Send a request to the backend to get the user information.
       const res = await axios.get(
-        `http://localhost:8000/auth/users/me/`,
+        import.meta.env.VITE_API_URL + "/auth/users/me/",
         config
       );
       dispatch(USER_LOADED_SUCCESS(res.data));
@@ -72,7 +72,11 @@ export async function checkAuthenticated(dispatch) {
     const body = JSON.stringify({ token: access });
 
     try {
-      await axios.post(`http://localhost:8000/auth/jwt/verify/`, body, config);
+      await axios.post(
+        import.meta.env.VITE_API_URL + "/auth/jwt/verify/",
+        body,
+        config
+      );
       dispatch(AUTHENTICATED_SUCCESS());
     } catch (err) {
       dispatch(AUTHENTICATED_FAIL());
@@ -100,7 +104,7 @@ export async function login(dispatch, email, password) {
 
   try {
     const res = await axios.post(
-      `http://localhost:8000/auth/jwt/create/`,
+      import.meta.env.VITE_API_URL + "/auth/jwt/create/",
       body,
       config
     );
@@ -139,7 +143,7 @@ export async function signup(
 
   try {
     const res = await axios.post(
-      `http://localhost:8000/auth/users/`,
+      import.meta.env.VITE_API_URL + "/auth/users/",
       body,
       config
     );
@@ -172,7 +176,7 @@ export async function activation(dispatch, uid, token) {
 
   try {
     await axios.post(
-      `http://localhost:8000/auth/users/activation/`,
+      import.meta.env.VITE_API_URL + "/auth/users/activation/",
       body,
       config
     );
@@ -200,7 +204,7 @@ export async function reset_password(dispatch, email) {
 
   try {
     await axios.post(
-      `http://localhost:8000/auth/users/reset_password/`,
+      import.meta.env.VITE_API_URL + "/auth/users/reset_password/",
       body,
       config
     );
@@ -235,7 +239,7 @@ export async function reset_password_confirm(
 
   try {
     await axios.post(
-      `http://localhost:8000/auth/users/reset_password_confirm/`,
+      import.meta.env.VITE_API_URL + "/auth/users/reset_password_confirm/",
       body,
       config
     );
