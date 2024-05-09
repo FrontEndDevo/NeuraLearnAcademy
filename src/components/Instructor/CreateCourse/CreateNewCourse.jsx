@@ -4,21 +4,18 @@ import {
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import defaultThumbnail from "../../../assets/images/Instructor/thumbnail.webp";
+import defaultImage from "../../../assets/images/Instructor/thumbnail.webp";
 import Dropdown from "../../../shared/Dropdown";
 import { closeModal } from "../../../redux/slices/Instructor/OpenClose";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import ImageFileUploader from "../../../shared/Inputs/ImageFileUploader";
 import BlurModal from "../../../shared/BlurModal";
-import {
-  getSubjectCourses,
-} from "../../../redux/actions/courses-methods";
-import { createCourse } from "../../../backend/Requests";
+import { createCourse, getSubjectCourses } from "../../../redux/actions/courses-methods";
 
 const CreateNewCourse = () => {
   const [thumbnail, setThumbnail] = useState("");
-  // const thumbnailRef = useRef();
+  const [image, setImage] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [missingError, setMissingError] = useState(false);
   const access = useSelector((state) => state.userAuth.access);
@@ -32,19 +29,19 @@ const CreateNewCourse = () => {
   }, []);
   // Handle the selected category:
   const handleSelectedSubject = (selectedOption) => {
-        const selectedSubject = subject.find(
-          (item) => item.title === selectedOption
-        );
-        if (selectedSubject) {
-          setSelectedCategoryId(selectedSubject.id);
-        } else {
-          console.error("Selected subject not found");
-        }
+    const selectedSubject = subject.find(
+      (item) => item.title === selectedOption
+    );
+    if (selectedSubject) {
+      setSelectedCategoryId(selectedSubject.id);
+    } else {
+      console.error("Selected subject not found");
+    }
   };
 
   // Handle the deletion of the thumbnail:
   const handleDeleteThumbnail = () => {
-    setThumbnail("");
+    setImage("");
   };
 
   // Close the create course modal:
@@ -54,8 +51,11 @@ const CreateNewCourse = () => {
   };
 
   // Handle the uploaded thumbnail and store it in the state:
-  const handleUploadedThumbnail = (image) => {
-    setThumbnail(image);
+  const handleUploadedThumbnail = (thumbnail) => {
+    setThumbnail(thumbnail);
+  };
+  const handleUploadedImage = (image) => {
+    setImage(image);
   };
 
   // Handle the saving of the course information:
@@ -70,14 +70,16 @@ const CreateNewCourse = () => {
       setMissingError(true);
     } else {
       // Do something with this course information like sending it to the server.
+      console.log(thumbnail);
       createCourse(
         access,
         selectedCategoryId,
         title,
         description,
         price,
-        // thumbnailRef.current.files[0]
+        thumbnail
       );
+      
       // Close the modal:
       handleCloseCreateCourse();
     }
@@ -115,7 +117,7 @@ const CreateNewCourse = () => {
           <div className="flex flex-col items-start justify-between gap-6">
             <div className="w-full md:flex md:items-center md:justify-between lg:block">
               <img
-                src={thumbnail ? thumbnail : defaultThumbnail}
+                src={image ? image : defaultImage}
                 alt="course thumbnail"
                 className="h-48 mx-auto border border-black border-opacity-50 w-80 lg:w-3/4"
               />
@@ -131,9 +133,9 @@ const CreateNewCourse = () => {
                   </label>
                   <ImageFileUploader
                     name="thumbnail"
-                    getImage={handleUploadedThumbnail}
+                    getThumnail={handleUploadedThumbnail}
+                    getImage={handleUploadedImage}
                   />
-                  {/* <input type="file" ref={thumbnailRef} /> */}
                 </div>
 
                 <div
