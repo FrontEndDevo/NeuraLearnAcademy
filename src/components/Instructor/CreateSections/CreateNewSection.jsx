@@ -71,8 +71,8 @@ const CreateNewSection = () => {
         <>
             <BlurModal />
 
-            <div className="lg:w-[70vw] w-[95vw] h-[75vh] lg:h-[70vh] overflow-y-scroll  z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
-                <div className="flex items-center w-full px-4 py-4 bg-green-400 rounded-t-lg">
+            <div className="lg:w-[50vw] w-[95vw] h-[75vh] lg:h-[50vh]  z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
+                <div className="flex items-center  w-full px-4 py-4 bg-zinc-100 rounded-tl-[10px] rounded-tr-[10px]">
                     <div className="flex items-center gap-2">
                         <h2 className="text-base font-extrabold lg:text-2xl text-indigo-950">
                             Course Info
@@ -91,78 +91,7 @@ const CreateNewSection = () => {
                     </button>
                 </div>
 
-                <div className="grid grid-cols-1 gap-6 px-4 py-4 lg:gap-10 lg:py-10 lg:px-20 lg:grid-cols-2">
-                    <div className="flex flex-col items-start justify-between gap-6">
-                        <div className="w-full md:flex md:items-center md:justify-between lg:block">
-                            <img
-                                src={thumbnail ? thumbnail : defaultThumbnail}
-                                alt="course thumbnail"
-                                className="h-48 mx-auto border border-black border-opacity-50 w-80 lg:w-3/4"
-                            />
-
-                            <div className="flex flex-wrap items-center justify-center gap-4 mt-4 lg:mt-10 lg:justify-between">
-                                <div>
-                                    <label
-                                        htmlFor="thumbnail"
-                                        className="flex items-center gap-2 p-2 text-base font-semibold uppercase duration-300 border border-black rounded-lg cursor-pointer bg-zinc-300 hover:bg-zinc-400 border-opacity-80"
-                                    >
-                                        <FontAwesomeIcon icon={faUpload} />
-                                        Upload Thumbnail
-                                    </label>
-                                    <ImageFileUploader
-                                        name="thumbnail"
-                                        getImage={handleUploadedThumbnail}
-                                    />
-                                </div>
-
-                                <div
-                                    onClick={handleDeleteThumbnail}
-                                    className={`relative py-1 px-4 duration-300 rounded-full cursor-pointer ${thumbnail
-                                            ? "bg-red-800 hover:bg-red-900 pr-10"
-                                            : "bg-zinc-800 hover:bg-zinc-900 pl-10"
-                                        }`}
-                                >
-                                    <FontAwesomeIcon
-                                        icon={faTrashCan}
-                                        className={`absolute duration-300 top-0 p-2 bg-white rounded-full ${thumbnail
-                                                ? "text-red-800 left-3/4"
-                                                : "text-zinc-800 -left-1"
-                                            }`}
-                                    />
-                                    <span className="text-base font-semibold tracking-tight text-white">
-                                        Delete
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-4 lg:items-end">
-                            <button
-                                onClick={handleSavingCourseInformation}
-                                className={`px-6 py-2 text-lg font-semibold tracking-tight text-white duration-300 rounded-lg hover:animate-pulse ${missingError
-                                        ? "bg-red-900 hover:bg-red-800"
-                                        : "bg-stone-900 hover:bg-stone-800"
-                                    }`}
-                            >
-                                Save
-                            </button>
-                            {missingError && (
-                                <span className="text-sm italic text-red-700 capitalize">
-                                    incomplete information
-                                </span>
-                            )}
-                        </div>
-                    </div>
-
-                    <div>
-                        <div>
-                            <p className={`${labelClasses} -mb-2`}>Category:</p>
-                            <Dropdown
-                                options={allCategories}
-                                getSelectedOption={handleSelectedCategory}
-                                label="Select an option"
-                            />
-                        </div>
+                <div className="   px-4 py-4 ">
 
                         <div>
                             <label htmlFor="title" className={labelClasses}>
@@ -177,39 +106,22 @@ const CreateNewSection = () => {
                             />
                         </div>
 
-                        <div>
-                            <label htmlFor="description" className={labelClasses}>
-                                Description:
-                            </label>
-                            <textarea
-                                ref={descriptionRef}
-                                name="description"
-                                id="description"
-                                cols="30"
-                                rows="5"
-                                className={`${inputClasses} resize-none`}
-                            />
-                        </div>
 
-                        <div className="relative">
-                            <label htmlFor="price" className={labelClasses}>
-                                Price:
-                            </label>
-                            <span className="absolute text-2xl font-bold select-none top-7 lg:top-8 left-2">
-                                $
+                    <div className="flex items-center gap-4 lg:items-end">
+                        <button
+                            onClick={handleSavingCourseInformation}
+                            className={`px-6 py-2 text-lg font-semibold tracking-tight text-white duration-300 rounded-lg hover:animate-pulse ${missingError
+                                ? "bg-red-900 hover:bg-red-800"
+                                : "bg-stone-900 hover:bg-stone-800"
+                                }`}
+                        >
+                            Save
+                        </button>
+                        {missingError && (
+                            <span className="text-sm italic text-red-700 capitalize">
+                                incomplete information
                             </span>
-                            <input
-                                type="number"
-                                ref={priceRef}
-                                id="price"
-                                name="price"
-                                min={0}
-                                className={`${inputClasses} font-semibold pl-6`}
-                            />
-                            <p className="text-xs font-medium opacity-50 lg:mt-2">
-                                Note: Dealing only in US dollars
-                            </p>
-                        </div>
+                        )}
                     </div>
                 </div>
             </div>
