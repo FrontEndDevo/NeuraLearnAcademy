@@ -71,7 +71,7 @@ export async function getInstructorCourses(
     try {
       const res = await axios.get(api, config);
       console.log(res);
-      dispatch(GETINSTRUCTORCOURSES_SUCCESS(res.data));
+      dispatch(GETINSTRUCTORCOURSES_SUCCESS(res.data.results));
     } catch (err) {
       console.log(err);
       dispatch(GETINSTRUCTORCOURSES_FAIL());
