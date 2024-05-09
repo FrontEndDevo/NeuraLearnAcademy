@@ -34,28 +34,27 @@ const CoursesContent = () => {
                     <img className=" w-80" src={ebook} alt="ebook image" loading="lazy" />
                 </div>
 
-                <div className=" flex  space-x-3">
-                    <div className=" text-xl">
-                        <button className="bg-white rounded-[10px] shadow px-5 py-5 flex flex-col justify-center items-center opacity-90 text-sky-800  font-bold  tracking-wide cursor-pointer ">
-                          <img src={plus} className="w-8 py-1.5" alt="plus image" loading="lazy" />
+                <div className="flex flex-col md:flex-row md:space-x-3 lg:space-x-3">
+                    <div className="text-xl mb-4 md:mb-0 md:w-1/2 lg:w-auto">
+                        <button className="bg-white rounded-[10px] shadow px-5 py-5 flex flex-col justify-center items-center opacity-90 text-sky-800 font-bold tracking-wide cursor-pointer">
+                            <img src={plus} className="w-8 py-1.5" alt="plus image" loading="lazy" />
                             <span className="">New Sections</span>
                         </button>
                     </div>
-                    <div className=" text-xl">
-                        <button className="bg-white rounded-[10px] shadow px-5 py-5 flex flex-col justify-center items-center opacity-90 text-sky-800  font-bold  tracking-wide cursor-pointer ">
+                    <div className="text-xl mb-4 md:mb-0 md:w-1/2 lg:w-auto">
+                        <button className="bg-white rounded-[10px] shadow px-5 py-5 flex flex-col justify-center items-center opacity-90 text-sky-800 font-bold tracking-wide cursor-pointer">
                             <img src={summarizerImage} className="w-8 py-1.5" alt="plus image" loading="lazy" />
-
                             <span className="">Summarizer</span>
                         </button>
                     </div>
-                    <div className=" text-xl">
-                        <button className="bg-white rounded-[10px] shadow px-5 py-5 flex flex-col justify-center items-center opacity-90 text-sky-800  font-bold  tracking-wide cursor-pointer ">
+                    <div className="text-xl lg:w-auto">
+                        <button className="bg-white rounded-[10px] shadow px-5 py-5 flex flex-col justify-center items-center opacity-90 text-sky-800 font-bold tracking-wide cursor-pointer">
                             <img src={robbotAssist} className="w-8 py-1.5" alt="plus image" loading="lazy" />
-
                             <span className="">Questions</span>
                         </button>
                     </div>
                 </div>
+
             </div>
         </>
     );
