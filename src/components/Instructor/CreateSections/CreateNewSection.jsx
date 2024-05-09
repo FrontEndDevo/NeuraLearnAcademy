@@ -1,6 +1,6 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { closeModal } from "../../../redux/slices/Instructor/OpenClose";
+import { closeModal, openModal } from "../../../redux/slices/Instructor/OpenClose";
 import { useDispatch } from "react-redux";
 import { useRef, useState } from "react";
 import BlurModal from "../../../shared/BlurModal";
@@ -16,6 +16,10 @@ const CreateNewSection = () => {
     dispatch(closeModal());
   };
 
+    const handleOpenCourseConetent = () => {
+        // Open the create course modal:
+        dispatch(openModal("sectioninfo"));
+    };
   return (
     <>
       <BlurModal />
@@ -62,7 +66,7 @@ const CreateNewSection = () => {
           </form>
 
           <div className="flex justify-end  mt-12">
-            <button className="px-5 py-2 opacity-90 text-lg font-bold font-['Outfit'] tracking-wide text-white duration-700  bg-sky-800 hover:bg-sky-950 rounded-[25px] shadow">
+                      <button onClick={handleOpenCourseConetent} className="px-5 py-2 opacity-90 text-lg font-bold font-['Outfit'] tracking-wide text-white duration-700  bg-sky-800 hover:bg-sky-950 rounded-[25px] shadow">
               Next
               <FontAwesomeIcon className="ml-2" icon={faArrowRight} />
             </button>
