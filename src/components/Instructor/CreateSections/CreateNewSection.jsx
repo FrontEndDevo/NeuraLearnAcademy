@@ -48,24 +48,19 @@ const CreateNewSection = () => {
             <BlurModal />
 
             <div className="lg:w-[50vw] w-[95vw] h-[75vh] lg:h-[50vh]  z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
-                <div className="flex  w-full px-4 py-4 bg-zinc-100 rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[30px] rounded-br-[30px] border-b-8  border-sky-800  ">
-                    <div className="flex items-center gap-2">
-                        <h2 className="text-base font-extrabold lg:text-2xl text-indigo-950">
-                            Course Info
-                        </h2>
-                        <FontAwesomeIcon
-                            icon={faCircleInfo}
-                            className="text-blue-500 h-9 w-9"
-                        />
+                <div className="flex justify-between items-center w-full px-4 py-4 bg-zinc-100 rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[30px] rounded-br-[30px] border-b-8 border-sky-800">
+                    <div className="flex items-center gap-2 mx-auto">
+                        <h2 className="text-base font-extrabold lg:text-2xl text-indigo-950">Content Info</h2>
+                        <FontAwesomeIcon icon={faCircleInfo} className="text-blue-500 h-9 w-9" />
                     </div>
-
                     <button
                         onClick={handleCloseCreateCourse}
-                        className="p-1 ml-auto text-base font-semibold tracking-tight duration-300 rounded-lg md:p-2 bg-zinc-300 hover:bg-zinc-400"
+                        className="p-1 text-base font-semibold tracking-tight duration-300 rounded-lg md:p-2 bg-zinc-300 hover:bg-zinc-400"
                     >
                         Cancel
                     </button>
                 </div>
+
 
                 <div className="   px-4 py-4 ">
                         <div>
