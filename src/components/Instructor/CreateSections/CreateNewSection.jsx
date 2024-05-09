@@ -1,49 +1,25 @@
 import {
     faCircleInfo,
-    faTrashCan,
-    faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import defaultThumbnail from "../../../assets/images/Instructor/thumbnail.webp";
-import { allCategories } from "../../../pages/AllCoursesPage";
-import Dropdown from "../../../shared/Dropdown";
 import { closeModal } from "../../../redux/slices/Instructor/OpenClose";
 import { useDispatch } from "react-redux";
 import { useRef, useState } from "react";
-import ImageFileUploader from "../../../shared/Inputs/ImageFileUploader";
 import BlurModal from "../../../shared/BlurModal";
 
 const CreateNewSection = () => {
     const [thumbnail, setThumbnail] = useState("");
     const [category, setCategory] = useState("all");
     const [missingError, setMissingError] = useState(false);
-
     // Input Refs:
     const titleRef = useRef("");
     const descriptionRef = useRef("");
     const priceRef = useRef(0);
-
-    // Handle the selected category:
-    const handleSelectedCategory = (category) => {
-        setCategory(category);
-    };
-
-    // Handle the deletion of the thumbnail:
-    const handleDeleteThumbnail = () => {
-        setThumbnail("");
-    };
-
     // Close the create course modal:
     const dispatch = useDispatch();
     const handleCloseCreateCourse = () => {
         dispatch(closeModal());
     };
-
-    // Handle the uploaded thumbnail and store it in the state:
-    const handleUploadedThumbnail = (image) => {
-        setThumbnail(image);
-    };
-
     // Handle the saving of the course information:
     const handleSavingCourseInformation = () => {
         // Get the values from the input fields using useRef hooks:
@@ -72,7 +48,7 @@ const CreateNewSection = () => {
             <BlurModal />
 
             <div className="lg:w-[50vw] w-[95vw] h-[75vh] lg:h-[50vh]  z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
-                <div className="flex items-center  w-full px-4 py-4 bg-zinc-100 rounded-tl-[10px] rounded-tr-[10px]">
+                <div className="flex  w-full px-4 py-4 bg-zinc-100 rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[30px] rounded-br-[30px] border-b-8  border-sky-800  ">
                     <div className="flex items-center gap-2">
                         <h2 className="text-base font-extrabold lg:text-2xl text-indigo-950">
                             Course Info
@@ -92,7 +68,6 @@ const CreateNewSection = () => {
                 </div>
 
                 <div className="   px-4 py-4 ">
-
                         <div>
                             <label htmlFor="title" className={labelClasses}>
                                 Title:
@@ -105,8 +80,6 @@ const CreateNewSection = () => {
                                 className={`${inputClasses} lg:font-bold`}
                             />
                         </div>
-
-
                     <div className="flex items-center gap-4 lg:items-end">
                         <button
                             onClick={handleSavingCourseInformation}
