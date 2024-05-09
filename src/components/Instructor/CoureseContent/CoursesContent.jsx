@@ -18,7 +18,7 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit }) => {
   const dispatch = useDispatch();
   const handleOpenCreateCourse = () => {
     // Open the create course modal:
-    dispatch(openModal("createUserCourse"));
+    dispatch(openModal("createNewSection"));
   };
   return (
     <div className="bg-sky-800 px-5 py-3 md:px-7 md:py-3 flex justify-between">
