@@ -1,4 +1,4 @@
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { closeModal, openModal } from "../../../redux/slices/Instructor/OpenClose";
 import { useDispatch } from "react-redux";
@@ -25,7 +25,7 @@ const SectionInfo = () => {
             <BlurModal />
 
             <div className="lg:w-[50vw] w-[80vw] h-[50vh] lg:h-[45vh]  z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
-                <div className="flex justify-between items-center w-full px-4 py-4 bg-zinc-100 rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[30px] rounded-br-[30px] border-b-8 border-sky-800">
+                <div className="flex justify-between items-center w-full px-4 py-4 bg-zinc-100 rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[30px] rounded-br-[30px] border-b-[12px] border-sky-800">
                     <div className="flex items-center gap-2 mx-auto">
                         <h2 className="text-base font-extrabold lg:text-2xl text-indigo-950">
                             section Info
@@ -50,19 +50,25 @@ const SectionInfo = () => {
                             Title:
                         </label>
                         <div className="flex items-center md:ml-4 mt-3">
-                            <div className="flex justify-center items-center px-5 py-2.5 text-sm font-medium text-center bg-sky-800  text-white">
+                            <div className="flex justify-center items-center px-3 py-2.5 text-sm font-medium text-center bg-sky-800 text-white">
                                 Lecture
                             </div>
-                            <div className="relative w-full">
+                            <div className="relative w-full flex items-center">
                                 <input
                                     type="text"
                                     ref={titleRef}
                                     id="title"
-                                    className=" px-4 py-2 bg-zinc-100  h-full  rounded-sm w-full  outline-none  border border-black border-opacity-80"
-                                    placeholder="Name anything"
+                                    className="w-full placeholder:text-black placeholder:text-base placeholder:font-bold px-4 py-2 bg-zinc-100 h-full outline-none border border-black border-opacity-80 sm:w-[70%] md:w-[40%] "
+                                    placeholder="Introduction"
+                                    readOnly
+                                />
+                                <FontAwesomeIcon
+                                    className="ml-2 text-sky-800 cursor-pointer text-xl sm:ml-4"
+                                    icon={faPenToSquare}
                                 />
                             </div>
                         </div>
+
                     </form>
 
                     <div className="flex justify-end  mt-12">
