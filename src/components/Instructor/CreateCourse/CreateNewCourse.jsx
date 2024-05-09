@@ -23,7 +23,7 @@ const CreateNewCourse = () => {
   const titleRef = useRef("");
   const descriptionRef = useRef("");
   const priceRef = useRef(0);
-  const subject = useSelector((state) => state.courseData.subjectCourses);
+  const subject = useSelector((state) => state.courses.subjectCourses);
   useEffect(() => {
     getSubjectCourses(dispatch, access);
   }, []);
@@ -93,7 +93,7 @@ const CreateNewCourse = () => {
     <>
       <BlurModal />
 
-      <div className="lg:w-[70vw] w-[95vw] h-[75vh] lg:h-[70vh] overflow-y-scroll lg:overflow-y-hidden z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
+      <div className="lg:w-[70vw] w-[95vw] h-[75vh] lg:h-[70vh] overflow-y-scroll z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
         <div className="flex items-center w-full px-4 py-4 bg-green-400 rounded-t-lg">
           <div className="flex items-center gap-2">
             <h2 className="text-base font-extrabold lg:text-2xl text-indigo-950">
