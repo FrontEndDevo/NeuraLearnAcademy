@@ -1,31 +1,48 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import InstructorCourseCard from "../../shared/Courses/InstructorCourseCard";
 import InstructorSidebar from "../../components/Instructor/InstructorSideBar";
 import DefaultInstructorCourse from "../../shared/Courses/DefaultInstructorCourse";
 import { useDispatch, useSelector } from "react-redux";
 import { getInstructorCourses } from "../../redux/actions/courses-methods";
-
+import Pagination from "../../shared/Pagination";
 const InstructorCourses = () => {
   const instructorCourses = useSelector(
     (state) => state.courseData.instructorCourses
   );
   const access = useSelector((state) => state.userAuth.access);
-  const next = instructorCourses?.next;
-  const previous = instructorCourses?.previous;
+
   const [instructorOption, setInstructorOption] = useState("courses");
   const dispatch = useDispatch();
   useEffect(() => {
-    getInstructorCourses(dispatch, access, next);
+    getInstructorCourses(dispatch, access);
   }, []);
 
+  // The number of elements to be rendered per page.
+  const elementsPerPage = 7; // Add to this value 1 (DefaultInstructorCourse component)
+
+  const [paginationIndices, setPaginationIndices] = useState({
+    start: 0,
+    end: elementsPerPage,
+  });
+
+  // Memorize the pagination function to avoid re-rendering.
+  const memorizedInstructorCoursesPagination = useCallback((cur) => {
+    // Calc the first and last product index that should be rendered.
+    const startIndex = (cur - 1) * elementsPerPage;
+    const endIndex = startIndex + elementsPerPage;
+
+    setPaginationIndices({ start: startIndex, end: endIndex });
+  }, []);
+
+  // Get the selected option from the sidebar.
   const handleInstructorOption = (option) => {
     setInstructorOption(option);
   };
 
   // Map through the instructorCourses array and render an InstructorCourseCard component for each course.
-  const instructorCoursesList = instructorCourses?.results?.map(
-    (course, index) => <InstructorCourseCard key={index} {...course} />
-  );
+  const instructorCoursesList = instructorCourses
+    .slice(paginationIndices.start, paginationIndices.end)
+    .map((course, index) => <InstructorCourseCard key={index} {...course} />);
 
   return (
     <section className="flex flex-col lg:flex-row">
@@ -40,12 +57,15 @@ const InstructorCourses = () => {
           </h2>
         </div>
 
-        <ul className="grid grid-cols-1 gap-4 lg:flex lg:flex-wrap lg:items-center lg:justify-center md:grid-cols-2 lg:gap-y-16">
-          <div className="md:col-span-2">
-            <DefaultInstructorCourse />
-          </div>
-          {instructorCoursesList}
-        </ul>
+        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 auto-rows-fr">
+  <DefaultInstructorCourse />
+  {instructorCoursesList}
+</ul>
+        <Pagination
+          elementsPerPage={elementsPerPage}
+          length={instructorCourses.length}
+          getCurrentPage={memorizedInstructorCoursesPagination}
+        />
       </div>
     </section>
   );

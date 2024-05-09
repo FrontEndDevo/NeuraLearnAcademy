@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+
+
 const initialState = {
+  publicCourses: [],
   userData: null,
   subjectCourses: null,
   instructorCourses: null,
-  createCourseData:null,
-  updateCourseData:null,
+  createCourseData: null,
+  updateCourseData: null,
 };
 
 const subjectCourseReducer = (state, action) => {
@@ -83,6 +86,9 @@ const courseSlice = createSlice({
     CREATECOURSE_FAIL: createCourseFailReducer,
     UPDATECOURSE_SUCCESS: updateCourseReducer,
     UPDATECOURSE_FAIL: updateCourseFailReducer,
+    setPublicCourses(state, action) {
+      state.publicCourses = action.payload;
+    },
   },
 });
 
@@ -97,6 +103,7 @@ export const {
   CREATECOURSE_FAIL,
   UPDATECOURSE_SUCCESS,
   UPDATECOURSE_FAIL,
+  setPublicCourses,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

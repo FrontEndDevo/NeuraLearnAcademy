@@ -30,7 +30,7 @@ const DefaultInstructorCourse = React.memo(() => {
     <li
       onMouseEnter={handleEnterCard}
       onMouseLeave={handleLeaveCard}
-      className="lg:px-4 p-4 lg:py-24 duration-200 select-none w-full md:w-fit lg:w-[25rem] lg:h-[40rem] cursor-pointer border shadow-lg rounded-3xl"
+      className="lg:px-4 p-4 relative pb-12 md:pb-0 duration-200 select-none cursor-pointer border shadow-lg rounded-3xl"
       onClick={handleOpenCreateCourse}
     >
       <div className="text-center">
@@ -43,7 +43,7 @@ const DefaultInstructorCourse = React.memo(() => {
           }`}
         />
         <h3
-          className={`mt-2 text-2xl font-extrabold text-indigo-950 duration-200 ${
+          className={`text-2xl font-extrabold text-indigo-950 duration-200 ${
             isHovered ? "opacity-0 select-none" : "opacity-100"
           }`}
         >
@@ -52,7 +52,7 @@ const DefaultInstructorCourse = React.memo(() => {
       </div>
 
       {isHovered ? (
-        <h4 className="px-6 text-2xl font-extrabold leading-tight text-center text-indigo-950">
+        <h4 className="text-2xl font-extrabold leading-tight text-center text-indigo-950">
           We wish you to build a useful and scientifically strong course for
           students
         </h4>
@@ -68,15 +68,15 @@ const DefaultInstructorCourse = React.memo(() => {
       )}
 
       <div
-        className={`relative py-1 pl-10 pr-4 ml-auto duration-200 rounded-full mt-10 lg:mt-[60%] w-fit ${
+        className={`absolute py-1 pl-10 pr-4 ml-auto duration-150 rounded-full w-fit ${
           isHovered
-            ? "bg-stone-700 -translate-y-2 -translate-x-2"
-            : "bg-primary-500 translate-y-0 translate-x-0"
+            ? "bg-stone-700 bottom-8 right-8"
+            : "bg-primary-500 bottom-4 right-4"
         }`}
       >
         <FontAwesomeIcon
           icon={faPlus}
-          className={`absolute top-0 p-2 bg-white rounded-full duration-200 -left-1 ${
+          className={`absolute top-0 p-2 bg-white rounded-full duration-150 -left-1 ${
             isHovered ? "text-stone-700" : "text-primary-500"
           }`}
         />

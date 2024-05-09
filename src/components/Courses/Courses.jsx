@@ -1,13 +1,9 @@
 import programmer from "../../assets/images/homepage/programmer.jpg";
-import course_one from "../../assets/images/homepage/course_6.jpg";
-import course_two from "../../assets/images/homepage/course_7.jpg";
-import course_three from "../../assets/images/homepage/course_8.jpg";
-import course_four from "../../assets/images/homepage/course_9.jpg";
-import course_five from "../../assets/images/homepage/course_1.jpg";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import { formatUrlString } from "../../utils/Utils";
 import CourseCard from "../../shared/Courses/CourseCard";
+import { useSelector } from "react-redux";
 
 const categories = [
   "all courses",
@@ -23,11 +19,10 @@ const settings = {
   className: "center",
   centerMode: true,
   infinite: true,
-  centerPadding: "-100px",
-  slidesToShow: 5,
-  speed: 1500,
+  slidesToShow: 4,
+  speed: 2000,
   autoplay: true,
-  autoplaySpeed: 1500,
+  autoplaySpeed: 2000,
   rows: 1,
   slidesPerRow: 1,
   responsive: [
@@ -59,130 +54,33 @@ const settings = {
 };
 
 const Courses = () => {
+  const publicCourses = useSelector((state) => state.courses.publicCourses);
+
   const coursesCategories = categories.map((item, i) => {
     const formattedUrl = formatUrlString(item);
     return (
       <li
         key={i}
-        className="p-2 font-playfair capitalize font-bold flex items-center justify-center text-black text-[11px] lg:text-sm duration-300 bg-white border-2 rounded-lg lg:rounded-full hover:bg-black hover:text-white"
+        className={`p-2 font-playfair capitalize font-bold flex items-center justify-center text-[11px] lg:text-sm duration-300 border-2 rounded-lg lg:rounded-full hover:bg-black hover:text-white ${
+          i === 0 ? "bg-black text-white" : ""
+        }`}
       >
         <Link to={`/all-courses/${formattedUrl}`}>{item}</Link>
       </li>
     );
   });
 
-  // This is a temporary array of objects (courses) until fetch all of these from DB.
-  const suggestedCourses = [
-    {
-      title: "The complete course of Bussines for beginners",
-      img: course_one,
-      instructor: "Adel nsiem",
-      price: 30,
-      rate: 4.7,
-      category: "bussines",
-    },
-    {
-      title: "The complete course of computer science",
-      img: course_two,
-      instructor: "Adel nsiem",
-      price: 30,
-      rate: 4.7,
-      category: "bussines",
-    },
-    {
-      title: "The complete course object oriented programming",
-      img: course_three,
-      instructor: "Adel nsiem",
-      price: 30,
-      rate: 4.7,
-      category: "bussines",
-    },
-    {
-      title: "The complete course of programming International",
-      img: course_four,
-      instructor: "Adel nsiem",
-      price: 30,
-      rate: 4.7,
-      category: "bussines",
-    },
-    {
-      title: "The complete course of programming for beginners",
-      img: course_five,
-      instructor: "Adel nsiem",
-      price: 30,
-      rate: 4.7,
-      category: "bussines",
-    },
-    {
-      title: "The complete course of Bussines for beginners",
-      img: course_one,
-      instructor: "Adel nsiem",
-      price: 30,
-      rate: 4.7,
-      category: "bussines",
-    },
-    {
-      title: "The complete course of Bussines for beginners",
-      img: course_one,
-      instructor: "Adel nsiem",
-      price: 30,
-      rate: 4.7,
-      category: "bussines",
-    },
-    {
-      title: "The complete course of computer science",
-      img: course_two,
-      instructor: "Adel nsiem",
-      price: 30,
-      rate: 4.7,
-      category: "bussines",
-    },
-    {
-      title: "The complete course object oriented programming",
-      img: course_three,
-      instructor: "Adel nsiem",
-      price: 30,
-      rate: 4.7,
-      category: "bussines",
-    },
-    {
-      title: "The complete course of programming International",
-      img: course_four,
-      instructor: "Adel nsiem",
-      price: 30,
-      rate: 4.7,
-      category: "bussines",
-    },
-    {
-      title: "The complete course of programming for beginners",
-      img: course_five,
-      instructor: "Adel nsiem",
-      price: 30,
-      rate: 4.7,
-      category: "bussines",
-    },
-    {
-      title: "The complete course of Bussines for beginners",
-      img: course_one,
-      instructor: "Adel nsiem",
-      price: 30,
-      rate: 4.7,
-      category: "bussines",
-    },
-  ];
-
   // Render all courses inside a slider:
   const renderSuggestedCourses = (
     <Slider {...settings}>
-      {suggestedCourses.map((item, i) => (
+      {publicCourses.map((item, i) => (
         <CourseCard
           key={i}
-          image={item.img}
+          image={item.image}
           title={item.title}
           instructor={item.instructor}
-          category={item.category}
-          price={item.price}
-          rate={item.rate}
+          category={item.subject}
+          price={+item.price}
         />
       ))}
     </Slider>
@@ -224,13 +122,16 @@ const Courses = () => {
               humans have achieved.
             </p>
           </div>
-          <button className="flex justify-end px-4 py-2 ml-auto text-[10px] text-white capitalize duration-200 rounded-lg lg:px-8 lg:py-4 lg:text-xl bg-primary-700 hover:bg-primary-500">
+          <Link
+            to="/all-courses/programming"
+            className="flex justify-end px-4 py-2 ml-auto text-[10px] text-white capitalize duration-200 rounded-lg lg:px-8 lg:py-4 w-fit lg:text-xl bg-primary-700 hover:bg-primary-500"
+          >
             explore programming
-          </button>
+          </Link>
         </div>
       </div>
 
-      {renderSuggestedCourses}
+      {publicCourses.length > 4 && renderSuggestedCourses}
     </section>
   );
 };
