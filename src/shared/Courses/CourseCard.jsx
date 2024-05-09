@@ -27,12 +27,12 @@ const CourseCard = ({
       : "Continue Learning";
 
   return (
-    <li className="border shadow-lg rounded-3xl duration-300 hover:shadow-innerwhite">
+    <li className="duration-300 border shadow-lg rounded-3xl hover:shadow-innerwhite">
       <Link to={formattedTitleForUrl}>
         <img
           src={image}
           alt={title}
-          className="w-full h-[250px] rounded-t-3xl"
+          className="w-full h-60 rounded-t-3xl"
           loading="lazy"
         />
         <div className="px-4 py-2">
@@ -49,7 +49,7 @@ const CourseCard = ({
               ))}
             </div>
           </div>
-          <h3 className="my-4 text-base font-semibold leading-6 tracking-wide lg:text-xl text-gray-color-700">
+          <h3 className="my-2 text-start text-base font-semibold lg:text-xl text-gray-color-700">
             {courseTitle}
           </h3>
 
@@ -79,7 +79,7 @@ const CourseCard = ({
             </div>
           )}
           {rate != null && (
-            <div className="flex flex-wrap md:flex-nowrap items-center gap-1 mb-4">
+            <div className="flex flex-wrap items-center gap-1 my-4 md:flex-nowrap">
               <p className="text-sm font-semibold">{rate.toFixed(1)}</p>
               <div>
                 {[...Array(5)].map((_, i) => (
@@ -94,27 +94,29 @@ const CourseCard = ({
               </div>
             </div>
           )}
-          {price != null && (
-            <div className="flex flex-wrap md:flex-nowrap items-center gap-2">
+          <div className="flex flex-wrap items-center mt-2 gap-2 md:flex-nowrap">
+            {price != null && (
               <p
                 className={`text-2xl font-bold ${
-                  discount === 100 ? "text-[#3AA552]" : ""
+                  discount && discount === 100 ? "text-[#3AA552]" : ""
                 }`}
               >
-                {discount === 100
-                  ? "Free"
-                  : `$${(price - (price * discount) / 100).toFixed(2)}`}
+                {discount
+                  ? discount === 100
+                    ? "Free"
+                    : `$${(price - (price * discount) / 100).toFixed(2)}`
+                  : `$${price.toFixed(2)}`}
               </p>
-              {discount > 0 && discount < 100 && (
-                <>
-                  <span className="text-base font-semibold text-gray-500 line-through">
-                    ${price.toFixed(2)}
-                  </span>
-                  <p className="text-base font-semibold">{`${discount}% off`}</p>
-                </>
-              )}
-            </div>
-          )}
+            )}
+            {discount > 0 && discount < 100 && (
+              <>
+                <span className="text-base font-semibold text-gray-500 line-through">
+                  ${price.toFixed(2)}
+                </span>
+                <p className="text-base font-semibold">{`${discount}% off`}</p>
+              </>
+            )}
+          </div>
         </div>
       </Link>
     </li>
@@ -125,10 +127,10 @@ CourseCard.propTypes = {
   image: PropTypes.string.isRequired,
   instructor: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   category: PropTypes.string,
   progress: PropTypes.number,
   rate: PropTypes.number,
-  price: PropTypes.number,
   discount: PropTypes.number,
 };
 

@@ -7,8 +7,18 @@ import TopCategories from "../components/TopCategories/TopCategories";
 import Hero from "../components/Hero/Hero";
 import Specializations from "../components/Specializations/Specializations";
 import { useAuthenticationChecking } from "../shared/Registration/useAuthenticationChecking";
+import { public_courses } from "../redux/actions/courses-methods";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 const Homepage = () => {
   useAuthenticationChecking();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Fetching a list of available courses (without authentication).
+    public_courses(dispatch);
+  }, [dispatch]);
+
   return (
     <>
       <Hero />
