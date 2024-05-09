@@ -4,33 +4,44 @@ import {
   faUpload,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import defaultThumbnail from "../../../assets/images/Instructor/thumbnail.webp";
-import { allCategories } from "../../../pages/AllCoursesPage";
+import defaultImage from "../../../assets/images/Instructor/thumbnail.webp";
 import Dropdown from "../../../shared/Dropdown";
 import { closeModal } from "../../../redux/slices/Instructor/OpenClose";
-import { useDispatch } from "react-redux";
-import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
 import ImageFileUploader from "../../../shared/Inputs/ImageFileUploader";
 import BlurModal from "../../../shared/BlurModal";
+import { createCourse, getSubjectCourses } from "../../../redux/actions/courses-methods";
 
 const CreateNewCourse = () => {
   const [thumbnail, setThumbnail] = useState("");
-  const [category, setCategory] = useState("all");
+  const [image, setImage] = useState("");
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [missingError, setMissingError] = useState(false);
-
+  const access = useSelector((state) => state.userAuth.access);
   // Input Refs:
   const titleRef = useRef("");
   const descriptionRef = useRef("");
   const priceRef = useRef(0);
-
+  const subject = useSelector((state) => state.courses.subjectCourses);
+  useEffect(() => {
+    getSubjectCourses(dispatch, access);
+  }, []);
   // Handle the selected category:
-  const handleSelectedCategory = (category) => {
-    setCategory(category);
+  const handleSelectedSubject = (selectedOption) => {
+    const selectedSubject = subject.find(
+      (item) => item.title === selectedOption
+    );
+    if (selectedSubject) {
+      setSelectedCategoryId(selectedSubject.id);
+    } else {
+      console.error("Selected subject not found");
+    }
   };
 
   // Handle the deletion of the thumbnail:
   const handleDeleteThumbnail = () => {
-    setThumbnail("");
+    setImage("");
   };
 
   // Close the create course modal:
@@ -40,8 +51,11 @@ const CreateNewCourse = () => {
   };
 
   // Handle the uploaded thumbnail and store it in the state:
-  const handleUploadedThumbnail = (image) => {
-    setThumbnail(image);
+  const handleUploadedThumbnail = (thumbnail) => {
+    setThumbnail(thumbnail);
+  };
+  const handleUploadedImage = (image) => {
+    setImage(image);
   };
 
   // Handle the saving of the course information:
@@ -50,14 +64,22 @@ const CreateNewCourse = () => {
     const title = titleRef.current.value.trim();
     const description = descriptionRef.current.value.trim();
     const price = +priceRef.current.value;
+    // const subject = 1;
 
     if (!title || !price) {
       setMissingError(true);
     } else {
       // Do something with this course information like sending it to the server.
-      console.log(
-        `Title: ${title} Description: ${description} Price: ${price} Category: ${category} Thumbnail: ${thumbnail}`
+      console.log(thumbnail);
+      createCourse(
+        access,
+        selectedCategoryId,
+        title,
+        description,
+        price,
+        thumbnail
       );
+      
       // Close the modal:
       handleCloseCreateCourse();
     }
@@ -71,7 +93,7 @@ const CreateNewCourse = () => {
     <>
       <BlurModal />
 
-      <div className="lg:w-[70vw] w-[95vw] h-[75vh] lg:h-[70vh] overflow-y-scroll lg:overflow-y-hidden z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
+      <div className="lg:w-[70vw] w-[95vw] h-[75vh] lg:h-[70vh] overflow-y-scroll z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
         <div className="flex items-center w-full px-4 py-4 bg-green-400 rounded-t-lg">
           <div className="flex items-center gap-2">
             <h2 className="text-base font-extrabold lg:text-2xl text-indigo-950">
@@ -95,7 +117,7 @@ const CreateNewCourse = () => {
           <div className="flex flex-col items-start justify-between gap-6">
             <div className="w-full md:flex md:items-center md:justify-between lg:block">
               <img
-                src={thumbnail ? thumbnail : defaultThumbnail}
+                src={image ? image : defaultImage}
                 alt="course thumbnail"
                 className="h-48 mx-auto border border-black border-opacity-50 w-80 lg:w-3/4"
               />
@@ -111,7 +133,8 @@ const CreateNewCourse = () => {
                   </label>
                   <ImageFileUploader
                     name="thumbnail"
-                    getImage={handleUploadedThumbnail}
+                    getThumnail={handleUploadedThumbnail}
+                    getImage={handleUploadedImage}
                   />
                 </div>
 
@@ -160,11 +183,13 @@ const CreateNewCourse = () => {
           <div>
             <div>
               <p className={`${labelClasses} -mb-2`}>Category:</p>
-              <Dropdown
-                options={allCategories}
-                getSelectedOption={handleSelectedCategory}
-                label="Select an option"
-              />
+              {subject && (
+                <Dropdown
+                  options={subject.map((item) => item.title)}
+                  getSelectedOption={handleSelectedSubject}
+                  label="Select a subject"
+                />
+              )}
             </div>
 
             <div>
