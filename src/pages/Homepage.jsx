@@ -11,7 +11,7 @@ import { public_courses } from "../redux/actions/courses-methods";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 const Homepage = () => {
-  useAuthenticationChecking();
+  // useAuthenticationChecking();
   const dispatch = useDispatch();
 
   useEffect(() => {
