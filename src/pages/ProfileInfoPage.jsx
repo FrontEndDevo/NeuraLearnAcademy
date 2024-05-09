@@ -17,7 +17,7 @@ import ButtonProfile from "../shared/Profile/ButtonProfile";
 import profileImg from "../assets/images/profile/unknown_user.webp";
 
 import { useSelector } from "react-redux";
-import { updateUserData } from "../backend/Requests";
+import { updateUserData } from "../redux/actions/courses-methods";
 
 const DEFAULT_DATA = {
   firstName: "",
@@ -73,6 +73,7 @@ const ProfileInfoPage = () => {
   const inputStyle = "p-2 border-2 border-current md:p-4 focus:outline-none";
   const iconStyle = "w-3 h-3 mx-2 text-lg text-gray-500 md:h-5 md:w-5";
   const email = "754d383336@emailbbox.pro";
+  // const email = useSelector((state) => state.userAuth.user.email);
   const [formState, setFormState] = useState(DEFAULT_DATA);
   const access = useSelector((state) => state.userAuth.access);
   const handleStoringUserData = (event, key) => {
@@ -82,13 +83,12 @@ const ProfileInfoPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
-    const res = await updateUserData(
+   updateUserData(
       access,
       email,
       formState.firstName,
       formState.secondName
     );
-    console.log(res);
   };
 
   const userData = {
