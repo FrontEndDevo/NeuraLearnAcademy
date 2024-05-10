@@ -181,7 +181,12 @@ const CoursesContent = () => {
                 onClick={handleNewSectionClick}
                 className="bg-white rounded-[10px] px-3 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
-                <img src={plus} className="w-8 py-1.5" alt="plus image" loading="lazy" />
+                <img
+                  src={plus}
+                  className="w-8 py-1.5"
+                  alt="plus image"
+                  loading="lazy"
+                />
                 <span className="">New Sections</span>
               </button>
             </div>
@@ -190,7 +195,12 @@ const CoursesContent = () => {
                 style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 className="bg-white rounded-[10px] px-3 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
-                <img src={summarizerImage} className="w-8 py-1.5" alt="plus image" loading="lazy" />
+                <img
+                  src={summarizerImage}
+                  className="w-8 py-1.5"
+                  alt="plus image"
+                  loading="lazy"
+                />
                 <span className="">Summarizer</span>
               </button>
             </div>
@@ -199,7 +209,12 @@ const CoursesContent = () => {
                 style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 className="bg-white rounded-[10px] px-5 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
-                <img src={robbotAssist} className="w-8 py-1.5" alt="plus image" loading="lazy" />
+                <img
+                  src={robbotAssist}
+                  className="w-8 py-1.5"
+                  alt="plus image"
+                  loading="lazy"
+                />
                 <span className="">Questions</span>
               </button>
             </div>
