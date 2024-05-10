@@ -20,6 +20,9 @@ const SectionInfo = () => {
         // Open the create course modal:
         dispatch(openModal("sectioninfo"));
     };
+    const handleEditing = () => {
+        console.log("edited")
+    }
     return (
         <>
             <BlurModal />
@@ -60,11 +63,12 @@ const SectionInfo = () => {
                                     id="title"
                                     className="w-full placeholder:text-black placeholder:text-base placeholder:font-bold px-4 py-2 bg-zinc-100 h-full outline-none border border-black border-opacity-80 sm:w-[70%] md:w-[40%] "
                                     placeholder="Introduction"
-                                    readOnly
+                                    
                                 />
                                 <FontAwesomeIcon
                                     className="ml-2 text-sky-800 cursor-pointer text-xl sm:ml-4"
                                     icon={faPenToSquare}
+                                    onClick={handleEditing}
                                 />
                             </div>
                         </div>
