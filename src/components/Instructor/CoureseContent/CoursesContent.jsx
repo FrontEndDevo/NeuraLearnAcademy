@@ -160,6 +160,7 @@ const CoursesContent = () => {
             <FontAwesomeIcon icon={faGraduationCap} />0 Students
           </span>
         </p>
+        
         <p className="text-sm">
           <span>
             <FontAwesomeIcon icon={faClock} /> Last updated
