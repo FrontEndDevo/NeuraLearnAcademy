@@ -21,12 +21,12 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit }) => {
     dispatch(openModal("createNewSection"));
   };
   return (
-    <div className="bg-sky-800 px-5 py-3 md:px-7 md:py-3 flex justify-between">
+    <div className="bg-sky-800 px-4 py-3 md:px-7 md:py-3 flex justify-between">
       <input
         type="text"
         value={sectionTitle}
         onChange={onEdit}
-        className="bg-sky-800 text-white font-semibold focus:outline-none"
+        className="bg-sky-800 text-white  font-semibold focus:outline-none"
       />
       <div className="flex space-x-3 text-white">
         <button>
@@ -42,7 +42,7 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit }) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="w-6 h-6 "
           >
             <path
               strokeLinecap="round"
@@ -148,9 +148,6 @@ const CoursesContent = () => {
     setNewSections(newSections.filter((_, i) => i !== index));
   };
 
-
- 
-
   return (
     // ... other JSX content
     <>
@@ -176,41 +173,33 @@ const CoursesContent = () => {
           <img className=" w-80" src={ebook} alt="ebook image" loading="lazy" />
         </div>
 
-        <div className="flex flex-col justify-center items-center md:justify-start md:items-start bg-white">
-          <div className="flex flex-col md:flex-row md:space-x-3 lg:space-x-4">
-            <div className="text-xl mb-4 md:mb-0 md:w-1/2 lg:w-auto">
+        <div className="flex flex-col  md:justify-start md:items-start bg-white">
+          <div className="flex flex-col md:flex-row md:space-x-3 gap-3 md:gap-0 lg:space-x-4 px-5 md:px-0">
+            <div className="w-full md:w-auto">
               <button
+                style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 onClick={handleNewSectionClick}
-                className="bg-white rounded-[10px] shadow px-3 py-3 md:px-5 md:py-2 lg:py-5 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold  cursor-pointer"
+                className="bg-white rounded-[10px] px-3 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
-                <img
-                  src={plus}
-                  className="w-8 py-1.5"
-                  alt="plus image"
-                  loading="lazy"
-                />
+                <img src={plus} className="w-8 py-1.5" alt="plus image" loading="lazy" />
                 <span className="">New Sections</span>
               </button>
             </div>
-            <div className="text-xl mb-4 md:mb-0 md:w-1/2 lg:w-auto">
-              <button className="bg-white rounded-[10px] shadow px-3 py-3 md:px-5 md:py-5  flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold  cursor-pointer">
-                <img
-                  src={summarizerImage}
-                  className="w-8 py-1.5"
-                  alt="plus image"
-                  loading="lazy"
-                />
+            <div className="w-full md:w-auto">
+              <button
+                style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
+                className="bg-white rounded-[10px] px-3 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
+              >
+                <img src={summarizerImage} className="w-8 py-1.5" alt="plus image" loading="lazy" />
                 <span className="">Summarizer</span>
               </button>
             </div>
-            <div className="text-xl lg:w-auto">
-              <button className="bg-white rounded-[10px] shadow px-5 py-3 md:px-7 md:py-5  flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold  cursor-pointer">
-                <img
-                  src={robbotAssist}
-                  className="w-8 py-1.5"
-                  alt="plus image"
-                  loading="lazy"
-                />
+            <div className="w-full md:w-auto">
+              <button
+                style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
+                className="bg-white rounded-[10px] px-5 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
+              >
+                <img src={robbotAssist} className="w-8 py-1.5" alt="plus image" loading="lazy" />
                 <span className="">Questions</span>
               </button>
             </div>
