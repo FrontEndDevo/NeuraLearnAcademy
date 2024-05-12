@@ -170,7 +170,7 @@ const CoursesContent = () => {
       </header>
 
       <div className="bg-white  h-screen  flex flex-col md:flex-row md:space-x-3 lg:space-x-4 justify-around pt-10">
-        <div className=" ">
+        <div className="flex justify-center md:flex-col md:justify-start ">
           <img className=" w-80" src={ebook} alt="ebook image" loading="lazy" />
         </div>
 
