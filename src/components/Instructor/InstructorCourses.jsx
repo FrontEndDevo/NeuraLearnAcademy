@@ -1,162 +1,20 @@
-import { useCallback, useState } from "react";
-import img1 from "../../assets/images/homepage/course_1.jpg";
-import img2 from "../../assets/images/homepage/course_2.jpg";
-import img3 from "../../assets/images/homepage/course_3.jpg";
-import img4 from "../../assets/images/homepage/course_4.jpg";
-import img5 from "../../assets/images/homepage/course_5.jpg";
-import img6 from "../../assets/images/homepage/course_6.jpg";
-import img7 from "../../assets/images/homepage/course_7.jpg";
+import { useCallback, useEffect, useState } from "react";
 import InstructorCourseCard from "../../shared/Courses/InstructorCourseCard";
 import InstructorSidebar from "../../components/Instructor/InstructorSideBar";
 import DefaultInstructorCourse from "../../shared/Courses/DefaultInstructorCourse";
+import { useDispatch, useSelector } from "react-redux";
+import { getInstructorCourses } from "../../redux/actions/courses-methods";
 import Pagination from "../../shared/Pagination";
-
-// Temp data: replace with actual data from API
-const instructorCourses = [
-  {
-    img: img1,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-  {
-    img: img2,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-  {
-    img: img3,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-  {
-    img: img4,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-  {
-    img: img5,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-  {
-    img: img6,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-  {
-    img: img7,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-  {
-    img: img1,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-  {
-    img: img2,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-  {
-    img: img3,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-  {
-    img: img6,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-  {
-    img: img7,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-  {
-    img: img4,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-  {
-    img: img5,
-    title: "machine learning",
-    videos: 186,
-    sections: 25,
-    quizzes: 16,
-    category: "Web Development",
-    students: 82342,
-    price: 50,
-  },
-];
-
 const InstructorCourses = () => {
+  const instructorCourses =
+    useSelector((state) => state.courses.instructorCourses) || [];
+  const access = useSelector((state) => state.userAuth.access);
+console.log(instructorCourses);
   const [instructorOption, setInstructorOption] = useState("courses");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getInstructorCourses(dispatch, access);
+  }, [dispatch, access]);
 
   // The number of elements to be rendered per page.
   const elementsPerPage = 7; // Add to this value 1 (DefaultInstructorCourse component)
@@ -182,7 +40,7 @@ const InstructorCourses = () => {
 
   // Map through the instructorCourses array and render an InstructorCourseCard component for each course.
   const instructorCoursesList = instructorCourses
-    .slice(paginationIndices.start, paginationIndices.end)
+    // .slice(paginationIndices.start, paginationIndices.end)
     .map((course, index) => <InstructorCourseCard key={index} {...course} />);
 
   return (
@@ -198,10 +56,10 @@ const InstructorCourses = () => {
           </h2>
         </div>
 
-        <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6 auto-rows-fr">
-  <DefaultInstructorCourse />
-  {instructorCoursesList}
-</ul>
+        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 auto-rows-fr">
+          <DefaultInstructorCourse />
+          {instructorCoursesList}
+        </ul>
         <Pagination
           elementsPerPage={elementsPerPage}
           length={instructorCourses.length}

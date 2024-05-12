@@ -15,7 +15,7 @@ import { openModal } from "../../redux/slices/Instructor/OpenClose";
 const InstructorCourseCard = ({
   img,
   title,
-  category,
+  subject,
   videos,
   sections,
   quizzes,
@@ -77,8 +77,8 @@ const InstructorCourseCard = ({
 
         <div className="grid gap-4 grid-cols-3">{courseProperties}</div>
 
-        <h6 className="px-3 py-1 text-[10px] my-2 lg:text-base capitalize font-bold text-white rounded-full bg-secondary-900 text-center md:text-start md:w-fit">
-          {category}
+        <h6 className="px-3 py-1 text-[10px] my-3 lg:text-base capitalize font-bold text-white rounded-full bg-secondary-900 w-fit">
+          {subject}
         </h6>
 
         <div className="flex items-center justify-between">
@@ -87,7 +87,35 @@ const InstructorCourseCard = ({
             <p className="font-semibold">{numberOfStudents}</p>
             <span className="text-gray-400">({students}) Students</span>
           </div>
-          <p className="text-base font-semibold">${price.toFixed(2)}</p>
+          <p className="text-base font-semibold">${price}</p>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between mx-2 mt-1 mb-2 md:mt-4">
+        <div className="relative flex items-center gap-2">
+          <FontAwesomeIcon
+            icon={faPenToSquare}
+            className="absolute top-0 left-0 p-2 bg-white rounded-full md:p-3 text-primary-500"
+          />
+          <button
+            onClick={handleOpenCreateCourse}
+            className="p-2 pl-12 text-sm font-semibold text-white duration-200 rounded-full md:text-base bg-primary-500 hover:bg-primary-700"
+          >
+            Edit
+          </button>
+        </div>
+
+        <div className="relative flex items-center gap-2">
+          <FontAwesomeIcon
+            icon={faListUl}
+            className="absolute top-0 left-0 p-2 bg-white rounded-full md:p-3 text-primary-500"
+          />
+          <Link
+            to={formattedTitle}
+            className="p-2 pl-12 text-sm font-semibold text-white duration-200 rounded-full md:text-base bg-primary-500 hover:bg-primary-700"
+          >
+            Edit Sections
+          </Link>
         </div>
       </div>
 
@@ -125,7 +153,7 @@ const InstructorCourseCard = ({
 InstructorCourseCard.propTypes = {
   img: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
+  subject: PropTypes.string.isRequired,
   videos: PropTypes.number.isRequired,
   sections: PropTypes.number.isRequired,
   quizzes: PropTypes.number.isRequired,

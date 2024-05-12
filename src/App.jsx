@@ -16,6 +16,9 @@ import InstructorPage from "./pages/Instructor/InstructorPage";
 import Activation from "./components/Registration/Activation/Activation";
 import ResetPassword from "./components/Registration/ResetPassword/ResetPassword";
 import ResetPasswordConfirm from "./components/Registration/ResetPassword/ResetPasswordConfirm";
+import Summarizers from './pages/Summarizers';
+import ChatBot from "./pages/ChatBot";
+import CoursesContentPage from "./pages/Instructor/CoursesContentPage";
 
 const App = () => {
   return (
@@ -45,6 +48,10 @@ const App = () => {
           <Route path="Notification" element={<ProfileNotificationPage />} />
           <Route path="close-account" element={<ProfileCloseAcountPage />} />
         </Route>
+
+        <Route path="summarizer" element={<Summarizers />} />
+        <Route path="ChatBot" element={<ChatBot />} />
+        <Route path="CoursesContentPage" element={ <CoursesContentPage/>} />
       </Routes>
     </>
   );
