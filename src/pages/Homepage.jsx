@@ -7,7 +7,10 @@ import TopCategories from "../components/TopCategories/TopCategories";
 import Hero from "../components/Hero/Hero";
 import Specializations from "../components/Specializations/Specializations";
 import { useAuthenticationChecking } from "../shared/Registration/useAuthenticationChecking";
-import { public_courses } from "../redux/actions/courses-methods";
+import {
+  public_course_with_subject,
+  public_courses,
+} from "../redux/actions/courses-methods";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 const Homepage = () => {
@@ -17,6 +20,7 @@ const Homepage = () => {
   useEffect(() => {
     // Fetching a list of available courses (without authentication).
     public_courses(dispatch);
+    public_course_with_subject(dispatch, "mathematics");
   }, [dispatch]);
 
   return (

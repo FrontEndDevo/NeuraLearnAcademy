@@ -1,17 +1,13 @@
 import axios from "axios";
-import { setPublicCourses } from "../slices/courses/courses-slice";
-import { setPublicCoursesError } from "../slices/courses/courses-errors";
+import {
+  setCoursesDependOnSubject,
+  setPublicCourses,
+} from "../slices/courses/courses-slice";
+import {
+  setCoursesDependOnSubjectError,
+  setPublicCoursesError,
+} from "../slices/courses/courses-errors";
 
-export const public_courses = async (dispatch) => {
-  try {
-    const res = await axios.get(
-      import.meta.env.VITE_API_URL + "/api/public/courses/"
-    );
-    dispatch(setPublicCourses(res.data.results));
-  } catch (err) {
-    dispatch(setPublicCoursesError());
-  }
-};
 import {
   CREATECOURSE_FAIL,
   CREATECOURSE_SUCCESS,
@@ -31,6 +27,30 @@ import {
   UPDATECOURSE_ERROR,
   UPDATEUSERDATA_ERROR,
 } from "../slices/courses/errors";
+
+
+export const public_courses = async (dispatch) => {
+  try {
+    const res = await axios.get(
+      import.meta.env.VITE_API_URL + "/api/public/courses/"
+    );
+    dispatch(setPublicCourses(res.data));
+  } catch (err) {
+    dispatch(setPublicCoursesError());
+  }
+};
+
+export const public_course_with_subject = async (dispatch, subject) => {
+  try {
+    const res = await axios.get(
+      import.meta.env.VITE_API_URL + "/api/public/subject/" + subject
+    );
+    dispatch(setCoursesDependOnSubject(res.data));
+  } catch (err) {
+    dispatch(setCoursesDependOnSubjectError());
+  }
+};
+
 
 export async function getSubjectCourses(dispatch, access) {
   if (access) {
