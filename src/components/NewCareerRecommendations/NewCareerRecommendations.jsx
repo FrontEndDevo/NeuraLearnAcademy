@@ -40,7 +40,9 @@ const settings = {
 };
 
 const NewCareerRecommendations = () => {
-  const publicCourses = useSelector((state) => state.courses.publicCourses);
+  const publicCourses = useSelector(
+    (state) => state.courses.publicCourses.results
+  );
 
   // Render all courses inside a slider:
   const renderedCourses = (
@@ -59,11 +61,13 @@ const NewCareerRecommendations = () => {
   );
 
   return (
-    <section className="container py-20">
-      <h2 className="mx-6 mb-10 text-xl font-bold lg:text-3xl lg:mx-0">
-        Recommend this if you are looking for a new career path
-      </h2>
-      {renderedCourses}
+    <section className={`container ${publicCourses.length > 4 && "py-20"}`}>
+      {publicCourses.length > 4 && (
+        <h2 className="mx-6 mb-10 text-xl font-bold lg:text-3xl lg:mx-0">
+          Recommend this if you are looking for a new career path
+        </h2>
+      )}
+      {publicCourses.length > 4 && renderedCourses}
     </section>
   );
 };
