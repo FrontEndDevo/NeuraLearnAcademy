@@ -19,18 +19,22 @@ import addPhoto from "../../../assets/images/Instructor/addPhoto.png";
 import addText from "../../../assets/images/Instructor/addText.png";
 import list from "../../../assets/images/Instructor/list.png";
 const SectionInfo = () => {
-  const [missingError, setMissingError] = useState(false);
-  // Input Refs:
   const titleRef = useRef("");
-  // Close the create course modal:
   const dispatch = useDispatch();
   const handleCloseCreateCourse = () => {
     dispatch(closeModal());
   };
-
-  const handleOpenCourseConetent = () => {
-    // Open the create course modal:
-    dispatch(openModal("sectioninfo"));
+  const handleOpenVideoUpload = () => {
+    dispatch(openModal("addvideo__modal"));
+  };
+  const handleOpenTextUpload = () => {
+    dispatch(openModal("addtext__modal"));
+  };
+  const handleOpenPhotoUpload = () => {
+    dispatch(openModal("addphoto__modal"));
+  };
+  const handleOpenFileUpload = () => {
+    dispatch(openModal("addfile__modal"));
   };
   const handleEditing = () => {
     console.log("edited");
@@ -90,6 +94,7 @@ const SectionInfo = () => {
           <div className="flex flex-col justify-center space-y-3 md:flex-row md:space-y-0 md:space-x-3 lg:space-x-8">
             <div className="w-full md:w-auto">
               <button
+                onClick={handleOpenVideoUpload}
                 style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 className="bg-white rounded-[10px]   px-3 py-3 md:px-7 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
@@ -104,6 +109,7 @@ const SectionInfo = () => {
             </div>
             <div className="w-full md:w-auto">
               <button
+                onClick={handleOpenPhotoUpload}
                 style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 className="bg-white rounded-[10px] shadow  px-3 py-3 md:px-7 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
@@ -118,6 +124,7 @@ const SectionInfo = () => {
             </div>
             <div className="w-full md:w-auto">
               <button
+                onClick={handleOpenTextUpload}
                 style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 className="bg-white rounded-[10px] shadow  px-3 py-3 md:px-7 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
@@ -132,6 +139,7 @@ const SectionInfo = () => {
             </div>
             <div className="w-full md:w-auto">
               <button
+                onClick={handleOpenFileUpload}
                 style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 className="bg-white rounded-[10px] shadow  px-3 py-3 md:px-7 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
@@ -170,7 +178,6 @@ const SectionInfo = () => {
 
           <div className="flex justify-end  mt-12">
             <button
-              onClick={handleOpenCourseConetent}
               className="px-5 py-2 opacity-90 text-lg font-bold font-['Outfit'] tracking-wide text-white duration-700  bg-sky-800 hover:bg-sky-950 rounded-[25px] shadow"
             >
               Next
