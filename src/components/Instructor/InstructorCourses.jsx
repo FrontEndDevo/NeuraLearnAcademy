@@ -9,7 +9,7 @@ const InstructorCourses = () => {
   const instructorCourses =
     useSelector((state) => state.courses.instructorCourses) || [];
   const access = useSelector((state) => state.userAuth.access);
-console.log(instructorCourses);
+
   const [instructorOption, setInstructorOption] = useState("courses");
   const dispatch = useDispatch();
   useEffect(() => {
