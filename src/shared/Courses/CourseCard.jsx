@@ -29,12 +29,14 @@ const CourseCard = ({
   return (
     <li className="duration-300 border shadow-lg rounded-3xl hover:shadow-innerwhite">
       <Link to={formattedTitleForUrl}>
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-60 rounded-t-3xl"
-          loading="lazy"
-        />
+        {image && (
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-60 rounded-t-3xl"
+            loading="lazy"
+          />
+        )}
         <div className="px-4 py-2">
           <div className="flex items-center justify-between px-2">
             <span className="text-xs font-bold text-gray-color-500 md:text-sm">
@@ -49,7 +51,7 @@ const CourseCard = ({
               ))}
             </div>
           </div>
-          <h3 className="my-2 text-start text-base font-semibold lg:text-xl text-gray-color-700">
+          <h3 className="my-2 text-base font-semibold text-start lg:text-xl text-gray-color-700">
             {courseTitle}
           </h3>
 
@@ -94,7 +96,7 @@ const CourseCard = ({
               </div>
             </div>
           )}
-          <div className="flex flex-wrap items-center mt-2 gap-2 md:flex-nowrap">
+          <div className="flex flex-wrap items-center gap-2 mt-2 md:flex-nowrap">
             {price != null && (
               <p
                 className={`text-2xl font-bold ${
