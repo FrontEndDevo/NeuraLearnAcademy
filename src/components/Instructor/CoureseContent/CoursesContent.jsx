@@ -10,29 +10,57 @@ import ebook from "../../../assets/images/Instructor/ebook.gif";
 import plus from "../../../assets/images/Instructor/plus.png";
 import summarizerImage from "../../../assets/images/homepage/ai-creative.png";
 import robbotAssist from "../../../assets/images/Instructor/robootAssist.png";
-import failure from "../../../assets/images/Instructor/Failure.png";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../../redux/slices/Instructor/OpenClose";
 
-const SectionHeader = ({ sectionTitle, onDelete, onEdit }) => {
+const SectionHeader = ({ sectionTitle, onDelete, onTitleChange }) => {
+  const [isEditing, setIsEditing] = useState(false);
   const dispatch = useDispatch();
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleSave = (e) => {
+    if (e.key === "Enter") {
+      onTitleChange(e.target.value);
+      setIsEditing(false);
+    }
+  };
+
   const handleOpenCreateCourse = () => {
-    // Open the create course modal:
     dispatch(openModal("createNewSection"));
   };
+
+
   return (
-    <div className="bg-sky-800 px-5 py-3 md:px-7 md:py-3 flex justify-between">
-      <input
-        type="text"
-        value={sectionTitle}
-        onChange={onEdit}
-        className="bg-sky-800 text-white font-semibold focus:outline-none"
-      />
+    <div
+
+      className="bg-sky-950 px-4 py-3 md:px-7 md:py-3 flex justify-between "
+    >
+      {isEditing ? (
+        <input
+          type="text"
+          value={sectionTitle}
+          onChange={(e) => onTitleChange(e.target.value)}
+          onKeyDown={handleSave}
+          className="bg-sky-800 px-5 py-0.5 text-white font-semibold focus:outline-none"
+          placeholder="Type the name of section"
+        />
+      ) : (
+        <span
+          className="text-white font-semibold cursor-pointer"
+          onClick={handleEdit}
+        >
+          {sectionTitle}
+        </span>
+      )}
+
       <div className="flex space-x-3 text-white">
         <button>
           <FontAwesomeIcon onClick={onDelete} icon={faTrash} />
         </button>
-        <button onClick={onEdit}>
+        <button onClick={handleEdit}>
           <FontAwesomeIcon icon={faPenToSquare} />
         </button>
         <button onClick={handleOpenCreateCourse}>
@@ -57,81 +85,189 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit }) => {
 };
 
 const SectionContent = () => {
+  const dispatch = useDispatch();
+  const handleOpenCreateCourse = () => {
+    dispatch(openModal("createNewSection"));
+  };
+
+  const [expandedLectures, setExpandedLectures] = useState({});
+  const [lectures, setLectures] = useState([
+    { title: "Lecture 1" },
+    { title: "Lecture 6" },
+    { title: "Lecture 3" },
+  ]);
+
+  const toggleDropdown = (index) => {
+    setExpandedLectures((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }));
+  };
+
+  const deleteLecture = (index) => {
+    setLectures((prev) => prev.filter((_, i) => i !== index));
+  };
+
   return (
-    <div className="bg-zinc-100 border-l border-r border-b border-black/opacity-30 flex flex-col justify-center items-center">
-      <img
-        className="w-20 my-2"
-        src={failure}
-        alt="failure image"
-        loading="lazy"
-      />
-      <h2 className="text-black/opacity-40 text-lg font-semibold mt-1 mb-2">
-        No content created
-      </h2>
+    <div className="bg-zinc-100 flex flex-col justify-center items-center w-full">
+      {lectures.map((lecture, index) => (
+        <div key={index} className="w-full">
+          <div
+            className="bg-sky-800 text-white px-4 py-3 md:px-7 md:py-3 w-full flex justify-between items-center cursor-pointer"
+          >
+            <span>{lecture.title}</span>
+
+
+            <div className=" flex space-x-2">
+
+              <button onClick={handleOpenCreateCourse}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 10.5v6m3-3H9m4.06-7.19-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"
+                  />
+                </svg>
+              </button>
+              <FontAwesomeIcon className="mt-1"
+                onClick={() => deleteLecture(index)}
+                icon={faTrash}
+              />
+              <span
+                onClick={() => toggleDropdown(index)}
+                className={`transition-transform duration-300 mt-1 ${expandedLectures[index] ? "rotate-180" : "rotate-0"
+                  }`}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+          {expandedLectures[index] && (
+            <div className="relative bg-white shadow-lg p-4 mt-2 ">
+              <ul className="space-y-1">
+                <li className="relative">
+                  <div className="relative focus-within:border-l-4 focus-within:border-l-sky-800">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-black"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 3.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
+                      />
+                    </svg>
+                    <input
+                      type="text"
+                      placeholder="Text Name"
+                      className="w-full pl-10 pr-3 py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']"
+                    />
+                  </div>
+                </li>
+                <li className="relative">
+                  <div className="relative focus-within:border-l-4 focus-within:border-l-sky-800">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-black"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25Z"
+                      />
+                    </svg>
+                    <input
+                      type="text"
+                      placeholder="Video Name"
+                      className="w-full pl-10 pr-3 py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']"
+                    />
+                  </div>
+                </li>
+                <li className="relative">
+                  <div className="relative focus-within:border-l-4 focus-within:border-l-sky-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-black"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
+
+                    <input
+                      type="text"
+                      placeholder="Photo Name"
+                      className="w-full pl-10 pr-3 py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']"
+                    />
+                  </div>
+                </li>
+                <li className="relative">
+                  <div className="relative focus-within:border-l-4 focus-within:border-l-sky-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-black"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                    </svg>
+
+                    <input
+                      type="text"
+                      placeholder="File Name"
+                      className="w-full pl-10 pr-3 py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']"
+                    />
+                  </div>
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 };
 
-const NewSection = ({ onDelete, onEdit }) => {
+const NewSection = ({ onDelete, onTitleChange }) => {
   const [sectionTitle, setSectionTitle] = useState("Section 1: Introduction");
-  const [isEditing, setIsEditing] = useState(false);
-
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
-
-  const handleSave = () => {
-    setIsEditing(false);
-  };
 
   return (
     <div className="my-2">
-      {isEditing ? (
-        <SectionHeader
-          sectionTitle={sectionTitle}
-          onDelete={onDelete}
-          onEdit={handleSave}
-        />
-      ) : (
-        <SectionHeader
-          sectionTitle={sectionTitle}
-          onDelete={onDelete}
-          onEdit={handleEdit}
-        />
-      )}
-      {isEditing ? (
-        <ul className="dropdown-list bg-white shadow-md rounded-md py-2 px-0 focus:outline-none">
-          <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-            <input
-              type="text"
-              className="bg-transparent focus:outline-none w-full"
-              placeholder="Option 1"
-            />
-          </li>
-          <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-            <input
-              type="text"
-              className="bg-transparent focus:outline-none w-full"
-              placeholder="Option 2"
-            />
-          </li>
-          <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-            <input
-              type="text"
-              className="bg-transparent focus:outline-none w-full"
-              placeholder="Option 3"
-            />
-          </li>
-        </ul>
-      ) : (
+      <SectionHeader
+        sectionTitle={sectionTitle}
+        onDelete={onDelete}
+        onTitleChange={setSectionTitle}
+      />
         <SectionContent />
-      )}
     </div>
   );
 };
+
 const CoursesContent = () => {
   const [newSections, setNewSections] = useState([
-    <NewSection key={0} onDelete={() => handleDeleteSection(0)} />,
+    <NewSection
+      key={0}
+      // onDelete={() => handleDeleteSection(0)}
+      onTitleChange={(title) => handleTitleChange(0, title)}
+    />,
   ]);
 
   const handleNewSectionClick = () => {
@@ -140,6 +276,7 @@ const CoursesContent = () => {
       <NewSection
         key={newSections.length}
         onDelete={() => handleDeleteSection(newSections.length)}
+        onTitleChange={(title) => handleTitleChange(newSections.length, title)}
       />,
     ]);
   };
@@ -148,40 +285,51 @@ const CoursesContent = () => {
     setNewSections(newSections.filter((_, i) => i !== index));
   };
 
-
- 
+  const handleTitleChange = (index, newTitle) => {
+    setNewSections(
+      newSections.map((section, i) =>
+        i === index
+          ? (
+            <NewSection
+              key={i}
+              onDelete={() => handleDeleteSection(i)}
+              onTitleChange={(title) => handleTitleChange(i, title)}
+            />
+          )
+          : section
+      )
+    );
+  };
 
   return (
-    // ... other JSX content
     <>
-      <header className="p-10   bg-[#004682] text-white">
+      <header className="p-10 bg-[#004682] text-white">
         <h1 className="text-2xl font-bold">Course Machine learning</h1>
         <p>Course Machine learning this the best course.</p>
         <p className="text-sm mt-4 mb-2">
           <span>
-            {" "}
-            <FontAwesomeIcon icon={faGraduationCap} />0 Students
+            <FontAwesomeIcon icon={faGraduationCap} /> 0 Students
           </span>
         </p>
         <p className="text-sm">
           <span>
             <FontAwesomeIcon icon={faClock} /> Last updated
           </span>
-          <span>2/7/2024</span>
+          <span> 2/7/2024</span>
         </p>
       </header>
 
-      <div className="bg-white  h-screen  flex flex-col md:flex-row md:space-x-3 lg:space-x-4 justify-around pt-10">
-        <div className=" ">
-          <img className=" w-80" src={ebook} alt="ebook image" loading="lazy" />
+      <div className="bg-white pb-32 flex flex-col md:flex-row md:space-x-3 lg:space-x-4 justify-around pt-10">
+        <div className="flex justify-center md:flex-col md:justify-start">
+          <img className="w-80" src={ebook} alt="ebook image" loading="lazy" />
         </div>
-
-        <div className="flex flex-col justify-center items-center md:justify-start md:items-start bg-white">
-          <div className="flex flex-col md:flex-row md:space-x-3 lg:space-x-4">
-            <div className="text-xl mb-4 md:mb-0 md:w-1/2 lg:w-auto">
+        <div className="flex flex-col md:justify-start md:items-start bg-white">
+          <div className="flex flex-col md:flex-row md:space-x-3 gap-3 md:gap-0 lg:space-x-4 px-5 md:px-0">
+            <div className="w-full md:w-auto">
               <button
+                style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 onClick={handleNewSectionClick}
-                className="bg-white rounded-[10px] shadow px-3 py-3 md:px-5 md:py-2 lg:py-5 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold  cursor-pointer"
+                className="bg-white rounded-[10px] px-3 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
                 <img
                   src={plus}
@@ -192,8 +340,11 @@ const CoursesContent = () => {
                 <span className="">New Sections</span>
               </button>
             </div>
-            <div className="text-xl mb-4 md:mb-0 md:w-1/2 lg:w-auto">
-              <button className="bg-white rounded-[10px] shadow px-3 py-3 md:px-5 md:py-5  flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold  cursor-pointer">
+            <div className="w-full md:w-auto">
+              <button
+                style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
+                className="bg-white rounded-[10px] px-3 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
+              >
                 <img
                   src={summarizerImage}
                   className="w-8 py-1.5"
@@ -203,8 +354,11 @@ const CoursesContent = () => {
                 <span className="">Summarizer</span>
               </button>
             </div>
-            <div className="text-xl lg:w-auto">
-              <button className="bg-white rounded-[10px] shadow px-5 py-3 md:px-7 md:py-5  flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold  cursor-pointer">
+            <div className="w-full md:w-auto">
+              <button
+                style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
+                className="bg-white rounded-[10px] px-5 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
+              >
                 <img
                   src={robbotAssist}
                   className="w-8 py-1.5"
