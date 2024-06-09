@@ -28,7 +28,6 @@ import {
   UPDATEUSERDATA_ERROR,
 } from "../slices/courses/errors";
 
-
 export const public_courses = async (dispatch) => {
   try {
     const res = await axios.get(
@@ -51,7 +50,6 @@ export const public_course_with_subject = async (dispatch, subject) => {
   }
 };
 
-
 export async function getSubjectCourses(dispatch, access) {
   if (access) {
     const config = {
@@ -67,8 +65,10 @@ export async function getSubjectCourses(dispatch, access) {
         import.meta.env.VITE_API_URL + "/api/courses/subjects/",
         config
       );
+      console.log(res.data);
       dispatch(GETSUBJECTCOURSES_SUCCESS(res.data));
     } catch (err) {
+      console.log(err);
       dispatch(GETSUBJECTCOURSES_FAIL());
       dispatch(GETSUBJECTCOURSES_ERROR(err.response.data));
     }
@@ -89,10 +89,8 @@ export async function getInstructorCourses(dispatch, access) {
         import.meta.env.VITE_API_URL + "/api/courses/mine/",
         config
       );
-      console.log(res);
       dispatch(GETINSTRUCTORCOURSES_SUCCESS(res.data.results));
     } catch (err) {
-      console.log(err);
       dispatch(GETINSTRUCTORCOURSES_FAIL());
       dispatch(GETINSTRUCTORCOURSES_ERROR(err.response.data));
     }
@@ -116,7 +114,6 @@ export async function updateUserData(
       },
     };
     const body = JSON.stringify({ email, first_name, last_name });
-    console.log(body);
 
     try {
       const res = await axios.put(
@@ -124,10 +121,8 @@ export async function updateUserData(
         body,
         config
       );
-      console.log(res);
       UPDATEUSERDATA_SUCCESS(res.data);
     } catch (err) {
-      console.log(err);
       UPDATEUSERDATA_FAIL();
       UPDATEUSERDATA_ERROR(err.response.data);
     }
@@ -160,7 +155,6 @@ export async function createCourse(
       // image,
       available,
     });
-    console.log(body);
 
     try {
       const res = await axios.post(
@@ -168,10 +162,8 @@ export async function createCourse(
         body,
         config
       );
-      console.log(res);
       CREATECOURSE_SUCCESS(res.data);
     } catch (err) {
-      console.log(err);
       CREATECOURSE_FAIL();
       CREATECOURSE_ERROR(err.response.data);
     }
@@ -205,7 +197,6 @@ export async function updateCourse(
       // image,
       available,
     });
-    console.log(body);
 
     try {
       const res = await axios.put(
