@@ -73,7 +73,7 @@ const Courses = () => {
   });
 
   // Render all courses inside a slider:
-  const renderSuggestedCourses = (
+  const renderSuggestedCourses = publicCourses != undefined && (
     <Slider {...settings}>
       {publicCourses.map((item, i) => (
         <CourseCard
@@ -133,7 +133,9 @@ const Courses = () => {
         </div>
       </div>
 
-      {publicCourses.length > 4 && renderSuggestedCourses}
+      {publicCourses != undefined &&
+        publicCourses.length > 4 &&
+        renderSuggestedCourses}
     </section>
   );
 };
