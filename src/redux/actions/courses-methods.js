@@ -64,7 +64,7 @@ export async function getSubjectCourses(dispatch, access) {
 
     try {
       const res = await axios.get(
-        `http://localhost:8000/api/courses/subjects/`,
+        import.meta.env.VITE_API_URL + "/api/courses/subjects/",
         config
       );
       dispatch(GETSUBJECTCOURSES_SUCCESS(res.data));
@@ -74,11 +74,7 @@ export async function getSubjectCourses(dispatch, access) {
     }
   }
 }
-export async function getInstructorCourses(
-  dispatch,
-  access,
-  api = `http://localhost:8000/api/courses/mine/?limit=x&offset=x`
-) {
+export async function getInstructorCourses(dispatch, access) {
   if (access) {
     const config = {
       headers: {
@@ -89,7 +85,10 @@ export async function getInstructorCourses(
     };
 
     try {
-      const res = await axios.get(api, config);
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + "/api/courses/mine/",
+        config
+      );
       console.log(res);
       dispatch(GETINSTRUCTORCOURSES_SUCCESS(res.data.results));
     } catch (err) {
@@ -106,7 +105,7 @@ export async function updateUserData(
   first_name,
   last_name,
   description,
-  jop
+  job
 ) {
   if (access) {
     const config = {
@@ -121,7 +120,7 @@ export async function updateUserData(
 
     try {
       const res = await axios.put(
-        `http://localhost:8000/auth/users/me/`,
+        import.meta.env.VITE_API_URL + "/auth/users/me/",
         body,
         config
       );
@@ -165,7 +164,7 @@ export async function createCourse(
 
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/courses/create/`,
+        import.meta.env.VITE_API_URL + "/api/courses/create/",
         body,
         config
       );
@@ -210,7 +209,7 @@ export async function updateCourse(
 
     try {
       const res = await axios.put(
-        `http://localhost:8000/api/courses/${slug}/edit/`,
+        import.meta.env.VITE_API_URL + "/api/courses/${slug}/edit/",
         body,
         config
       );
