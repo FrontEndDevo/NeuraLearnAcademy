@@ -108,7 +108,6 @@ export const {
   UPDATECOURSE_SUCCESS,
   UPDATECOURSE_FAIL,
   setPublicCourses,
-  setPublicCourses, 
   setCoursesDependOnSubject
 } = courseSlice.actions;
 
