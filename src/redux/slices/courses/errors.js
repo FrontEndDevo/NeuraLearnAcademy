@@ -6,6 +6,8 @@ const initialState = {
   updateUserDataError: null,
   createCourseError: null,
   updateCourseError: null,
+  deleteCourseError: null,
+  detailCourseError: null,
 };
 
 const courseErrorsSlice = createSlice({
@@ -27,6 +29,12 @@ const courseErrorsSlice = createSlice({
     UPDATECOURSE_ERROR: (state, action) => {
       state.updateCourseError = action.payload;
     },
+    DELETECOURSE_ERROR: (state, action) => {
+      state.deleteCourseError = action.payload;
+    },
+    DETAILCOURSE_ERROR: (state, action) => {
+      state.detailCourseError = action.payload;
+    },
   },
 });
 
@@ -36,6 +44,8 @@ export const {
   UPDATEUSERDATA_ERROR,
   CREATECOURSE_ERROR,
   UPDATECOURSE_ERROR,
+  DELETECOURSE_ERROR,
+  DETAILCOURSE_ERROR,
 } = courseErrorsSlice.actions;
 
 export default courseErrorsSlice.reducer;
