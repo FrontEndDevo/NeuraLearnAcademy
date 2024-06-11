@@ -8,25 +8,25 @@ import defaultImage from "../../../assets/images/Instructor/thumbnail.webp";
 import Dropdown from "../../../shared/Dropdown";
 import { closeModal } from "../../../redux/slices/Instructor/OpenClose";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ImageFileUploader from "../../../shared/Inputs/ImageFileUploader";
 import BlurModal from "../../../shared/BlurModal";
-import { createCourse, getSubjectCourses } from "../../../redux/actions/courses-methods";
+import { createCourse } from "../../../redux/actions/courses-methods";
 
 const CreateNewCourse = () => {
   const [thumbnail, setThumbnail] = useState("");
   const [image, setImage] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [missingError, setMissingError] = useState(false);
+
+  const subject = useSelector((state) => state.courses.subjectCourses);
   const access = useSelector((state) => state.userAuth.access);
+
   // Input Refs:
   const titleRef = useRef("");
   const descriptionRef = useRef("");
   const priceRef = useRef(0);
-  const subject = useSelector((state) => state.courses.subjectCourses);
-  useEffect(() => {
-    getSubjectCourses(dispatch, access);
-  }, []);
+
   // Handle the selected category:
   const handleSelectedSubject = (selectedOption) => {
     const selectedSubject = subject.find(
@@ -79,7 +79,7 @@ const CreateNewCourse = () => {
         price,
         thumbnail
       );
-      
+
       // Close the modal:
       handleCloseCreateCourse();
     }
