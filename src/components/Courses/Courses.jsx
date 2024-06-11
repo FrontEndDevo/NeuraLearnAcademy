@@ -5,15 +5,6 @@ import { formatUrlString } from "../../utils/Utils";
 import CourseCard from "../../shared/Courses/CourseCard";
 import { useSelector } from "react-redux";
 
-const categories = [
-  "all courses",
-  "programming",
-  "web development",
-  "bussines",
-  "data science",
-  "marketing",
-];
-
 const settings = {
   dots: true,
   className: "center",
@@ -58,19 +49,19 @@ const Courses = () => {
     (state) => state.courses.publicCourses.results
   );
 
-  const coursesCategories = categories.map((item, i) => {
-    const formattedUrl = formatUrlString(item);
-    return (
+  const categories = useSelector((state) => state.courses.subjectCourses);
+
+  // Render all courses categories:
+  const coursesCategories =
+    categories &&
+    categories.map((item) => (
       <li
-        key={i}
-        className={`p-2 font-playfair capitalize font-bold flex items-center justify-center text-[11px] lg:text-sm duration-300 border-2 rounded-lg lg:rounded-full hover:bg-black hover:text-white ${
-          i === 0 ? "bg-black text-white" : ""
-        }`}
+        key={item.id}
+        className="p-2 font-playfair capitalize font-bold flex items-center justify-center text-[11px] lg:text-sm duration-300 border-2 rounded-lg lg:rounded-full hover:bg-black hover:text-white"
       >
-        <Link to={`/all-courses/${formattedUrl}`}>{item}</Link>
+        <Link to={`/all-courses/${item.slug}`}>{item.title}</Link>
       </li>
-    );
-  });
+    ));
 
   // Render all courses inside a slider:
   const renderSuggestedCourses = publicCourses != undefined && (
@@ -99,38 +90,36 @@ const Courses = () => {
         </h4>
       </div>
 
-      <div className="grid grid-cols-4 gap-10 lg:gap-2 lg:grid-cols-1">
-        <ul className="grid grid-cols-1 gap-2 m-2 md:grid-cols-2 lg:items-center lg:justify-center lg:flex">
-          {coursesCategories}
-        </ul>
+      <ul className="flex flex-wrap items-center justify-center gap-2 mx-2 mb-10">
+        {categories && coursesCategories}
+      </ul>
 
-        <div className="lg:w-2/3 relative col-span-3 mx-auto mb-10 p-2 lg:p-8 bg-[#F7F2F2] border-2 shadow-lg rounded-3xl">
-          <img
-            src={programmer}
-            alt="programmer"
-            className="w-[80px] h-[80px] lg:w-[200px] lg:h-[200px] mb-4 absolute -top-8 -left-8 lg:-top-4 lg:-left-16 border-4 lg:border-8 border-secondary-700 rounded-full"
-          />
+      <div className="lg:w-3/4 relative mx-6 lg:mx-auto p-2 lg:p-8 bg-[#F7F2F2] border-2 shadow-lg rounded-3xl">
+        <img
+          src={programmer}
+          alt="programmer"
+          className="hidden md:block w-[80px] h-[80px] lg:w-[200px] lg:h-[200px] mb-4 absolute -top-8 -left-8 lg:-top-4 lg:-left-16 border-4 lg:border-8 border-secondary-700 rounded-full"
+        />
 
-          <p className="text-[11px] font-bold lg:text-xl lg:pl-[8rem] lg:text-start">
-            Build your ideas and implement them with the computer !
+        <p className="text-[11px] font-bold lg:text-xl lg:pl-[8rem] lg:text-start">
+          Build your ideas and implement them with the computer !
+        </p>
+        <div className="flex items-center justify-center my-4 font-bold lg:text-sm leading-5 lg:leading-7 text-[10px] md:text-justify lg:pl-[8rem] md:px-[4rem] px-[2rem] lg:py-4">
+          <p>
+            Welcome, I am your assistant here to introduce you to
+            programming,software, and the world of software, and to create your
+            first application through a group of courses that qualify you for
+            the labor market with the latest existing technologies, knowing that
+            programming is fundamental to the technologies that humans have
+            achieved.
           </p>
-          <div className="flex items-center justify-center my-4 font-bold lg:text-sm leading-5 lg:leading-7 text-[10px] md:text-justify lg:pl-[8rem] lg:px-[4rem] lg:py-4">
-            <p>
-              Welcome, I am your assistant here to introduce you to
-              programming,software, and the world of software, and to create
-              your first application through a group of courses that qualify you
-              for the labor market with the latest existing technologies,
-              knowing that programming is fundamental to the technologies that
-              humans have achieved.
-            </p>
-          </div>
-          <Link
-            to="/all-courses/programming"
-            className="flex justify-end px-4 py-2 ml-auto text-[10px] text-white capitalize duration-200 rounded-lg lg:px-8 lg:py-4 w-fit lg:text-xl bg-primary-700 hover:bg-primary-500"
-          >
-            explore programming
-          </Link>
         </div>
+        <Link
+          to="/all-courses/programming"
+          className="flex justify-end px-4 py-2 ml-auto text-[10px] text-white capitalize duration-200 rounded-lg lg:px-8 lg:py-4 w-fit lg:text-xl bg-primary-700 hover:bg-primary-500"
+        >
+          explore programming
+        </Link>
       </div>
 
       {publicCourses != undefined &&
