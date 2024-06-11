@@ -54,7 +54,9 @@ const settings = {
 };
 
 const Courses = () => {
-  const publicCourses = useSelector((state) => state.courses.publicCourses);
+  const publicCourses = useSelector(
+    (state) => state.courses.publicCourses.results
+  );
 
   const coursesCategories = categories.map((item, i) => {
     const formattedUrl = formatUrlString(item);

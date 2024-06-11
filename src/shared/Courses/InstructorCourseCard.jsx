@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../redux/slices/Instructor/OpenClose";
 const InstructorCourseCard = ({
-  img,
+  image,
   title,
   subject,
   videos,
@@ -42,7 +42,7 @@ const InstructorCourseCard = ({
   ].map((item, i) => (
     <div
       key={i}
-      className="flex flex-col items-center flex-wrap justify-center text-center gap-2 lg:flex-row"
+      className="flex flex-col flex-wrap items-center justify-center gap-2 text-center lg:flex-row"
     >
       <FontAwesomeIcon icon={item.icon} className="w-5 h-5" />
       <span className="text-sm tracking-tight">
@@ -54,7 +54,7 @@ const InstructorCourseCard = ({
   return (
     <li className="duration-300 border shadow-lg rounded-3xl hover:shadow-innerwhite">
       <img
-        src={img}
+        src={image}
         alt={title}
         className="w-full h-60 rounded-t-3xl"
         loading="lazy"
@@ -75,7 +75,7 @@ const InstructorCourseCard = ({
           </div>
         </div>
 
-        <div className="grid gap-4 grid-cols-3">{courseProperties}</div>
+        <div className="grid grid-cols-3 gap-4">{courseProperties}</div>
 
         <h6 className="px-3 py-1 text-[10px] my-3 lg:text-base capitalize font-bold text-white rounded-full bg-secondary-900 w-fit">
           {subject}
@@ -119,7 +119,7 @@ const InstructorCourseCard = ({
         </div>
       </div>
 
-      <div className="flex items-center justify-between mx-2 mt-2 mb-4 md:mt-4 flex-wrap gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 mx-2 mt-2 mb-4 md:mt-4">
         <div className="relative flex items-center gap-2">
           <FontAwesomeIcon
             icon={faPenToSquare}
@@ -131,19 +131,6 @@ const InstructorCourseCard = ({
           >
             Edit
           </button>
-        </div>
-
-        <div className="relative flex items-center gap-2">
-          <FontAwesomeIcon
-            icon={faListUl}
-            className="absolute top-0 left-0 p-2 bg-white rounded-full md:p-3 text-primary-500"
-          />
-          <Link
-            to={formattedTitle}
-            className="p-2 pl-12 text-sm font-semibold text-white duration-200 rounded-full md:text-base bg-primary-500 hover:bg-primary-700"
-          >
-            Edit Sections
-          </Link>
         </div>
       </div>
     </li>
