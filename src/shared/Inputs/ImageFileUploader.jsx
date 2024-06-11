@@ -3,14 +3,21 @@ import propsTypes from "prop-types";
 // A component that allows users to upload an image file.
 const ImageFileUploader = (props) => {
   const handleUploadImage = (event) => {
+    // Prepare the form data to send the image file to the server.
     const file = event.target.files[0];
-    props.getThumnail(file);
+    const formData = new FormData();
+    formData.append("new course image", file, file.name);
+    props.getThumnail(formData);
+
+    // Prepare the image to be displayed on the client side.
     const reader = new FileReader();
     reader.onloadend = () => {
       props.getImage(reader.result);
     };
 
-    if (file) reader.readAsDataURL(file);
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
 
   return (

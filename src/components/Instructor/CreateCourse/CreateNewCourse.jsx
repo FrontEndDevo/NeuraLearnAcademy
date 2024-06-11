@@ -14,12 +14,13 @@ import BlurModal from "../../../shared/BlurModal";
 import { createCourse } from "../../../redux/actions/courses-methods";
 
 const CreateNewCourse = () => {
+  // We sent the thumbnail to the server, and need image to display it on the client side.
   const [thumbnail, setThumbnail] = useState("");
   const [image, setImage] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [missingError, setMissingError] = useState(false);
 
-  const subject = useSelector((state) => state.courses.subjectCourses);
+  const categories = useSelector((state) => state.courses.subjectCourses);
   const access = useSelector((state) => state.userAuth.access);
 
   // Input Refs:
@@ -29,13 +30,11 @@ const CreateNewCourse = () => {
 
   // Handle the selected category:
   const handleSelectedSubject = (selectedOption) => {
-    const selectedSubject = subject.find(
+    const selectedSubject = categories.find(
       (item) => item.title === selectedOption
     );
     if (selectedSubject) {
       setSelectedCategoryId(selectedSubject.id);
-    } else {
-      console.error("Selected subject not found");
     }
   };
 
@@ -64,13 +63,10 @@ const CreateNewCourse = () => {
     const title = titleRef.current.value.trim();
     const description = descriptionRef.current.value.trim();
     const price = +priceRef.current.value;
-    // const subject = 1;
 
-    if (!title || !price) {
+    if (!title || !price || !selectedCategoryId) {
       setMissingError(true);
     } else {
-      // Do something with this course information like sending it to the server.
-      console.log(thumbnail);
       createCourse(
         dispatch,
         access,
@@ -184,9 +180,9 @@ const CreateNewCourse = () => {
           <div>
             <div>
               <p className={`${labelClasses} -mb-2`}>Categories: </p>
-              {subject && (
+              {categories && (
                 <Dropdown
-                  options={subject.map((item) => item.title)}
+                  options={categories.map((item) => item.title)}
                   getSelectedOption={handleSelectedSubject}
                   label="Select a subject"
                 />
