@@ -1,6 +1,6 @@
 import {
   closeModal,
-  openModal,
+  
 } from "../../../redux/slices/Instructor/OpenClose";
 import { useDispatch } from "react-redux";
 import { useRef, useState } from "react";
