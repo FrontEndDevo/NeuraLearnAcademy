@@ -72,6 +72,7 @@ const CreateNewCourse = () => {
       // Do something with this course information like sending it to the server.
       console.log(thumbnail);
       createCourse(
+        dispatch,
         access,
         selectedCategoryId,
         title,
@@ -182,7 +183,7 @@ const CreateNewCourse = () => {
 
           <div>
             <div>
-              <p className={`${labelClasses} -mb-2`}>Category:</p>
+              <p className={`${labelClasses} -mb-2`}>Categories: </p>
               {subject && (
                 <Dropdown
                   options={subject.map((item) => item.title)}

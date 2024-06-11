@@ -2,6 +2,13 @@ import axios from "axios";
 import {
   setCoursesDependOnSubjectError,
   setPublicCoursesError,
+  CREATECOURSE_ERROR,
+  DELETECOURSE_ERROR,
+  DETAILCOURSE_ERROR,
+  GETINSTRUCTORCOURSES_ERROR,
+  GETSUBJECTCOURSES_ERROR,
+  UPDATECOURSE_ERROR,
+  UPDATEUSERDATA_ERROR,
 } from "../slices/courses/courses-errors";
 
 import {
@@ -20,15 +27,6 @@ import {
   setCoursesDependOnSubject,
   setPublicCourses,
 } from "../slices/courses/courses-slice";
-import {
-  CREATECOURSE_ERROR,
-  DELETECOURSE_ERROR,
-  DETAILCOURSE_ERROR,
-  GETINSTRUCTORCOURSES_ERROR,
-  GETSUBJECTCOURSES_ERROR,
-  UPDATECOURSE_ERROR,
-  UPDATEUSERDATA_ERROR,
-} from "../slices/courses/errors";
 
 export const public_courses = async (dispatch) => {
   try {
@@ -67,15 +65,14 @@ export async function getSubjectCourses(dispatch, access) {
         import.meta.env.VITE_API_URL + "/api/courses/subjects/",
         config
       );
-      console.log(res.data);
       dispatch(GETSUBJECTCOURSES_SUCCESS(res.data));
     } catch (err) {
-      console.log(err);
       dispatch(GETSUBJECTCOURSES_FAIL());
       dispatch(GETSUBJECTCOURSES_ERROR(err.response.data));
     }
   }
 }
+
 export async function getInstructorCourses(dispatch, access) {
   if (access) {
     const config = {
@@ -100,6 +97,7 @@ export async function getInstructorCourses(dispatch, access) {
 }
 
 export async function updateUserData(
+  dispatch,
   access,
   email,
   first_name,
@@ -123,15 +121,16 @@ export async function updateUserData(
         body,
         config
       );
-      UPDATEUSERDATA_SUCCESS(res.data);
+      dispatch(UPDATEUSERDATA_SUCCESS(res.data));
     } catch (err) {
-      UPDATEUSERDATA_FAIL();
-      UPDATEUSERDATA_ERROR(err.response.data);
+      dispatch(UPDATEUSERDATA_FAIL());
+      dispatch(UPDATEUSERDATA_ERROR(err.response.data));
     }
   }
 }
 
 export async function createCourse(
+  dispatch,
   access,
   subject,
   title,
@@ -164,15 +163,16 @@ export async function createCourse(
         body,
         config
       );
-      CREATECOURSE_SUCCESS(res.data);
+      dispatch(CREATECOURSE_SUCCESS(res.data));
     } catch (err) {
-      CREATECOURSE_FAIL();
-      CREATECOURSE_ERROR(err.response.data);
+      dispatch(CREATECOURSE_FAIL());
+      dispatch(CREATECOURSE_ERROR(err.response.data));
     }
   }
 }
 
 export async function updateCourse(
+  dispatch,
   access,
   subject,
   title,
@@ -206,14 +206,15 @@ export async function updateCourse(
         body,
         config
       );
-      UPDATECOURSE_SUCCESS(res.data);
+      dispatch(UPDATECOURSE_SUCCESS(res.data));
     } catch (err) {
-      UPDATECOURSE_FAIL();
-      UPDATECOURSE_ERROR(err.response.data);
+      dispatch(UPDATECOURSE_FAIL());
+      dispatch(UPDATECOURSE_ERROR(err.response.data));
     }
   }
 }
-export async function deleteCourse(access, slug) {
+
+export async function deleteCourse(dispatch, access, slug) {
   if (access) {
     const config = {
       headers: {
@@ -229,11 +230,12 @@ export async function deleteCourse(access, slug) {
         config
       );
     } catch (err) {
-      DELETECOURSE_ERROR(err.response.data);
+      dispatch(DELETECOURSE_ERROR(err.response.data));
     }
   }
 }
-export async function detailCourse(access, slug) {
+
+export async function detailCourse(dispatch, access, slug) {
   if (access) {
     const config = {
       headers: {
@@ -248,10 +250,10 @@ export async function detailCourse(access, slug) {
         import.meta.env.VITE_API_URL + `/api/courses/${slug}/detail/`,
         config
       );
-      DETAILCOURSE_SUCCESS(res.data);
+      dispatch(DETAILCOURSE_SUCCESS(res.data));
     } catch (err) {
-      DETAILCOURSE_FAIL();
-      DETAILCOURSE_ERROR(err.response.data);
+      dispatch(DETAILCOURSE_FAIL());
+      dispatch(DETAILCOURSE_ERROR(err.response.data));
     }
   }
 }
