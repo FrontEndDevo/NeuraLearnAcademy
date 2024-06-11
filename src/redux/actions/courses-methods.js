@@ -91,11 +91,7 @@ export async function getInstructorCourses(dispatch, access) {
         import.meta.env.VITE_API_URL + "/api/courses/mine/",
         config
       );
-<<<<<<< HEAD
       dispatch(GETINSTRUCTORCOURSES_SUCCESS(res.data.results));
-=======
-      dispatch(GETINSTRUCTORCOURSES_SUCCESS(res.data));
->>>>>>> 02a657fe6b611e532a0137ab2d950472ff06a799
     } catch (err) {
       dispatch(GETINSTRUCTORCOURSES_FAIL());
       dispatch(GETINSTRUCTORCOURSES_ERROR(err.response.data));
@@ -217,10 +213,7 @@ export async function updateCourse(
     }
   }
 }
-export async function deleteCourse(
-  access,
-  slug
-) {
+export async function deleteCourse(access, slug) {
   if (access) {
     const config = {
       headers: {
@@ -231,9 +224,8 @@ export async function deleteCourse(
     };
 
     try {
-      const res = await axios.delete(
-        import.meta.env.VITE_API_URL +
-          `/api/courses/${slug}/delete/`,
+      await axios.delete(
+        import.meta.env.VITE_API_URL + `/api/courses/${slug}/delete/`,
         config
       );
     } catch (err) {
@@ -241,10 +233,7 @@ export async function deleteCourse(
     }
   }
 }
-export async function detailCourse(
-  access,
-  slug
-) {
+export async function detailCourse(access, slug) {
   if (access) {
     const config = {
       headers: {
