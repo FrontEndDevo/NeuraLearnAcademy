@@ -138,7 +138,7 @@ const InstructorCourseCard = ({
 };
 
 InstructorCourseCard.propTypes = {
-  img: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   subject: PropTypes.string.isRequired,
   videos: PropTypes.number.isRequired,
