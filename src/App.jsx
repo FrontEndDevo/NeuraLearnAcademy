@@ -16,9 +16,10 @@ import InstructorPage from "./pages/Instructor/InstructorPage";
 import Activation from "./components/Registration/Activation/Activation";
 import ResetPassword from "./components/Registration/ResetPassword/ResetPassword";
 import ResetPasswordConfirm from "./components/Registration/ResetPassword/ResetPasswordConfirm";
-import Summarizers from './pages/Summarizers';
+import Summarizers from "./pages/Summarizers";
 import ChatBot from "./pages/ChatBot";
 import CoursesContentPage from "./pages/Instructor/CoursesContentPage";
+import RequireAuth from "./components/Registration/RequireAuth/RequireAuth";
 
 const App = () => {
   return (
@@ -33,25 +34,27 @@ const App = () => {
           element={<ResetPasswordConfirm />}
         />
         <Route path="/activate/:uid/:token" element={<Activation />} />
-        <Route path="/my-learnings" element={<MyLearningsPage />} />
         <Route path="/*" element={<PageNotFound />} />
-        <Route path="/cart" element={<ShoppingCartPage />} />
-        <Route path="/all-courses" element={<AllCoursesPage />} />
-        <Route path="/instructor" element={<InstructorPage />} />
-        <Route path="/profile" element={<ProfilePage />}>
-          <Route path="profileInfo" element={<ProfileInfoPage />} />
-          <Route
-            path="password&security"
-            element={<ProfilePasswordSecurityPage />}
-          />
-          <Route path="privacy" element={<ProfilePrivacyPage />} />
-          <Route path="Notification" element={<ProfileNotificationPage />} />
-          <Route path="close-account" element={<ProfileCloseAcountPage />} />
-        </Route>
+        <Route element={<RequireAuth />}>
+          <Route path="/my-learnings" element={<MyLearningsPage />} />
+          <Route path="/cart" element={<ShoppingCartPage />} />
+          <Route path="/all-courses" element={<AllCoursesPage />} />
+          <Route path="/instructor" element={<InstructorPage />} />
+          <Route path="/profile" element={<ProfilePage />}>
+            <Route path="profileInfo" element={<ProfileInfoPage />} />
+            <Route
+              path="password&security"
+              element={<ProfilePasswordSecurityPage />}
+            />
+            <Route path="privacy" element={<ProfilePrivacyPage />} />
+            <Route path="Notification" element={<ProfileNotificationPage />} />
+            <Route path="close-account" element={<ProfileCloseAcountPage />} />
+          </Route>
 
-        <Route path="summarizer" element={<Summarizers />} />
-        <Route path="ChatBot" element={<ChatBot />} />
-        <Route path="CoursesContentPage" element={ <CoursesContentPage/>} />
+          <Route path="summarizer" element={<Summarizers />} />
+          <Route path="ChatBot" element={<ChatBot />} />
+          <Route path="CoursesContentPage" element={<CoursesContentPage />} />
+        </Route>
       </Routes>
     </>
   );
