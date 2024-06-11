@@ -40,11 +40,11 @@ const InstructorCourses = () => {
 
   // Map through the instructorCourses array and render an InstructorCourseCard component for each course.
   const instructorCoursesList = instructorCourses
-    // .slice(paginationIndices.start, paginationIndices.end)
+    .slice(paginationIndices.start, paginationIndices.end)
     .map((course, index) => <InstructorCourseCard key={index} {...course} />);
 
   return (
-    <section className="flex flex-col lg:flex-row">
+    <section className="flex flex-col lg:gap-0 md:gap-14 md:flex-row">
       <InstructorSidebar
         selectedOption={instructorOption}
         getInstructorOption={handleInstructorOption}
@@ -56,7 +56,7 @@ const InstructorCourses = () => {
           </h2>
         </div>
 
-        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 auto-rows-fr">
+        <ul className="grid grid-cols-1 gap-6 justify-items-center md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 auto-rows-fr">
           <DefaultInstructorCourse />
           {instructorCoursesList}
         </ul>

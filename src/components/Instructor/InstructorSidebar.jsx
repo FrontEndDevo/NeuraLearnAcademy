@@ -15,7 +15,7 @@ const InstructorSidebar = ({ selectedOption, getInstructorOption }) => {
     (option, index) => (
       <div
         key={index}
-        className="flex flex-col items-center justify-center w-full gap-2 my-10 cursor-pointer"
+        className="flex flex-col items-center justify-center w-full gap-2 my-4 cursor-pointer lg:my-10"
         onClick={() => clickInstructorOptionHandler(option.name)}
       >
         <FontAwesomeIcon
@@ -30,7 +30,7 @@ const InstructorSidebar = ({ selectedOption, getInstructorOption }) => {
   );
 
   return (
-    <aside className="lg:mt-[25vh] mt-20 grid grid-cols-4 lg:grid-cols-1 overflow-hidden bg-white lg:px-12 lg:rounded-r-3xl lg:h-full lg:py-5 border-r-2 shadow-innerwhite lg:shadow-xl">
+    <aside className="lg:mt-[25vh] grid grid-cols-2 md:grid-cols-1 overflow-hidden px-6 bg-white lg:px-10 lg:h-full lg:py-5 shadow-innerwhite lg:shadow-xl border-2 rounded-b-3xl md:rounded-br-3xl lg:rounded-r-3xl">
       {renderInstructorSidebarOptions}
     </aside>
   );
