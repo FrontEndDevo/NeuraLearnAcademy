@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../redux/slices/Instructor/OpenClose";
 const InstructorCourseCard = ({
-  img,
+  image,
   title,
   subject,
   videos,
@@ -54,7 +54,7 @@ const InstructorCourseCard = ({
   return (
     <li className="duration-300 border shadow-lg rounded-3xl hover:shadow-innerwhite">
       <img
-        src={img}
+        src={image}
         alt={title}
         className="w-full h-60 rounded-t-3xl"
         loading="lazy"
@@ -131,19 +131,6 @@ const InstructorCourseCard = ({
           >
             Edit
           </button>
-        </div>
-
-        <div className="relative flex items-center gap-2">
-          <FontAwesomeIcon
-            icon={faListUl}
-            className="absolute top-0 left-0 p-2 bg-white rounded-full md:p-3 text-primary-500"
-          />
-          <Link
-            to={formattedTitle}
-            className="p-2 pl-12 text-sm font-semibold text-white duration-200 rounded-full md:text-base bg-primary-500 hover:bg-primary-700"
-          >
-            Edit Sections
-          </Link>
         </div>
       </div>
     </li>
