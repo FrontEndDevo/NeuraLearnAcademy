@@ -1,10 +1,5 @@
 /* eslint-disable react/prop-types */
-import {
-  faChartLine,
-  faCommentDots,
-  faComputer,
-  faFileSignature,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChartLine, faComputer } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const InstructorSidebarOptions = [
