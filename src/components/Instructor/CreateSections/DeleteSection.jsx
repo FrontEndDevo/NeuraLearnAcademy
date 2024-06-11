@@ -4,7 +4,6 @@ import deletesection from "../../../assets/images/Instructor/delete.png";
 import { useDispatch } from "react-redux";
 import {
   closeModal,
-  openModal,
 } from "../../../redux/slices/Instructor/OpenClose";
 
 const DeleteSection = ({ onClose, onDelete, sectionTitle }) => {
