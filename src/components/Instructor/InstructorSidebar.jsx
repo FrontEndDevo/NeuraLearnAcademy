@@ -10,11 +10,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const InstructorSidebarOptions = [
   { icon: faComputer, name: "courses" },
   { icon: faChartLine, name: "activity" },
-  {
-    icon: faFileSignature,
-    name: "assignments",
-  },
-  { icon: faCommentDots, name: "chat" },
 ];
 const InstructorSidebar = ({ selectedOption, getInstructorOption }) => {
   const clickInstructorOptionHandler = (opt) => {
@@ -25,7 +20,7 @@ const InstructorSidebar = ({ selectedOption, getInstructorOption }) => {
     (option, index) => (
       <div
         key={index}
-        className="flex flex-col items-center justify-center w-full gap-2 my-6 cursor-pointer"
+        className="flex flex-col items-center justify-center w-full gap-2 my-10 cursor-pointer"
         onClick={() => clickInstructorOptionHandler(option.name)}
       >
         <FontAwesomeIcon
