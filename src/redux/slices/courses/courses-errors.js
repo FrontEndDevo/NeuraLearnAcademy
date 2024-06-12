@@ -9,7 +9,6 @@ const initialState = {
   createCourseError: null,
   updateCourseError: null,
   deleteCourseError: null,
-  detailCourseError: null,
 };
 
 const coursesErrorsSlice = createSlice({
@@ -45,9 +44,6 @@ const coursesErrorsSlice = createSlice({
   },
   DELETECOURSE_ERROR: (state, action) => {
     state.deleteCourseError = action.payload;
-  },
-  DETAILCOURSE_ERROR: (state, action) => {
-    state.detailCourseError = action.payload;
   },
 });
 
