@@ -20,6 +20,7 @@ import Summarizers from "./pages/Summarizers";
 import ChatBot from "./pages/ChatBot";
 import CoursesContentPage from "./pages/Instructor/CoursesContentPage";
 import RequireAuth from "./components/Registration/RequireAuth/RequireAuth";
+import QuestionGenerationPage from "./pages/QuestionGenerationPage";
 
 const App = () => {
   return (
@@ -52,6 +53,7 @@ const App = () => {
           </Route>
 
           <Route path="summarizer" element={<Summarizers />} />
+          <Route path="questionqeneration" element={<QuestionGenerationPage />} />
           <Route path="ChatBot" element={<ChatBot />} />
           <Route path="CoursesContentPage" element={<CoursesContentPage />} />
         </Route>
