@@ -4,7 +4,6 @@ import {
   setPublicCoursesError,
   CREATECOURSE_ERROR,
   DELETECOURSE_ERROR,
-  DETAILCOURSE_ERROR,
   GETINSTRUCTORCOURSES_ERROR,
   GETSUBJECTCOURSES_ERROR,
   UPDATECOURSE_ERROR,
@@ -88,7 +87,7 @@ export async function getInstructorCourses(dispatch, access) {
         import.meta.env.VITE_API_URL + "/api/courses/mine/",
         config
       );
-      dispatch(GETINSTRUCTORCOURSES_SUCCESS(res.data.results));
+      dispatch(GETINSTRUCTORCOURSES_SUCCESS(res.data));
     } catch (err) {
       dispatch(GETINSTRUCTORCOURSES_FAIL());
       dispatch(GETINSTRUCTORCOURSES_ERROR(err.response.data));
@@ -140,28 +139,25 @@ export async function createCourse(
 ) {
   const available = false;
   if (access) {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `JWT ${access}`,
-        Accept: "application/json",
-      },
-    };
-    // send image as form data not json
-    const body = JSON.stringify({
-      subject,
-      title,
-      overview,
-      price,
-      image,
-      available,
-    });
+    const formData = new FormData();
+    formData.append("subject", subject);
+    formData.append("title", title);
+    formData.append("overview", overview);
+    formData.append("price", price);
+    formData.append("image", image);
+    formData.append("available", available);
 
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL + "/api/courses/create/",
-        body,
-        config
+        formData, // Send formData instead of JSON
+        {
+          headers: {
+            Authorization: `JWT ${access}`,
+            Accept: "application/json",
+            "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+          },
+        }
       );
       dispatch(CREATECOURSE_SUCCESS(res.data));
     } catch (err) {
@@ -231,29 +227,6 @@ export async function deleteCourse(dispatch, access, slug) {
       );
     } catch (err) {
       dispatch(DELETECOURSE_ERROR(err.response.data));
-    }
-  }
-}
-
-export async function detailCourse(dispatch, access, slug) {
-  if (access) {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `JWT ${access}`,
-        Accept: "application/json",
-      },
-    };
-
-    try {
-      const res = await axios.get(
-        import.meta.env.VITE_API_URL + `/api/courses/${slug}/detail/`,
-        config
-      );
-      dispatch(DETAILCOURSE_SUCCESS(res.data));
-    } catch (err) {
-      dispatch(DETAILCOURSE_FAIL());
-      dispatch(DETAILCOURSE_ERROR(err.response.data));
     }
   }
 }
