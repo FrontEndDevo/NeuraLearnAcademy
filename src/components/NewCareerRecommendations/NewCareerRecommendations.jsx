@@ -40,23 +40,24 @@ const settings = {
 };
 
 const NewCareerRecommendations = () => {
-  const publicCourses = useSelector(
-    (state) => state.courses.publicCourses.results
-  );
+  const publicCourses = useSelector((state) => state.courses.publicCourses);
 
   // Render all courses inside a slider:
   const renderedCourses = publicCourses != undefined && (
     <Slider {...settings}>
-      {publicCourses.map((item, i) => (
-        <CourseCard
-          key={i}
-          image={item.image}
-          title={item.title}
-          instructor={item.instructor}
-          category={item.category}
-          price={+item.price}
-        />
-      ))}
+      {publicCourses
+        .slice()
+        .reverse()
+        .map((item, i) => (
+          <CourseCard
+            key={i}
+            image={item.image}
+            title={item.title}
+            instructor={item.instructor}
+            category={item.category}
+            price={+item.price}
+          />
+        ))}
     </Slider>
   );
 

@@ -1,7 +1,6 @@
 import programmer from "../../assets/images/homepage/programmer.jpg";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
-import { formatUrlString } from "../../utils/Utils";
 import CourseCard from "../../shared/Courses/CourseCard";
 import { useSelector } from "react-redux";
 
@@ -45,9 +44,7 @@ const settings = {
 };
 
 const Courses = () => {
-  const publicCourses = useSelector(
-    (state) => state.courses.publicCourses.results
-  );
+  const publicCourses = useSelector((state) => state.courses.publicCourses);
 
   const categories = useSelector((state) => state.courses.subjectCourses);
 
