@@ -6,7 +6,7 @@ const openCloseSlice = createSlice({
   reducers: {
     openModal: (state, action) => {
       state.modalName = action.payload.name;
-      state.courseDetails = action.payload.course;
+      state.courseDetails = action.payload.course || null;
     },
     closeModal: (state) => {
       state.modalName = null;
