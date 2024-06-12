@@ -41,7 +41,9 @@ const InstructorCourses = () => {
   // Map through the instructorCourses array and render an InstructorCourseCard component for each course.
   const instructorCoursesList = instructorCourses
     .slice(paginationIndices.start, paginationIndices.end)
-    .map((course, index) => <InstructorCourseCard key={index} {...course} />);
+    .map((course, index) => (
+      <InstructorCourseCard key={index} {...course} userAccess={access} />
+    ));
 
   return (
     <section className="flex flex-col lg:gap-0 md:gap-14 md:flex-row">
