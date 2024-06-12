@@ -88,8 +88,6 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
     const description = descriptionRef.current.value.trim();
     const price = +priceRef.current.value;
 
-    console.log(title, description, price, selectedCategoryId, image);
-
     if (!title || !price || !selectedCategoryId) {
       setMissingError(true);
     } else {
