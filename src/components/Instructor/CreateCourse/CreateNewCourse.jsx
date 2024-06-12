@@ -14,7 +14,7 @@ import BlurModal from "../../../shared/BlurModal";
 import { createCourse } from "../../../redux/actions/courses-methods";
 
 const CreateNewCourse = () => {
-  // We sent the thumbnail to the server, and need image to display it on the client side.
+  // We sent the image to the server, and need thumbnail to display it on the client side.
   const [thumbnail, setThumbnail] = useState("");
   const [image, setImage] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
@@ -49,12 +49,19 @@ const CreateNewCourse = () => {
     dispatch(closeModal());
   };
 
-  // Handle the uploaded thumbnail and store it in the state:
-  const handleUploadedThumbnail = (thumbnail) => {
-    setThumbnail(thumbnail);
-  };
-  const handleUploadedImage = (image) => {
-    setImage(image);
+  const handleUploadedImage = (file) => {
+    // Store the file in image to send it to server.
+    setImage(file);
+
+    // Prepare the image to be displayed on the client side.
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setThumbnail(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
 
   // Handle the saving of the course information:
@@ -74,7 +81,7 @@ const CreateNewCourse = () => {
         title,
         description,
         price,
-        thumbnail
+        image
       );
 
       // Close the modal:
@@ -114,7 +121,7 @@ const CreateNewCourse = () => {
           <div className="flex flex-col items-start justify-between gap-6">
             <div className="w-full md:flex md:items-center md:justify-between lg:block">
               <img
-                src={image ? image : defaultImage}
+                src={thumbnail ? thumbnail : defaultImage}
                 alt="course thumbnail"
                 className="h-48 mx-auto border border-black border-opacity-50 w-80 lg:w-3/4"
               />
@@ -130,7 +137,6 @@ const CreateNewCourse = () => {
                   </label>
                   <ImageFileUploader
                     name="thumbnail"
-                    getThumnail={handleUploadedThumbnail}
                     getImage={handleUploadedImage}
                   />
                 </div>
