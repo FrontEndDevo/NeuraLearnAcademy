@@ -23,7 +23,7 @@ const DefaultInstructorCourse = React.memo(() => {
   const dispatch = useDispatch();
   const handleOpenCreateCourse = () => {
     // Open the create course modal:
-    dispatch(openModal("createUserCourse"));
+    dispatch(openModal("instructorCourse"));
   };
 
   return (

@@ -7,12 +7,19 @@ const newInstructorCourseId = document.getElementById(
   "new__instructor__course"
 );
 const InstructorPage = () => {
-  const modalName = useSelector((state) => state.openClose.modalName);
+  const openCloseModal = useSelector((state) => state.openClose);
   return (
     <>
       <InstructorCourses />
-      {modalName === "createUserCourse" &&
-        createPortal(<CreateNewCourse />, newInstructorCourseId)}
+      {openCloseModal.modalName === "instructorCourse" &&
+        createPortal(
+          <CreateNewCourse
+            instructorCourseDetails={
+              openCloseModal.courseDetails ? openCloseModal.courseDetails : null
+            }
+          />,
+          newInstructorCourseId
+        )}
     </>
   );
 };
