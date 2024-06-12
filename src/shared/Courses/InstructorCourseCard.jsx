@@ -30,11 +30,18 @@ const InstructorCourseCard = ({
   const numberOfStudents = formatNumbersInThousands(students);
 
   const dispatch = useDispatch();
-  const handleOpenCreateCourse = () => {
-    // Open the create course modal:
-    dispatch(openModal("createUserCourse"));
+  // Edit a course:
+  const handleEditCourse = () => {
+    // Open the instructor course modal:
+    dispatch(
+      openModal({
+        name: "instructorCourse",
+        course: { image, title, subject, price },
+      })
+    );
   };
 
+  // Delete a course:
   const handleDeleteCourse = () => {
     deleteCourse(dispatch, userAccess, slug);
   };
@@ -119,7 +126,7 @@ const InstructorCourseCard = ({
             className="absolute top-0 left-0 p-2 bg-white rounded-full md:p-3 text-primary-500"
           />
           <button
-            onClick={handleOpenCreateCourse}
+            onClick={handleEditCourse}
             className="p-2 pl-12 text-sm font-semibold text-white duration-200 rounded-full bg-primary-500 md:text-base hover:bg-primary-700"
           >
             Edit

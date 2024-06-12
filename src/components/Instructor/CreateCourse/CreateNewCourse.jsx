@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import {
   faCircleInfo,
   faTrashCan,
@@ -8,25 +9,40 @@ import defaultImage from "../../../assets/images/Instructor/thumbnail.webp";
 import Dropdown from "../../../shared/Dropdown";
 import { closeModal } from "../../../redux/slices/Instructor/OpenClose";
 import { useDispatch, useSelector } from "react-redux";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ImageFileUploader from "../../../shared/Inputs/ImageFileUploader";
 import BlurModal from "../../../shared/BlurModal";
-import { createCourse } from "../../../redux/actions/courses-methods";
+import {
+  createCourse,
+  updateCourse,
+} from "../../../redux/actions/courses-methods";
 
-const CreateNewCourse = () => {
+const CreateNewCourse = ({ instructorCourseDetails: course }) => {
+  const categories = useSelector((state) => state.courses.subjectCourses);
+  const access = useSelector((state) => state.userAuth.access);
+
   // We sent the image to the server, and need thumbnail to display it on the client side.
   const [thumbnail, setThumbnail] = useState("");
   const [image, setImage] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [missingError, setMissingError] = useState(false);
 
-  const categories = useSelector((state) => state.courses.subjectCourses);
-  const access = useSelector((state) => state.userAuth.access);
-
   // Input Refs:
   const titleRef = useRef("");
   const descriptionRef = useRef("");
   const priceRef = useRef(0);
+
+  // Set the course information if it exists:
+  useEffect(() => {
+    if (course) {
+      setThumbnail(course.image || "");
+      setImage(course.image || "");
+      setSelectedCategoryId(course.categoryId || null);
+      titleRef.current.value = course.title || "";
+      descriptionRef.current.value = course.description || "";
+      priceRef.current.value = course.price || 0;
+    }
+  }, [course]);
 
   // Handle the selected category:
   const handleSelectedSubject = (selectedOption) => {
@@ -41,6 +57,7 @@ const CreateNewCourse = () => {
   // Handle the deletion of the thumbnail:
   const handleDeleteThumbnail = () => {
     setImage("");
+    setThumbnail("");
   };
 
   // Close the create course modal:
@@ -71,24 +88,41 @@ const CreateNewCourse = () => {
     const description = descriptionRef.current.value.trim();
     const price = +priceRef.current.value;
 
+    console.log(title, description, price, selectedCategoryId, image);
+
     if (!title || !price || !selectedCategoryId) {
       setMissingError(true);
     } else {
-      createCourse(
-        dispatch,
-        access,
-        selectedCategoryId,
-        title,
-        description,
-        price,
-        image
-      );
+      if (course == null) {
+        // Create the course:
+        createCourse(
+          dispatch,
+          access,
+          selectedCategoryId,
+          title,
+          description,
+          price,
+          image
+        );
 
-      // Close the modal:
-      handleCloseCreateCourse();
+        // Close the modal:
+        handleCloseCreateCourse();
+      } else {
+        // Update the course:
+        updateCourse(
+          dispatch,
+          access,
+          course.slug,
+          selectedCategoryId,
+          title,
+          description,
+          price,
+          image
+        );
+        handleCloseCreateCourse();
+      }
     }
   };
-
   // Classes for styling:
   const labelClasses = "block mb-1 text-sm lg:text-base lg:font-semibold";
   const inputClasses =
@@ -191,6 +225,7 @@ const CreateNewCourse = () => {
                   options={categories.map((item) => item.title)}
                   getSelectedOption={handleSelectedSubject}
                   label="Select a subject"
+                  modifiedCourseSubject={course ? course.subject : null}
                 />
               )}
             </div>
@@ -246,6 +281,10 @@ const CreateNewCourse = () => {
       </div>
     </>
   );
+};
+
+CreateNewCourse.propTypes = {
+  instructorCourseDetails: PropTypes.array,
 };
 
 export default CreateNewCourse;
