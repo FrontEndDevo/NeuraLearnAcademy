@@ -24,14 +24,7 @@ const QuestionGeneration = () => {
                 { id: 3, name: "02.Algorithms" },
             ],
         },
-        {
-            title: "Section 2",
-            items: [
-                { id: 4, name: "00.Introduction" },
-                { id: 5, name: "01.Data Preprocessing" },
-                { id: 6, name: "02.Model Training" },
-            ],
-        },
+        
     ]);
 
     const toggleDropdown = (index) => {
