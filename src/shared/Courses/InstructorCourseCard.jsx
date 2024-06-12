@@ -12,7 +12,9 @@ import { formatNumbersInThousands } from "../../utils/Utils";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../redux/slices/Instructor/OpenClose";
+import { deleteCourse } from "../../redux/actions/courses-methods";
 const InstructorCourseCard = ({
+  userAccess,
   slug,
   image,
   title,
@@ -31,6 +33,10 @@ const InstructorCourseCard = ({
   const handleOpenCreateCourse = () => {
     // Open the create course modal:
     dispatch(openModal("createUserCourse"));
+  };
+
+  const handleDeleteCourse = () => {
+    deleteCourse(dispatch, userAccess, slug);
   };
 
   // Courses properties like videos, sections, and quizzes:
@@ -100,7 +106,7 @@ const InstructorCourseCard = ({
             className="absolute top-0 left-0 p-2 text-red-500 bg-white rounded-full md:p-3"
           />
           <button
-            onClick={handleOpenCreateCourse}
+            onClick={handleDeleteCourse}
             className="p-2 pl-12 text-sm font-semibold text-white duration-200 bg-red-500 rounded-full md:text-base hover:bg-red-700"
           >
             Delete
@@ -125,6 +131,7 @@ const InstructorCourseCard = ({
 };
 
 InstructorCourseCard.propTypes = {
+  userAccess: PropTypes.string.isRequired,
   slug: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   subject: PropTypes.string.isRequired,
