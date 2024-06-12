@@ -21,8 +21,6 @@ import {
   UPDATECOURSE_SUCCESS,
   UPDATEUSERDATA_FAIL,
   UPDATEUSERDATA_SUCCESS,
-  DETAILCOURSE_FAIL,
-  DETAILCOURSE_SUCCESS,
   setCoursesDependOnSubject,
   setPublicCourses,
 } from "../slices/courses/courses-slice";
@@ -170,12 +168,12 @@ export async function createCourse(
 export async function updateCourse(
   dispatch,
   access,
+  slug,
   subject,
   title,
   overview,
   price,
-  image,
-  slug
+  image
 ) {
   const available = false;
   if (access) {
