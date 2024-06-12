@@ -87,7 +87,9 @@ const InstructorCourseCard = ({
             <p className="font-semibold">{numberOfStudents}</p>
             <span className="text-gray-400">({students}) Students</span>
           </div>
-          <p className="text-base font-semibold">${price}</p>
+          <p className="text-base font-semibold">
+            ${parseFloat(price).toFixed(2)}
+          </p>
         </div>
       </div>
 
@@ -138,14 +140,14 @@ const InstructorCourseCard = ({
 };
 
 InstructorCourseCard.propTypes = {
-  image: PropTypes.string.isRequired,
+  image: PropTypes.string,
   title: PropTypes.string.isRequired,
   subject: PropTypes.string.isRequired,
-  videos: PropTypes.number.isRequired,
-  sections: PropTypes.number.isRequired,
-  quizzes: PropTypes.number.isRequired,
-  students: PropTypes.number.isRequired,
-  price: PropTypes.number.isRequired,
+  videos: PropTypes.number,
+  sections: PropTypes.number,
+  quizzes: PropTypes.number,
+  students: PropTypes.number,
+  price: PropTypes.string.isRequired,
 };
 
 export default InstructorCourseCard;
