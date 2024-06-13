@@ -9,7 +9,12 @@ import PropTypes from "prop-types";
  - getSelectedOption: A function that will be called when an option is selected. It will receive the selected option as a parameter.
  - label: A string representing the label to display when no option is selected.
  */
-const Dropdown = ({ options, getSelectedOption, label }) => {
+const Dropdown = ({
+  options,
+  getSelectedOption,
+  label,
+  modifiedCourseSubject,
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -25,7 +30,11 @@ const Dropdown = ({ options, getSelectedOption, label }) => {
         className="items-center justify-between py-3 md:py-4 px-2 rounded-[5px] cursor-pointer duration-200 hover:bg-slate-50 border-2 flex"
       >
         <h4 className="text-xs font-bold tracking-wide capitalize lg:text-sm xl:text-base">
-          {selectedOption ? selectedOption : label}
+          {selectedOption
+            ? selectedOption
+            : modifiedCourseSubject
+            ? modifiedCourseSubject
+            : label}
         </h4>
         <FontAwesomeIcon
           icon={faAngleDown}
@@ -60,6 +69,7 @@ Dropdown.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   getSelectedOption: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
+  modifiedCourseSubject: PropTypes.string,
 };
 
 export default Dropdown;

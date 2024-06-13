@@ -23,27 +23,27 @@ const DefaultInstructorCourse = React.memo(() => {
   const dispatch = useDispatch();
   const handleOpenCreateCourse = () => {
     // Open the create course modal:
-    dispatch(openModal("createUserCourse"));
+    dispatch(openModal({ name: "instructorCourse" }));
   };
 
   return (
     <li
       onMouseEnter={handleEnterCard}
       onMouseLeave={handleLeaveCard}
-      className="lg:px-4 p-4 relative pb-12 md:pb-0 duration-200 select-none cursor-pointer border shadow-lg rounded-3xl"
+      className="relative p-10 duration-200 border shadow-lg cursor-pointer select-none h-80 w-80 md:h-96 md:w-96 rounded-3xl"
       onClick={handleOpenCreateCourse}
     >
       <div className="text-center">
         <FontAwesomeIcon
           icon={faTv}
-          className={`w-28 h-28 duration-200 ${
+          className={`w-20 h-20 md:w-28 md:h-28 duration-200 ${
             isHovered
-              ? "text-stone-700 translate-y-6"
+              ? "text-stone-700 translate-y-4"
               : "text-primary-500 translate-y-0"
           }`}
         />
         <h3
-          className={`text-2xl font-extrabold text-indigo-950 duration-200 ${
+          className={`text-base md:text-2xl font-extrabold text-indigo-950 duration-200 ${
             isHovered ? "opacity-0 select-none" : "opacity-100"
           }`}
         >
@@ -52,7 +52,7 @@ const DefaultInstructorCourse = React.memo(() => {
       </div>
 
       {isHovered ? (
-        <h4 className="text-2xl font-extrabold leading-tight text-center text-indigo-950">
+        <h4 className="text-base font-extrabold leading-tight text-center md:text-xl text-indigo-950">
           We wish you to build a useful and scientifically strong course for
           students
         </h4>
@@ -61,7 +61,9 @@ const DefaultInstructorCourse = React.memo(() => {
           {createNewCourseBenefits.map((benefit, i) => (
             <div key={i} className="flex items-center gap-2">
               <FontAwesomeIcon icon={faCheck} className="text-sm" />
-              <p className="font-semibold text-indigo-950">{benefit}</p>
+              <p className="text-sm font-semibold md:text-base text-indigo-950">
+                {benefit}
+              </p>
             </div>
           ))}
         </div>

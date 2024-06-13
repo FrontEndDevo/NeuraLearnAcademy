@@ -8,20 +8,28 @@ import Hero from "../components/Hero/Hero";
 import Specializations from "../components/Specializations/Specializations";
 import { useAuthenticationChecking } from "../shared/Registration/useAuthenticationChecking";
 import {
+  getSubjectCourses,
   public_course_with_subject,
   public_courses,
 } from "../redux/actions/courses-methods";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 const Homepage = () => {
-   useAuthenticationChecking();
+  useAuthenticationChecking();
+  
   const dispatch = useDispatch();
+  const access = useSelector((state) => state.userAuth.access);
 
   useEffect(() => {
-    // Fetching a list of available courses (without authentication).
-    public_courses(dispatch);
-    public_course_with_subject(dispatch, "mathematics");
-  }, [dispatch]);
+    const getNeededData = async () => {
+      // Fetching a list of available courses (without authentication).
+      await public_courses(dispatch);
+      await public_course_with_subject(dispatch, "mathematics");
+
+      await getSubjectCourses(dispatch, access);
+    };
+    getNeededData();
+  }, [dispatch, access]);
 
   return (
     <>
