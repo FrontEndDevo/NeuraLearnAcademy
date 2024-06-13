@@ -53,10 +53,11 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug }) => {
 };
 
 
-const SectionContent = ({ dispatch, access, slug }) => {
+const SectionContent = ({ dispatch, access, slug, onDelete, onEdit }) => {
   const sectionData = useSelector((state) => state.courses.getsectionContent);
-  console.log(sectionData);
   const [lectures, setLectures] = useState(sectionData);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [lectureToDelete, setLectureToDelete] = useState(null);
 
   useEffect(() => {
     getContents(dispatch, access, slug);
@@ -65,6 +66,27 @@ const SectionContent = ({ dispatch, access, slug }) => {
   useEffect(() => {
     setLectures(sectionData);
   }, [sectionData]);
+
+  const handleOpenCreateCourse = () => {
+    dispatch(openModal({ modalName: "sectioninfo", slug }));
+  };
+
+  const handleDeleteLecture = (lecture) => {
+    setLectureToDelete(lecture);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDeleteLecture = () => {
+    // Assuming deleteLecture is an action that deletes a lecture
+    deleteSection(dispatch, access, lectureToDelete.slug); // Replace with actual action and slug
+    setShowDeleteModal(false);
+    setLectureToDelete(null);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
+    setLectureToDelete(null);
+  };
 
   const renderIcon = (type) => {
     switch (type) {
@@ -85,6 +107,7 @@ const SectionContent = ({ dispatch, access, slug }) => {
     if (item.file) return item.file.title;
     return 'Unknown Title';
   };
+
   const renderLink = (item) => {
     if (item.video) return item.video.file;
     if (item.image) return item.image.file;
@@ -107,20 +130,36 @@ const SectionContent = ({ dispatch, access, slug }) => {
           <ul className="space-y-1">
             {Object.keys(item).map((key) => (
               <li className="relative" key={key}>
-                <div className="relative focus-within:border-l-4 focus-within:border-l-sky-800">
-                  <FontAwesomeIcon
-                    icon={renderIcon(key)}
-                    className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
-                  />
-                  <span className="w-full pl-10 pr-3 py-2 bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
-                    {renderTitle(item)}
-                  </span>
+                <div className="flex justify-between">
+                  <div className="relative focus-within:border-l-4 focus-within:border-l-sky-800">
+                    <FontAwesomeIcon
+                      icon={renderIcon(key)}
+                      className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
+                    />
+                    <span className="w-full pl-10 pr-3 py-2 bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
+                      {renderTitle(item)}
+                    </span>
+                  </div>
+                  <div className="flex space-x-3">
+                    <button onClick={() => handleDeleteLecture(item)}>
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                    <button onClick={handleOpenCreateCourse}>
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </button>
+                  </div>
                 </div>
               </li>
             ))}
           </ul>
         </div>
       ))}
+      {showDeleteModal && (
+        <DeleteSection
+          onDelete={handleConfirmDeleteLecture}
+          onClose={handleCloseDeleteModal}
+        />
+      )}
     </div>
   );
 };
