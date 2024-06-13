@@ -8,6 +8,12 @@ import {
   GETSUBJECTCOURSES_ERROR,
   UPDATECOURSE_ERROR,
   UPDATEUSERDATA_ERROR,
+  CREATESECTION_ERROR,
+  DELETESECTION_ERROR,
+  GETSECTIONS_ERROR,
+  UPDATESECTION_ERROR,
+  CREATECONTENT_ERROR,
+  GETCONTENTS_ERROR,
 } from "../slices/courses/courses-errors";
 
 import {
@@ -23,13 +29,25 @@ import {
   UPDATEUSERDATA_SUCCESS,
   setCoursesDependOnSubject,
   setPublicCourses,
+  CREATESECTION_SUCCESS,
+  CREATESECTION_FAIL,
+  GETSECTIONS_SUCCESS,
+  GETSECTIONS_FAIL,
+  UPDATESECTION_SUCCESS,
+  UPDATESECTION_FAIL,
+  CREATECONTENT_SUCCESS,
+  CREATECONTENT_FAIL,
+  GETCONTENTS_SUCCESS,
+  GETCONTENTS_FAIL,
 } from "../slices/courses/courses-slice";
+
 
 export const public_courses = async (dispatch) => {
   try {
     const res = await axios.get(
       import.meta.env.VITE_API_URL + "/api/public/courses/"
     );
+    console.log(res);
     dispatch(setPublicCourses(res.data));
   } catch (err) {
     dispatch(setPublicCoursesError());
@@ -225,6 +243,157 @@ export async function deleteCourse(dispatch, access, slug) {
       );
     } catch (err) {
       dispatch(DELETECOURSE_ERROR(err.response.data));
+    }
+  }
+}
+export async function createSection(
+  dispatch,
+  access,
+  title,
+  description,
+  slug
+) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    const body = JSON.stringify({
+      title,
+      description,
+    });
+    console.log(body);
+    try {
+      const res = await axios.post(
+        import.meta.env.VITE_API_URL + `/api/courses/${slug}/module/create/`,
+        body,
+        config
+      );
+      dispatch(CREATESECTION_SUCCESS(res.data));
+    } catch (err) {
+      dispatch(CREATESECTION_FAIL());
+      dispatch(CREATESECTION_ERROR(err.response.data));
+    }
+  }
+}
+export async function deleteSection(dispatch, access, slug) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.delete(
+        import.meta.env.VITE_API_URL + `/api/courses/module/${slug}/delete/`,
+        config
+      );
+    } catch (err) {
+      dispatch(DELETESECTION_ERROR(err.response.data));
+    }
+  }
+}
+export async function getSections(dispatch, access, slug) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/api/courses/${slug}/modules/`,
+        config
+      );
+      dispatch(GETSECTIONS_SUCCESS(res.data.modules));
+    } catch (err) {
+      dispatch(GETSECTIONS_FAIL());
+      dispatch(GETSECTIONS_ERROR(err.response.data));
+    }
+  }
+}
+export async function updateSections(
+  dispatch,
+  access,
+  title,
+  description,
+  slug
+) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    const body = JSON.stringify({
+      title,
+      description,
+    });
+    console.log(body);
+    try {
+      const res = await axios.put(
+        import.meta.env.VITE_API_URL + `/api/courses/module/${slug}/update/`,
+        body,
+        config
+      );
+      dispatch(UPDATESECTION_SUCCESS(res.data));
+    } catch (err) {
+      dispatch(UPDATESECTION_FAIL());
+      dispatch(UPDATESECTION_ERROR(err.response.data));
+    }
+  }
+}
+export async function createContent(dispatch, access, body, slug, type) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.post(
+        import.meta.env.VITE_API_URL +
+          `/api/courses/module/${slug}/content/${type}/create/`, // Construct the URL
+        body,
+        config
+      );
+      dispatch(CREATECONTENT_SUCCESS(res.data));
+    } catch (err) {
+      dispatch(CREATECONTENT_FAIL());
+      dispatch(CREATECONTENT_ERROR(err.response.data));
+    }
+  }
+}
+export async function getContents(dispatch, access,slug) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/api/courses/module/${slug}/contents/`,
+        config
+      );
+      dispatch(GETCONTENTS_SUCCESS(res.data.contents));
+    } catch (err) {
+      dispatch(GETCONTENTS_FAIL());
+      dispatch(GETCONTENTS_ERROR(err.response.data));
     }
   }
 }
