@@ -21,7 +21,6 @@ const ImageFileUploader = (props) => {
 ImageFileUploader.propTypes = {
   name: propsTypes.string.isRequired,
   getImage: propsTypes.func.isRequired,
-  getThumnail: propsTypes.func.isRequired,
 };
 
 export default ImageFileUploader;
