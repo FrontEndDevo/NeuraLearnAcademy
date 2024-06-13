@@ -13,18 +13,21 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../redux/slices/Instructor/OpenClose";
 import { deleteCourse } from "../../redux/actions/courses-methods";
-const InstructorCourseCard = ({
-  userAccess,
-  slug,
-  image,
-  title,
-  subject,
-  videos = 0,
-  sections = 0,
-  quizzes = 0,
-  students = 0,
-  price,
-}) => {
+const InstructorCourseCard = (props) => {
+  // Destructuring needed properties:
+  const {
+    userAccess,
+    slug,
+    image,
+    title,
+    subject,
+    videos = 0,
+    sections = 0,
+    quizzes = 0,
+    students = 0,
+    price,
+  } = props;
+
   const courseTitle = title.length <= 50 ? title : title.slice(0, 50) + "...";
 
   const numberOfStudents = formatNumbersInThousands(students);
@@ -36,7 +39,7 @@ const InstructorCourseCard = ({
     dispatch(
       openModal({
         name: "instructorCourse",
-        course: { image, title, subject, price },
+        course: props,
       })
     );
   };

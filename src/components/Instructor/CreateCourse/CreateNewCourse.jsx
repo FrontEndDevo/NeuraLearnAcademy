@@ -18,6 +18,7 @@ import {
 } from "../../../redux/actions/courses-methods";
 
 const CreateNewCourse = ({ instructorCourseDetails: course }) => {
+  console.log(course)
   const categories = useSelector((state) => state.courses.subjectCourses);
   const access = useSelector((state) => state.userAuth.access);
 
@@ -39,7 +40,7 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
       setImage(course.image || "");
       setSelectedCategoryId(course.categoryId || null);
       titleRef.current.value = course.title || "";
-      descriptionRef.current.value = course.description || "";
+      descriptionRef.current.value = course.overview || "";
       priceRef.current.value = course.price || 0;
     }
   }, [course]);
@@ -88,7 +89,7 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
     const description = descriptionRef.current.value.trim();
     const price = +priceRef.current.value;
 
-    if (!title || !price || !selectedCategoryId) {
+    if (!title || !price || (!selectedCategoryId && !course)) {
       setMissingError(true);
     } else {
       if (course == null) {
@@ -103,7 +104,6 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
           image
         );
 
-        // Close the modal:
         handleCloseCreateCourse();
       } else {
         // Update the course:
@@ -117,6 +117,7 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
           price,
           image
         );
+
         handleCloseCreateCourse();
       }
     }

@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getInstructorCourses } from "../../redux/actions/courses-methods";
 import Pagination from "../../shared/Pagination";
 const InstructorCourses = () => {
+  const [instructorOption, setInstructorOption] = useState("courses");
+
   const instructorCourses =
     useSelector((state) => state.courses.instructorCourses) || [];
   const access = useSelector((state) => state.userAuth.access);
 
-  const [instructorOption, setInstructorOption] = useState("courses");
   const dispatch = useDispatch();
   useEffect(() => {
     getInstructorCourses(dispatch, access);
