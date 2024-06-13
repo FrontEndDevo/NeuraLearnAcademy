@@ -10,7 +10,6 @@ const CourseCard = ({
   title,
   instructor,
   category,
-  progress,
   rate,
   price,
   discount,
@@ -18,13 +17,6 @@ const CourseCard = ({
   const courseTitle = title.length <= 50 ? title : title.slice(0, 50) + "...";
 
   const formattedTitleForUrl = formatUrlString(title);
-
-  const progressButton =
-    progress === 0
-      ? "Start Learning"
-      : progress === 100
-      ? "Review"
-      : "Continue Learning";
 
   return (
     <li className="duration-300 border shadow-lg rounded-3xl hover:shadow-innerwhite">
@@ -60,26 +52,12 @@ const CourseCard = ({
               {category}
             </h6>
           )}
-          {progress != null && (
-            <div className="relative my-4">
-              <span
-                style={{ width: `${progress}%` }}
-                className={`absolute top-0 left-0 h-1 rounded-full duration-500 bg-primary-500`}
-              />
-              <span
-                className={`absolute top-0 left-0 h-1 rounded-full w-full bg-[#82818166] -z-10`}
-              />
-              <p className="text-[9px] mb-4 pt-3 md:text-sm font-semibold">
-                {progress}% complete
-              </p>
-              <Link
-                to="/"
-                className="flex items-center justify-center px-12 py-2 text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm bg-primary-500 hover:bg-primary-700"
-              >
-                {progressButton}
-              </Link>
-            </div>
-          )}
+          <Link
+            to="/"
+            className="flex items-center justify-center px-12 py-2 my-4 text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm bg-primary-500 hover:bg-primary-700"
+          >
+            Start Learning
+          </Link>
           {rate != null && (
             <div className="flex flex-wrap items-center gap-1 my-4 md:flex-nowrap">
               <p className="text-sm font-semibold">{rate.toFixed(1)}</p>
