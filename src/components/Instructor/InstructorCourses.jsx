@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getInstructorCourses } from "../../redux/actions/courses-methods";
 import Pagination from "../../shared/Pagination";
 const InstructorCourses = () => {
+  const [instructorOption, setInstructorOption] = useState("courses");
+
   const instructorCourses =
     useSelector((state) => state.courses.instructorCourses) || [];
   const access = useSelector((state) => state.userAuth.access);
-console.log(instructorCourses);
-  const [instructorOption, setInstructorOption] = useState("courses");
+
   const dispatch = useDispatch();
   useEffect(() => {
     getInstructorCourses(dispatch, access);
@@ -40,11 +41,13 @@ console.log(instructorCourses);
 
   // Map through the instructorCourses array and render an InstructorCourseCard component for each course.
   const instructorCoursesList = instructorCourses
-    // .slice(paginationIndices.start, paginationIndices.end)
-    .map((course, index) => <InstructorCourseCard key={index} {...course} />);
+    .slice(paginationIndices.start, paginationIndices.end)
+    .map((course, index) => (
+      <InstructorCourseCard key={index} {...course} userAccess={access} />
+    ));
 
   return (
-    <section className="flex flex-col lg:flex-row">
+    <section className="flex flex-col lg:gap-0 md:gap-14 md:flex-row">
       <InstructorSidebar
         selectedOption={instructorOption}
         getInstructorOption={handleInstructorOption}
@@ -56,7 +59,7 @@ console.log(instructorCourses);
           </h2>
         </div>
 
-        <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 auto-rows-fr">
+        <ul className="grid grid-cols-1 gap-6 justify-items-center md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 auto-rows-fr">
           <DefaultInstructorCourse />
           {instructorCoursesList}
         </ul>

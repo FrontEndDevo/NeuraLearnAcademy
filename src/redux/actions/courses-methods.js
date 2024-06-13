@@ -2,6 +2,18 @@ import axios from "axios";
 import {
   setCoursesDependOnSubjectError,
   setPublicCoursesError,
+  CREATECOURSE_ERROR,
+  DELETECOURSE_ERROR,
+  GETINSTRUCTORCOURSES_ERROR,
+  GETSUBJECTCOURSES_ERROR,
+  UPDATECOURSE_ERROR,
+  UPDATEUSERDATA_ERROR,
+  CREATESECTION_ERROR,
+  DELETESECTION_ERROR,
+  GETSECTIONS_ERROR,
+  UPDATESECTION_ERROR,
+  CREATECONTENT_ERROR,
+  GETCONTENTS_ERROR,
 } from "../slices/courses/courses-errors";
 
 import {
@@ -15,8 +27,6 @@ import {
   UPDATECOURSE_SUCCESS,
   UPDATEUSERDATA_FAIL,
   UPDATEUSERDATA_SUCCESS,
-  DETAILCOURSE_FAIL,
-  DETAILCOURSE_SUCCESS,
   setCoursesDependOnSubject,
   setPublicCourses,
   CREATESECTION_SUCCESS,
@@ -30,21 +40,7 @@ import {
   GETCONTENTS_SUCCESS,
   GETCONTENTS_FAIL,
 } from "../slices/courses/courses-slice";
-import {
-  CREATECOURSE_ERROR,
-  DELETECOURSE_ERROR,
-  DETAILCOURSE_ERROR,
-  GETINSTRUCTORCOURSES_ERROR,
-  GETSUBJECTCOURSES_ERROR,
-  UPDATECOURSE_ERROR,
-  UPDATEUSERDATA_ERROR,
-  CREATESECTION_ERROR,
-  GETSECTIONS_ERROR,
-  DELETESECTION_ERROR,
-  UPDATESECTION_ERROR,
-  CREATECONTENT_ERROR,
-  GETCONTENTS_ERROR,
-} from "../slices/courses/errors";
+
 
 export const public_courses = async (dispatch) => {
   try {
@@ -91,6 +87,7 @@ export async function getSubjectCourses(dispatch, access) {
     }
   }
 }
+
 export async function getInstructorCourses(dispatch, access) {
   if (access) {
     const config = {
@@ -115,6 +112,7 @@ export async function getInstructorCourses(dispatch, access) {
 }
 
 export async function updateUserData(
+  dispatch,
   access,
   email,
   first_name,
@@ -131,7 +129,6 @@ export async function updateUserData(
       },
     };
     const body = JSON.stringify({ email, first_name, last_name });
-    console.log(body);
 
     try {
       const res = await axios.put(
@@ -139,65 +136,62 @@ export async function updateUserData(
         body,
         config
       );
-      UPDATEUSERDATA_SUCCESS(res.data);
+      dispatch(UPDATEUSERDATA_SUCCESS(res.data));
     } catch (err) {
-      UPDATEUSERDATA_FAIL();
-      UPDATEUSERDATA_ERROR(err.response.data);
+      dispatch(UPDATEUSERDATA_FAIL());
+      dispatch(UPDATEUSERDATA_ERROR(err.response.data));
     }
   }
 }
 
 export async function createCourse(
+  dispatch,
   access,
   subject,
   title,
   overview,
   price
-  // image
+  image
 ) {
   const available = false;
   if (access) {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `JWT ${access}`,
-        Accept: "application/json",
-      },
-    };
-    // send image as form data not json
-    const body = JSON.stringify({
-      subject,
-      title,
-      overview,
-      price,
-      // image,
-      available,
-    });
-    console.log(body);
+    const formData = new FormData();
+    formData.append("subject", subject);
+    formData.append("title", title);
+    formData.append("overview", overview);
+    formData.append("price", price);
+    formData.append("image", image);
+    formData.append("available", available);
+
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL + "/api/courses/create/",
-        body,
-        config
+        formData, // Send formData instead of JSON
+        {
+          headers: {
+            Authorization: `JWT ${access}`,
+            Accept: "application/json",
+            "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+          },
+        }
       );
-      console.log(res);
-      CREATECOURSE_SUCCESS(res.data);
+      dispatch(CREATECOURSE_SUCCESS(res.data));
     } catch (err) {
-      CREATECOURSE_FAIL();
-      CREATECOURSE_ERROR(err.response.data);
-      console.log(err);
+      dispatch(CREATECOURSE_FAIL());
+      dispatch(CREATECOURSE_ERROR(err.response.data));
     }
   }
 }
 
 export async function updateCourse(
+  dispatch,
   access,
+  slug,
   subject,
   title,
   overview,
   price,
-  image,
-  slug
+  image
 ) {
   const available = false;
   if (access) {
@@ -217,7 +211,6 @@ export async function updateCourse(
       image,
       available,
     });
-    console.log(body);
 
     try {
       const res = await axios.put(
@@ -225,14 +218,15 @@ export async function updateCourse(
         body,
         config
       );
-      UPDATECOURSE_SUCCESS(res.data);
+      dispatch(UPDATECOURSE_SUCCESS(res.data));
     } catch (err) {
-      UPDATECOURSE_FAIL();
-      UPDATECOURSE_ERROR(err.response.data);
+      dispatch(UPDATECOURSE_FAIL());
+      dispatch(UPDATECOURSE_ERROR(err.response.data));
     }
   }
 }
-export async function deleteCourse(access, slug) {
+
+export async function deleteCourse(dispatch, access, slug) {
   if (access) {
     const config = {
       headers: {
@@ -243,34 +237,12 @@ export async function deleteCourse(access, slug) {
     };
 
     try {
-      const res = await axios.delete(
+      await axios.delete(
         import.meta.env.VITE_API_URL + `/api/courses/${slug}/delete/`,
         config
       );
     } catch (err) {
-      DELETECOURSE_ERROR(err.response.data);
-    }
-  }
-}
-export async function detailCourse(access, slug) {
-  if (access) {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `JWT ${access}`,
-        Accept: "application/json",
-      },
-    };
-
-    try {
-      const res = await axios.get(
-        import.meta.env.VITE_API_URL + `/api/courses/${slug}/detail/`,
-        config
-      );
-      DETAILCOURSE_SUCCESS(res.data);
-    } catch (err) {
-      DETAILCOURSE_FAIL();
-      DETAILCOURSE_ERROR(err.response.data);
+      dispatch(DELETECOURSE_ERROR(err.response.data));
     }
   }
 }

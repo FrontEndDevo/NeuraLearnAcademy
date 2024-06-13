@@ -10,7 +10,6 @@ const CourseCard = ({
   title,
   instructor,
   category,
-  progress,
   rate,
   price,
   discount,
@@ -19,22 +18,17 @@ const CourseCard = ({
 
   const formattedTitleForUrl = formatUrlString(title);
 
-  const progressButton =
-    progress === 0
-      ? "Start Learning"
-      : progress === 100
-      ? "Review"
-      : "Continue Learning";
-
   return (
     <li className="duration-300 border shadow-lg rounded-3xl hover:shadow-innerwhite">
       <Link to={formattedTitleForUrl}>
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-60 rounded-t-3xl"
-          loading="lazy"
-        />
+        {image && (
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-60 rounded-t-3xl"
+            loading="lazy"
+          />
+        )}
         <div className="px-4 py-2">
           <div className="flex items-center justify-between px-2">
             <span className="text-xs font-bold text-gray-color-500 md:text-sm">
@@ -49,7 +43,7 @@ const CourseCard = ({
               ))}
             </div>
           </div>
-          <h3 className="my-2 text-start text-base font-semibold lg:text-xl text-gray-color-700">
+          <h3 className="my-2 text-base font-semibold text-start lg:text-xl text-gray-color-700">
             {courseTitle}
           </h3>
 
@@ -58,26 +52,12 @@ const CourseCard = ({
               {category}
             </h6>
           )}
-          {progress != null && (
-            <div className="relative my-4">
-              <span
-                style={{ width: `${progress}%` }}
-                className={`absolute top-0 left-0 h-1 rounded-full duration-500 bg-primary-500`}
-              />
-              <span
-                className={`absolute top-0 left-0 h-1 rounded-full w-full bg-[#82818166] -z-10`}
-              />
-              <p className="text-[9px] mb-4 pt-3 md:text-sm font-semibold">
-                {progress}% complete
-              </p>
-              <Link
-                to="/"
-                className="flex items-center justify-center px-12 py-2 text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm bg-primary-500 hover:bg-primary-700"
-              >
-                {progressButton}
-              </Link>
-            </div>
-          )}
+          <Link
+            to="/"
+            className="flex items-center justify-center px-12 py-2 my-4 text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm bg-primary-500 hover:bg-primary-700"
+          >
+            Start Learning
+          </Link>
           {rate != null && (
             <div className="flex flex-wrap items-center gap-1 my-4 md:flex-nowrap">
               <p className="text-sm font-semibold">{rate.toFixed(1)}</p>
@@ -94,7 +74,7 @@ const CourseCard = ({
               </div>
             </div>
           )}
-          <div className="flex flex-wrap items-center mt-2 gap-2 md:flex-nowrap">
+          <div className="flex flex-wrap items-center gap-2 mt-2 md:flex-nowrap">
             {price != null && (
               <p
                 className={`text-2xl font-bold ${

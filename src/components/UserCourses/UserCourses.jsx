@@ -358,7 +358,6 @@ const UserCourses = () => {
         title={course.title}
         instructor={course.instructor}
         category={course.category}
-        progress={course.progress}
       />
     ));
 

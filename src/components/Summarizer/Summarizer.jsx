@@ -5,41 +5,24 @@ import { faTrashAlt, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Summarizer = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeDropdowns, setActiveDropdowns] = useState([false, false]);
+  const [isOpen, setIsOpen] = useState(true);
   const [isShort, setIsShort] = useState(true);
   const [modelInput, setModelInput] = useState("");
   const [paragraphInput, setParagraphInput] = useState("");
+  const [selectedSection, setSelectedSection] = useState(null);
 
   const handleToggle = () => {
     setIsShort(!isShort);
   };
+
   const [sectionData, setSectionData] = useState([
     {
       title: "Section 1",
-      items: [
-        { id: 1, name: "00.Introduction" },
-        { id: 2, name: "01.Basics" },
-        { id: 3, name: "02.Algorithms" },
-      ],
     },
     {
       title: "Section 2",
-      items: [
-        { id: 4, name: "00.Introduction" },
-        { id: 5, name: "01.Data Preprocessing" },
-        { id: 6, name: "02.Model Training" },
-      ],
     },
   ]);
-
-  const toggleDropdown = (index) => {
-    setActiveDropdowns((prevState) => {
-      const newState = [...prevState];
-      newState[index] = !newState[index];
-      return newState;
-    });
-  };
 
   const handleFileUpload = () => {
     console.log("File upload button clicked");
@@ -55,23 +38,25 @@ const Summarizer = () => {
     console.log("Save button clicked");
     // Add your save logic here
   };
+
   const handleDelete = () => {
     console.log("Delete button clicked");
-    // Add your save logic here
+    // Add your delete logic here
   };
 
-  const handleDropdownItemClick = (index, itemIndex, section) => {
-    console.log(`Dropdown item ${section.items[itemIndex].name} clicked`);
-    // Add your dropdown item click logic here
+  const handleSectionSelect = (index) => {
+    setSelectedSection(index);
+    console.log(`Section ${index + 1} selected`);
+    // Add your section select logic here
   };
+
   return (
     <div className="flex h-screen">
       <div
-        className={`bg-neutral-100 text-white w-64 transition-all duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`bg-neutral-100 text-white w-64 transition-all duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
-        <div className="px-3 pt-10 pb-4 flex flex-col  ">
+        <div className="px-3 pt-10 pb-4 flex flex-col">
           <img
             src={sideBarImage}
             alt="Logo"
@@ -100,52 +85,19 @@ const Summarizer = () => {
         </div>
 
         {sectionData.map((section, index) => (
-          <div key={index} className="px-4 pb-4">
-            <h3
-              className="text-black text-lg font-bold tracking-tight"
-              onClick={() => toggleDropdown(index)}
-            >
-              {section.title} {activeDropdowns[index] ? "▲" : "▼"}
+          <div key={index} className="px-4 pb-4 flex items-center">
+           
+            <h3 className="text-black text-lg font-bold tracking-tight">
+              {section.title}
             </h3>
-            {activeDropdowns[index] && (
-              <ul>
-                {section.items.map((item, itemIndex) => (
-                  <li
-                    onClick={() =>
-                      handleDropdownItemClick(index, itemIndex, section)
-                    }
-                    key={item.id}
-                    className="flex space-x-1 items-center text-black font-normal  tracking-wide"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
-                      />
-                    </svg>
-                    <span>{item.name}</span>
-                    <input
-                      type="checkbox"
-                      checked={item.isChecked}
-                      onClick={() =>
-                        handleDropdownItemClick(index, itemIndex, section)
-                      }
-                      className={`mr-2 ${
-                        item.isChecked ? "bg-blue-500 text-white" : ""
-                      }`}
-                    />
-                  </li>
-                ))}
-              </ul>
-            )}
+
+            <input
+              type="radio"
+              name="section"
+              checked={selectedSection === index}
+              onChange={() => handleSectionSelect(index)}
+              className="ml-2"
+            />
           </div>
         ))}
       </div>
@@ -158,13 +110,11 @@ const Summarizer = () => {
       </button>
 
       <div className="flex-1 p-4">
-        {/* Your main content goes here */}
-
-        <div className=" flex justify-center items-center space-x-3">
+        <div className="flex justify-center items-center space-x-3">
           <img
             src={summarizerImage}
             alt="Logo"
-            className="w-20 h-20 "
+            className="w-20 h-20"
             loading="lazy"
           />
           <div className="text-sky-800 text-xl font-extrabold tracking-wider">
@@ -180,7 +130,7 @@ const Summarizer = () => {
 
           <div className="flex justify-center items-center mr-0 md:mr-7">
             <div className="text-white font-semibold mr-3 md:ml-2 xl:ml-0">
-              Summary Length:{" "}
+              Summary Length:
             </div>
             <div className="flex items-center space-x-7">
               <label className="relative inline-block w-10 cursor-pointer">
@@ -205,6 +155,7 @@ const Summarizer = () => {
             </div>
           </div>
         </div>
+
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:w-1/2 relative mb-4 md:mb-0">
             <textarea
