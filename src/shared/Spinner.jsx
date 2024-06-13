@@ -1,11 +1,15 @@
+import PropTypes from "prop-types";
+
 // The button from Flowbite (https://flowbite.com/docs/components/spinner)
 // This spinner component is used to show a loading state of a button. It appears on the top of screen.
-const Spinner = () => {
+const Spinner = ({ isLoading }) => {
   return (
     <button
       disabled
       type="button"
-      className="absolute px-8 py-3 text-sm font-bold text-gray-900 duration-100 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg select-none top-28 left-1/2 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+      className={`absolute px-8 py-3 text-sm font-bold text-gray-900 duration-500 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg select-none top-28 left-1/2 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 ${
+        isLoading ? "top-28 opacity-100" : "-top-full opacity-0"
+      }`}
     >
       <svg
         aria-hidden="true"
@@ -27,6 +31,10 @@ const Spinner = () => {
       Loading...
     </button>
   );
+};
+
+Spinner.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default Spinner;
