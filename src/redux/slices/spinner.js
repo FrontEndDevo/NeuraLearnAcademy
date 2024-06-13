@@ -9,7 +9,7 @@ const spinnerSlice = createSlice({
     setIsSpinnerLoading: (state, action) => {
       state.isSpinnerLoading = action.payload;
     },
-  },4
+  },
 });
 
 export const { setIsSpinnerLoading } = spinnerSlice.actions;
