@@ -21,6 +21,7 @@ import ChatBot from "./pages/ChatBot";
 import CoursesContentPage from "./pages/Instructor/CoursesContentPage";
 import RequireAuth from "./components/Registration/RequireAuth/RequireAuth";
 import QuestionGenerationPage from "./pages/QuestionGenerationPage";
+import UserPage from "./pages/Users/UserPage";
 
 const App = () => {
   return (
@@ -56,6 +57,7 @@ const App = () => {
           <Route path="questionqeneration" element={<QuestionGenerationPage />} />
           <Route path="ChatBot" element={<ChatBot />} />
           <Route path="CoursesContentPage" element={<CoursesContentPage />} />
+          <Route path="UserContentPage" element={<UserPage />} />
         </Route>
       </Routes>
     </>
