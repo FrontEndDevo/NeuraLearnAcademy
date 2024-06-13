@@ -20,10 +20,13 @@ import Summarizers from "./pages/Summarizers";
 import ChatBot from "./pages/ChatBot";
 import CoursesContentPage from "./pages/Instructor/CoursesContentPage";
 import RequireAuth from "./components/Registration/RequireAuth/RequireAuth";
-
+import Spinner from "./shared/Spinner";
+import { createPortal } from "react-dom";
+const loadingSpinnerId = document.getElementById("loading__spinner");
 const App = () => {
   return (
     <>
+      {createPortal(<Spinner />, loadingSpinnerId)}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<LoginPage />} />
