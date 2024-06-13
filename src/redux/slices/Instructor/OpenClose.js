@@ -2,13 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const openCloseSlice = createSlice({
   name: "openClose",
-  initialState: { modalName: null },
+  initialState: { modalName: null, slug: null },
   reducers: {
     openModal: (state, action) => {
-      state.modalName = action.payload;
+      state.modalName = action.payload.modalName;
+      state.slug = action.payload.slug;
     },
     closeModal: (state) => {
       state.modalName = null;
+      state.slug = null;
     },
   },
 });
