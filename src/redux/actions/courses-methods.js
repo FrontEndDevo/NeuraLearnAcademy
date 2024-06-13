@@ -150,7 +150,7 @@ export async function createCourse(
   subject,
   title,
   overview,
-  price
+  price,
   image
 ) {
   const available = false;
