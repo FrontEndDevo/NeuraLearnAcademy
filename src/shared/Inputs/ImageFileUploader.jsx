@@ -4,13 +4,7 @@ import propsTypes from "prop-types";
 const ImageFileUploader = (props) => {
   const handleUploadImage = (event) => {
     const file = event.target.files[0];
-    props.getThumnail(file);
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      props.getImage(reader.result);
-    };
-
-    if (file) reader.readAsDataURL(file);
+    props.getImage(file);
   };
 
   return (
@@ -27,7 +21,6 @@ const ImageFileUploader = (props) => {
 ImageFileUploader.propTypes = {
   name: propsTypes.string.isRequired,
   getImage: propsTypes.func.isRequired,
-  getThumnail: propsTypes.func.isRequired,
 };
 
 export default ImageFileUploader;

@@ -22,10 +22,19 @@ import CoursesContentPage from "./pages/Instructor/CoursesContentPage";
 import RequireAuth from "./components/Registration/RequireAuth/RequireAuth";
 import QuestionGenerationPage from "./pages/QuestionGenerationPage";
 import UserPage from "./pages/Users/UserPage";
+import Spinner from "./shared/Spinner";
+import { createPortal } from "react-dom";
+import { useSelector } from "react-redux";
+
+const loadingSpinnerId = document.getElementById("loading__spinner");
+
 
 const App = () => {
+  const isLoading = useSelector((state) => state.spinner.isSpinnerLoading);
+
   return (
     <>
+      {createPortal(<Spinner isLoading={isLoading} />, loadingSpinnerId)}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<LoginPage />} />

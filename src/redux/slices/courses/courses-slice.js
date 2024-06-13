@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const initialState = {
   publicCourses: [],
   coursesDependOnSubject: [],
@@ -9,7 +8,6 @@ const initialState = {
   instructorCourses: null,
   createCourseData: null,
   updateCourseData: null,
-  detailCourse: null,
 };
 
 const subjectCourseReducer = (state, action) => {
@@ -49,7 +47,7 @@ const updateUserDataFailReducer = (state) => {
     userData: null,
   };
 };
-const createCourseReducer = (state,action) => {
+const createCourseReducer = (state, action) => {
   return {
     ...state,
     createCourseData: action.payload,
@@ -61,7 +59,7 @@ const createCourseFailReducer = (state) => {
     createCourseData: null,
   };
 };
-const updateCourseReducer = (state,action) => {
+const updateCourseReducer = (state, action) => {
   return {
     ...state,
     updateCourseData: action.payload,
@@ -77,12 +75,6 @@ const detailCourseReducer = (state, action) => {
   return {
     ...state,
     detailCourse: action.payload,
-  };
-};
-const detailCourseFailReducer = (state) => {
-  return {
-    ...state,
-    detailCourse: null,
   };
 };
 
@@ -101,7 +93,6 @@ const courseSlice = createSlice({
     UPDATECOURSE_SUCCESS: updateCourseReducer,
     UPDATECOURSE_FAIL: updateCourseFailReducer,
     DETAILCOURSE_SUCCESS: detailCourseReducer,
-    DETAILCOURSE_FAIL: detailCourseFailReducer,
     setPublicCourses(state, action) {
       state.publicCourses = action.payload;
     },
@@ -122,10 +113,8 @@ export const {
   CREATECOURSE_FAIL,
   UPDATECOURSE_SUCCESS,
   UPDATECOURSE_FAIL,
-  DETAILCOURSE_SUCCESS,
-  DETAILCOURSE_FAIL,
   setPublicCourses,
-  setCoursesDependOnSubject
+  setCoursesDependOnSubject,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

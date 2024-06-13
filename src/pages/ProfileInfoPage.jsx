@@ -16,7 +16,7 @@ import {
 import ButtonProfile from "../shared/Profile/ButtonProfile";
 import profileImg from "../assets/images/profile/unknown_user.webp";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUserData } from "../redux/actions/courses-methods";
 
 const DEFAULT_DATA = {
@@ -80,10 +80,13 @@ const ProfileInfoPage = () => {
     setFormState({ ...formState, [key]: event.target.value });
   };
 
+  const dispatch = useDispatch();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(formState);
-   updateUserData(
+    updateUserData(
+      dispatch,
       access,
       email,
       formState.firstName,
