@@ -26,6 +26,9 @@ import {
   getSections,
   updateSections,
 } from "../../../redux/actions/courses-methods";
+import VideoPlayer from "../../../shared/VideoPlayer";
+import ImageViewer from "../../../shared/ImageViewer";
+
 
 const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug }) => {
   const dispatch = useDispatch();
@@ -52,8 +55,7 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug }) => {
   );
 };
 
-
-const SectionContent = ({ dispatch, access, slug, onDelete, onEdit }) => {
+const SectionContent = ({ dispatch, access, slug, onSelect }) => {
   const sectionData = useSelector((state) => state.courses.getsectionContent);
   const [lectures, setLectures] = useState(sectionData);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -77,7 +79,6 @@ const SectionContent = ({ dispatch, access, slug, onDelete, onEdit }) => {
   };
 
   const handleConfirmDeleteLecture = () => {
-    // Assuming deleteLecture is an action that deletes a lecture
     deleteSection(dispatch, access, lectureToDelete.slug); // Replace with actual action and slug
     setShowDeleteModal(false);
     setLectureToDelete(null);
@@ -90,11 +91,11 @@ const SectionContent = ({ dispatch, access, slug, onDelete, onEdit }) => {
 
   const renderIcon = (type) => {
     switch (type) {
-      case 'video':
+      case "video":
         return faVideo;
-      case 'image':
+      case "image":
         return faImage;
-      case 'file':
+      case "file":
         return faFileAlt;
       default:
         return faFileAlt;
@@ -105,18 +106,15 @@ const SectionContent = ({ dispatch, access, slug, onDelete, onEdit }) => {
     if (item.video) return item.video.title;
     if (item.image) return item.image.title;
     if (item.file) return item.file.title;
-    return 'Unknown Title';
-  };
-
-  const renderLink = (item) => {
-    if (item.video) return item.video.file;
-    if (item.image) return item.image.file;
-    if (item.file) return item.file.file;
-    return 'Unknown Link';
+    return "Unknown Title";
   };
 
   const handleClick = (item) => {
-    console.log("Item clicked:", renderLink(item));
+    if (item.video) {
+      onSelect("video", item.video.file);
+    } else if (item.image) {
+      onSelect("image", item.image.file);
+    }
   };
 
   return (
@@ -131,11 +129,7 @@ const SectionContent = ({ dispatch, access, slug, onDelete, onEdit }) => {
             {Object.keys(item).map((key) => (
               <li className="relative border-b border-b-sky-950 border-opacity-80" key={key}>
                 <div className="flex justify-between">
-                
-                  <div
-                    onClick={() => onSelect("image")}
-                    className="relative cursor-pointer pl-14"
-                  >
+                  <div className="relative cursor-pointer pl-14">
                     <FontAwesomeIcon
                       icon={renderIcon(key)}
                       className="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-black"
@@ -168,7 +162,7 @@ const SectionContent = ({ dispatch, access, slug, onDelete, onEdit }) => {
   );
 };
 
-const NewSection = ({ sectionTitle, onDelete, onEdit, slug }) => {
+const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const access = useSelector((state) => state.userAuth.access);
   const dispatch = useDispatch();
@@ -193,7 +187,7 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug }) => {
         onEdit={onEdit}
         slug={slug}
       />
-      <SectionContent dispatch={dispatch} access={access} slug={slug} />
+      <SectionContent dispatch={dispatch} access={access} slug={slug} onSelect={onSelect} />
       {showDeleteModal && (
         <DeleteSection
           onDelete={handleConfirmDelete}
@@ -209,6 +203,8 @@ const CoursesContent = () => {
   const [newSections, setNewSections] = useState(sectionsData || []);
   const [showModal, setShowModal] = useState(false);
   const [selectedSection, setSelectedSection] = useState(null);
+  const [selectedContent, setSelectedContent] = useState(null);
+  const [selectedContentUrl, setSelectedContentUrl] = useState("");
   const dispatch = useDispatch();
   const { slug } = useParams();
   const access = useSelector((state) => state.userAuth.access);
@@ -249,7 +245,33 @@ const CoursesContent = () => {
     setNewSections(sectionsData || []);
   }, [sectionsData]);
 
-  
+  const handleSelectContent = (type, url) => {
+    setSelectedContent(type);
+    setSelectedContentUrl(url);
+  };
+
+  const renderSelectedContent = () => {
+    if (!selectedContent) return null;
+    switch (selectedContent) {
+      case "video":
+        return (
+          <VideoPlayer
+            url={selectedContentUrl}
+            onClose={() => setSelectedContent(null)}
+          />
+        );
+      case "image":
+        return (
+          <ImageViewer
+            url={selectedContentUrl}
+            onClose={() => setSelectedContent(null)}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <header className="p-10 bg-[#004682] text-white">
@@ -268,8 +290,14 @@ const CoursesContent = () => {
         </p>
       </header>
       <div className="flex flex-col justify-around pt-10 pb-32 bg-white md:flex-row md:space-x-3 lg:space-x-4">
-        <div className="flex justify-center md:flex-col md:justify-start">
-          <img className="w-80" src={ebook} alt="ebook image" loading="lazy" />
+        <div className="flex flex-col items-center relative h-[80vh] w-full md:w-3/5">
+          {renderSelectedContent()}
+          <img
+            className="mt-4 w-96"
+            src={ebook}
+            alt="ebook image"
+            loading="lazy"
+          />
         </div>
         <div className="flex flex-col bg-white md:justify-start md:items-start">
           <div className="flex flex-col gap-3 px-5 md:flex-row md:space-x-3 md:gap-0 lg:space-x-4 md:px-0">
@@ -332,6 +360,7 @@ const CoursesContent = () => {
                 slug={section.slug}
                 onDelete={() => handleDeleteSection(index)}
                 onEdit={() => handleEditSectionClick(section)}
+                onSelect={handleSelectContent}
               />
             ))}
           </div>
