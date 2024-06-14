@@ -11,6 +11,8 @@ import {
   faFileAlt,
   faImage,
   faVideo,
+  faAngleDown,
+  faAngleUp
 } from "@fortawesome/free-solid-svg-icons";
 import ebook from "../../../assets/images/Instructor/ebook.gif";
 import plus from "../../../assets/images/Instructor/plus.png";
@@ -30,17 +32,25 @@ import {
 import VideoPlayer from "../../../shared/VideoPlayer";
 import ImageViewer from "../../../shared/ImageViewer";
 
-const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug }) => {
+const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false); // State for toggle
+
   const handleOpenCreateCourse = () => {
     dispatch(openModal({ modalName: "sectioninfo", slug }));
   };
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen); // Toggle the state
+    onToggle(); // Call the provided onToggle function
+  };
+
   return (
-    <div className="flex justify-between px-4 py-3 bg-sky-950 md:px-7 md:py-3">
-      <span className="font-semibold text-white cursor-pointer">
-        {sectionTitle}
-      </span>
+    <div className="flex justify-between px-4 py-3 cursor-pointer bg-sky-950 md:px-7 md:py-3" >
+      <span className="font-semibold text-white">{sectionTitle}</span>
       <div className="flex space-x-3 text-white">
+        {/* Arrow icon for toggle */}
+
         <button onClick={onDelete}>
           <FontAwesomeIcon icon={faTrash} />
         </button>
@@ -50,11 +60,12 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug }) => {
         <button onClick={handleOpenCreateCourse}>
           <FontAwesomeIcon icon={faPlus} />
         </button>
+        <FontAwesomeIcon  className="mt-1" icon={isOpen ? faAngleUp : faAngleDown} onClick={handleToggle} />
+
       </div>
     </div>
   );
 };
-
 const SectionContent = ({ dispatch, access, slug, onSelect }) => {
   const sectionData = useSelector(
     (state) => state.courses.getsectionContent[slug] || []
@@ -72,6 +83,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
       setLectures(sectionData);
     }
   }, [sectionData]);
+  console.log(sectionData)
 
   const handleUpdateLecture = (lecture) => {
     dispatch(openModal({ modalName: "sectioninfo", lecture }));
@@ -129,12 +141,12 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full transition-all duration-300 ease-in-out">
       {lectures.map((item, index) => (
         <div
           className="relative pt-2 bg-white shadow-lg cursor-pointer"
           key={index}
-          onClick={() => handleClick(item)}
+         
         >
           <ul className="space-y-1">
             {Object.keys(item).map((key) => (
@@ -143,7 +155,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
                 key={key}
               >
                 <div className="flex justify-between">
-                  <div className="relative cursor-pointer pl-14">
+                  <div className="relative cursor-pointer pl-14" onClick={() => handleClick(item)}>
                     <FontAwesomeIcon
                       icon={renderIcon(key)}
                       className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
@@ -178,8 +190,10 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
 
 const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const access = useSelector((state) => state.userAuth.access);
   const dispatch = useDispatch();
+
   const handleDelete = () => {
     setShowDeleteModal(true);
   };
@@ -188,8 +202,14 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
     deleteSection(dispatch, access, slug);
     onDelete();
   };
+  console.log(slug)
+
   const handleCloseModal = () => {
     setShowDeleteModal(false);
+  };
+
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -199,13 +219,11 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
         onDelete={handleDelete}
         onEdit={onEdit}
         slug={slug}
+        onToggle={handleToggle}
       />
-      <SectionContent
-        dispatch={dispatch}
-        access={access}
-        slug={slug}
-        onSelect={onSelect}
-      />
+      <div className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? "max-h-screen" : "max-h-0"}`}>
+        <SectionContent dispatch={dispatch} access={access} slug={slug} onSelect={onSelect} />
+      </div>
       {showDeleteModal && (
         <DeleteSection
           onDelete={handleConfirmDelete}
