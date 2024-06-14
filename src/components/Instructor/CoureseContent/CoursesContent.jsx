@@ -123,24 +123,28 @@ const SectionContent = ({ dispatch, access, slug, onDelete, onEdit }) => {
     <div className="w-full">
       {lectures.map((item, index) => (
         <div
-          className="relative p-4 mt-2 bg-white shadow-lg cursor-pointer"
+          className="relative pt-2 bg-white shadow-lg cursor-pointer"
           key={index}
           onClick={() => handleClick(item)}
         >
           <ul className="space-y-1">
             {Object.keys(item).map((key) => (
-              <li className="relative" key={key}>
+              <li className="relative border-b border-b-sky-950 border-opacity-80" key={key}>
                 <div className="flex justify-between">
-                  <div className="relative focus-within:border-l-4 focus-within:border-l-sky-800">
+                
+                  <div
+                    onClick={() => onSelect("image")}
+                    className="relative cursor-pointer pl-14"
+                  >
                     <FontAwesomeIcon
                       icon={renderIcon(key)}
-                      className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-black"
                     />
-                    <span className="w-full pl-10 pr-3 py-2 bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
+                    <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
                       {renderTitle(item)}
-                    </span>
+                    </div>
                   </div>
-                  <div className="flex space-x-3">
+                  <div className="flex space-x-3 mr-2">
                     <button onClick={() => handleDeleteLecture(item)}>
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
@@ -245,6 +249,7 @@ const CoursesContent = () => {
     setNewSections(sectionsData || []);
   }, [sectionsData]);
 
+  
   return (
     <>
       <header className="p-10 bg-[#004682] text-white">
