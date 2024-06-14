@@ -21,6 +21,7 @@ import DeleteSection from "../CreateSections/DeleteSection";
 import { useParams } from "react-router-dom";
 import {
   createSection,
+  deleteLecture,
   deleteSection,
   getContents,
   getSections,
@@ -60,7 +61,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
   );
   const [lectures, setLectures] = useState(sectionData);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [lectureToDelete, setLectureToDelete] = useState(null);
+  const [lecture, setLecture] = useState(null);
 
   useEffect(() => {
     getContents(dispatch, access, slug);
@@ -72,24 +73,25 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
     }
   }, [sectionData]);
 
-  const handleOpenCreateCourse = () => {
-    dispatch(openModal({ modalName: "sectioninfo", slug }));
+  const handleUpdateLecture = (lecture) => {
+    dispatch(openModal({ modalName: "sectioninfo", lecture }));
   };
 
   const handleDeleteLecture = (lecture) => {
-    setLectureToDelete(lecture);
+    setLecture(lecture);
     setShowDeleteModal(true);
   };
 
   const handleConfirmDeleteLecture = () => {
-    deleteSection(dispatch, access, lectureToDelete.slug); // Replace with actual action and slug
+    const api = renderDeleteLink(lecture);
+    deleteLecture(dispatch, access, api); // Replace with actual action and slug
     setShowDeleteModal(false);
-    setLectureToDelete(null);
+    setLecture(null);
   };
 
   const handleCloseDeleteModal = () => {
     setShowDeleteModal(false);
-    setLectureToDelete(null);
+    setLecture(null);
   };
 
   const renderIcon = (type) => {
@@ -110,6 +112,12 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
     if (item.image) return item.image.title;
     if (item.file) return item.file.title;
     return "Unknown Title";
+  };
+  const renderDeleteLink = (lecture) => {
+    if (lecture.file) return lecture.file.delete_url;
+    if (lecture.video) return lecture.video.delete_url;
+    if (lecture.image) return lecture.image.delete_url;
+    return "Unknown Linke";
   };
 
   const handleClick = (item) => {
@@ -148,7 +156,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
                     <button onClick={() => handleDeleteLecture(item)}>
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
-                    <button onClick={handleOpenCreateCourse}>
+                    <button onClick={() => handleUpdateLecture(item)}>
                       <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
                   </div>
