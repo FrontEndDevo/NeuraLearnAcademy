@@ -290,7 +290,7 @@ const CoursesContent = () => {
         </p>
       </header>
       <div className="flex flex-col justify-around pt-10 pb-32 bg-white md:flex-row md:space-x-3 lg:space-x-4">
-        <div className="flex flex-col items-center relative h-[80vh] w-full md:w-3/5">
+           <div className="flex flex-col items-center relative h-[80vh] w-full md:w-3/5">
           {renderSelectedContent()}
           <img
             className="mt-4 w-96"
