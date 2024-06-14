@@ -13,7 +13,7 @@ const initialState = {
   sectionsData: [],
   updateSectionData: null,
   sectionContent: [],
-  getsectionContent: [],
+  getsectionContent: {},
 };
 
 const subjectCourseReducer = (state, action) => {
@@ -137,16 +137,25 @@ const createContentFailReducer = (state) => {
     sectionContent: [],
   };
 };
-const getSectionContentReducer = (state, action) => {
+const getSectionContentReducer = (state = initialState, action) => {
+  const { slug, content } = action.payload;
   return {
     ...state,
-    getsectionContent: action.payload,
+    getsectionContent: {
+      ...state.getsectionContent,
+      [slug]: [...content],
+    },
   };
 };
-const getSectionContentFailReducer = (state) => {
+
+const getSectionContentFailReducer = (state = initialState, action) => {
+  const { slug } = action.payload;
   return {
     ...state,
-    getsectionContent: [],
+    getsectionContent: {
+      ...state.getsectionContent,
+      [slug]: [],
+    },
   };
 };
 
