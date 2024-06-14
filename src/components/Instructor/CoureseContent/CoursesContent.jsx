@@ -29,7 +29,6 @@ import {
 import VideoPlayer from "../../../shared/VideoPlayer";
 import ImageViewer from "../../../shared/ImageViewer";
 
-
 const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug }) => {
   const dispatch = useDispatch();
   const handleOpenCreateCourse = () => {
@@ -56,7 +55,9 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug }) => {
 };
 
 const SectionContent = ({ dispatch, access, slug, onSelect }) => {
-  const sectionData = useSelector((state) => state.courses.getsectionContent);
+  const sectionData = useSelector(
+    (state) => state.courses.getsectionContent[slug] || []
+  );
   const [lectures, setLectures] = useState(sectionData);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [lectureToDelete, setLectureToDelete] = useState(null);
@@ -66,7 +67,9 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
   }, [dispatch, access, slug]);
 
   useEffect(() => {
-    setLectures(sectionData);
+    if (sectionData !== lectures) {
+      setLectures(sectionData);
+    }
   }, [sectionData]);
 
   const handleOpenCreateCourse = () => {
@@ -127,18 +130,21 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
         >
           <ul className="space-y-1">
             {Object.keys(item).map((key) => (
-              <li className="relative border-b border-b-sky-950 border-opacity-80" key={key}>
+              <li
+                className="relative border-b border-b-sky-950 border-opacity-80"
+                key={key}
+              >
                 <div className="flex justify-between">
                   <div className="relative cursor-pointer pl-14">
                     <FontAwesomeIcon
                       icon={renderIcon(key)}
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-black"
+                      className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
                     />
                     <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
                       {renderTitle(item)}
                     </div>
                   </div>
-                  <div className="flex space-x-3 mr-2">
+                  <div className="flex mr-2 space-x-3">
                     <button onClick={() => handleDeleteLecture(item)}>
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
@@ -169,7 +175,6 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
   const handleDelete = () => {
     setShowDeleteModal(true);
   };
-
   const handleConfirmDelete = () => {
     setShowDeleteModal(false);
     deleteSection(dispatch, access, slug);
@@ -187,7 +192,12 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
         onEdit={onEdit}
         slug={slug}
       />
-      <SectionContent dispatch={dispatch} access={access} slug={slug} onSelect={onSelect} />
+      <SectionContent
+        dispatch={dispatch}
+        access={access}
+        slug={slug}
+        onSelect={onSelect}
+      />
       {showDeleteModal && (
         <DeleteSection
           onDelete={handleConfirmDelete}
@@ -290,7 +300,7 @@ const CoursesContent = () => {
         </p>
       </header>
       <div className="flex flex-col justify-around pt-10 pb-32 bg-white md:flex-row md:space-x-3 lg:space-x-4">
-           <div className="flex flex-col items-center relative h-[80vh] w-full md:w-3/5">
+        <div className="flex flex-col items-center relative h-[80vh] w-full md:w-3/5">
           {renderSelectedContent()}
           <img
             className="mt-4 w-96"
