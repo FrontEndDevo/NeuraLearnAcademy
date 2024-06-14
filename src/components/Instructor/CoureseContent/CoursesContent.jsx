@@ -26,6 +26,9 @@ import {
   getSections,
   updateSections,
 } from "../../../redux/actions/courses-methods";
+import VideoPlayer from "../../../shared/VideoPlayer";
+import ImageViewer from "../../../shared/ImageViewer";
+
 
 const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug }) => {
   const dispatch = useDispatch();
@@ -52,11 +55,11 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug }) => {
   );
 };
 
-
-const SectionContent = ({ dispatch, access, slug }) => {
+const SectionContent = ({ dispatch, access, slug, onSelect }) => {
   const sectionData = useSelector((state) => state.courses.getsectionContent);
-  console.log(sectionData);
   const [lectures, setLectures] = useState(sectionData);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [lectureToDelete, setLectureToDelete] = useState(null);
 
   useEffect(() => {
     getContents(dispatch, access, slug);
@@ -66,13 +69,33 @@ const SectionContent = ({ dispatch, access, slug }) => {
     setLectures(sectionData);
   }, [sectionData]);
 
+  const handleOpenCreateCourse = () => {
+    dispatch(openModal({ modalName: "sectioninfo", slug }));
+  };
+
+  const handleDeleteLecture = (lecture) => {
+    setLectureToDelete(lecture);
+    setShowDeleteModal(true);
+  };
+
+  const handleConfirmDeleteLecture = () => {
+    deleteSection(dispatch, access, lectureToDelete.slug); // Replace with actual action and slug
+    setShowDeleteModal(false);
+    setLectureToDelete(null);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
+    setLectureToDelete(null);
+  };
+
   const renderIcon = (type) => {
     switch (type) {
-      case 'video':
+      case "video":
         return faVideo;
-      case 'image':
+      case "image":
         return faImage;
-      case 'file':
+      case "file":
         return faFileAlt;
       default:
         return faFileAlt;
@@ -83,49 +106,63 @@ const SectionContent = ({ dispatch, access, slug }) => {
     if (item.video) return item.video.title;
     if (item.image) return item.image.title;
     if (item.file) return item.file.title;
-    return 'Unknown Title';
-  };
-  const renderLink = (item) => {
-    if (item.video) return item.video.file;
-    if (item.image) return item.image.file;
-    if (item.file) return item.file.file;
-    return 'Unknown Link';
+    return "Unknown Title";
   };
 
   const handleClick = (item) => {
-    console.log("Item clicked:", renderLink(item));
+    if (item.video) {
+      onSelect("video", item.video.file);
+    } else if (item.image) {
+      onSelect("image", item.image.file);
+    }
   };
 
   return (
     <div className="w-full">
       {lectures.map((item, index) => (
         <div
-          className="relative p-4 mt-2 bg-white shadow-lg cursor-pointer"
+          className="relative pt-2 bg-white shadow-lg cursor-pointer"
           key={index}
           onClick={() => handleClick(item)}
         >
           <ul className="space-y-1">
             {Object.keys(item).map((key) => (
-              <li className="relative" key={key}>
-                <div className="relative focus-within:border-l-4 focus-within:border-l-sky-800">
-                  <FontAwesomeIcon
-                    icon={renderIcon(key)}
-                    className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
-                  />
-                  <span className="w-full pl-10 pr-3 py-2 bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
-                    {renderTitle(item)}
-                  </span>
+              <li className="relative border-b border-b-sky-950 border-opacity-80" key={key}>
+                <div className="flex justify-between">
+                  <div className="relative cursor-pointer pl-14">
+                    <FontAwesomeIcon
+                      icon={renderIcon(key)}
+                      className="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-black"
+                    />
+                    <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
+                      {renderTitle(item)}
+                    </div>
+                  </div>
+                  <div className="flex space-x-3 mr-2">
+                    <button onClick={() => handleDeleteLecture(item)}>
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                    <button onClick={handleOpenCreateCourse}>
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </button>
+                  </div>
                 </div>
               </li>
             ))}
           </ul>
         </div>
       ))}
+      {showDeleteModal && (
+        <DeleteSection
+          onDelete={handleConfirmDeleteLecture}
+          onClose={handleCloseDeleteModal}
+        />
+      )}
     </div>
   );
 };
 
-const NewSection = ({ sectionTitle, onDelete, onEdit, slug }) => {
+const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const access = useSelector((state) => state.userAuth.access);
   const dispatch = useDispatch();
@@ -150,7 +187,7 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug }) => {
         onEdit={onEdit}
         slug={slug}
       />
-      <SectionContent dispatch={dispatch} access={access} slug={slug} />
+      <SectionContent dispatch={dispatch} access={access} slug={slug} onSelect={onSelect} />
       {showDeleteModal && (
         <DeleteSection
           onDelete={handleConfirmDelete}
@@ -166,6 +203,8 @@ const CoursesContent = () => {
   const [newSections, setNewSections] = useState(sectionsData || []);
   const [showModal, setShowModal] = useState(false);
   const [selectedSection, setSelectedSection] = useState(null);
+  const [selectedContent, setSelectedContent] = useState(null);
+  const [selectedContentUrl, setSelectedContentUrl] = useState("");
   const dispatch = useDispatch();
   const { slug } = useParams();
   const access = useSelector((state) => state.userAuth.access);
@@ -206,6 +245,33 @@ const CoursesContent = () => {
     setNewSections(sectionsData || []);
   }, [sectionsData]);
 
+  const handleSelectContent = (type, url) => {
+    setSelectedContent(type);
+    setSelectedContentUrl(url);
+  };
+
+  const renderSelectedContent = () => {
+    if (!selectedContent) return null;
+    switch (selectedContent) {
+      case "video":
+        return (
+          <VideoPlayer
+            url={selectedContentUrl}
+            onClose={() => setSelectedContent(null)}
+          />
+        );
+      case "image":
+        return (
+          <ImageViewer
+            url={selectedContentUrl}
+            onClose={() => setSelectedContent(null)}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <header className="p-10 bg-[#004682] text-white">
@@ -224,8 +290,14 @@ const CoursesContent = () => {
         </p>
       </header>
       <div className="flex flex-col justify-around pt-10 pb-32 bg-white md:flex-row md:space-x-3 lg:space-x-4">
-        <div className="flex justify-center md:flex-col md:justify-start">
-          <img className="w-80" src={ebook} alt="ebook image" loading="lazy" />
+           <div className="flex flex-col items-center relative h-[80vh] w-full md:w-3/5">
+          {renderSelectedContent()}
+          <img
+            className="mt-4 w-96"
+            src={ebook}
+            alt="ebook image"
+            loading="lazy"
+          />
         </div>
         <div className="flex flex-col bg-white md:justify-start md:items-start">
           <div className="flex flex-col gap-3 px-5 md:flex-row md:space-x-3 md:gap-0 lg:space-x-4 md:px-0">
@@ -288,6 +360,7 @@ const CoursesContent = () => {
                 slug={section.slug}
                 onDelete={() => handleDeleteSection(index)}
                 onEdit={() => handleEditSectionClick(section)}
+                onSelect={handleSelectContent}
               />
             ))}
           </div>
