@@ -7,7 +7,6 @@ import DeleteSection from "../../components/Instructor/CreateSections/DeleteSect
 import CreateNewSection from "./../../components/Instructor/CreateSections/CreateNewSection";
 import { closeModal } from "../../redux/slices/Instructor/OpenClose";
 
-
 const sectionInfo = document.getElementById("section__info");
 
 const deletesection = document.getElementById("deletesection__modal");
@@ -16,11 +15,11 @@ const newInstructorCourseId = document.getElementById(
 );
 
 const CoursesContentPage = () => {
-const { modalName, slug } = useSelector((state) => state.openClose);
-    const dispatch = useDispatch();
-    const handleCloseModal = () => {
-      dispatch(closeModal());
-    };
+  const { modalName, slug, lecture } = useSelector((state) => state.openClose);
+  const dispatch = useDispatch();
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
   return (
     <>
       <CoursesContent />
@@ -31,7 +30,11 @@ const { modalName, slug } = useSelector((state) => state.openClose);
         )}
       {modalName === "sectioninfo" &&
         createPortal(
-          <SectionInfo onClose={handleCloseModal} slug={slug} />,
+          <SectionInfo
+            onClose={handleCloseModal}
+            slug={slug}
+            lecture={lecture}
+          />,
           sectionInfo
         )}
       {modalName === "deletesection__modal" &&

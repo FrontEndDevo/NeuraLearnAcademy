@@ -14,6 +14,8 @@ import {
   UPDATESECTION_ERROR,
   CREATECONTENT_ERROR,
   GETCONTENTS_ERROR,
+  DELETELECTURE_ERROR,
+  UPDATELECTURE_ERROR,
 } from "../slices/courses/courses-errors";
 
 import {
@@ -39,8 +41,11 @@ import {
   CREATECONTENT_FAIL,
   GETCONTENTS_SUCCESS,
   GETCONTENTS_FAIL,
+  DELETELECTURE_SUCCESS,
+  DELETELECTURE_FAIL,
+  UPDATELECTURE_SUCCESS,
+  UPDATELECTURE_FAIL,
 } from "../slices/courses/courses-slice";
-
 
 export const public_courses = async (dispatch) => {
   try {
@@ -265,7 +270,6 @@ export async function createSection(
       title,
       description,
     });
-    console.log(body);
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL + `/api/courses/${slug}/module/create/`,
@@ -376,7 +380,7 @@ export async function createContent(dispatch, access, body, slug, type) {
     }
   }
 }
-export async function getContents(dispatch, access,slug) {
+export async function getContents(dispatch, access, slug) {
   if (access) {
     const config = {
       headers: {
@@ -390,10 +394,51 @@ export async function getContents(dispatch, access,slug) {
         import.meta.env.VITE_API_URL + `/api/courses/module/${slug}/contents/`,
         config
       );
-      dispatch(GETCONTENTS_SUCCESS(res.data.contents));
+      dispatch({
+        type: GETCONTENTS_SUCCESS,
+        payload: { content: res.data.contents, slug },
+      });
     } catch (err) {
       dispatch(GETCONTENTS_FAIL());
       dispatch(GETCONTENTS_ERROR(err.response.data));
+    }
+  }
+}
+export async function deleteLecture(dispatch, access, api) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.delete(api, config);
+      dispatch(DELETELECTURE_SUCCESS(res.data));
+    } catch (err) {
+      dispatch(DELETELECTURE_FAIL());
+      dispatch(DELETELECTURE_ERROR(err.response.data));
+    }
+  }
+}
+export async function updateLecture(dispatch, access, formData, api) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.put(api, formData, config);
+      dispatch(UPDATELECTURE_SUCCESS(res.data));
+      console.log(res);
+    } catch (err) {
+      dispatch(UPDATELECTURE_FAIL());
+      dispatch(UPDATELECTURE_ERROR(err.response.data));
+      console.log(err);
     }
   }
 }

@@ -5,7 +5,7 @@ import videoPreview from "../../../assets/images/Instructor/videoPreview.png";
 import photoPreview from "../../../assets/images/Instructor/photoPreview.png";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BlurModal from "../../../shared/BlurModal";
 import contentInfo from "../../../assets/images/Instructor/info.png";
 import addFile from "../../../assets/images/Instructor/addFile.png";
@@ -14,19 +14,43 @@ import addPhoto from "../../../assets/images/Instructor/addPhoto.png";
 import list from "../../../assets/images/Instructor/list.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { createContent } from "../../../redux/actions/courses-methods";
+import {
+  createContent,
+  updateLecture,
+} from "../../../redux/actions/courses-methods";
 
-const SectionInfo = ({ onClose,slug }) => {
+const SectionInfo = ({ onClose, slug, lecture }) => {
   const [selectedContent, setSelectedContent] = useState(null);
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
+
+  useEffect(() => {
+    if (lecture) {
+      setTitle(renderTitle(lecture));
+    }
+  }, [lecture]);
+
+  const renderTitle = (item) => {
+    if (item.video) return item.video.title;
+    if (item.image) return item.image.title;
+    if (item.file) return item.file.title;
+    return "Unknown Title";
+  };
+
+  const renderUpdateLink = (lecture) => {
+    if (lecture.file) return lecture.file.edit_url;
+    if (lecture.video) return lecture.video.edit_url;
+    if (lecture.image) return lecture.image.edit_url;
+    return "Unknown Linke";
+  };
+
   const access = useSelector((state) => state.userAuth.access);
   const handleCloseCreateCourse = () => {
     onClose();
   };
 
   const handleUploadContent = (type, content) => {
-    const newContent = {type, content };
+    const newContent = { type, content };
     setSelectedContent(newContent);
   };
 
@@ -42,17 +66,15 @@ const SectionInfo = ({ onClose,slug }) => {
     const formData = new FormData();
     formData.append("title", title);
     formData.append("file", selectedContent.content);
-
-    createContent(
-      dispatch,
-      access,
-      formData,
-      slug,
-      selectedContent.type
-    );
+    if (lecture) {
+      const api = renderUpdateLink(lecture);
+      updateLecture(dispatch, access, formData, api);
+    } else {
+      createContent(dispatch, access, formData, slug, selectedContent.type);
+    }
     onClose();
   };
-  
+
   const renderPreview = (type) => {
     switch (type) {
       case "image":

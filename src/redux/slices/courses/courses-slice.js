@@ -13,7 +13,9 @@ const initialState = {
   sectionsData: [],
   updateSectionData: null,
   sectionContent: [],
-  getsectionContent: [],
+  getsectionContent: {},
+  lectureDeleted: null,
+  lectureUpdated: null,
 };
 
 const subjectCourseReducer = (state, action) => {
@@ -137,16 +139,50 @@ const createContentFailReducer = (state) => {
     sectionContent: [],
   };
 };
-const getSectionContentReducer = (state, action) => {
+const getSectionContentReducer = (state = initialState, action) => {
+  const { slug, content } = action.payload;
+  console.log(slug, ":", content);
   return {
     ...state,
-    getsectionContent: action.payload,
+    getsectionContent: {
+      ...state.getsectionContent,
+      [slug]: [...content],
+    },
   };
 };
-const getSectionContentFailReducer = (state) => {
+
+const getSectionContentFailReducer = (state = initialState, action) => {
+  const { slug } = action.payload;
   return {
     ...state,
-    getsectionContent: [],
+    getsectionContent: {
+      ...state.getsectionContent,
+      [slug]: [],
+    },
+  };
+};
+const deleteLectureReducer = (state, action) => {
+  return {
+    ...state,
+    lectureDeleted: action.payload,
+  };
+};
+const deleteLectureFailReducer = (state) => {
+  return {
+    ...state,
+    lectureDeleted: null,
+  };
+};
+const updateLectureReducer = (state, action) => {
+  return {
+    ...state,
+    lectureUpdated: action.payload,
+  };
+};
+const updateLectureFailReducer = (state) => {
+  return {
+    ...state,
+    lectureUpdated: null,
   };
 };
 
@@ -176,6 +212,10 @@ const courseSlice = createSlice({
     CREATECONTENT_FAIL: createContentFailReducer,
     GETCONTENTS_SUCCESS: getSectionContentReducer,
     GETCONTENTS_FAIL: getSectionContentFailReducer,
+    DELETELECTURE_SUCCESS: deleteLectureReducer,
+    DELETELECTURE_FAIL: deleteLectureFailReducer,
+    UPDATELECTURE_SUCCESS: updateLectureReducer,
+    UPDATELECTURE_FAIL: updateLectureFailReducer,
     setPublicCourses(state, action) {
       state.publicCourses = action.payload;
     },
@@ -208,6 +248,10 @@ export const {
   CREATECONTENT_FAIL,
   GETCONTENTS_SUCCESS,
   GETCONTENTS_FAIL,
+  DELETELECTURE_SUCCESS,
+  DELETELECTURE_FAIL,
+  UPDATELECTURE_SUCCESS,
+  UPDATELECTURE_FAIL,
   setPublicCourses,
   setCoursesDependOnSubject,
 } = courseSlice.actions;

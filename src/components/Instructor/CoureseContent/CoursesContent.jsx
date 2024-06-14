@@ -23,6 +23,7 @@ import DeleteSection from "../CreateSections/DeleteSection";
 import { useParams } from "react-router-dom";
 import {
   createSection,
+  deleteLecture,
   deleteSection,
   getContents,
   getSections,
@@ -45,7 +46,7 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
   };
 
   return (
-    <div className="flex justify-between px-4 py-3 bg-sky-950 md:px-7 md:py-3 cursor-pointer" o>
+    <div className="flex justify-between px-4 py-3 cursor-pointer bg-sky-950 md:px-7 md:py-3" >
       <span className="font-semibold text-white">{sectionTitle}</span>
       <div className="flex space-x-3 text-white">
         {/* Arrow icon for toggle */}
@@ -59,45 +60,50 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
         <button onClick={handleOpenCreateCourse}>
           <FontAwesomeIcon icon={faPlus} />
         </button>
-        <FontAwesomeIcon nClick={handleToggle} className="mt-1" icon={isOpen ? faAngleUp : faAngleDown} onClick={handleToggle} />
+        <FontAwesomeIcon  className="mt-1" icon={isOpen ? faAngleUp : faAngleDown} onClick={handleToggle} />
 
       </div>
     </div>
   );
 };
 const SectionContent = ({ dispatch, access, slug, onSelect }) => {
-  const sectionData = useSelector((state) => state.courses.getsectionContent);
+  const sectionData = useSelector(
+    (state) => state.courses.getsectionContent[slug] || []
+  );
   const [lectures, setLectures] = useState(sectionData);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [lectureToDelete, setLectureToDelete] = useState(null);
+  const [lecture, setLecture] = useState(null);
 
   useEffect(() => {
     getContents(dispatch, access, slug);
   }, [dispatch, access, slug]);
 
   useEffect(() => {
-    setLectures(sectionData);
+    if (sectionData !== lectures) {
+      setLectures(sectionData);
+    }
   }, [sectionData]);
   console.log(sectionData)
 
-  const handleOpenCreateCourse = () => {
-    dispatch(openModal({ modalName: "sectioninfo", slug }));
+  const handleUpdateLecture = (lecture) => {
+    dispatch(openModal({ modalName: "sectioninfo", lecture }));
   };
 
   const handleDeleteLecture = (lecture) => {
-    setLectureToDelete(lecture);
+    setLecture(lecture);
     setShowDeleteModal(true);
   };
 
   const handleConfirmDeleteLecture = () => {
-    deleteSection(dispatch, access, lectureToDelete.slug); // Replace with actual action and slug
+    const api = renderDeleteLink(lecture);
+    deleteLecture(dispatch, access, api); // Replace with actual action and slug
     setShowDeleteModal(false);
-    setLectureToDelete(null);
+    setLecture(null);
   };
 
   const handleCloseDeleteModal = () => {
     setShowDeleteModal(false);
-    setLectureToDelete(null);
+    setLecture(null);
   };
 
   const renderIcon = (type) => {
@@ -119,6 +125,12 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
     if (item.file) return item.file.title;
     return "Unknown Title";
   };
+  const renderDeleteLink = (lecture) => {
+    if (lecture.file) return lecture.file.delete_url;
+    if (lecture.video) return lecture.video.delete_url;
+    if (lecture.image) return lecture.image.delete_url;
+    return "Unknown Linke";
+  };
 
   const handleClick = (item) => {
     if (item.video) {
@@ -138,22 +150,25 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
         >
           <ul className="space-y-1">
             {Object.keys(item).map((key) => (
-              <li className="relative border-b border-b-sky-950 border-opacity-80" key={key}>
+              <li
+                className="relative border-b border-b-sky-950 border-opacity-80"
+                key={key}
+              >
                 <div className="flex justify-between">
                   <div className="relative cursor-pointer pl-14" onClick={() => handleClick(item)}>
                     <FontAwesomeIcon
                       icon={renderIcon(key)}
-                      className="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-black"
+                      className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
                     />
                     <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
                       {renderTitle(item)}
                     </div>
                   </div>
-                  <div className="flex space-x-3 mr-2">
+                  <div className="flex mr-2 space-x-3">
                     <button onClick={() => handleDeleteLecture(item)}>
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
-                    <button onClick={handleOpenCreateCourse}>
+                    <button onClick={() => handleUpdateLecture(item)}>
                       <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
                   </div>
@@ -182,7 +197,6 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
   const handleDelete = () => {
     setShowDeleteModal(true);
   };
-
   const handleConfirmDelete = () => {
     setShowDeleteModal(false);
     deleteSection(dispatch, access, slug);
@@ -312,7 +326,7 @@ const CoursesContent = () => {
         </p>
       </header>
       <div className="flex flex-col justify-around pt-10 pb-32 bg-white md:flex-row md:space-x-3 lg:space-x-4">
-           <div className="flex flex-col items-center relative h-[80vh] w-full md:w-3/5">
+        <div className="flex flex-col items-center relative h-[80vh] w-full md:w-3/5">
           {renderSelectedContent()}
           <img
             className="mt-4 w-96"
