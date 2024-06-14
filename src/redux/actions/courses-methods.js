@@ -41,7 +41,6 @@ import {
   GETCONTENTS_FAIL,
 } from "../slices/courses/courses-slice";
 
-
 export const public_courses = async (dispatch) => {
   try {
     const res = await axios.get(
@@ -265,7 +264,6 @@ export async function createSection(
       title,
       description,
     });
-    console.log(body);
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL + `/api/courses/${slug}/module/create/`,
@@ -376,7 +374,7 @@ export async function createContent(dispatch, access, body, slug, type) {
     }
   }
 }
-export async function getContents(dispatch, access,slug) {
+export async function getContents(dispatch, access, slug) {
   if (access) {
     const config = {
       headers: {
@@ -390,7 +388,10 @@ export async function getContents(dispatch, access,slug) {
         import.meta.env.VITE_API_URL + `/api/courses/module/${slug}/contents/`,
         config
       );
-      dispatch(GETCONTENTS_SUCCESS(res.data.contents));
+      dispatch({
+        type: GETCONTENTS_SUCCESS,
+        payload: { content: res.data.contents, slug },
+      });
     } catch (err) {
       dispatch(GETCONTENTS_FAIL());
       dispatch(GETCONTENTS_ERROR(err.response.data));
