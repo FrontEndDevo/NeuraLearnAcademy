@@ -21,15 +21,15 @@ import ChatBot from "./pages/ChatBot";
 import CoursesContentPage from "./pages/Instructor/CoursesContentPage";
 import RequireAuth from "./components/Registration/RequireAuth/RequireAuth";
 import QuestionGenerationPage from "./pages/QuestionGenerationPage";
-import Spinner from "./shared/Spinner";
+import Spinner from "./shared/popup/Spinner";
 import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
 
 const loadingSpinnerId = document.getElementById("loading__spinner");
 
 const App = () => {
-  const isLoading = useSelector((state) => state.spinner.isSpinnerLoading);
-
+  let isLoading = useSelector((state) => state.spinner.isSpinnerLoading);
+  isLoading = true;
   return (
     <>
       {createPortal(<Spinner isLoading={isLoading} />, loadingSpinnerId)}
@@ -61,7 +61,10 @@ const App = () => {
           </Route>
 
           <Route path="summarizer" element={<Summarizers />} />
-          <Route path="questionqeneration" element={<QuestionGenerationPage />} />
+          <Route
+            path="questionqeneration"
+            element={<QuestionGenerationPage />}
+          />
           <Route path="ChatBot" element={<ChatBot />} />
           <Route path="CoursesContentPage" element={<CoursesContentPage />} />
         </Route>

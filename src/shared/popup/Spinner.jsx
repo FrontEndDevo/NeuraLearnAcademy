@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 // The button from Flowbite (https://flowbite.com/docs/components/spinner)
 // This spinner component is used to show a loading state of a button. It appears on the top of screen.
 const Spinner = ({ isLoading }) => {
+  console.log(isLoading);
   return (
     <button
       disabled
