@@ -25,14 +25,14 @@ import Spinner from "./shared/popup/Spinner";
 import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
 
-const loadingSpinnerId = document.getElementById("loading__spinner");
+const popupsMessages = document.getElementById("popups");
 
 const App = () => {
   let isLoading = useSelector((state) => state.spinner.isSpinnerLoading);
   isLoading = true;
   return (
     <>
-      {createPortal(<Spinner isLoading={isLoading} />, loadingSpinnerId)}
+      {createPortal(<Spinner isLoading={isLoading} />, popupsMessages)}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<LoginPage />} />
