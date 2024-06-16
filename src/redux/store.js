@@ -8,7 +8,7 @@ import authSlice from "./slices/authentication/auth";
 import authErrorsSlice from "./slices/authentication/errors";
 import coursesSlice from "./slices/courses/courses-slice";
 import coursesErrorsSlice from "./slices/courses/courses-errors";
-import spinnerSlice from "./slices/spinner";
+import spinnerSlice from "./slices/popups-slices/spinner-slice";
 
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
