@@ -224,12 +224,12 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
 
             <div className="flex items-center gap-4 lg:items-end">
               <button
-                disabled={spinner.isSpinnerLoading}
+                disabled={spinner.isSpinnerLoading || missingError}
                 onClick={handleSavingCourseInformation}
                 className={`px-6 py-2 text-lg font-semibold tracking-tight text-white duration-300 rounded-lg ${
-                  missingError
+                  missingError && !spinner.isSpinnerLoading
                     ? "bg-red-900 hover:bg-red-800"
-                    : "bg-stone-900 hover:bg-stone-800"
+                    : "bg-stone-900"
                 } ${
                   spinner.isSpinnerLoading &&
                   "bg-gray-600 text-gray-700 cursor-not-allowed"
