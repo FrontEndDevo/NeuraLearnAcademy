@@ -24,15 +24,25 @@ import QuestionGenerationPage from "./pages/QuestionGenerationPage";
 import Spinner from "./shared/popup/Spinner";
 import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
+import Toast from "./shared/popup/Toast";
 
 const popupsMessages = document.getElementById("popups");
 
 const App = () => {
-  let isLoading = useSelector((state) => state.spinner.isSpinnerLoading);
-  isLoading = true;
+  const isLoading = useSelector((state) => state.spinner.isSpinnerLoading);
+  const toastsAlert = useSelector((state) => state.toasts);
+
   return (
     <>
       {createPortal(<Spinner isLoading={isLoading} />, popupsMessages)}
+      {createPortal(
+        <Toast
+          showMessage={toastsAlert.showMessage}
+          message={toastsAlert.message}
+          messageType={toastsAlert.messageType}
+        />,
+        popupsMessages
+      )}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<LoginPage />} />
