@@ -1,8 +1,10 @@
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 // The button from Flowbite (https://flowbite.com/docs/components/spinner)
 // This spinner component is used to show a loading state of a button. It appears on the top of screen.
-const Spinner = ({ isLoading }) => {
+const Spinner = () => {
+  const isLoading = useSelector((state) => state.spinner.isSpinnerLoading);
+  
   return (
     <button
       disabled
@@ -31,10 +33,6 @@ const Spinner = ({ isLoading }) => {
       Loading...
     </button>
   );
-};
-
-Spinner.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
 };
 
 export default Spinner;

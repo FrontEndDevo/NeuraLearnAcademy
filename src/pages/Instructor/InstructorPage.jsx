@@ -14,20 +14,10 @@ const popupsMessages = document.getElementById("popups");
 const InstructorPage = () => {
   const openCloseModal = useSelector((state) => state.openClose);
 
-  const isLoading = useSelector((state) => state.spinner.isSpinnerLoading);
-  const toastsAlert = useSelector((state) => state.toasts);
-
   return (
     <>
-      {createPortal(
-        <Toast
-          showMessage={toastsAlert.showMessage}
-          message={toastsAlert.message}
-          messageType={toastsAlert.messageType}
-        />,
-        popupsMessages
-      )}
-      {createPortal(<Spinner isLoading={isLoading} />, popupsMessages)}
+      {createPortal(<Toast />, popupsMessages)}
+      {createPortal(<Spinner />, popupsMessages)}
 
       <InstructorCourses />
 

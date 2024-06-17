@@ -4,14 +4,16 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   hideMessage,
   resetToasts,
 } from "../../redux/slices/popups-slices/toasts-slice";
 import { useEffect, useRef } from "react";
-const Toast = ({ showMessage, message, messageType }) => {
+const Toast = () => {
+  const toastsAlert = useSelector((state) => state.toasts);
+  const { showMessage, message, messageType } = toastsAlert;
+
   const dispatch = useDispatch();
   const timeoutRef = useRef();
 
@@ -71,12 +73,6 @@ const Toast = ({ showMessage, message, messageType }) => {
       </div>
     </div>
   );
-};
-
-Toast.propTypes = {
-  showMessage: PropTypes.bool.isRequired,
-  message: PropTypes.string.isRequired,
-  messageType: PropTypes.string.isRequired,
 };
 
 export default Toast;
