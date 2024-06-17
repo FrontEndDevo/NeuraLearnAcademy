@@ -107,16 +107,30 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
         handleCloseCreateCourse();
       } else {
         // Update the course:
-        updateCourse(
-          dispatch,
-          access,
-          course.slug,
-          selectedCategoryId,
-          title,
-          description,
-          price,
-          image
-        );
+        if (course.image !== thumbnail) {
+          // If the image has changed, we need to send it to the server.
+          updateCourse(
+            dispatch,
+            access,
+            course.slug,
+            selectedCategoryId,
+            title,
+            description,
+            price,
+            image
+          );
+        } else {
+          // If the image is the same, we don't need to send it to the server.
+          updateCourse(
+            dispatch,
+            access,
+            course.slug,
+            selectedCategoryId,
+            title,
+            description,
+            price
+          );
+        }
 
         handleCloseCreateCourse();
       }
