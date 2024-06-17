@@ -26,7 +26,6 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
   const [image, setImage] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [missingError, setMissingError] = useState(false);
-
   // Input Refs:
   const titleRef = useRef("");
   const descriptionRef = useRef("");
@@ -37,12 +36,14 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
     if (course) {
       setThumbnail(course.image || "");
       setImage(course.image || "");
-      setSelectedCategoryId(course.categoryId || null);
+      setSelectedCategoryId(
+        categories.filter((cat) => cat.title == course.subject)[0].id || null
+      );
       titleRef.current.value = course.title || "";
       descriptionRef.current.value = course.overview || "";
       priceRef.current.value = course.price || 0;
     }
-  }, [course]);
+  }, [course, categories]);
 
   // Handle the selected category:
   const handleSelectedSubject = (selectedOption) => {
