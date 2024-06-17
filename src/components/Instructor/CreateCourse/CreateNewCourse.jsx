@@ -297,7 +297,7 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
 };
 
 CreateNewCourse.propTypes = {
-  instructorCourseDetails: PropTypes.array,
+  instructorCourseDetails: PropTypes.object,
 };
 
 export default CreateNewCourse;
