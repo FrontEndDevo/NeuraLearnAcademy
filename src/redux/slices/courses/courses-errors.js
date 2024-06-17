@@ -36,15 +36,6 @@ const coursesErrorsSlice = createSlice({
   UPDATEUSERDATA_ERROR: (state, action) => {
     state.updateUserDataError = action.payload;
   },
-  CREATECOURSE_ERROR: (state, action) => {
-    state.createCourseError = action.payload;
-  },
-  UPDATECOURSE_ERROR: (state, action) => {
-    state.updateCourseError = action.payload;
-  },
-  DELETECOURSE_ERROR: (state, action) => {
-    state.deleteCourseError = action.payload;
-  },
 });
 
 export const {
@@ -54,10 +45,6 @@ export const {
   GETSUBJECTCOURSES_ERROR,
   GETINSTRUCTORCOURSES_ERROR,
   UPDATEUSERDATA_ERROR,
-  CREATECOURSE_ERROR,
-  UPDATECOURSE_ERROR,
-  DELETECOURSE_ERROR,
-  DETAILCOURSE_ERROR,
 } = coursesErrorsSlice.actions;
 
 export default coursesErrorsSlice.reducer;

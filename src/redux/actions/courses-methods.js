@@ -2,28 +2,22 @@ import axios from "axios";
 import {
   setCoursesDependOnSubjectError,
   setPublicCoursesError,
-  CREATECOURSE_ERROR,
-  DELETECOURSE_ERROR,
   GETINSTRUCTORCOURSES_ERROR,
   GETSUBJECTCOURSES_ERROR,
-  UPDATECOURSE_ERROR,
   UPDATEUSERDATA_ERROR,
 } from "../slices/courses/courses-errors";
 
 import {
-  CREATECOURSE_FAIL,
-  CREATECOURSE_SUCCESS,
   GETINSTRUCTORCOURSES_FAIL,
   GETINSTRUCTORCOURSES_SUCCESS,
   GETSUBJECTCOURSES_FAIL,
   GETSUBJECTCOURSES_SUCCESS,
-  UPDATECOURSE_FAIL,
-  UPDATECOURSE_SUCCESS,
   UPDATEUSERDATA_FAIL,
   UPDATEUSERDATA_SUCCESS,
   setCoursesDependOnSubject,
   setPublicCourses,
 } from "../slices/courses/courses-slice";
+import { setToastMessage } from "../slices/popups-slices/toasts-slice";
 
 export const public_courses = async (dispatch) => {
   try {
@@ -146,7 +140,7 @@ export async function createCourse(
     formData.append("available", available);
 
     try {
-      const res = await axios.post(
+      await axios.post(
         import.meta.env.VITE_API_URL + "/api/courses/create/",
         formData, // Send formData instead of JSON
         {
@@ -157,10 +151,19 @@ export async function createCourse(
           },
         }
       );
-      dispatch(CREATECOURSE_SUCCESS(res.data));
+      dispatch(
+        setToastMessage({
+          message: "The Course was created succefully.",
+          type: "success",
+        })
+      );
     } catch (err) {
-      dispatch(CREATECOURSE_FAIL());
-      dispatch(CREATECOURSE_ERROR(err.response.data));
+      dispatch(
+        setToastMessage({
+          message: "oops! Something went wrong. Try again later.",
+          type: "error",
+        })
+      );
     }
   }
 }
@@ -177,33 +180,40 @@ export async function updateCourse(
 ) {
   const available = false;
   if (access) {
+    const formData = new FormData();
+    formData.append("subject", subject);
+    formData.append("title", title);
+    formData.append("overview", overview);
+    formData.append("price", price);
+    image !== undefined && formData.append("image", image);
+    formData.append("available", available);
     const config = {
       headers: {
-        "Content-Type": "application/json",
         Authorization: `JWT ${access}`,
         Accept: "application/json",
+        "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
       },
     };
-    // send image as form data not json
-    const body = JSON.stringify({
-      subject,
-      title,
-      overview,
-      price,
-      image,
-      available,
-    });
 
     try {
-      const res = await axios.put(
+      await axios.put(
         import.meta.env.VITE_API_URL + `/api/courses/${slug}/edit/`,
-        body,
+        formData, // Send formData instead of JSON
         config
       );
-      dispatch(UPDATECOURSE_SUCCESS(res.data));
+      dispatch(
+        setToastMessage({
+          message: "The Course was updated succefully.",
+          type: "success",
+        })
+      );
     } catch (err) {
-      dispatch(UPDATECOURSE_FAIL());
-      dispatch(UPDATECOURSE_ERROR(err.response.data));
+      dispatch(
+        setToastMessage({
+          message: "Unable to update the course content! Try again later.",
+          type: "error",
+        })
+      );
     }
   }
 }
@@ -223,8 +233,16 @@ export async function deleteCourse(dispatch, access, slug) {
         import.meta.env.VITE_API_URL + `/api/courses/${slug}/delete/`,
         config
       );
+      dispatch(
+        setToastMessage({
+          message: "The Course was deleted succefully.",
+          type: "success",
+        })
+      );
     } catch (err) {
-      dispatch(DELETECOURSE_ERROR(err.response.data));
+      dispatch(
+        setToastMessage({ message: err.response.data.detail, type: "error" })
+      );
     }
   }
 }
