@@ -21,28 +21,10 @@ import ChatBot from "./pages/ChatBot";
 import CoursesContentPage from "./pages/Instructor/CoursesContentPage";
 import RequireAuth from "./components/Registration/RequireAuth/RequireAuth";
 import QuestionGenerationPage from "./pages/QuestionGenerationPage";
-import Spinner from "./shared/popup/Spinner";
-import { createPortal } from "react-dom";
-import { useSelector } from "react-redux";
-import Toast from "./shared/popup/Toast";
-
-const popupsMessages = document.getElementById("popups");
 
 const App = () => {
-  const isLoading = useSelector((state) => state.spinner.isSpinnerLoading);
-  const toastsAlert = useSelector((state) => state.toasts);
-
   return (
     <>
-      {createPortal(<Spinner isLoading={isLoading} />, popupsMessages)}
-      {createPortal(
-        <Toast
-          showMessage={toastsAlert.showMessage}
-          message={toastsAlert.message}
-          messageType={toastsAlert.messageType}
-        />,
-        popupsMessages
-      )}
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<LoginPage />} />
