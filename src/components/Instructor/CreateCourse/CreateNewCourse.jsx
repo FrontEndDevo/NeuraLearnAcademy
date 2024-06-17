@@ -18,7 +18,6 @@ import {
 } from "../../../redux/actions/courses-methods";
 
 const CreateNewCourse = ({ instructorCourseDetails: course }) => {
-  console.log(course)
   const categories = useSelector((state) => state.courses.subjectCourses);
   const access = useSelector((state) => state.userAuth.access);
 
