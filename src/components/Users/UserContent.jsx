@@ -13,13 +13,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import VideoPlayer from "../../shared/VideoPlayer";
 import ImageViewer from "../../shared/ImageViewer";
+
 const SectionHeader = ({ sectionTitle, onClick, isOpen }) => {
   return (
     <div
       className="bg-sky-950 flex justify-between items-center content-center cursor-pointer"
       onClick={onClick}
     >
-      <div className="flex justify-between  md:space-x-60 w-full px-4 py-3 md:px-6 ">
+      <div className="flex justify-between md:space-x-60 w-full px-4 py-3 md:px-6">
         <div className="text-white font-semibold">{sectionTitle}</div>
         <div className="text-white ml-2">
           <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
@@ -28,10 +29,14 @@ const SectionHeader = ({ sectionTitle, onClick, isOpen }) => {
     </div>
   );
 };
-const SectionContent = ({ onSelect }) => {
+
+const SectionContent = ({ onSelect, isOpen }) => {
   return (
-    <div className="w-full">
-      <div className="relative bg-white shadow-lg ">
+    <div
+      className={`w-full transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
+    >
+      <div className="relative bg-white shadow-lg">
         <ul className="space-y-1">
           <li
             className="relative cursor-pointer border-b border-opacity-80 hover:border-opacity-100 border-sky-950"
@@ -76,9 +81,9 @@ const SectionContent = ({ onSelect }) => {
             </div>
           </li>
 
-          <li className="relative " onClick={() => onSelect("file")}>
-            <div className=" flex justify-between">
-              <div className="relative cursor-pointer pl-14 ">
+          <li className="relative" onClick={() => onSelect("file")}>
+            <div className="flex justify-between">
+              <div className="relative cursor-pointer pl-14">
                 <FontAwesomeIcon
                   icon={faFileAlt}
                   className="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-black"
@@ -92,7 +97,7 @@ const SectionContent = ({ onSelect }) => {
                   href="https://s3-alpha-sig.figma.com/img/ce45/a896/d958cf406bb83c3c0a93e2f03fcb0bef?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jE9UayK3Gtw8ouo4YvhpYzud6lMCbs~-Kr678BXNCzxuCzXVWV36uf4VNryN5iXsilAN5pKSohlQ2~-mMpumkbTnziwjTtwY67XwZObM4CHZo0VySWGMoOO4AajM7uwu6vzQqkpbfQZMAGhF3vbFggUfX~IBBdLX3ANkUacFEU4PRdcg8N~0eIjXvwiHyFbmmggZUi1Z5TAiXWxVv33dJ4zLfd4l7WWyvVrQhMHBdEpOjikPRqyZj2rYRzCnsljA-FgwncUgR9TOxMlbAx-Qn7N~bO8OUQURbtpp1BfF5HcB1U8~2kHTceuAVo-LGQLEXY7aNCQaB2kRvBqGiyfuOg__"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600  hover:text-blue-700"
+                  className="text-blue-600 hover:text-blue-700"
                   download
                 >
                   <FontAwesomeIcon icon={faDownload} className="mr-2" />
@@ -179,9 +184,10 @@ const UserContent = () => {
                   onClick={() => toggleSection(index)}
                   isOpen={openSection === index}
                 />
-                {openSection === index && (
-                  <SectionContent onSelect={setSelectedContent} />
-                )}
+                <SectionContent
+                  onSelect={setSelectedContent}
+                  isOpen={openSection === index}
+                />
               </div>
             ))}
           </div>
