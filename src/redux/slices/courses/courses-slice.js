@@ -6,6 +6,7 @@ const initialState = {
   userData: null,
   subjectCourses: null,
   instructorCourses: null,
+  userCourses: null,
   createCourseData: null,
   updateCourseData: null,
   detailCourse: null,
@@ -186,6 +187,20 @@ const updateLectureFailReducer = (state) => {
   };
 };
 
+
+const getUserCoursesReducer = (state, action) => {
+  return {
+    ...state,
+    userCourses: action.payload,
+  };
+};
+const getUserCoursesFailReducer = (state, action) => {
+  return {
+    ...state,
+    userCourses: null,
+  };
+};
+
 const courseSlice = createSlice({
   name: "course",
   initialState,
@@ -216,6 +231,8 @@ const courseSlice = createSlice({
     DELETELECTURE_FAIL: deleteLectureFailReducer,
     UPDATELECTURE_SUCCESS: updateLectureReducer,
     UPDATELECTURE_FAIL: updateLectureFailReducer,
+    GETUSERCOURSES_SUCCESS: getUserCoursesReducer,
+    GETUSERCOURSES_FAIL: getUserCoursesFailReducer,
     setPublicCourses(state, action) {
       state.publicCourses = action.payload;
     },
@@ -254,6 +271,8 @@ export const {
   UPDATELECTURE_FAIL,
   setPublicCourses,
   setCoursesDependOnSubject,
+  GETUSERCOURSES_SUCCESS,
+  GETUSERCOURSES_FAIL,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;
