@@ -13,6 +13,8 @@ const CourseCard = ({
   rate,
   price,
   discount,
+  overview,
+  subject
 }) => {
   const courseTitle = title.length <= 50 ? title : title.slice(0, 50) + "...";
 
@@ -47,9 +49,9 @@ const CourseCard = ({
             {courseTitle}
           </h3>
 
-          {category && (
+          {subject && (
             <h6 className="px-3 py-1 text-[10px] lg:text-base font-bold text-white rounded-full bg-secondary-700 w-fit">
-              {category}
+              {subject}
             </h6>
           )}
           <Link
@@ -77,9 +79,8 @@ const CourseCard = ({
           <div className="flex flex-wrap items-center gap-2 mt-2 md:flex-nowrap">
             {price != null && (
               <p
-                className={`text-2xl font-bold ${
-                  discount && discount === 100 ? "text-[#3AA552]" : ""
-                }`}
+                className={`text-2xl font-bold ${discount && discount === 100 ? "text-[#3AA552]" : ""
+                  }`}
               >
                 {discount
                   ? discount === 100
