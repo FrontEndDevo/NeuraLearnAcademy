@@ -66,7 +66,7 @@ const App = () => {
           <Route path="questionqeneration" element={<QuestionGenerationPage />} />
           <Route path="ChatBot" element={<ChatBot />} />
           <Route path="CoursesContentPage/:slug" element={<CoursesContentPage />} />
-          <Route path="UserContentPage" element={<UserPage />} />
+          <Route path="UserContentPage/:slug" element={<UserPage />} />
         </Route>
       </Routes>
     </>
