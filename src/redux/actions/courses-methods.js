@@ -11,6 +11,7 @@ import {
   CREATESECTION_ERROR,
   DELETESECTION_ERROR,
   GETSECTIONS_ERROR,
+  GETUSERCOURSES_ERROR,
   UPDATESECTION_ERROR,
   CREATECONTENT_ERROR,
   GETCONTENTS_ERROR,
@@ -45,6 +46,8 @@ import {
   DELETELECTURE_FAIL,
   UPDATELECTURE_SUCCESS,
   UPDATELECTURE_FAIL,
+  GETUSERCOURSES_SUCCESS,
+  GETUSERCOURSES_FAIL,
 } from "../slices/courses/courses-slice";
 
 export const public_courses = async (dispatch) => {
@@ -52,7 +55,6 @@ export const public_courses = async (dispatch) => {
     const res = await axios.get(
       import.meta.env.VITE_API_URL + "/api/public/courses/"
     );
-    console.log(res);
     dispatch(setPublicCourses(res.data));
   } catch (err) {
     dispatch(setPublicCoursesError());
@@ -369,7 +371,7 @@ export async function createContent(dispatch, access, body, slug, type) {
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL +
-          `/api/courses/module/${slug}/content/${type}/create/`, // Construct the URL
+        `/api/courses/module/${slug}/content/${type}/create/`, // Construct the URL
         body,
         config
       );
@@ -438,6 +440,34 @@ export async function updateLecture(dispatch, access, formData, api) {
     } catch (err) {
       dispatch(UPDATELECTURE_FAIL());
       dispatch(UPDATELECTURE_ERROR(err.response.data));
+      console.log(err);
+    }
+  }
+}
+
+
+
+
+
+export async function GetUserCourses(dispatch, access ) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/api/students/mylearning/`,
+        config
+      );
+      dispatch(GETUSERCOURSES_SUCCESS(res.data));
+      console.log(res);
+    } catch (err) {
+      dispatch(GETUSERCOURSES_FAIL());
+      dispatch(GETUSERCOURSES_ERROR(err.response.data));
       console.log(err);
     }
   }
