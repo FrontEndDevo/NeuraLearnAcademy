@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { formatUrlString } from "../../utils/Utils";
@@ -14,7 +14,8 @@ const CourseCard = ({
   price,
   discount,
   overview,
-  subject
+  subject,
+  slug
 }) => {
   const courseTitle = title.length <= 50 ? title : title.slice(0, 50) + "...";
 
@@ -55,7 +56,7 @@ const CourseCard = ({
             </h6>
           )}
           <Link
-            to="/"
+            to={`/UserContentPage/${slug}`}
             className="flex items-center justify-center px-12 py-2 my-4 text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm bg-primary-500 hover:bg-primary-700"
           >
             Start Learning
