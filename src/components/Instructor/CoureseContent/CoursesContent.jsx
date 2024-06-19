@@ -46,9 +46,9 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
   };
 
   return (
-    <div className="flex justify-between px-4 py-3 cursor-pointer bg-sky-950 md:px-7 md:py-3" >
+    <div className="flex justify-between px-4 py-3  bg-sky-950 md:px-7 md:py-3" >
       <span className="font-semibold text-white">{sectionTitle}</span>
-      <div className="flex space-x-3 text-white">
+      <div className="flex space-x-3 text-white cursor-pointer">
         {/* Arrow icon for toggle */}
 
         <button onClick={onDelete}>
