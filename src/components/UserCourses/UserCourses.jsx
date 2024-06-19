@@ -1,8 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import UserCoursesOptions from "./UserCoursesOptions";
-import course1 from "../../assets/images/homepage/course_9.jpg";
-import course2 from "../../assets/images/homepage/course_8.jpg";
-import course3 from "../../assets/images/homepage/course_7.jpg";
+import UserCoursesOptions from "./UserCoursesOptions";  
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../shared/Pagination";
 import CourseCard from "../../shared/Courses/CourseCard";
@@ -68,6 +65,7 @@ const UserCourses = () => {
         instructor={course.instructor}
         category={course.category}
         subject={course.subject}
+        slug={course.slug}
 
       />
     ));
