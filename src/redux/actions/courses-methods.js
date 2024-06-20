@@ -2,7 +2,6 @@ import axios from "axios";
 import {
   setCoursesDependOnSubjectError,
   setPublicCoursesError,
-  GETINSTRUCTORCOURSES_ERROR,
   GETSUBJECTCOURSES_ERROR,
   UPDATEUSERDATA_ERROR,
 } from "../slices/courses/courses-errors";
@@ -81,8 +80,13 @@ export async function getInstructorCourses(dispatch, access) {
       );
       dispatch(GETINSTRUCTORCOURSES_SUCCESS(res.data));
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Opps! We couldn't fetch you courses, Try to refresh page.",
+          type: "error",
+        })
+      );
       dispatch(GETINSTRUCTORCOURSES_FAIL());
-      dispatch(GETINSTRUCTORCOURSES_ERROR(err.response.data));
     }
   }
 }

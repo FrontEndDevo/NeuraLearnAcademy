@@ -5,6 +5,8 @@ import DefaultInstructorCourse from "../../shared/Courses/DefaultInstructorCours
 import { useDispatch, useSelector } from "react-redux";
 import { getInstructorCourses } from "../../redux/actions/courses-methods";
 import Pagination from "../../shared/Pagination";
+import { setIsSpinnerLoading } from "../../redux/slices/popups-slices/spinner-slice";
+import { setToastMessage } from "../../redux/slices/popups-slices/toasts-slice";
 const InstructorCourses = () => {
   const [instructorOption, setInstructorOption] = useState("courses");
 
@@ -14,7 +16,26 @@ const InstructorCourses = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    getInstructorCourses(dispatch, access);
+    const fetchInstructorCourses = async () => {
+      try {
+        // Show the spinner.
+        dispatch(setIsSpinnerLoading(true));
+
+        await getInstructorCourses(dispatch, access);
+      } catch (error) {
+        // Show the error message to the user.
+        dispatch(
+          setToastMessage({
+            message: "Can't fetch your courses. Please try again later.",
+            type: "error",
+          })
+        );
+      } finally {
+        // Close the spinner.
+        dispatch(setIsSpinnerLoading(false));
+      }
+    };
+    fetchInstructorCourses();
   }, [dispatch, access]);
 
   // The number of elements to be rendered per page.
