@@ -18,6 +18,7 @@ import {
 } from "../slices/courses/courses-slice";
 import { setToastMessage } from "../slices/popups-slices/toasts-slice";
 
+// Fetch the public courses.
 export const public_courses = async (dispatch) => {
   try {
     const res = await axios.get(
@@ -29,6 +30,7 @@ export const public_courses = async (dispatch) => {
   }
 };
 
+// Fetch the courses depend on the category.
 export const public_course_with_subject = async (dispatch, subject) => {
   try {
     const res = await axios.get(
@@ -40,6 +42,7 @@ export const public_course_with_subject = async (dispatch, subject) => {
   }
 };
 
+// Fetch Neura Learn Academy categories.
 export async function getSubjectCourses(dispatch, access) {
   if (access) {
     const config = {
@@ -63,6 +66,7 @@ export async function getSubjectCourses(dispatch, access) {
   }
 }
 
+// Fetch the instructor courses.
 export async function getInstructorCourses(dispatch, access) {
   if (access) {
     const config = {
@@ -124,6 +128,7 @@ export async function updateUserData(
   }
 }
 
+// Create a new instructor course.
 export async function createCourse(
   dispatch,
   access,
@@ -172,6 +177,7 @@ export async function createCourse(
   }
 }
 
+// Update the instructor course content.
 export async function updateCourse(
   dispatch,
   access,
@@ -222,6 +228,7 @@ export async function updateCourse(
   }
 }
 
+// Delete the instructor course.
 export async function deleteCourse(dispatch, access, slug) {
   if (access) {
     const config = {
