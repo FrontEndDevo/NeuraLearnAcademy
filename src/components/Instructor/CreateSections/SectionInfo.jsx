@@ -1,12 +1,11 @@
-import { closeModal } from "../../../redux/slices/Instructor/OpenClose";
 import failure from "../../../assets/images/Instructor/Failure.png";
 import textPreview from "../../../assets/images/Instructor/textPreview.png";
 import filePreview from "../../../assets/images/Instructor/filePreview.png";
 import videoPreview from "../../../assets/images/Instructor/videoPreview.png";
 import photoPreview from "../../../assets/images/Instructor/photoPreview.png";
 
-import { useDispatch } from "react-redux";
-import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import BlurModal from "../../../shared/BlurModal";
 import contentInfo from "../../../assets/images/Instructor/info.png";
 import addFile from "../../../assets/images/Instructor/addFile.png";
@@ -15,32 +14,74 @@ import addPhoto from "../../../assets/images/Instructor/addPhoto.png";
 import list from "../../../assets/images/Instructor/list.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  createContent,
+  updateLecture,
+} from "../../../redux/actions/courses-methods";
 
-const SectionInfo = () => {
-  const [selectedContent, setSelectedContent] = useState([]);
+const SectionInfo = ({ onClose, slug, lecture }) => {
+  const [selectedContent, setSelectedContent] = useState(null);
   const dispatch = useDispatch();
-  const titleRef = useRef("");
+  const [title, setTitle] = useState("");
 
+  useEffect(() => {
+    if (lecture) {
+      setTitle(renderTitle(lecture));
+    }
+  }, [lecture]);
+
+  const renderTitle = (item) => {
+    if (item.video) return item.video.title;
+    if (item.image) return item.image.title;
+    if (item.file) return item.file.title;
+    return "Unknown Title";
+  };
+
+  const renderUpdateLink = (lecture) => {
+    if (lecture.file) return lecture.file.edit_url;
+    if (lecture.video) return lecture.video.edit_url;
+    if (lecture.image) return lecture.image.edit_url;
+    return "Unknown Linke";
+  };
+
+  const access = useSelector((state) => state.userAuth.access);
   const handleCloseCreateCourse = () => {
-    dispatch(closeModal());
+    onClose();
   };
 
   const handleUploadContent = (type, content) => {
     const newContent = { type, content };
-    setSelectedContent([...selectedContent, newContent]);
+    setSelectedContent(newContent);
   };
 
-  const handleDeleteContent = (index) => {
-    setSelectedContent(selectedContent.filter((_, i) => i !== index));
+  const handleDeleteContent = () => {
+    setSelectedContent(null);
+  };
+  const handleSave = () => {
+    if (!selectedContent) {
+      console.error("No content selected");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("file", selectedContent.content);
+    if (lecture) {
+      const api = renderUpdateLink(lecture);
+      updateLecture(dispatch, access, formData, api);
+    } else {
+      createContent(dispatch, access, formData, slug, selectedContent.type);
+    }
+    onClose();
   };
 
   const renderPreview = (type) => {
     switch (type) {
-      case "Photo":
+      case "image":
         return photoPreview;
-      case "Video":
+      case "video":
         return videoPreview;
-      case "File":
+      case "file":
         return filePreview;
       default:
         return textPreview;
@@ -70,34 +111,49 @@ const SectionInfo = () => {
             Cancel
           </button>
         </div>
-        <div className="px-2 md:px-4 py-4 md:mx-10">
+        <div className="px-2 py-4 md:px-4 md:mx-10">
           <form>
             <label className="text-black text-xl font-semibold font-['Open Sans']">
               Title:
             </label>
-            <div className="flex items-center md:ml-4 my-3">
+            <div className="flex items-center my-3 md:ml-4">
               <div className="flex justify-center items-center px-5 py-2.5 text-sm font-medium text-center bg-sky-800 text-white">
                 Lecture
               </div>
               <div className="relative w-full">
                 <input
                   type="text"
-                  ref={titleRef}
+                  value={title}
                   id="title"
-                  className="px-4 py-2 bg-zinc-100 h-full w-full outline-none border border-black border-opacity-80"
-                  placeholder="Name anything"
+                  className="w-full h-full px-4 py-2 border border-black outline-none bg-zinc-100 border-opacity-80"
+                  placeholder="write title of lecture"
+                  onChange={(e) => {
+                    setTitle(e.target.value);
+                  }}
                 />
               </div>
             </div>
           </form>
 
-          <h2 className="text-black text-base font-semibold mt-12 mb-6">
+          <h2 className="mt-12 mb-6 text-base font-semibold text-black">
             Select your type content:
           </h2>
           <div className="flex flex-col justify-center space-y-3 md:flex-row md:space-y-0 md:space-x-3 lg:space-x-8">
-            <UploadOption icon={addVideo} label="Video" onUpload={handleUploadContent} />
-            <UploadOption icon={addPhoto} label="Photo" onUpload={handleUploadContent} />
-            <UploadOption icon={addFile} label="File" onUpload={handleUploadContent} />
+            <UploadOption
+              icon={addVideo}
+              label="Video"
+              onUpload={handleUploadContent}
+            />
+            <UploadOption
+              icon={addPhoto}
+              label="Photo"
+              onUpload={handleUploadContent}
+            />
+            <UploadOption
+              icon={addFile}
+              label="File"
+              onUpload={handleUploadContent}
+            />
           </div>
 
           <div
@@ -110,34 +166,48 @@ const SectionInfo = () => {
                 Selected Content List
               </h2>
             </div>
-            {selectedContent.length === 0 ? (
-              <div className="flex flex-col justify-center items-center">
-                <img className="w-20 my-2" src={failure} alt="failure image" loading="lazy" />
+            {!selectedContent ? (
+              <div className="flex flex-col items-center justify-center">
+                <img
+                  className="w-20 my-2"
+                  src={failure}
+                  alt="failure image"
+                  loading="lazy"
+                />
                 <h2 className="text-center opacity-40 text-lg font-semibold font-['Open Sans'] mb-10">
                   No content created
                 </h2>
               </div>
             ) : (
-              selectedContent.map((content, index) => (
-                <div key={index} className="flex justify-between items-center space-x-12 px-2 mb-10 bg-zinc-100 py-3 rounded-[10px] backdrop-blur-sm">
-                  <div className="flex">
-                    <img src={renderPreview(content.type)} className="w-16" alt={content.type} />
-                    <p className="text-zinc-900 text-base font-medium font-['Outfit'] mt-2 ml-2">Lecture {index + 1}</p>
-                  </div>
-                  <div className="">
-                    <FontAwesomeIcon
-                      className="text-red-600 w-10 cursor-pointer"
-                      icon={faTrash}
-                      onClick={() => handleDeleteContent(index)}
-                    />
-                  </div>
+              // selectedContent.map((content, index) => (
+              <div className="flex justify-between items-center space-x-12 px-2 mb-10 bg-zinc-100 py-3 rounded-[10px] backdrop-blur-sm">
+                <div className="flex">
+                  <img
+                    src={renderPreview(selectedContent?.type)}
+                    className="w-16"
+                    alt={selectedContent?.type}
+                  />
+                  <p className="text-zinc-900 text-base font-medium font-['Outfit'] mt-2 ml-2">
+                    {title}
+                  </p>
                 </div>
-              ))
+                <div className="">
+                  <FontAwesomeIcon
+                    className="w-10 text-red-600 cursor-pointer"
+                    icon={faTrash}
+                    onClick={() => handleDeleteContent()}
+                  />
+                </div>
+              </div>
+              // ))
             )}
           </div>
 
           <div className="flex justify-end mt-12">
-            <button className="px-5 py-2 opacity-90 text-lg font-bold font-['Outfit'] tracking-wide text-white duration-700 bg-sky-900 hover:bg-sky-950 rounded-[25px] shadow">
+            <button
+              className="px-5 py-2 opacity-90 text-lg font-bold font-['Outfit'] tracking-wide text-white duration-700 bg-sky-900 hover:bg-sky-950 rounded-[25px] shadow"
+              onClick={handleSave}
+            >
               Save
             </button>
           </div>
@@ -152,15 +222,15 @@ const UploadOption = ({ icon, label, onUpload }) => {
     const file = event.target.files[0];
     if (file) {
       const mimeType = file.type;
-      let fileType = "File"; // Default type
+      let fileType = "file"; // Default type
 
       if (mimeType.startsWith("image/")) {
-        fileType = "Photo";
+        fileType = "image";
       } else if (mimeType.startsWith("video/")) {
-        fileType = "Video";
+        fileType = "video";
       }
 
-      onUpload(fileType, URL.createObjectURL(file));
+      onUpload(fileType, file);
     }
   };
 
@@ -174,7 +244,12 @@ const UploadOption = ({ icon, label, onUpload }) => {
           htmlFor={`${label.toLowerCase()}Input`}
           className="bg-white rounded-[10px] px-3 py-2 md:px-7 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
         >
-          <img src={icon} className="w-8 py-1" alt="plus image" loading="lazy" />
+          <img
+            src={icon}
+            className="w-8 py-1"
+            alt="plus image"
+            loading="lazy"
+          />
           <span>{label}</span>
           <input
             type="file"

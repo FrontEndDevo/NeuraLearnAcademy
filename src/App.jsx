@@ -21,6 +21,12 @@ import ChatBot from "./pages/ChatBot";
 import CoursesContentPage from "./pages/Instructor/CoursesContentPage";
 import RequireAuth from "./components/Registration/RequireAuth/RequireAuth";
 import QuestionGenerationPage from "./pages/QuestionGenerationPage";
+import UserPage from "./pages/Users/UserPage";
+import Spinner from "./shared/Spinner";
+import { createPortal } from "react-dom";
+import { useSelector } from "react-redux";
+
+const loadingSpinnerId = document.getElementById("loading__spinner");
 
 const App = () => {
   return (
@@ -58,7 +64,8 @@ const App = () => {
             element={<QuestionGenerationPage />}
           />
           <Route path="ChatBot" element={<ChatBot />} />
-          <Route path="CoursesContentPage" element={<CoursesContentPage />} />
+          <Route path="CoursesContentPage/:slug" element={<CoursesContentPage />} />
+          <Route path="UserContentPage" element={<UserPage />} />
         </Route>
       </Routes>
     </>
