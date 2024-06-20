@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import {
   faCheck,
   faExclamationCircle,
@@ -25,6 +26,15 @@ const Toast = () => {
       dispatch(resetToasts());
     }, 1000);
   };
+
+  // set a timeout to hide the toast message after 5 seconds.
+  useEffect(() => {
+    if (showMessage) {
+      timeoutRef.current = setTimeout(() => {
+        handleClosingToastMessage();
+      }, 5000);
+    }
+  }, [showMessage]);
 
   // cleanup the timeout when the component is unmounted.
   useEffect(() => {
