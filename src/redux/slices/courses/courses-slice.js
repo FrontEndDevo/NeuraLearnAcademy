@@ -57,30 +57,6 @@ const updateUserDataFailReducer = (state) => {
     userData: null,
   };
 };
-const createCourseReducer = (state, action) => {
-  return {
-    ...state,
-    createCourseData: action.payload,
-  };
-};
-const createCourseFailReducer = (state) => {
-  return {
-    ...state,
-    createCourseData: null,
-  };
-};
-const updateCourseReducer = (state, action) => {
-  return {
-    ...state,
-    updateCourseData: action.payload,
-  };
-};
-const updateCourseFailReducer = (state) => {
-  return {
-    ...state,
-    updateCourseData: null,
-  };
-};
 const detailCourseReducer = (state, action) => {
   return {
     ...state,
@@ -222,10 +198,6 @@ const courseSlice = createSlice({
     GETINSTRUCTORCOURSES_FAIL: getInstructorCoursesFailReducer,
     UPDATEUSERDATA_SUCCESS: updateUserDataReducer,
     UPDATEUSERDATA_FAIL: updateUserDataFailReducer,
-    CREATECOURSE_SUCCESS: createCourseReducer,
-    CREATECOURSE_FAIL: createCourseFailReducer,
-    UPDATECOURSE_SUCCESS: updateCourseReducer,
-    UPDATECOURSE_FAIL: updateCourseFailReducer,
     DETAILCOURSE_SUCCESS: detailCourseReducer,
     DETAILCOURSE_FAIL: detailCourseFailReducer,
     CREATESECTION_SUCCESS: createSectionReducer,

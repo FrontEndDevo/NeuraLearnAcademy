@@ -4,7 +4,6 @@ import SearchBar from "../../shared/SearchBar";
 import Filters from "../../shared/Filters/AllFilters";
 import Sort from "../../shared/Sort";
 import PropTypes from "prop-types";
-import { formatUrlString } from "../../utils/Utils";
 import { useEffect, useState } from "react";
 import Dropdown from "../../shared/Dropdown";
 
@@ -13,7 +12,7 @@ const settings = {
   dots: false,
   arrows: false,
   infinite: true,
-  slidesToShow: 10,
+  slidesToShow: 5,
   slidesToScroll: 1,
   vertical: true,
   verticalSwiping: true,
@@ -41,32 +40,29 @@ const CoursesCategories = ({ categories }) => {
   // Navigate to the selected category when receive the clicked option from Dropdown component.
   const navigate = useNavigate();
   const selectCategory = (option) => {
-    const formattedCategoryForUrl = formatUrlString(option);
+    const selectedOption = categories.filter((cat) => cat.title === option)[0];
 
-    navigate(formattedCategoryForUrl);
+    navigate(selectedOption.slug);
   };
 
   // Render the courses categories first.
-  const renderedCoursesCategories = categories.map((cat, i) => {
-    const formattedCategoryForUrl = formatUrlString(cat);
-
-    return (
-      <Link
-        key={i}
-        to={formattedCategoryForUrl}
-        className={`px-4 py-2 -my-10 duration-200 hover:bg-primary-500 hover:text-white capitalize text-lg font-semibold ${
-          cat.toLocaleLowerCase() == "all" ? "bg-primary-500 text-white" : ""
-        }`}
-      >
-        {cat}
-      </Link>
-    );
-  });
+  const renderedCoursesCategories = categories.map((cat) => (
+    <Link
+      key={cat.id}
+      to={cat.slug}
+      className="px-4 py-2 -my-10 text-lg font-semibold capitalize duration-200 hover:bg-primary-500 hover:text-white"
+    >
+      {cat.title}
+    </Link>
+  ));
 
   return (
     <aside>
       {!isMobile[0] && (
         <div className="border-b-2 border-gray-700">
+          <h4 className="px-2 mb-2 text-xs font-bold tracking-wide border-b-2 border-indigo-500 lg:text-base w-fit rounded-b-xl">
+            Categories:
+          </h4>
           <Slider {...settings}>{renderedCoursesCategories}</Slider>
         </div>
       )}
@@ -79,8 +75,8 @@ const CoursesCategories = ({ categories }) => {
         >
           {isMobile[0] && (
             <Dropdown
-              options={categories}
-              label="all"
+              options={categories.map((category) => category.title)}
+              label="Categories"
               getSelectedOption={selectCategory}
             />
           )}

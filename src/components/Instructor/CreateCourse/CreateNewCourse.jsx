@@ -9,25 +9,26 @@ import defaultImage from "../../../assets/images/Instructor/thumbnail.webp";
 import Dropdown from "../../../shared/Dropdown";
 import { closeModal } from "../../../redux/slices/Instructor/OpenClose";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ImageFileUploader from "../../../shared/Inputs/ImageFileUploader";
 import BlurModal from "../../../shared/BlurModal";
 import {
   createCourse,
   updateCourse,
 } from "../../../redux/actions/courses-methods";
+import { setIsSpinnerLoading } from "../../../redux/slices/popups-slices/spinner-slice";
+import { setToastMessage } from "../../../redux/slices/popups-slices/toasts-slice";
 
-const CreateNewCourse = ({ instructorCourseDetails: course }) => {
-  console.log(course)
+const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
   const categories = useSelector((state) => state.courses.subjectCourses);
   const access = useSelector((state) => state.userAuth.access);
+  const spinner = useSelector((state) => state.spinner);
 
   // We sent the image to the server, and need thumbnail to display it on the client side.
   const [thumbnail, setThumbnail] = useState("");
   const [image, setImage] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [missingError, setMissingError] = useState(false);
-
   // Input Refs:
   const titleRef = useRef("");
   const descriptionRef = useRef("");
@@ -38,12 +39,14 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
     if (course) {
       setThumbnail(course.image || "");
       setImage(course.image || "");
-      setSelectedCategoryId(course.categoryId || null);
+      setSelectedCategoryId(
+        categories.filter((cat) => cat.title == course.subject)[0].id || null
+      );
       titleRef.current.value = course.title || "";
       descriptionRef.current.value = course.overview || "";
       priceRef.current.value = course.price || 0;
     }
-  }, [course]);
+  }, [course, categories]);
 
   // Handle the selected category:
   const handleSelectedSubject = (selectedOption) => {
@@ -83,7 +86,7 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
   };
 
   // Handle the saving of the course information:
-  const handleSavingCourseInformation = () => {
+  const handleSavingCourseInformation = async () => {
     // Get the values from the input fields using useRef hooks:
     const title = titleRef.current.value.trim();
     const description = descriptionRef.current.value.trim();
@@ -92,33 +95,55 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
     if (!title || !price || (!selectedCategoryId && !course)) {
       setMissingError(true);
     } else {
-      if (course == null) {
-        // Create the course:
-        createCourse(
-          dispatch,
-          access,
-          selectedCategoryId,
-          title,
-          description,
-          price,
-          image
-        );
-
+      try {
+        // Show the spinner.
+        dispatch(setIsSpinnerLoading(true));
+        if (course == null) {
+          // Create the course:
+          await createCourse(
+            dispatch,
+            access,
+            selectedCategoryId,
+            title,
+            description,
+            price,
+            image
+          );
+        } else {
+          // Update the course:
+          if (course.image !== thumbnail) {
+            // If the image has changed, we need to send it to the server.
+            await updateCourse(
+              dispatch,
+              access,
+              course.slug,
+              selectedCategoryId,
+              title,
+              description,
+              price,
+              image
+            );
+          } else {
+            // If the image is the same, we don't need to send it to the server.
+            await updateCourse(
+              dispatch,
+              access,
+              course.slug,
+              selectedCategoryId,
+              title,
+              description,
+              price
+            );
+          }
+        }
+        // Close the modal.
         handleCloseCreateCourse();
-      } else {
-        // Update the course:
-        updateCourse(
-          dispatch,
-          access,
-          course.slug,
-          selectedCategoryId,
-          title,
-          description,
-          price,
-          image
-        );
-
-        handleCloseCreateCourse();
+      } catch (error) {
+        // Show the error message to the user.
+        dispatch(setToastMessage({ message: error, type: "error" }));
+      } finally {
+        // Close the spinner.
+        dispatch(setIsSpinnerLoading(false));
       }
     }
   };
@@ -199,11 +224,15 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
 
             <div className="flex items-center gap-4 lg:items-end">
               <button
+                disabled={spinner.isSpinnerLoading || missingError}
                 onClick={handleSavingCourseInformation}
-                className={`px-6 py-2 text-lg font-semibold tracking-tight text-white duration-300 rounded-lg hover:animate-pulse ${
-                  missingError
+                className={`px-6 py-2 text-lg font-semibold tracking-tight text-white duration-300 rounded-lg ${
+                  missingError && !spinner.isSpinnerLoading
                     ? "bg-red-900 hover:bg-red-800"
-                    : "bg-stone-900 hover:bg-stone-800"
+                    : "bg-stone-900"
+                } ${
+                  spinner.isSpinnerLoading &&
+                  "bg-gray-600 text-gray-700 cursor-not-allowed"
                 }`}
               >
                 Save
@@ -280,10 +309,12 @@ const CreateNewCourse = ({ instructorCourseDetails: course }) => {
       </div>
     </>
   );
-};
+});
+
+CreateNewCourse.displayName = "CreateNewCourse";
 
 CreateNewCourse.propTypes = {
-  instructorCourseDetails: PropTypes.array,
+  instructorCourseDetails: PropTypes.object,
 };
 
 export default CreateNewCourse;
