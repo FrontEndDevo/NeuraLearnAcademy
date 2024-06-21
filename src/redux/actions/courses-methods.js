@@ -4,7 +4,6 @@ import {
   setPublicCoursesError,
   GETSUBJECTCOURSES_ERROR,
   UPDATEUSERDATA_ERROR,
-  CREATESECTION_ERROR,
   DELETESECTION_ERROR,
   GETSECTIONS_ERROR,
   UPDATESECTION_ERROR,
@@ -23,7 +22,6 @@ import {
   UPDATEUSERDATA_SUCCESS,
   setCoursesDependOnSubject,
   setPublicCourses,
-  CREATESECTION_SUCCESS,
   CREATESECTION_FAIL,
   GETSECTIONS_SUCCESS,
   GETSECTIONS_FAIL,
@@ -279,6 +277,7 @@ export async function deleteCourse(dispatch, access, slug) {
     }
   }
 }
+
 export async function createSection(
   dispatch,
   access,
@@ -299,15 +298,25 @@ export async function createSection(
       description,
     });
     try {
-      const res = await axios.post(
+      await axios.post(
         import.meta.env.VITE_API_URL + `/api/courses/${slug}/module/create/`,
         body,
         config
       );
-      dispatch(CREATESECTION_SUCCESS(res.data));
+      dispatch(
+        setToastMessage({
+          message: "Create the section succefully.",
+          type: "success",
+        })
+      );
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Couldn't create the section, Please try again.",
+          type: "error",
+        })
+      );
       dispatch(CREATESECTION_FAIL());
-      dispatch(CREATESECTION_ERROR(err.response.data));
     }
   }
 }
