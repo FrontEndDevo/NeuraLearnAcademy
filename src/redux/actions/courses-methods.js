@@ -16,6 +16,8 @@ import {
   GETCONTENTS_ERROR,
   DELETELECTURE_ERROR,
   UPDATELECTURE_ERROR,
+  GETTRANSCRIPTSECTION_ERROR,
+  SUMMARIZE_ERROR,
 } from "../slices/courses/courses-errors";
 
 import {
@@ -45,6 +47,10 @@ import {
   DELETELECTURE_FAIL,
   UPDATELECTURE_SUCCESS,
   UPDATELECTURE_FAIL,
+  GETTRANSCRIPTSECTION_SUCCESS,
+  GETTRANSCRIPTSECTION_FAIL,
+  SUMMARIZE_SUCCESS,
+  SUMMARIZE_FAIL,
 } from "../slices/courses/courses-slice";
 
 export const public_courses = async (dispatch) => {
@@ -438,6 +444,100 @@ export async function updateLecture(dispatch, access, formData, api) {
     } catch (err) {
       dispatch(UPDATELECTURE_FAIL());
       dispatch(UPDATELECTURE_ERROR(err.response.data));
+      console.log(err);
+    }
+  }
+}
+export async function getTranscriptSection(dispatch, access, slug) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL +
+          `/api/models/module/${slug}/transcripts/`,
+        config
+      );
+      dispatch(GETTRANSCRIPTSECTION_SUCCESS(res.data));
+      console.log(res);
+    } catch (err) {
+      dispatch(GETTRANSCRIPTSECTION_FAIL());
+      dispatch(GETTRANSCRIPTSECTION_ERROR(err.response.data));
+      console.log(err);
+    }
+  }
+}
+export async function summarize(dispatch, access, text) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.post(
+        import.meta.env.VITE_API_URL + `/api/models/summarize/`,
+        config,
+        text
+      );
+      dispatch(SUMMARIZE_SUCCESS(res.data));
+      console.log(res);
+    } catch (err) {
+      dispatch(SUMMARIZE_FAIL());
+      dispatch(SUMMARIZE_ERROR(err.response.data));
+      console.log(err);
+    }
+  }
+}
+export async function getTranscriptVideo(dispatch, access, id) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/api/models/video/${id}/transcript/`,
+        config,
+      );
+      // dispatch(SUMMARIZE_SUCCESS(res.data));
+      console.log(res);
+    } catch (err) {
+      // dispatch(SUMMARIZE_FAIL());
+      // dispatch(SUMMARIZE_ERROR(err.response.data));
+      console.log(err);
+    }
+  }
+}
+export async function questionGeneration(dispatch, access) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/api/models/generate-questions/`,
+        config
+      );
+      // dispatch(SUMMARIZE_SUCCESS(res.data));
+      console.log(res);
+    } catch (err) {
+      // dispatch(SUMMARIZE_FAIL());
+      // dispatch(SUMMARIZE_ERROR(err.response.data));
       console.log(err);
     }
   }
