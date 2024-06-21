@@ -15,6 +15,7 @@ const initialState = {
   updateSectionData: null,
   sectionContent: [],
   getsectionContent: {},
+  getusersectionContent: {},
   lectureDeleted: null,
   lectureUpdated: null,
 };
@@ -162,6 +163,30 @@ const getSectionContentFailReducer = (state = initialState, action) => {
     },
   };
 };
+
+const getUserSectionContentReducer = (state = initialState, action) => {
+  const { slug, content } = action.payload;
+  console.log(slug, ":", content);
+  return {
+    ...state,
+    getusersectionContent: {
+      ...state.getusersectionContent,
+      [slug]: [...content],
+    },
+  };
+};
+
+const getUserSectionContentFailReducer = (state = initialState, action) => {
+  const { slug } = action.payload;
+  return {
+    ...state,
+    getusersectionContent: {
+      ...state.getusersectionContent,
+      [slug]: [],
+    },
+  };
+};
+
 const deleteLectureReducer = (state, action) => {
   return {
     ...state,
@@ -201,6 +226,19 @@ const getUserCoursesFailReducer = (state, action) => {
   };
 };
 
+
+const getUserSectionSuccessReducer = (state, action) => {
+  return {
+    ...state,
+    userCourses: action.payload,
+  };
+};
+const getUserSectionFailReducer = (state, action) => {
+  return {
+    ...state,
+    userCourses: null,
+  };
+};
 const courseSlice = createSlice({
   name: "course",
   initialState,
@@ -227,12 +265,16 @@ const courseSlice = createSlice({
     CREATECONTENT_FAIL: createContentFailReducer,
     GETCONTENTS_SUCCESS: getSectionContentReducer,
     GETCONTENTS_FAIL: getSectionContentFailReducer,
+    GETUSERCONTENTS_SUCCESS: getUserSectionContentReducer,
+    GETUSERCONTENTS_FAIL: getUserSectionContentFailReducer,
     DELETELECTURE_SUCCESS: deleteLectureReducer,
     DELETELECTURE_FAIL: deleteLectureFailReducer,
     UPDATELECTURE_SUCCESS: updateLectureReducer,
     UPDATELECTURE_FAIL: updateLectureFailReducer,
     GETUSERCOURSES_SUCCESS: getUserCoursesReducer,
     GETUSERCOURSES_FAIL: getUserCoursesFailReducer,
+    GETUSERSECTIONS_SUCCESS: getUserSectionSuccessReducer,
+    GETUSERSECTIONS_FAIL: getUserSectionFailReducer,
     setPublicCourses(state, action) {
       state.publicCourses = action.payload;
     },
@@ -273,6 +315,10 @@ export const {
   setCoursesDependOnSubject,
   GETUSERCOURSES_SUCCESS,
   GETUSERCOURSES_FAIL,
+  GETUSERSECTIONS_SUCCESS,
+  GETUSERSECTIONS_FAIL,
+  GETUSERCONTENTS_SUCCESS,
+  GETUSERCONTENTS_FAIL
 } = courseSlice.actions;
 
 export default courseSlice.reducer;
