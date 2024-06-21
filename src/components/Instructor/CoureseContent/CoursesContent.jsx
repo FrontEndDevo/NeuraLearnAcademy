@@ -20,7 +20,7 @@ import summarizerImage from "../../../assets/images/homepage/ai-creative.png";
 import robbotAssist from "../../../assets/images/Instructor/robootAssist.png";
 import CreateNewSection from "../CreateSections/CreateNewSection";
 import DeleteSection from "../CreateSections/DeleteSection";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   createSection,
   deleteLecture,
@@ -202,7 +202,6 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
     deleteSection(dispatch, access, slug);
     onDelete();
   };
-  console.log(slug)
 
   const handleCloseModal = () => {
     setShowDeleteModal(false);
@@ -353,7 +352,8 @@ const CoursesContent = () => {
               </button>
             </div>
             <div className="w-full md:w-auto">
-              <button
+              <Link
+                to="/summarizer"
                 style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 className="bg-white rounded-[10px] px-3 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
@@ -364,10 +364,11 @@ const CoursesContent = () => {
                   loading="lazy"
                 />
                 <span>Summarizer</span>
-              </button>
+              </Link>
             </div>
             <div className="w-full md:w-auto">
-              <button
+              <Link
+                to="/questionqeneration"
                 style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 className="bg-white rounded-[10px] px-5 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
@@ -378,7 +379,7 @@ const CoursesContent = () => {
                   loading="lazy"
                 />
                 <span>Questions</span>
-              </button>
+              </Link>
             </div>
           </div>
           <div className="flex flex-col w-full px-4 mt-4 md:px-0">
