@@ -17,6 +17,7 @@ import {
   GETCONTENTS_ERROR,
   DELETELECTURE_ERROR,
   UPDATELECTURE_ERROR,
+  GETUSERSECTION_ERROR
 } from "../slices/courses/courses-errors";
 
 import {
@@ -48,6 +49,8 @@ import {
   UPDATELECTURE_FAIL,
   GETUSERCOURSES_SUCCESS,
   GETUSERCOURSES_FAIL,
+  GETUSERSECTIONS_FAIL,
+  GETUSERSECTIONS_SUCCESS,
 } from "../slices/courses/courses-slice";
 
 export const public_courses = async (dispatch) => {
@@ -444,11 +447,6 @@ export async function updateLecture(dispatch, access, formData, api) {
     }
   }
 }
-
-
-
-
-
 export async function GetUserCourses(dispatch, access ) {
   if (access) {
     const config = {
@@ -468,6 +466,31 @@ export async function GetUserCourses(dispatch, access ) {
     } catch (err) {
       dispatch(GETUSERCOURSES_FAIL());
       dispatch(GETUSERCOURSES_ERROR(err.response.data));
+      console.log(err);
+    }
+  }
+}
+
+
+export async function GetUserSections(dispatch, access,slug) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/students/course/${slug}/modules/`,
+        config
+      );
+      dispatch(GETUSERSECTIONS_SUCCESS(res.data));
+      console.log(res);
+    } catch (err) {
+      dispatch(GETUSERSECTIONS_FAIL());
+      dispatch(GETUSERSECTION_ERROR(err.response));
       console.log(err);
     }
   }
