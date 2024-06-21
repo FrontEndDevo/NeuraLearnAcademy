@@ -16,6 +16,8 @@ const initialState = {
   getsectionContent: {},
   lectureDeleted: null,
   lectureUpdated: null,
+  transcriptdate: null,
+  summarizeData:null,
 };
 
 const subjectCourseReducer = (state, action) => {
@@ -185,6 +187,30 @@ const updateLectureFailReducer = (state) => {
     lectureUpdated: null,
   };
 };
+const getTranscriptReducer = (state, action) => {
+  return {
+    ...state,
+    transcriptdate: action.payload,
+  };
+};
+const getTranscriptFailReducer = (state) => {
+  return {
+    ...state,
+    transcriptdate: null,
+  };
+};
+const summarizeReducer = (state, action) => {
+  return {
+    ...state,
+    summarizeData: action.payload,
+  };
+};
+const summarizeFailReducer = (state) => {
+  return {
+    ...state,
+    summarizeData: null,
+  };
+};
 
 const courseSlice = createSlice({
   name: "course",
@@ -216,6 +242,10 @@ const courseSlice = createSlice({
     DELETELECTURE_FAIL: deleteLectureFailReducer,
     UPDATELECTURE_SUCCESS: updateLectureReducer,
     UPDATELECTURE_FAIL: updateLectureFailReducer,
+    GETTRANSCRIPTSECTION_SUCCESS:getTranscriptReducer,
+    GETTRANSCRIPTSECTION_FAIL:getTranscriptFailReducer,
+    SUMMARIZE_SUCCESS:summarizeReducer,
+    SUMMARIZE_FAIL:summarizeFailReducer,
     setPublicCourses(state, action) {
       state.publicCourses = action.payload;
     },
@@ -252,6 +282,10 @@ export const {
   DELETELECTURE_FAIL,
   UPDATELECTURE_SUCCESS,
   UPDATELECTURE_FAIL,
+  GETTRANSCRIPTSECTION_SUCCESS,
+  GETTRANSCRIPTSECTION_FAIL,
+  SUMMARIZE_SUCCESS,
+  SUMMARIZE_FAIL,
   setPublicCourses,
   setCoursesDependOnSubject,
 } = courseSlice.actions;
