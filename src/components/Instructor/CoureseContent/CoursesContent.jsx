@@ -291,14 +291,6 @@ const CoursesContent = () => {
   };
 
   const handleSaveSection = async (title, description, slugSection, type) => {
-    if (type === "update") {
-      updateSections(dispatch, access, title, description, slugSection);
-    } else {
-      createSection(dispatch, access, title, description, slugSection);
-    }
-    getSections(dispatch, access, slug);
-    setShowModal(false);
-
     try {
       // Show the spinner.
       dispatch(setIsSpinnerLoading(true));
@@ -329,7 +321,26 @@ const CoursesContent = () => {
   };
 
   useEffect(() => {
-    getSections(dispatch, access, slug);
+    const fetchCourseSections = async () => {
+      try {
+        // Show the spinner.
+        dispatch(setIsSpinnerLoading(true));
+
+        await getSections(dispatch, access, slug);
+      } catch (error) {
+        // Show the error message to the user.
+        dispatch(
+          setToastMessage({
+            message: "couldn't load your sections. Please try again later.",
+            type: "error",
+          })
+        );
+      } finally {
+        // Close the spinner.
+        dispatch(setIsSpinnerLoading(false));
+      }
+    };
+    fetchCourseSections();
   }, [dispatch, access, slug]);
 
   useEffect(() => {

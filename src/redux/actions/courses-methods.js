@@ -4,7 +4,6 @@ import {
   setPublicCoursesError,
   GETSUBJECTCOURSES_ERROR,
   UPDATEUSERDATA_ERROR,
-  GETSECTIONS_ERROR,
   UPDATESECTION_ERROR,
   CREATECONTENT_ERROR,
   GETCONTENTS_ERROR,
@@ -366,8 +365,13 @@ export async function getSections(dispatch, access, slug) {
       );
       dispatch(GETSECTIONS_SUCCESS(res.data.modules));
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't load your sections, Please try again.",
+          type: "error",
+        })
+      );
       dispatch(GETSECTIONS_FAIL());
-      dispatch(GETSECTIONS_ERROR(err.response.data));
     }
   }
 }
