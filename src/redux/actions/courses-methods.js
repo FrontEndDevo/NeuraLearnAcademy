@@ -4,7 +4,6 @@ import {
   setPublicCoursesError,
   GETSUBJECTCOURSES_ERROR,
   UPDATEUSERDATA_ERROR,
-  UPDATESECTION_ERROR,
   CREATECONTENT_ERROR,
   GETCONTENTS_ERROR,
   DELETELECTURE_ERROR,
@@ -400,10 +399,21 @@ export async function updateSections(
         body,
         config
       );
+      dispatch(
+        setToastMessage({
+          message: "Updated the section succefully.",
+          type: "success",
+        })
+      );
       dispatch(UPDATESECTION_SUCCESS(res.data));
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Couldn't update the section, Please try again.",
+          type: "error",
+        })
+      );
       dispatch(UPDATESECTION_FAIL());
-      dispatch(UPDATESECTION_ERROR(err.response.data));
     }
   }
 }
