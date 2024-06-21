@@ -4,7 +4,6 @@ import {
   setPublicCoursesError,
   GETSUBJECTCOURSES_ERROR,
   UPDATEUSERDATA_ERROR,
-  DELETESECTION_ERROR,
   GETSECTIONS_ERROR,
   UPDATESECTION_ERROR,
   CREATECONTENT_ERROR,
@@ -330,12 +329,23 @@ export async function deleteSection(dispatch, access, slug) {
       },
     };
     try {
-      const res = await axios.delete(
+      await axios.delete(
         import.meta.env.VITE_API_URL + `/api/courses/module/${slug}/delete/`,
         config
       );
+      dispatch(
+        setToastMessage({
+          message: "Delete the section succefully.",
+          type: "success",
+        })
+      );
     } catch (err) {
-      dispatch(DELETESECTION_ERROR(err.response.data));
+      dispatch(
+        setToastMessage({
+          message: "Couldn't delete the section, Please try again.",
+          type: "error",
+        })
+      );
     }
   }
 }

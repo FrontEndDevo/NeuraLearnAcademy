@@ -204,10 +204,26 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
   const handleDelete = () => {
     setShowDeleteModal(true);
   };
-  const handleConfirmDelete = () => {
-    setShowDeleteModal(false);
-    deleteSection(dispatch, access, slug);
-    onDelete();
+  const handleConfirmDelete = async () => {
+    try {
+      // Show the spinner.
+      dispatch(setIsSpinnerLoading(true));
+
+      setShowDeleteModal(false);
+      await deleteSection(dispatch, access, slug);
+      onDelete();
+    } catch (error) {
+      // Show the error message to the user.
+      dispatch(
+        setToastMessage({
+          message: "Something went wrong! Try again later.",
+          type: "error",
+        })
+      );
+    } finally {
+      // Close the spinner.
+      dispatch(setIsSpinnerLoading(false));
+    }
   };
 
   const handleCloseModal = () => {

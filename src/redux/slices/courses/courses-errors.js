@@ -52,9 +52,6 @@ const coursesErrorsSlice = createSlice({
   GETSECTIONS_ERROR: (state, action) => {
     state.getSectionsError = action.payload;
   },
-  DELETESECTION_ERROR: (state, action) => {
-    state.deleteSectionsError = action.payload;
-  },
   UPDATESECTION_ERROR: (state, action) => {
     state.updateSectionError = action.payload;
   },
@@ -83,7 +80,6 @@ export const {
   DELETECOURSE_ERROR,
   DETAILCOURSE_ERROR,
   GETSECTIONS_ERROR,
-  DELETESECTION_ERROR,
   UPDATESECTION_ERROR,
   CREATECONTENT_ERROR,
   GETCONTENTS_ERROR,
