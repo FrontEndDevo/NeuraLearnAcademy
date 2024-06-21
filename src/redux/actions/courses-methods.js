@@ -46,7 +46,6 @@ export const public_courses = async (dispatch) => {
     const res = await axios.get(
       import.meta.env.VITE_API_URL + "/api/public/courses/"
     );
-    console.log(res);
     dispatch(setPublicCourses(res.data));
   } catch (err) {
     dispatch(setPublicCoursesError());
@@ -372,7 +371,6 @@ export async function updateSections(
       title,
       description,
     });
-    console.log(body);
     try {
       const res = await axios.put(
         import.meta.env.VITE_API_URL + `/api/courses/module/${slug}/update/`,
@@ -463,11 +461,9 @@ export async function updateLecture(dispatch, access, formData, api) {
     try {
       const res = await axios.put(api, formData, config);
       dispatch(UPDATELECTURE_SUCCESS(res.data));
-      console.log(res);
     } catch (err) {
       dispatch(UPDATELECTURE_FAIL());
       dispatch(UPDATELECTURE_ERROR(err.response.data));
-      console.log(err);
     }
   }
 }
