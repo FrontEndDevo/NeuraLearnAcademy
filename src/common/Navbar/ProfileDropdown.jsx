@@ -65,7 +65,7 @@ const ProfileDropdown = ({ showOptions }) => {
       ))}
       <div
         onClick={handleSignOut}
-        className="flex items-center gap-2 px-4 py-3 pr-12 text-sm font-semibold duration-200 cursor-pointer hover:bg-indigo-500 hover:text-white"
+        className="flex items-center gap-2 px-4 py-3 pr-12 text-sm font-semibold text-red-500 duration-200 cursor-pointer hover:bg-indigo-500 hover:text-white"
       >
         <FontAwesomeIcon icon={faPowerOff} />
         <button className="capitalize">sign out</button>
