@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { formatUrlString } from "../../utils/Utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
+import { enrollCourse } from "../../redux/actions/courses-methods";
 
 const CourseCard = ({
   image,
@@ -13,14 +15,20 @@ const CourseCard = ({
   rate,
   price,
   discount,
+  overview,
+  subject,
+  slug,
+  type
 }) => {
   const courseTitle = title.length <= 50 ? title : title.slice(0, 50) + "...";
-
-  const formattedTitleForUrl = formatUrlString(title);
-
+  const dispatch = useDispatch();
+  const access = useSelector((state) => state.userAuth.access);
+  const handleEnrollClick = () => {
+    console.log("first")
+    enrollCourse(dispatch, access ,slug)
+  }
   return (
     <li className="duration-300 border shadow-lg rounded-3xl hover:shadow-innerwhite">
-      <Link to={formattedTitleForUrl}>
         {image && (
           <img
             src={image}
@@ -47,17 +55,32 @@ const CourseCard = ({
             {courseTitle}
           </h3>
 
-          {category && (
+          {subject && (
             <h6 className="px-3 py-1 text-[10px] lg:text-base font-bold text-white rounded-full bg-secondary-700 w-fit">
-              {category}
+              {subject}
             </h6>
           )}
-          <Link
-            to="/"
-            className="flex items-center justify-center px-12 py-2 my-4 text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm bg-primary-500 hover:bg-primary-700"
-          >
-            Start Learning
-          </Link>
+          {type === "Enroll" ? (
+            <button
+            onClick={() => {
+              handleEnrollClick();
+              }}
+              className=" w-full px-12 py-2 my-4 text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm bg-primary-500 hover:bg-primary-700"
+            >
+              Enroll Free
+            </button>
+          )
+            :
+            (
+              <Link
+                to={`/UserContentPage/${slug}`}
+                className="flex items-center justify-center px-12 py-2 my-4 text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm bg-primary-500 hover:bg-primary-700"
+              >
+                Start Learning
+              </Link>
+          )}
+     
+         
           {rate != null && (
             <div className="flex flex-wrap items-center gap-1 my-4 md:flex-nowrap">
               <p className="text-sm font-semibold">{rate.toFixed(1)}</p>
@@ -77,9 +100,8 @@ const CourseCard = ({
           <div className="flex flex-wrap items-center gap-2 mt-2 md:flex-nowrap">
             {price != null && (
               <p
-                className={`text-2xl font-bold ${
-                  discount && discount === 100 ? "text-[#3AA552]" : ""
-                }`}
+                className={`text-2xl font-bold ${discount && discount === 100 ? "text-[#3AA552]" : ""
+                  }`}
               >
                 {discount
                   ? discount === 100
@@ -98,7 +120,6 @@ const CourseCard = ({
             )}
           </div>
         </div>
-      </Link>
     </li>
   );
 };

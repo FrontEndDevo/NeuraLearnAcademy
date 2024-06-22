@@ -71,6 +71,8 @@ const Courses = () => {
           instructor={item.instructor}
           category={item.subject}
           price={+item.price}
+          type={"Enroll"}
+          slug={item.slug}
         />
       ))}
     </Slider>

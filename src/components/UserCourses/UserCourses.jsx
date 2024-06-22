@@ -1,316 +1,22 @@
-import { useCallback, useState } from "react";
-import UserCoursesOptions from "./UserCoursesOptions";
-import course1 from "../../assets/images/homepage/course_9.jpg";
-import course2 from "../../assets/images/homepage/course_8.jpg";
-import course3 from "../../assets/images/homepage/course_7.jpg";
-import { useSelector } from "react-redux";
+import { useCallback, useEffect, useState } from "react";
+import UserCoursesOptions from "./UserCoursesOptions";  
+import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../shared/Pagination";
 import CourseCard from "../../shared/Courses/CourseCard";
+import { GetUserCourses } from "../../redux/actions/courses-methods";
 const userCourses = ["courses", "my lists", "wishlist", "archived", "purchase"];
-const allUserCourses = [
-  {
-    image: course1,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming object for beginners",
-    category: "Programming",
-    progress: 0,
-  },
-  {
-    image: course2,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 10,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 30,
-  },
-  {
-    image: course1,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 50,
-  },
-  {
-    image: course2,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 80,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course1,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 50,
-  },
-  {
-    image: course2,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 80,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of object oriented programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course1,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 50,
-  },
-  {
-    image: course2,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 80,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course1,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 50,
-  },
-  {
-    image: course2,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 80,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course1,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 50,
-  },
-  {
-    image: course2,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 80,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of object oriented programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course1,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 50,
-  },
-  {
-    image: course2,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 80,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course1,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 50,
-  },
-  {
-    image: course2,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 80,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course1,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 50,
-  },
-  {
-    image: course2,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 80,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of object oriented programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course1,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 50,
-  },
-  {
-    image: course2,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 80,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course1,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 50,
-  },
-  {
-    image: course2,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 80,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course1,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 50,
-  },
-  {
-    image: course2,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 80,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of object oriented programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-  {
-    image: course1,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 50,
-  },
-  {
-    image: course2,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 80,
-  },
-  {
-    image: course3,
-    instructor: "Adel nsiem",
-    title: "The complete course of programming for beginners",
-    category: "Programming",
-    progress: 100,
-  },
-];
+
 const UserCourses = () => {
+  useEffect(() => {
+    console.log(access)
+    GetUserCourses(dispatch, access);
+
+  }, [])
+
+  const dispatch = useDispatch();
+  const access = useSelector((state) => state.userAuth.access);
+  const usercourse = useSelector((state) => state.courses.userCourses) || [];
+  console.log(usercourse)
   // The number of elements to be rendered per page.
   const elementsPerPage = 6;
 
@@ -325,8 +31,8 @@ const UserCourses = () => {
     (state) => state.searchCourses.searchKeyword
   );
 
-  // Filter the allUserCourses array based on the search keyword
-  const filteredCourses = allUserCourses.filter((course) =>
+  // Filter the usercourse array based on the search keyword
+  const filteredCourses = usercourse.filter((course) =>
     course.title.toLowerCase().includes(searchKeyword.toLowerCase())
   );
 
@@ -348,7 +54,7 @@ const UserCourses = () => {
     userCourses[currentOption].charAt(0).toUpperCase() +
     userCourses[currentOption].slice(1);
   // Render the correct courses based on the search keyword.
-  const correctCoursesArray = searchKeyword ? filteredCourses : allUserCourses;
+  const correctCoursesArray = searchKeyword ? filteredCourses : usercourse;
   const renderedUserCourses = correctCoursesArray
     .slice(paginationIndices.start, paginationIndices.end)
     .map((course, index) => (
@@ -358,8 +64,12 @@ const UserCourses = () => {
         title={course.title}
         instructor={course.instructor}
         category={course.category}
+        subject={course.subject}
+        slug={course.slug}
+
       />
     ));
+
 
   return (
     <section className="container grid grid-cols-1 px-2 py-10 gap-y-10 md:gap-x-8 md:grid-cols-3 lg:gap-10 lg:grid-cols-4">

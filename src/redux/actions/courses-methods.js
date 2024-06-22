@@ -4,14 +4,6 @@ import {
   setPublicCoursesError,
   GETSUBJECTCOURSES_ERROR,
   UPDATEUSERDATA_ERROR,
-  CREATESECTION_ERROR,
-  DELETESECTION_ERROR,
-  GETSECTIONS_ERROR,
-  UPDATESECTION_ERROR,
-  CREATECONTENT_ERROR,
-  GETCONTENTS_ERROR,
-  DELETELECTURE_ERROR,
-  UPDATELECTURE_ERROR,
   GETTRANSCRIPTSECTION_ERROR,
   SUMMARIZE_ERROR,
 } from "../slices/courses/courses-errors";
@@ -25,7 +17,6 @@ import {
   UPDATEUSERDATA_SUCCESS,
   setCoursesDependOnSubject,
   setPublicCourses,
-  CREATESECTION_SUCCESS,
   CREATESECTION_FAIL,
   GETSECTIONS_SUCCESS,
   GETSECTIONS_FAIL,
@@ -43,6 +34,10 @@ import {
   GETTRANSCRIPTSECTION_FAIL,
   SUMMARIZE_SUCCESS,
   SUMMARIZE_FAIL,
+  GETUSERCOURSES_SUCCESS,
+  GETUSERCOURSES_FAIL,
+  GETUSERSECTIONS_FAIL,
+  GETUSERSECTIONS_SUCCESS,
 } from "../slices/courses/courses-slice";
 import { setToastMessage } from "../slices/popups-slices/toasts-slice";
 
@@ -52,7 +47,6 @@ export const public_courses = async (dispatch) => {
     const res = await axios.get(
       import.meta.env.VITE_API_URL + "/api/public/courses/"
     );
-    console.log(res);
     dispatch(setPublicCourses(res.data));
   } catch (err) {
     dispatch(setPublicCoursesError());
@@ -286,6 +280,7 @@ export async function deleteCourse(dispatch, access, slug) {
     }
   }
 }
+
 export async function createSection(
   dispatch,
   access,
@@ -306,15 +301,25 @@ export async function createSection(
       description,
     });
     try {
-      const res = await axios.post(
+      await axios.post(
         import.meta.env.VITE_API_URL + `/api/courses/${slug}/module/create/`,
         body,
         config
       );
-      dispatch(CREATESECTION_SUCCESS(res.data));
+      dispatch(
+        setToastMessage({
+          message: "Create the section succefully.",
+          type: "success",
+        })
+      );
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Couldn't create the section, Please try again.",
+          type: "error",
+        })
+      );
       dispatch(CREATESECTION_FAIL());
-      dispatch(CREATESECTION_ERROR(err.response.data));
     }
   }
 }
@@ -328,12 +333,23 @@ export async function deleteSection(dispatch, access, slug) {
       },
     };
     try {
-      const res = await axios.delete(
+      await axios.delete(
         import.meta.env.VITE_API_URL + `/api/courses/module/${slug}/delete/`,
         config
       );
+      dispatch(
+        setToastMessage({
+          message: "Delete the section succefully.",
+          type: "success",
+        })
+      );
     } catch (err) {
-      dispatch(DELETESECTION_ERROR(err.response.data));
+      dispatch(
+        setToastMessage({
+          message: "Couldn't delete the section, Please try again.",
+          type: "error",
+        })
+      );
     }
   }
 }
@@ -354,8 +370,13 @@ export async function getSections(dispatch, access, slug) {
       );
       dispatch(GETSECTIONS_SUCCESS(res.data.modules));
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't load your sections, Please try again.",
+          type: "error",
+        })
+      );
       dispatch(GETSECTIONS_FAIL());
-      dispatch(GETSECTIONS_ERROR(err.response.data));
     }
   }
 }
@@ -378,17 +399,27 @@ export async function updateSections(
       title,
       description,
     });
-    console.log(body);
     try {
       const res = await axios.put(
         import.meta.env.VITE_API_URL + `/api/courses/module/${slug}/update/`,
         body,
         config
       );
+      dispatch(
+        setToastMessage({
+          message: "Updated the section succefully.",
+          type: "success",
+        })
+      );
       dispatch(UPDATESECTION_SUCCESS(res.data));
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Couldn't update the section, Please try again.",
+          type: "error",
+        })
+      );
       dispatch(UPDATESECTION_FAIL());
-      dispatch(UPDATESECTION_ERROR(err.response.data));
     }
   }
 }
@@ -404,14 +435,25 @@ export async function createContent(dispatch, access, body, slug, type) {
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL +
-          `/api/courses/module/${slug}/content/${type}/create/`, // Construct the URL
+        `/api/courses/module/${slug}/content/${type}/create/`, // Construct the URL
         body,
         config
       );
+      dispatch(
+        setToastMessage({
+          message: "The content was created succefully.",
+          type: "success",
+        })
+      );
       dispatch(CREATECONTENT_SUCCESS(res.data));
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Unable to create the content! Try again later.",
+          type: "error",
+        })
+      );
       dispatch(CREATECONTENT_FAIL());
-      dispatch(CREATECONTENT_ERROR(err.response.data));
     }
   }
 }
@@ -434,8 +476,13 @@ export async function getContents(dispatch, access, slug) {
         payload: { content: res.data.contents, slug },
       });
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't load the contents! Please Try again later.",
+          type: "error",
+        })
+      );
       dispatch(GETCONTENTS_FAIL());
-      dispatch(GETCONTENTS_ERROR(err.response.data));
     }
   }
 }
@@ -450,10 +497,21 @@ export async function deleteLecture(dispatch, access, api) {
     };
     try {
       const res = await axios.delete(api, config);
+      dispatch(
+        setToastMessage({
+          message: "The lecture was deleted succefully.",
+          type: "success",
+        })
+      );
       dispatch(DELETELECTURE_SUCCESS(res.data));
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't delete the lecture! Try again later.",
+          type: "error",
+        })
+      );
       dispatch(DELETELECTURE_FAIL());
-      dispatch(DELETELECTURE_ERROR(err.response.data));
     }
   }
 }
@@ -468,12 +526,74 @@ export async function updateLecture(dispatch, access, formData, api) {
     };
     try {
       const res = await axios.put(api, formData, config);
+
+      dispatch(
+        setToastMessage({
+          message: "The lecture was updated succefully.",
+          type: "success",
+        })
+      );
       dispatch(UPDATELECTURE_SUCCESS(res.data));
+    } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't update the lecture! Try again later.",
+          type: "error",
+        })
+      );
+      dispatch(UPDATELECTURE_FAIL());
+    }
+  }
+}
+export async function GetUserCourses(dispatch, access ) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/api/students/mylearning/`,
+        config
+      );
+      dispatch(GETUSERCOURSES_SUCCESS(res.data));
       console.log(res);
     } catch (err) {
       dispatch(UPDATELECTURE_FAIL());
-      dispatch(UPDATELECTURE_ERROR(err.response.data));
-      console.log(err);
+    }
+  }
+}
+
+
+
+
+export async function enrollCourse(dispatch, access, slug) {
+  if (access) {
+    console.log(access)
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.post(
+        import.meta.env.VITE_API_URL + `/api/students/courses/${slug}/enroll/`,
+        config
+      );
+      console.log(res)
+      // dispatch({
+      //   type: GETCONTENTS_SUCCESS,
+      //   payload: { content: res.data.contents, slug },
+      // });
+    } catch (err) {
+      // dispatch(GETCONTENTS_FAIL());
+      // dispatch(GETCONTENTS_ERROR(err.response.data));
+      console.log(err)
     }
   }
 }
