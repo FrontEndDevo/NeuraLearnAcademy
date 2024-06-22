@@ -25,6 +25,7 @@ import UserPage from "./pages/Users/UserPage";
 import Spinner from "./shared/popup/Spinner";
 import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
+import ContactUs from "./shared/ContactUs";
 
 const loadingSpinnerId = document.getElementById("loading__spinner");
 
@@ -72,6 +73,8 @@ const App = () => {
           />
           <Route path="UserContentPage" element={<UserPage />} />
         </Route>
+
+        <Route path="contactus" element={<ContactUs />} />
       </Routes>
     </>
   );
