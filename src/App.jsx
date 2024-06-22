@@ -70,7 +70,6 @@ const App = () => {
             path="CoursesContentPage/:slug"
             element={<CoursesContentPage />}
           />
-          <Route path="UserContentPage" element={<UserPage />} />
         </Route>
       </Routes>
     </>
