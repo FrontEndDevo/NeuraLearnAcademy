@@ -12,7 +12,7 @@ import {
   faImage,
   faVideo,
   faAngleDown,
-  faAngleUp,
+  faAngleUp
 } from "@fortawesome/free-solid-svg-icons";
 import ebook from "../../../assets/images/Instructor/ebook.gif";
 import plus from "../../../assets/images/Instructor/plus.png";
@@ -32,9 +32,6 @@ import {
 import VideoPlayer from "../../../shared/VideoPlayer";
 import ImageViewer from "../../../shared/ImageViewer";
 
-import { setIsSpinnerLoading } from "../../../redux/slices/popups-slices/spinner-slice.js";
-import { setToastMessage } from "../../../redux/slices/popups-slices/toasts-slice.js";
-
 const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false); // State for toggle
@@ -49,9 +46,9 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
   };
 
   return (
-    <div className="flex justify-between px-4 py-3 cursor-pointer bg-sky-950 md:px-7 md:py-3">
+    <div className="flex justify-between px-4 py-3  bg-sky-950 md:px-7 md:py-3" >
       <span className="font-semibold text-white">{sectionTitle}</span>
-      <div className="flex space-x-3 text-white">
+      <div className="flex space-x-3 text-white cursor-pointer">
         {/* Arrow icon for toggle */}
 
         <button onClick={onDelete}>
@@ -108,6 +105,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
       setLectures(sectionData);
     }
   }, [sectionData]);
+  console.log(sectionData)
 
   const handleUpdateLecture = (lecture) => {
     dispatch(openModal({ modalName: "sectioninfo", lecture }));
@@ -186,6 +184,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
         <div
           className="relative pt-2 bg-white shadow-lg cursor-pointer"
           key={index}
+         
         >
           <ul className="space-y-1">
             {Object.keys(item).map((key) => (
@@ -194,10 +193,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
                 key={key}
               >
                 <div className="flex justify-between">
-                  <div
-                    className="relative cursor-pointer pl-14"
-                    onClick={() => handleClick(item)}
-                  >
+                  <div className="relative cursor-pointer pl-14" onClick={() => handleClick(item)}>
                     <FontAwesomeIcon
                       icon={renderIcon(key)}
                       className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
@@ -278,17 +274,8 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
         slug={slug}
         onToggle={handleToggle}
       />
-      <div
-        className={`overflow-hidden transition-max-height duration-500 ease-in-out ${
-          isOpen ? "max-h-screen" : "max-h-0"
-        }`}
-      >
-        <SectionContent
-          dispatch={dispatch}
-          access={access}
-          slug={slug}
-          onSelect={onSelect}
-        />
+      <div className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? "max-h-screen" : "max-h-0"}`}>
+        <SectionContent dispatch={dispatch} access={access} slug={slug} onSelect={onSelect} />
       </div>
       {showDeleteModal && (
         <DeleteSection

@@ -9,6 +9,13 @@ const initialState = {
   updateCourseError: null,
   deleteCourseError: null,
   deleteSectionsError: null,
+  updateSectionError: null,
+  sectionContentError: null,
+  getSectionContentError: null,
+  getUserCoursesError: null,
+  getUserSectionError: null,
+  lectureDeletedError: null,
+  lectureUpdatedError: null,
 };
 
 const coursesErrorsSlice = createSlice({
@@ -43,6 +50,36 @@ const coursesErrorsSlice = createSlice({
   DELETECOURSE_ERROR: (state, action) => {
     state.deleteCourseError = action.payload;
   },
+  CREATESECTION_ERROR: (state, action) => {
+    state.createSectionError = action.payload;
+  },
+  GETSECTIONS_ERROR: (state, action) => {
+    state.getSectionsError = action.payload;
+  },
+  DELETESECTION_ERROR: (state, action) => {
+    state.deleteSectionsError = action.payload;
+  },
+  UPDATESECTION_ERROR: (state, action) => {
+    state.updateSectionError = action.payload;
+  },
+  CREATECONTENT_ERROR: (state, action) => {
+    state.sectionContentError = action.payload;
+  },
+  GETCONTENTS_ERROR: (state, action) => {
+    state.getSectionContentError = action.payload;
+  },
+  GETUSERCOURSES_ERROR: (state, action) => {
+    state.getUserCoursesError = action.payload;
+  },
+  GETUSERSECTION_ERROR: (state, action) => {
+    state.getUserSectionError = action.payload;
+  },
+  DELETELECTURE_ERROR: (state, action) => {
+    state.lectureDeletedError = action.payload;
+  },
+  UPDATELECTURE_ERROR: (state, action) => {
+    state.lectureUpdatedError = action.payload;
+  },
 });
 
 export const {
@@ -55,6 +92,16 @@ export const {
   UPDATECOURSE_ERROR,
   DELETECOURSE_ERROR,
   DETAILCOURSE_ERROR,
+  CREATESECTION_ERROR,
+  GETSECTIONS_ERROR,
+  DELETESECTION_ERROR,
+  UPDATESECTION_ERROR,
+  CREATECONTENT_ERROR,
+  GETCONTENTS_ERROR,
+  GETUSERCOURSES_ERROR,
+  DELETELECTURE_ERROR,
+  UPDATELECTURE_ERROR,
+  GETUSERSECTION_ERROR
 } = coursesErrorsSlice.actions;
 
 export default coursesErrorsSlice.reducer;

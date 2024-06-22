@@ -28,6 +28,10 @@ import {
   DELETELECTURE_FAIL,
   UPDATELECTURE_SUCCESS,
   UPDATELECTURE_FAIL,
+  GETUSERCOURSES_SUCCESS,
+  GETUSERCOURSES_FAIL,
+  GETUSERSECTIONS_FAIL,
+  GETUSERSECTIONS_SUCCESS,
 } from "../slices/courses/courses-slice";
 import { setToastMessage } from "../slices/popups-slices/toasts-slice";
 
@@ -425,7 +429,7 @@ export async function createContent(dispatch, access, body, slug, type) {
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL +
-          `/api/courses/module/${slug}/content/${type}/create/`, // Construct the URL
+        `/api/courses/module/${slug}/content/${type}/create/`, // Construct the URL
         body,
         config
       );
@@ -532,6 +536,58 @@ export async function updateLecture(dispatch, access, formData, api) {
         })
       );
       dispatch(UPDATELECTURE_FAIL());
+    }
+  }
+}
+export async function GetUserCourses(dispatch, access ) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/api/students/mylearning/`,
+        config
+      );
+      dispatch(GETUSERCOURSES_SUCCESS(res.data));
+      console.log(res);
+    } catch (err) {
+      dispatch(UPDATELECTURE_FAIL());
+    }
+  }
+}
+
+
+
+
+export async function enrollCourse(dispatch, access, slug) {
+  if (access) {
+    console.log(access)
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.post(
+        import.meta.env.VITE_API_URL + `/api/students/courses/${slug}/enroll/`,
+        config
+      );
+      console.log(res)
+      // dispatch({
+      //   type: GETCONTENTS_SUCCESS,
+      //   payload: { content: res.data.contents, slug },
+      // });
+    } catch (err) {
+      // dispatch(GETCONTENTS_FAIL());
+      // dispatch(GETCONTENTS_ERROR(err.response.data));
+      console.log(err)
     }
   }
 }

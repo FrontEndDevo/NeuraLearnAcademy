@@ -16,10 +16,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 const Homepage = () => {
   useAuthenticationChecking();
-  
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
-
   useEffect(() => {
     const getNeededData = async () => {
       // Fetching a list of available courses (without authentication).
