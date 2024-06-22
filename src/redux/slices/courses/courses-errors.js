@@ -16,6 +16,8 @@ const initialState = {
   getUserSectionError: null,
   lectureDeletedError: null,
   lectureUpdatedError: null,
+  transcriptDataError: null,
+  summarizeError: null,
 };
 
 const coursesErrorsSlice = createSlice({
@@ -80,6 +82,12 @@ const coursesErrorsSlice = createSlice({
   UPDATELECTURE_ERROR: (state, action) => {
     state.lectureUpdatedError = action.payload;
   },
+  GETTRANSCRIPTSECTION_ERROR: (state, action) => {
+    state.transcriptDataError = action.payload;
+  },
+  SUMMARIZE_ERROR: (state, action) => {
+    state.summarizeError = action.payload;
+  },
 });
 
 export const {
@@ -101,6 +109,8 @@ export const {
   GETUSERCOURSES_ERROR,
   DELETELECTURE_ERROR,
   UPDATELECTURE_ERROR,
+  GETTRANSCRIPTSECTION_ERROR,
+  SUMMARIZE_ERROR,
   GETUSERSECTION_ERROR
 } = coursesErrorsSlice.actions;
 

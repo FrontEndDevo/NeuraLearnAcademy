@@ -71,7 +71,6 @@ const App = () => {
             path="CoursesContentPage/:slug"
             element={<CoursesContentPage />}
           />
-          <Route path="UserContentPage" element={<UserPage />} />
         </Route>
 
         <Route path="contactus" element={<ContactUs />} />

@@ -18,6 +18,8 @@ const initialState = {
   getusersectionContent: {},
   lectureDeleted: null,
   lectureUpdated: null,
+  transcriptdate: null,
+  summarizeData:null,
 };
 
 const subjectCourseReducer = (state, action) => {
@@ -180,7 +182,30 @@ const updateLectureFailReducer = (state) => {
     lectureUpdated: null,
   };
 };
-
+const getTranscriptReducer = (state, action) => {
+  return {
+    ...state,
+    transcriptdate: action.payload,
+  };
+};
+const getTranscriptFailReducer = (state) => {
+  return {
+    ...state,
+    transcriptdate: null,
+  };
+};
+const summarizeReducer = (state, action) => {
+  return {
+    ...state,
+    summarizeData: action.payload,
+  };
+};
+const summarizeFailReducer = (state) => {
+  return {
+    ...state,
+    summarizeData: null,
+  };
+};
 
 const getUserCoursesReducer = (state, action) => {
   return {
@@ -188,7 +213,7 @@ const getUserCoursesReducer = (state, action) => {
     userCourses: action.payload,
   };
 };
-const getUserCoursesFailReducer = (state, action) => {
+const getUserCoursesFailReducer = (state) => {
   return {
     ...state,
     userCourses: null,
@@ -202,7 +227,7 @@ const getUserSectionSuccessReducer = (state, action) => {
     userCourses: action.payload,
   };
 };
-const getUserSectionFailReducer = (state, action) => {
+const getUserSectionFailReducer = (state) => {
   return {
     ...state,
     userCourses: null,
@@ -235,6 +260,10 @@ const courseSlice = createSlice({
     DELETELECTURE_FAIL: deleteLectureFailReducer,
     UPDATELECTURE_SUCCESS: updateLectureReducer,
     UPDATELECTURE_FAIL: updateLectureFailReducer,
+    GETTRANSCRIPTSECTION_SUCCESS:getTranscriptReducer,
+    GETTRANSCRIPTSECTION_FAIL:getTranscriptFailReducer,
+    SUMMARIZE_SUCCESS:summarizeReducer,
+    SUMMARIZE_FAIL:summarizeFailReducer,
     GETUSERCOURSES_SUCCESS: getUserCoursesReducer,
     GETUSERCOURSES_FAIL: getUserCoursesFailReducer,
     GETUSERSECTIONS_SUCCESS: getUserSectionSuccessReducer,
@@ -274,6 +303,10 @@ export const {
   DELETELECTURE_FAIL,
   UPDATELECTURE_SUCCESS,
   UPDATELECTURE_FAIL,
+  GETTRANSCRIPTSECTION_SUCCESS,
+  GETTRANSCRIPTSECTION_FAIL,
+  SUMMARIZE_SUCCESS,
+  SUMMARIZE_FAIL,
   setPublicCourses,
   setCoursesDependOnSubject,
   GETUSERCOURSES_SUCCESS,
