@@ -18,6 +18,8 @@ import {
   createContent,
   updateLecture,
 } from "../../../redux/actions/courses-methods";
+import { setIsSpinnerLoading } from "../../../redux/slices/popups-slices/spinner-slice";
+import { setToastMessage } from "../../../redux/slices/popups-slices/toasts-slice";
 
 const SectionInfo = ({ onClose, slug, lecture }) => {
   const [selectedContent, setSelectedContent] = useState(null);
@@ -57,22 +59,50 @@ const SectionInfo = ({ onClose, slug, lecture }) => {
   const handleDeleteContent = () => {
     setSelectedContent(null);
   };
-  const handleSave = () => {
-    if (!selectedContent) {
-      console.error("No content selected");
-      return;
-    }
+  const handleSave = async () => {
+    try {
+      // Show the spinner.
+      dispatch(setIsSpinnerLoading(true));
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("file", selectedContent.content);
-    if (lecture) {
-      const api = renderUpdateLink(lecture);
-      updateLecture(dispatch, access, formData, api);
-    } else {
-      createContent(dispatch, access, formData, slug, selectedContent.type);
+      if (!selectedContent) {
+        // Show the error message to the user.
+        dispatch(
+          setToastMessage({
+            message: "No content selected! Please select a content.",
+            type: "error",
+          })
+        );
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("file", selectedContent.content);
+      if (lecture) {
+        const api = renderUpdateLink(lecture);
+        await updateLecture(dispatch, access, formData, api);
+      } else {
+        await createContent(
+          dispatch,
+          access,
+          formData,
+          slug,
+          selectedContent.type
+        );
+      }
+    } catch (error) {
+      // Show the error message to the user.
+      dispatch(
+        setToastMessage({
+          message: "Can't create the content! Please Try again.",
+          type: "error",
+        })
+      );
+    } finally {
+      onClose();
+      // Close the spinner.
+      dispatch(setIsSpinnerLoading(false));
     }
-    onClose();
   };
 
   const renderPreview = (type) => {

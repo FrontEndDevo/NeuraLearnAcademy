@@ -42,7 +42,7 @@ const InstructorCourseCard = (props) => {
     // Open the instructor course modal:
     dispatch(
       openModal({
-        name: "instructorCourse",
+        modalName: "instructorCourse",
         course: props,
       })
     );

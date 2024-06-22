@@ -67,12 +67,6 @@ const detailCourseFailReducer = (state) => {
     detailCourse: null,
   };
 };
-const createSectionReducer = (state, action) => {
-  return {
-    ...state,
-    sectionData: action.payload,
-  };
-};
 const createSectionFailReducer = (state) => {
   return {
     ...state,
@@ -117,7 +111,6 @@ const createContentFailReducer = (state) => {
 };
 const getSectionContentReducer = (state = initialState, action) => {
   const { slug, content } = action.payload;
-  console.log(slug, ":", content);
   return {
     ...state,
     getsectionContent: {
@@ -174,7 +167,6 @@ const courseSlice = createSlice({
     UPDATEUSERDATA_FAIL: updateUserDataFailReducer,
     DETAILCOURSE_SUCCESS: detailCourseReducer,
     DETAILCOURSE_FAIL: detailCourseFailReducer,
-    CREATESECTION_SUCCESS: createSectionReducer,
     CREATESECTION_FAIL: createSectionFailReducer,
     GETSECTIONS_SUCCESS: getSectionsReducer,
     GETSECTIONS_FAIL: getSectionsFailReducer,
@@ -210,7 +202,6 @@ export const {
   UPDATECOURSE_FAIL,
   DETAILCOURSE_SUCCESS,
   DETAILCOURSE_FAIL,
-  CREATESECTION_SUCCESS,
   CREATESECTION_FAIL,
   GETSECTIONS_SUCCESS,
   GETSECTIONS_FAIL,
