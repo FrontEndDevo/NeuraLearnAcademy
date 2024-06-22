@@ -10,10 +10,14 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatNumbersInThousands } from "../../utils/Utils";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../redux/slices/Instructor/OpenClose";
 import { deleteCourse } from "../../redux/actions/courses-methods";
+import { setIsSpinnerLoading } from "../../redux/slices/popups-slices/spinner-slice";
+import { setToastMessage } from "../../redux/slices/popups-slices/toasts-slice";
 const InstructorCourseCard = (props) => {
+  const spinner = useSelector((state) => state.spinner);
+
   // Destructuring needed properties:
   const {
     userAccess,
@@ -38,15 +42,26 @@ const InstructorCourseCard = (props) => {
     // Open the instructor course modal:
     dispatch(
       openModal({
-        name: "instructorCourse",
+        modalName: "instructorCourse",
         course: props,
       })
     );
   };
 
   // Delete a course:
-  const handleDeleteCourse = () => {
-    deleteCourse(dispatch, userAccess, slug);
+  const handleDeleteCourse = async () => {
+    try {
+      // Show the spinner.
+      dispatch(setIsSpinnerLoading(true));
+
+      await deleteCourse(dispatch, userAccess, slug);
+    } catch (error) {
+      // Show the error message to the user.
+      dispatch(setToastMessage({ message: error, type: "error" }));
+    } finally {
+      // Close the spinner.
+      dispatch(setIsSpinnerLoading(false));
+    }
   };
 
   // Courses properties like videos, sections, and quizzes:
@@ -116,8 +131,9 @@ const InstructorCourseCard = (props) => {
             className="absolute top-0 left-0 p-2 text-red-500 bg-white rounded-full md:p-3"
           />
           <button
+            disabled={spinner.isSpinnerLoading}
             onClick={handleDeleteCourse}
-            className="p-2 pl-12 text-sm font-semibold text-white duration-200 bg-red-500 rounded-full md:text-base hover:bg-red-700"
+            className={`p-2 pl-12 text-sm font-semibold text-white duration-200 bg-red-500 rounded-full md:text-base hover:bg-red-700 disabled:cursor-not-allowed`}
           >
             Delete
           </button>

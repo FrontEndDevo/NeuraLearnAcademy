@@ -4,13 +4,10 @@ const initialState = {
   publicCoursesError: null,
   coursesDependOnSubjectError: null,
   subjectCourse: null,
-  instructorCourses: null,
   updateUserDataError: null,
   createCourseError: null,
   updateCourseError: null,
   deleteCourseError: null,
-  createSectionError: null,
-  getSectionsError: null,
   deleteSectionsError: null,
   updateSectionError: null,
   sectionContentError: null,
@@ -40,12 +37,10 @@ const coursesErrorsSlice = createSlice({
   GETSUBJECTCOURSES_ERROR: (state, action) => {
     state.subjectCourse = action.payload;
   },
-  GETINSTRUCTORCOURSES_ERROR: (state, action) => {
-    state.instructorCourses = action.payload;
-  },
   UPDATEUSERDATA_ERROR: (state, action) => {
     state.updateUserDataError = action.payload;
   },
+
   CREATECOURSE_ERROR: (state, action) => {
     state.createCourseError = action.payload;
   },
@@ -92,7 +87,6 @@ export const {
   setCoursesDependOnSubjectError,
   resetCoursesErrors,
   GETSUBJECTCOURSES_ERROR,
-  GETINSTRUCTORCOURSES_ERROR,
   UPDATEUSERDATA_ERROR,
   CREATECOURSE_ERROR,
   UPDATECOURSE_ERROR,

@@ -10,9 +10,9 @@ const openCloseSlice = createSlice({
   },
   reducers: {
     openModal: (state, action) => {
-      state.modalName = action.payload.modalName;
-      state.slug = action.payload.slug;
-      state.lecture = action.payload.lecture;
+      state.modalName = action.payload.modalName || null;
+      state.slug = action.payload.slug || null;
+      state.lecture = action.payload.lecture || null;
       state.courseDetails = action.payload.course || null;
     },
     closeModal: (state) => {

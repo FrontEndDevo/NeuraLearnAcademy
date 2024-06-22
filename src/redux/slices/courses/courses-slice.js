@@ -57,30 +57,6 @@ const updateUserDataFailReducer = (state) => {
     userData: null,
   };
 };
-const createCourseReducer = (state, action) => {
-  return {
-    ...state,
-    createCourseData: action.payload,
-  };
-};
-const createCourseFailReducer = (state) => {
-  return {
-    ...state,
-    createCourseData: null,
-  };
-};
-const updateCourseReducer = (state, action) => {
-  return {
-    ...state,
-    updateCourseData: action.payload,
-  };
-};
-const updateCourseFailReducer = (state) => {
-  return {
-    ...state,
-    updateCourseData: null,
-  };
-};
 const detailCourseReducer = (state, action) => {
   return {
     ...state,
@@ -91,12 +67,6 @@ const detailCourseFailReducer = (state) => {
   return {
     ...state,
     detailCourse: null,
-  };
-};
-const createSectionReducer = (state, action) => {
-  return {
-    ...state,
-    sectionData: action.payload,
   };
 };
 const createSectionFailReducer = (state) => {
@@ -143,7 +113,6 @@ const createContentFailReducer = (state) => {
 };
 const getSectionContentReducer = (state = initialState, action) => {
   const { slug, content } = action.payload;
-  console.log(slug, ":", content);
   return {
     ...state,
     getsectionContent: {
@@ -249,13 +218,8 @@ const courseSlice = createSlice({
     GETINSTRUCTORCOURSES_FAIL: getInstructorCoursesFailReducer,
     UPDATEUSERDATA_SUCCESS: updateUserDataReducer,
     UPDATEUSERDATA_FAIL: updateUserDataFailReducer,
-    CREATECOURSE_SUCCESS: createCourseReducer,
-    CREATECOURSE_FAIL: createCourseFailReducer,
-    UPDATECOURSE_SUCCESS: updateCourseReducer,
-    UPDATECOURSE_FAIL: updateCourseFailReducer,
     DETAILCOURSE_SUCCESS: detailCourseReducer,
     DETAILCOURSE_FAIL: detailCourseFailReducer,
-    CREATESECTION_SUCCESS: createSectionReducer,
     CREATESECTION_FAIL: createSectionFailReducer,
     GETSECTIONS_SUCCESS: getSectionsReducer,
     GETSECTIONS_FAIL: getSectionsFailReducer,
@@ -297,7 +261,6 @@ export const {
   UPDATECOURSE_FAIL,
   DETAILCOURSE_SUCCESS,
   DETAILCOURSE_FAIL,
-  CREATESECTION_SUCCESS,
   CREATESECTION_FAIL,
   GETSECTIONS_SUCCESS,
   GETSECTIONS_FAIL,
