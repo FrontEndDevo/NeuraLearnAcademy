@@ -31,6 +31,8 @@ import {
 } from "../../../redux/actions/courses-methods";
 import VideoPlayer from "../../../shared/VideoPlayer";
 import ImageViewer from "../../../shared/ImageViewer";
+import {  } from "../../../redux/slices/popups-slices/spinner-slice";
+import { setToastMessage } from "../../../redux/slices/popups-slices/toasts-slice";
 
 const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
   const dispatch = useDispatch();
@@ -46,7 +48,7 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
   };
 
   return (
-    <div className="flex justify-between px-4 py-3  bg-sky-950 md:px-7 md:py-3" >
+    <div className="flex justify-between px-4 py-3 bg-sky-950 md:px-7 md:py-3" >
       <span className="font-semibold text-white">{sectionTitle}</span>
       <div className="flex space-x-3 text-white cursor-pointer">
         {/* Arrow icon for toggle */}
