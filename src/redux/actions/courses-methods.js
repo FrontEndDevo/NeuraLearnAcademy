@@ -4,10 +4,6 @@ import {
   setPublicCoursesError,
   GETSUBJECTCOURSES_ERROR,
   UPDATEUSERDATA_ERROR,
-  CREATECONTENT_ERROR,
-  GETCONTENTS_ERROR,
-  DELETELECTURE_ERROR,
-  UPDATELECTURE_ERROR,
 } from "../slices/courses/courses-errors";
 
 import {
@@ -433,10 +429,21 @@ export async function createContent(dispatch, access, body, slug, type) {
         body,
         config
       );
+      dispatch(
+        setToastMessage({
+          message: "The content was created succefully.",
+          type: "success",
+        })
+      );
       dispatch(CREATECONTENT_SUCCESS(res.data));
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Unable to create the content! Try again later.",
+          type: "error",
+        })
+      );
       dispatch(CREATECONTENT_FAIL());
-      dispatch(CREATECONTENT_ERROR(err.response.data));
     }
   }
 }
@@ -459,8 +466,13 @@ export async function getContents(dispatch, access, slug) {
         payload: { content: res.data.contents, slug },
       });
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't load the contents! Please Try again later.",
+          type: "error",
+        })
+      );
       dispatch(GETCONTENTS_FAIL());
-      dispatch(GETCONTENTS_ERROR(err.response.data));
     }
   }
 }
@@ -475,10 +487,21 @@ export async function deleteLecture(dispatch, access, api) {
     };
     try {
       const res = await axios.delete(api, config);
+      dispatch(
+        setToastMessage({
+          message: "The lecture was deleted succefully.",
+          type: "success",
+        })
+      );
       dispatch(DELETELECTURE_SUCCESS(res.data));
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't delete the lecture! Try again later.",
+          type: "error",
+        })
+      );
       dispatch(DELETELECTURE_FAIL());
-      dispatch(DELETELECTURE_ERROR(err.response.data));
     }
   }
 }
@@ -493,10 +516,22 @@ export async function updateLecture(dispatch, access, formData, api) {
     };
     try {
       const res = await axios.put(api, formData, config);
+
+      dispatch(
+        setToastMessage({
+          message: "The lecture was updated succefully.",
+          type: "success",
+        })
+      );
       dispatch(UPDATELECTURE_SUCCESS(res.data));
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't update the lecture! Try again later.",
+          type: "error",
+        })
+      );
       dispatch(UPDATELECTURE_FAIL());
-      dispatch(UPDATELECTURE_ERROR(err.response.data));
     }
   }
 }

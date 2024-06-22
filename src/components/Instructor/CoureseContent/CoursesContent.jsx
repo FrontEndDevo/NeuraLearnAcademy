@@ -81,7 +81,26 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
   const [lecture, setLecture] = useState(null);
 
   useEffect(() => {
-    getContents(dispatch, access, slug);
+    const fetchInstructorCoursesContents = async () => {
+      try {
+        // Show the spinner.
+        dispatch(setIsSpinnerLoading(true));
+
+        await getContents(dispatch, access, slug);
+      } catch (error) {
+        // Show the error message to the user.
+        dispatch(
+          setToastMessage({
+            message: "Can't load the contents. Please try again later.",
+            type: "error",
+          })
+        );
+      } finally {
+        // Close the spinner.
+        dispatch(setIsSpinnerLoading(false));
+      }
+    };
+    fetchInstructorCoursesContents();
   }, [dispatch, access, slug]);
 
   useEffect(() => {
@@ -99,11 +118,27 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
     setShowDeleteModal(true);
   };
 
-  const handleConfirmDeleteLecture = () => {
-    const api = renderDeleteLink(lecture);
-    deleteLecture(dispatch, access, api); // Replace with actual action and slug
-    setShowDeleteModal(false);
-    setLecture(null);
+  const handleConfirmDeleteLecture = async () => {
+    try {
+      // Show the spinner.
+      dispatch(setIsSpinnerLoading(true));
+
+      const api = renderDeleteLink(lecture);
+      await deleteLecture(dispatch, access, api); // Replace with actual action and slug
+      setShowDeleteModal(false);
+      setLecture(null);
+    } catch (error) {
+      // Show the error message to the user.
+      dispatch(
+        setToastMessage({
+          message: "Can't delete the lecture! Please Try again later.",
+          type: "error",
+        })
+      );
+    } finally {
+      // Close the spinner.
+      dispatch(setIsSpinnerLoading(false));
+    }
   };
 
   const handleCloseDeleteModal = () => {
