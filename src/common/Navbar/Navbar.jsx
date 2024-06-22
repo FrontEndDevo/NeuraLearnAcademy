@@ -7,6 +7,7 @@ import defaultUserPicture from "../../assets/images/profile/unknown_user.webp";
 import ProfileDropdown from "./ProfileDropdown";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import NavbarLinks from "./NavbarLinks";
 
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -22,44 +23,18 @@ const Navbar = () => {
       <div className="flex items-center w-1/2 gap-14">
         <Link to="/" className="flex items-center gap-2">
           <img src={nlaLogo} alt="NeuraLearnAcademy" className="w-10 h-10" />
-          <h1 className="text-xl font-bold">NeuraLearnAcademy</h1>
+          <h1 className="text-xl font-bold md:hidden">NLA</h1>
+          <h1 className="hidden text-xl font-bold md:block">
+            NeuraLearnAcademy
+          </h1>
         </Link>
-        <NavSearch />
+        {/* <NavSearch /> */}
       </div>
 
       <div className="flex items-center gap-10">
-        <div className="flex items-center gap-10">
-          <Link
-            to="/"
-            className="p-2 font-semibold capitalize duration-200 rounded-lg hover:bg-neutral-800 hover:text-white"
-          >
-            home
-          </Link>
-
-          {isAuthenticated && (
-            <Link
-              to="/my-learnings"
-              className="p-2 font-semibold capitalize duration-200 rounded-lg hover:bg-neutral-800 hover:text-white"
-            >
-              my learnings
-            </Link>
-          )}
-
-          <Link
-            to="/contact-us"
-            className="p-2 font-semibold capitalize duration-200 rounded-lg hover:bg-neutral-800 hover:text-white"
-          >
-            contact us
-          </Link>
-
-          <Link
-            to="/about-us"
-            className="p-2 font-semibold capitalize duration-200 rounded-lg hover:bg-neutral-800 hover:text-white"
-          >
-            about us
-          </Link>
-        </div>
-
+        <NavbarLinks isAuth={isAuthenticated} />
+        
+        
         {!isAuthenticated && (
           <div className="flex items-center gap-4 font-semibold uppercase">
             <Link
