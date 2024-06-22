@@ -495,3 +495,30 @@ export async function GetUserSections(dispatch, access,slug) {
     }
   }
 }
+export async function enrollCourse(dispatch, access, slug) {
+  if (access) {
+    console.log(access)
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.post(
+        import.meta.env.VITE_API_URL + `/api/students/courses/${slug}/enroll/`,
+        config
+      );
+      console.log(res)
+      // dispatch({
+      //   type: GETCONTENTS_SUCCESS,
+      //   payload: { content: res.data.contents, slug },
+      // });
+    } catch (err) {
+      // dispatch(GETCONTENTS_FAIL());
+      // dispatch(GETCONTENTS_ERROR(err.response.data));
+      console.log(err)
+    }
+  }
+}
