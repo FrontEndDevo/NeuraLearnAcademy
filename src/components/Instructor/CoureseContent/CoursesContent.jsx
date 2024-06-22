@@ -144,7 +144,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
     <div className="w-full transition-all duration-300 ease-in-out">
       {lectures.map((item, index) => (
         <div
-          className="relative pt-2 bg-white shadow-lg cursor-pointer"
+          className="relative pt-2 bg-white shadow-lg "
           key={index}
          
         >
