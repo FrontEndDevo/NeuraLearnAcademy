@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ebook from "../../assets/images/Instructor/ebook.gif";
 import {
@@ -9,27 +9,25 @@ import {
   faVideo,
   faChevronUp,
   faChevronDown,
-  faDownload,
-  faPenToSquare,
  
 } from "@fortawesome/free-solid-svg-icons";
 import VideoPlayer from "../../shared/VideoPlayer";
 import ImageViewer from "../../shared/ImageViewer";
 import { useDispatch, useSelector } from "react-redux";
-import { GetUserSections, getContents, getSections } from "../../redux/actions/courses-methods";
 import { useParams } from "react-router-dom";
+import { getContents, getSections } from "../../redux/actions/courses-methods";
 
 const SectionHeader = ({ sectionTitle, onClick, isOpen }) => {
 
 
   return (
     <div
-      className="bg-sky-950 flex justify-between items-center content-center cursor-pointer"
+      className="flex items-center content-center justify-between cursor-pointer bg-sky-950"
       onClick={onClick}
     >
-      <div className="flex justify-between md:space-x-60 w-full px-4 py-3 md:px-6">
-        <div className="text-white font-semibold">{sectionTitle}</div>
-        <div className="text-white ml-2">
+      <div className="flex justify-between w-full px-4 py-3 md:space-x-60 md:px-6">
+        <div className="font-semibold text-white">{sectionTitle}</div>
+        <div className="ml-2 text-white">
           <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
         </div>
       </div>
@@ -70,12 +68,6 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
     if (item.image) return item.image.title;
     if (item.file) return item.file.title;
     return "Unknown Title";
-  };
-  const renderDeleteLink = (lecture) => {
-    if (lecture.file) return lecture.file.delete_url;
-    if (lecture.video) return lecture.video.delete_url;
-    if (lecture.image) return lecture.image.delete_url;
-    return "Unknown Linke";
   };
 
   const handleClick = (item) => {
@@ -169,7 +161,7 @@ const UserContent = () => {
       <header className="p-10 bg-[#004682] text-white">
         <h1 className="text-2xl font-bold">Course Machine Learning</h1>
         <p>Course Machine learning this the best course.</p>
-        <p className="text-sm mt-4 mb-2">
+        <p className="mt-4 mb-2 text-sm">
           <span>
             <FontAwesomeIcon icon={faGraduationCap} /> 0 Students
           </span>
@@ -181,7 +173,7 @@ const UserContent = () => {
           <span> 2/7/2024</span>
         </p>
       </header>
-      <div className="bg-white pb-32 flex flex-col md:flex-row md:space-x-3 lg:space-x-4 justify-around pt-10 relative">
+      <div className="relative flex flex-col justify-around pt-10 pb-32 bg-white md:flex-row md:space-x-3 lg:space-x-4">
         <div className="flex flex-col items-center relative h-[80vh] w-full md:w-3/5">
           {renderSelectedContent()}
           <img
@@ -191,8 +183,8 @@ const UserContent = () => {
             loading="lazy"
           />
         </div>
-        <div className=" bg-white">
-          <div className=" mt-4 px-4 ">
+        <div className="bg-white ">
+          <div className="px-4 mt-4 ">
             {userSections.map((ele, index) => (
               <div key={index} className="mb-2">
                 <SectionHeader
