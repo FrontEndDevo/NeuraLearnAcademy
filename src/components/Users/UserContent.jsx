@@ -14,9 +14,8 @@ import {
 import VideoPlayer from "../../shared/VideoPlayer";
 import ImageViewer from "../../shared/ImageViewer";
 import { useDispatch, useSelector } from "react-redux";
-import { GetUserSections, getContents, getSections } from "../../redux/actions/courses-methods";
+import {  getContents, getSections } from "../../redux/actions/courses-methods";
 import { useParams } from "react-router-dom";
-import { getContents, getSections } from "../../redux/actions/courses-methods";
 
 const SectionHeader = ({ sectionTitle, onClick, isOpen }) => {
 
