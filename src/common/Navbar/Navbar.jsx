@@ -5,26 +5,75 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import defaultUserPicture from "../../assets/images/profile/unknown_user.webp";
 import ProfileDropdown from "./ProfileDropdown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import NavbarLinks from "./NavbarLinks";
+import LinksDropdown from "./LinksDropdown";
+
+const navbarOptions = [
+  {
+    id: 1,
+    title: "home",
+    link: "/",
+    requireAuth: false,
+  },
+
+  {
+    id: 2,
+    title: "my learnings",
+    link: "/my-learnings",
+    requireAuth: true,
+  },
+  {
+    id: 3,
+    title: "contact us",
+    link: "/contact-us",
+    requireAuth: true,
+  },
+  {
+    id: 4,
+    title: "about us",
+    link: "/about-us",
+    requireAuth: false,
+  },
+];
 
 const Navbar = () => {
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const [showLinksDropdown, setShowLinksDropdown] = useState(false);
+  const isMobile = useState(window.innerWidth < 1024);
+
+  // Handle window resizing (smaller than the laptop screen (1024px)).
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      isMobile[1](window.innerWidth < 1024);
+    });
+
+    return () => {
+      window.removeEventListener("resize", () => {
+        isMobile[1](window.innerWidth < 1024);
+      });
+    };
+  }, [isMobile]);
 
   const userAuth = useSelector((state) => state.userAuth);
   const { isAuthenticated, user } = userAuth;
+
   const handleTogglingProfileDropdown = () => {
-    setShowDropdown((prevState) => !prevState);
+    setShowProfileDropdown((prevState) => !prevState);
+  };
+
+  const handleTogglingLinksDropdown = () => {
+    setShowLinksDropdown((prevState) => !prevState);
   };
 
   return (
-    <nav className="fixed top-0 z-50 flex items-center justify-between w-screen px-6 py-4 pr-20 bg-white shadow-lg">
+    <nav className="fixed top-0 z-50 flex items-center justify-between w-screen px-6 py-4 bg-white shadow-lg lg:pr-20">
       <div className="flex items-center w-1/2 gap-14">
         <Link to="/" className="flex items-center gap-2">
           <img src={nlaLogo} alt="NeuraLearnAcademy" className="w-10 h-10" />
-          <h1 className="text-xl font-bold md:hidden">NLA</h1>
-          <h1 className="hidden text-xl font-bold md:block">
+          <h1 className="text-xl font-bold lg:hidden">NLA</h1>
+          <h1 className="hidden text-xl font-bold lg:block">
             NeuraLearnAcademy
           </h1>
         </Link>
@@ -32,9 +81,32 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-10">
-        <NavbarLinks isAuth={isAuthenticated} />
-        
-        
+        {!isMobile[0] && (
+          <NavbarLinks links={navbarOptions} isAuth={isAuthenticated} />
+        )}
+
+        {isMobile[0] && (
+          <div>
+            <div
+              onClick={handleTogglingLinksDropdown}
+              className="relative flex items-center gap-1 p-2 duration-200 cursor-pointer rounded-xl hover:bg-gray-200"
+            >
+              <span className="font-semibold capitalize">resources</span>
+              <FontAwesomeIcon
+                icon={faCaretDown}
+                className={`w-2 h-2 duration-200 ${
+                  showLinksDropdown ? "transform rotate-180" : ""
+                }`}
+              />
+              <LinksDropdown
+                links={navbarOptions}
+                isAuth={isAuthenticated}
+                showOptions={showLinksDropdown}
+              />
+            </div>
+          </div>
+        )}
+
         {!isAuthenticated && (
           <div className="flex items-center gap-4 font-semibold uppercase">
             <Link
@@ -65,10 +137,10 @@ const Navbar = () => {
             <FontAwesomeIcon
               icon={faCaretDown}
               className={`w-2 h-2 duration-200 ${
-                showDropdown ? "transform rotate-180" : ""
+                showProfileDropdown ? "transform rotate-180" : ""
               }`}
             />
-            <ProfileDropdown showOptions={showDropdown} />
+            <ProfileDropdown showOptions={showProfileDropdown} />
           </div>
         )}
       </div>

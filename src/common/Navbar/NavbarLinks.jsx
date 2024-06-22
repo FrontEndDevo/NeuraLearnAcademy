@@ -1,43 +1,30 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const NavbarLinks = ({ isAuth }) => {
-  return (
-    <div className="flex items-center gap-10">
-      <Link
-        to="/"
-        className="p-2 font-semibold capitalize duration-200 rounded-lg hover:bg-neutral-800 hover:text-white"
-      >
-        home
-      </Link>
+const NavbarLinks = ({ links, isAuth }) => {
+  const linkClasses =
+    "p-2 font-semibold capitalize duration-200 rounded-lg hover:bg-neutral-800 hover:text-white";
 
-      {isAuth && (
-        <Link
-          to="/my-learnings"
-          className="p-2 font-semibold capitalize duration-200 rounded-lg hover:bg-neutral-800 hover:text-white"
-        >
-          my learnings
+  // Filter links based on authentication status.
+  const navLinks = links.map((item) =>
+    item.requireAuth ? (
+      isAuth ? (
+        <Link key={item.id} to={item.link} className={linkClasses}>
+          {item.title}
         </Link>
-      )}
-
-      <Link
-        to="/contact-us"
-        className="p-2 font-semibold capitalize duration-200 rounded-lg hover:bg-neutral-800 hover:text-white"
-      >
-        contact us
+      ) : null
+    ) : (
+      <Link key={item.id} to={item.link} className={linkClasses}>
+        {item.title}
       </Link>
-
-      <Link
-        to="/about-us"
-        className="p-2 font-semibold capitalize duration-200 rounded-lg hover:bg-neutral-800 hover:text-white"
-      >
-        about us
-      </Link>
-    </div>
+    )
   );
+
+  return <div className="flex items-center gap-10">{navLinks}</div>;
 };
 
 NavbarLinks.propTypes = {
+  links: PropTypes.array.isRequired,
   isAuth: PropTypes.bool.isRequired,
 };
 
