@@ -562,29 +562,8 @@ export async function GetUserCourses(dispatch, access ) {
 }
 
 
-export async function GetUserSections(dispatch, access,slug) {
-  if (access) {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `JWT ${access}`,
-        Accept: "application/json",
-      },
-    };
-    try {
-      const res = await axios.get(
-        import.meta.env.VITE_API_URL + `/students/course/${slug}/modules/`,
-        config
-      );
-      dispatch(GETUSERSECTIONS_SUCCESS(res.data));
-      console.log(res);
-    } catch (err) {
-      dispatch(GETUSERSECTIONS_FAIL());
-      dispatch(GETUSERSECTION_ERROR(err.response));
-      console.log(err);
-    }
-  }
-}
+
+
 export async function enrollCourse(dispatch, access, slug) {
   if (access) {
     console.log(access)
