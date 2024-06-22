@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import sideBarImage from "../../assets/images/homepage/course_4.jpg";
 import summarizerImage from "../../assets/images/homepage/ai-creative.png";
 import { faTrashAlt, faUpload } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +23,10 @@ const Summarizer = () => {
   const [slug, setSlug] = useState("");
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
+
+  useEffect(() => {
+    setSectionData(sectionsData);
+  }, [sectionsData]);
 
   const handleToggle = () => {
     setIsShort(!isShort);
@@ -61,11 +65,11 @@ const Summarizer = () => {
 
   return (
     <div className="flex h-screen">
-      <div
-        className={`bg-neutral-100 text-white w-64 transition-all duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+     <div
+        className={`bg-neutral-100 text-white w-64 h-96  fixed left-0 top-0 z-50 ${isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
+        {/* Sidebar Header */}
         <div className="flex flex-col px-3 pt-10 pb-4">
           <img
             src={sideBarImage}
@@ -74,7 +78,6 @@ const Summarizer = () => {
             loading="lazy"
           />
           <h2 className="py-1 font-bold text-black">Course Machine learning</h2>
-
           <div className="flex mb-3 text-sm font-medium tracking-tight text-black text-opacity-70">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -94,31 +97,33 @@ const Summarizer = () => {
           </div>
         </div>
 
-        {sectionData.map((section, index) => (
-          <div key={index} className="flex items-center px-4 pb-4">
-            <h3 className="text-lg font-bold tracking-tight text-black">
-              {section.title}
-            </h3>
-
-            <input
-              type="radio"
-              name="section"
-              checked={selectedSection === index}
-              onChange={() => handleSectionSelect(section.slug, index)}
-              className="ml-2"
-            />
-          </div>
-        ))}
+        {/* Scrollable Sections List */}
+        <div className=" overflow-y-auto h-3/4">
+          {sectionData.map((section, index) => (
+            <div key={index} className="flex items-center px-4 pb-4">
+              <h3 className="text-lg font-bold tracking-tight text-black">
+                {section.title}
+              </h3>
+              <input
+                type="radio"
+                name="section"
+                checked={selectedSection === index}
+                onChange={() => handleSectionSelect(section.slug, index)}
+                className="ml-2"
+              />
+            </div>
+          ))}
+        </div>
       </div>
 
       <button
-        className="fixed p-2 text-white bg-gray-800 rounded-md top-4 left-72"
+        className="fixed p-2 text-white bg-gray-800 rounded-md top-4 left-72 z-50"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? "Close" : "Open"}
       </button>
 
-      <div className="flex-1 p-4">
+      <div className="flex-1 ml-64 p-4">
         <div className="flex items-center justify-center space-x-3">
           <img
             src={summarizerImage}
