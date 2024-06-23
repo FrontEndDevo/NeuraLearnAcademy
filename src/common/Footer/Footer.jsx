@@ -11,20 +11,20 @@ import { Link } from "react-router-dom";
 // Sections of the footer.
 const sections = [
   {
-    title: "Solutions",
-    items: ["Marketing", "Analytics", "Commerce", "Data", "Cloud"],
+    title: "Company",
+    items: ["Our Mission", "Team", "Careers", "News"],
   },
   {
     title: "Support",
-    items: ["Pricing", "Documentation", "Guides", "API Status"],
+    items: ["FAQs", "Contact Us", "User Forums", "Troubleshooting"],
   },
   {
-    title: "Company",
-    items: ["About", "Blog", "Jobs", "Press", "Partners"],
+    title: "Solutions",
+    items: ["Online Courses", "Interactive Learning", "Certification Programs"],
   },
   {
     title: "Legal",
-    items: ["Claims", "Privacy", "Terms", "Policies", "Conditions"],
+    items: ["Terms of Service", "Privacy Policy", "Cookie Policy"],
   },
 ];
 
@@ -49,7 +49,9 @@ const Footer = () => {
       <div className="max-w-[1240px] mx-auto grid grid-cols-2 md:grid-cols-6 border-b-2 border-gray-600 py-8">
         {sections.map((section, index) => (
           <div key={index}>
-            <h6 className="pt-2 font-bold uppercase">{section.title}</h6>
+            <h6 className="pt-2 pr-2 mb-2 font-bold uppercase border-b border-indigo-600 rounded-r-xl w-fit">
+              {section.title}
+            </h6>
             <ul>
               {section.items.map((item, i) => (
                 <li key={i} className="py-1 text-gray-500 hover:text-white">
