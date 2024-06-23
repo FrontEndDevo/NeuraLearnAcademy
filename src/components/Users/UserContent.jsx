@@ -117,38 +117,47 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
 };
 
 const UserContent = () => {
-  useEffect(() => {
-    console.log(access);
-    getUserSections(dispatch, access, slug.slug);
-  }, []);
-
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
   const usercourse =
     useSelector((state) => state.courses.userSectionsData) || [];
   const slug = useParams();
   const [selectedContent, setSelectedContent] = useState(null);
+  const [selectedContentUrl, setSelectedContentUrl] = useState("");
   const [openSection, setOpenSection] = useState(null);
   const [userSections, setUserSections] = useState(usercourse);
+
+
+  useEffect(() => {
+    console.log(access);
+    getUserSections(dispatch, access, slug.slug);
+  }, []);
+  useEffect(() => {
+    setUserSections(usercourse || []);
+  }, [usercourse]);
+  
   const toggleSection = (index) => {
     setOpenSection(openSection === index ? null : index);
   };
-
+  const handleSelectContent = (type, url) => {
+    setSelectedContent(type);
+    setSelectedContentUrl(url);
+  };
   const renderSelectedContent = () => {
     if (!selectedContent) return null;
-
+    console.log(selectedContent);
     switch (selectedContent) {
       case "video":
         return (
           <VideoPlayer
-            url="https://youtu.be/KgGbAgW8eTY?si=jYmT8-OIIwpMQrwN"
+            url={selectedContentUrl}
             onClose={() => setSelectedContent(null)}
           />
         );
       case "image":
         return (
           <ImageViewer
-            url="https://s3-alpha-sig.figma.com/img/b610/7369/d235da6ab7b04799b66ba3229c018aac?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=FYqZYP4T~CCo0FcXPF6fLG7CWkIzdWk5XbPIDFAnFNBUS3LZLdDB5qXDgNMHHn06z9tmSIINtDKo~ALCUUGtLs79VNiP9D3rYJDSSi~ZXBePi7kWicKZvrmWUFnxMfXkzRF8b-hmq5IGvnhAfkIF-yeIN4EyuQ7f3IOnxy5yhHGLPQvTvPzuJLjcQ8iCBlv6SYjTAgOeNlr01EMl2CB57G7ZunUHx1Ej3D8fr2vky9qCY~qVVW5li6InGrVEtni1s9yPtumdhTX6l7BiCBjrZAyl1i48QMaDXahPbPmmNhBKbOhhahbooR0S9L40Xv47ZpPTD8Mlpy7A7umVIUeiSA__"
+            url={selectedContentUrl}
             onClose={() => setSelectedContent(null)}
           />
         );
@@ -198,7 +207,7 @@ const UserContent = () => {
                   slug={ele.slug}
                   access={access}
                   dispatch={dispatch}
-                  onSelect={setSelectedContent}
+                  onSelect={handleSelectContent}
                   isOpen={openSection === index}
                 />
               </div>
