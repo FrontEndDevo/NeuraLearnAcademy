@@ -6,6 +6,9 @@ import {
   UPDATEUSERDATA_ERROR,
   GETTRANSCRIPTSECTION_ERROR,
   SUMMARIZE_ERROR,
+  ENROLLCOURSE_ERROR,
+  GETTRANSCRIPTVIDEO_ERROR,
+  QUESTIONGENERATION_ERROR,
 } from "../slices/courses/courses-errors";
 
 import {
@@ -36,8 +39,12 @@ import {
   SUMMARIZE_FAIL,
   GETUSERCOURSES_SUCCESS,
   GETUSERCOURSES_FAIL,
-  GETUSERSECTIONS_FAIL,
-  GETUSERSECTIONS_SUCCESS,
+  ENROLLCOURSE_SUCCESS,
+  ENROLLCOURSE_FAIL,
+  GETTRANSCRIPTVIDEO_SUCCESS,
+  GETTRANSCRIPTVIDEO_FAIL,
+  QUESTIONGENERATION_SUCCESS,
+  QUESTIONGENERATION_FAIL,
 } from "../slices/courses/courses-slice";
 import { setToastMessage } from "../slices/popups-slices/toasts-slice";
 
@@ -562,7 +569,7 @@ export async function GetUserCourses(dispatch, access ) {
       dispatch(GETUSERCOURSES_SUCCESS(res.data));
       console.log(res);
     } catch (err) {
-      dispatch(UPDATELECTURE_FAIL());
+      dispatch(GETUSERCOURSES_FAIL());
     }
   }
 }
@@ -585,15 +592,10 @@ export async function enrollCourse(dispatch, access, slug) {
         import.meta.env.VITE_API_URL + `/api/students/courses/${slug}/enroll/`,
         config
       );
-      console.log(res)
-      // dispatch({
-      //   type: GETCONTENTS_SUCCESS,
-      //   payload: { content: res.data.contents, slug },
-      // });
+      dispatch(ENROLLCOURSE_SUCCESS(res.data.enrolled));
     } catch (err) {
-      // dispatch(GETCONTENTS_FAIL());
-      // dispatch(GETCONTENTS_ERROR(err.response.data));
-      console.log(err)
+      dispatch(ENROLLCOURSE_FAIL());
+      dispatch(ENROLLCOURSE_ERROR(err.response.data));
     }
   }
 }
@@ -659,11 +661,11 @@ export async function getTranscriptVideo(dispatch, access, id) {
         import.meta.env.VITE_API_URL + `/api/models/video/${id}/transcript/`,
         config,
       );
-      // dispatch(SUMMARIZE_SUCCESS(res.data));
+      dispatch(GETTRANSCRIPTVIDEO_SUCCESS(res.data));
       console.log(res);
     } catch (err) {
-      // dispatch(SUMMARIZE_FAIL());
-      // dispatch(SUMMARIZE_ERROR(err.response.data));
+      dispatch(GETTRANSCRIPTVIDEO_FAIL());
+      dispatch(GETTRANSCRIPTVIDEO_ERROR(err.response.data));
       console.log(err);
     }
   }
@@ -682,11 +684,11 @@ export async function questionGeneration(dispatch, access) {
         import.meta.env.VITE_API_URL + `/api/models/generate-questions/`,
         config
       );
-      // dispatch(SUMMARIZE_SUCCESS(res.data));
+      dispatch(QUESTIONGENERATION_SUCCESS(res.data));
       console.log(res);
     } catch (err) {
-      // dispatch(SUMMARIZE_FAIL());
-      // dispatch(SUMMARIZE_ERROR(err.response.data));
+      dispatch(QUESTIONGENERATION_FAIL());
+      dispatch(QUESTIONGENERATION_ERROR(err.response.data));
       console.log(err);
     }
   }
