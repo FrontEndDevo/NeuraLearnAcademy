@@ -22,15 +22,12 @@ import CoursesContentPage from "./pages/Instructor/CoursesContentPage";
 import RequireAuth from "./components/Registration/RequireAuth/RequireAuth";
 import QuestionGenerationPage from "./pages/QuestionGenerationPage";
 import UserPage from "./pages/Users/UserPage";
-import Spinner from "./shared/popup/Spinner";
-import { createPortal } from "react-dom";
-import { useSelector } from "react-redux";
-
-const loadingSpinnerId = document.getElementById("loading__spinner");
-
+import Navbar from "./common/Navbar/Navbar";
+import Footer from "./common/Footer/Footer";
 const App = () => {
   return (
     <>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -72,6 +69,7 @@ const App = () => {
           />
         </Route>
       </Routes>
+      <Footer />
     </>
   );
 };
