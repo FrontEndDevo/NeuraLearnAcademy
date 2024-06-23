@@ -45,6 +45,10 @@ import {
   GETTRANSCRIPTVIDEO_FAIL,
   QUESTIONGENERATION_SUCCESS,
   QUESTIONGENERATION_FAIL,
+  GETUSERSECTIONS_SUCCESS,
+  GETUSERSECTIONS_FAIL,
+  GETUSERCONTENTS_SUCCESS,
+  GETUSERCONTENTS_FAIL,
 } from "../slices/courses/courses-slice";
 import { setToastMessage } from "../slices/popups-slices/toasts-slice";
 
@@ -387,6 +391,33 @@ export async function getSections(dispatch, access, slug) {
     }
   }
 }
+export async function getUserSections(dispatch, access, slug) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/api/students/course/${slug}/modules/`,
+        config
+      );
+      dispatch(GETUSERSECTIONS_SUCCESS(res.data.modules));
+    } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't load your sections, Please try again.",
+          type: "error",
+        })
+      );
+      dispatch(GETUSERSECTIONS_FAIL());
+    }
+  }
+}
 export async function updateSections(
   dispatch,
   access,
@@ -490,6 +521,35 @@ export async function getContents(dispatch, access, slug) {
         })
       );
       dispatch(GETCONTENTS_FAIL());
+    }
+  }
+}
+export async function getUserContents(dispatch, access, slug) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/api/students/module/${slug}/contents/`,
+        config
+      );
+      dispatch({
+        type: GETUSERCONTENTS_SUCCESS,
+        payload: { content: res.data.contents, slug },
+      });
+    } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't load the contents! Please Try again later.",
+          type: "error",
+        })
+      );
+      dispatch(GETUSERCONTENTS_FAIL());
     }
   }
 }
