@@ -6,7 +6,6 @@ import ResourceGuide from "../components/ResourceGuide/ResourceGuide";
 import TopCategories from "../components/TopCategories/TopCategories";
 import Hero from "../components/Hero/Hero";
 import Specializations from "../components/Specializations/Specializations";
-import { useAuthenticationChecking } from "../shared/Registration/useAuthenticationChecking";
 import {
   getSubjectCourses,
   public_course_with_subject,
@@ -15,8 +14,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 const Homepage = () => {
-  useAuthenticationChecking();
-  
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
 
