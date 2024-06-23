@@ -1,8 +1,6 @@
 import { useState } from "react";
 import sideBarImage from "../../assets/images/homepage/course_4.jpg";
 import summarizerImage from "../../assets/images/homepage/ai-creative.png";
-import { faTrashAlt, faUpload } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getTranscriptSection,
@@ -12,10 +10,9 @@ import {
 
 const Summarizer = () => {
   const [isOpen, setIsOpen] = useState(true);
-  const [isShort, setIsShort] = useState(true);
-  const transcriptdate = useSelector((state) => state.courses.transcriptdate);
+  const transcriptdata = useSelector((state) => state.courses.transcriptdate);
   const summarizeData = useSelector((state) => state.courses.summarizeData);
-  const [modelInput, setModelInput] = useState(transcriptdate);
+  const [modelInput, setModelInput] = useState();
   const [paragraphInput, setParagraphInput] = useState("");
   const [selectedSection, setSelectedSection] = useState(null);
   const sectionsData = useSelector((state) => state.courses.sectionsData);
@@ -24,39 +21,26 @@ const Summarizer = () => {
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
 
-  const handleToggle = () => {
-    setIsShort(!isShort);
-  };
-
-  const handleFileUpload = () => {
-    console.log("File upload button clicked");
-    // Add your file upload logic here
-  };
-
   const handleSummarize = () => {
     console.log("Summarize button clicked");
     console.log(modelInput);
     summarize(dispatch, access, modelInput);
+    setParagraphInput(summarizeData);
   };
 
   const handleSave = () => {
     console.log("Save button clicked");
     const body = new FormData();
     body.append("title", "section Summarize");
-    body.append("file", summarizeData);
+    body.append("content", summarizeData);
     createContent(dispatch, access, body, slug, "text");
-  };
-
-  const handleDelete = () => {
-    console.log("Delete button clicked");
-    // Add your delete logic here
   };
 
   const handleSectionSelect = (slug, index) => {
     setSelectedSection(index);
     setSlug(slug);
-    console.log(`Section ${slug} selected`);
     getTranscriptSection(dispatch, access, slug);
+    setModelInput(transcriptdata);
   };
 
   return (
@@ -133,54 +117,19 @@ const Summarizer = () => {
 
         <div className="flex flex-col items-center justify-between px-4 py-2 bg-sky-800 md:flex-row md:px-0">
           <div className="flex mb-2 ml-0 space-x-4 md:ml-6 md:mb-0">
-            <div className="font-semibold text-white">Model:</div>
-            <div className="font-semibold text-white">Paragraph</div>
-          </div>
-
-          <div className="flex items-center justify-center mr-0 md:mr-7">
-            <div className="mr-3 font-semibold text-white md:ml-2 xl:ml-0">
-              Summary Length:
-            </div>
-            <div className="flex items-center space-x-7">
-              <label className="relative inline-block w-10 cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="w-0 h-0 opacity-0"
-                  checked={!isShort}
-                  onChange={handleToggle}
-                />
-                <span className="absolute top-0 left-0 right-0 bottom-0 bg-gray-400 rounded-full transition-all duration-300 before:absolute before:content-[''] before:h-4 before:w-4 before:left-1 before:bottom-1 before:bg-white before:rounded-full before:transition-all before:duration-300 before:ease-in-out" />
-              </label>
-              <span
-                className={`ml-2 ${isShort ? "text-white" : "text-blue-500"}`}
-              >
-                {isShort ? "Short" : "Long"}
-              </span>
-              <FontAwesomeIcon
-                onClick={handleDelete}
-                icon={faTrashAlt}
-                className="text-white transition duration-700 cursor-pointer hover:text-slate-300"
-              />
-            </div>
+            <div className="font-semibold text-white">Model: Paragraph</div>
           </div>
         </div>
 
         <div className="flex flex-col md:flex-row">
           <div className="relative w-full mb-4 md:w-1/2 md:mb-0">
             <textarea
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 h-64 md:h-96 overflow-auto"
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 h-64 md:h-96 overflow-auto outline-none"
               value={modelInput}
               onChange={(e) => setModelInput(e.target.value)}
               placeholder="Enter your model input"
             />
             <div className="absolute bottom-0 right-0 flex justify-between w-full px-2 mb-2">
-              <button
-                onClick={handleFileUpload}
-                className="px-2 py-1 font-bold text-black"
-              >
-                <FontAwesomeIcon icon={faUpload} className="mr-3" />
-                Upload Doc
-              </button>
               <button
                 onClick={handleSummarize}
                 className="px-2 py-1 font-bold text-white rounded-full bg-sky-800 hover:bg-sky-900"
@@ -192,7 +141,7 @@ const Summarizer = () => {
 
           <div className="relative w-full md:w-1/2">
             <textarea
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 h-64 md:h-96 overflow-auto"
+              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 h-64 md:h-96 overflow-auto outline-none"
               value={paragraphInput}
               onChange={(e) => setParagraphInput(e.target.value)}
               placeholder="Enter your model input"
