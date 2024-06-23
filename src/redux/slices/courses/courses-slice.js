@@ -19,7 +19,10 @@ const initialState = {
   lectureDeleted: null,
   lectureUpdated: null,
   transcriptdate: null,
-  summarizeData:null,
+  summarizeData: null,
+  isEnrolled: null,
+  transcriptVideoData: null,
+  questionGenerationData: null,
 };
 
 const subjectCourseReducer = (state, action) => {
@@ -219,20 +222,43 @@ const getUserCoursesFailReducer = (state) => {
     userCourses: null,
   };
 };
-
-
-const getUserSectionSuccessReducer = (state, action) => {
+const enrollCourseReducer = (state, action) => {
   return {
     ...state,
-    userCourses: action.payload,
+    isEnrolled: action.payload,
   };
 };
-const getUserSectionFailReducer = (state) => {
+const enrollCourseFailReducer = (state) => {
   return {
     ...state,
-    userCourses: null,
+    isEnrolled: null,
   };
 };
+const getTranscriptVideoReducer = (state, action) => {
+  return {
+    ...state,
+    transcriptVideoData: action.payload,
+  };
+};
+const getTranscriptVideoFailReducer = (state) => {
+  return {
+    ...state,
+    transcriptVideoData: null,
+  };
+};
+const questionGenerationReducer = (state, action) => {
+  return {
+    ...state,
+    questionGenerationData: action.payload,
+  };
+};
+const questionGenerationFailReducer = (state) => {
+  return {
+    ...state,
+    questionGenerationData: null,
+  };
+};
+
 const courseSlice = createSlice({
   name: "course",
   initialState,
@@ -260,14 +286,18 @@ const courseSlice = createSlice({
     DELETELECTURE_FAIL: deleteLectureFailReducer,
     UPDATELECTURE_SUCCESS: updateLectureReducer,
     UPDATELECTURE_FAIL: updateLectureFailReducer,
-    GETTRANSCRIPTSECTION_SUCCESS:getTranscriptReducer,
-    GETTRANSCRIPTSECTION_FAIL:getTranscriptFailReducer,
-    SUMMARIZE_SUCCESS:summarizeReducer,
-    SUMMARIZE_FAIL:summarizeFailReducer,
+    GETTRANSCRIPTSECTION_SUCCESS: getTranscriptReducer,
+    GETTRANSCRIPTSECTION_FAIL: getTranscriptFailReducer,
+    SUMMARIZE_SUCCESS: summarizeReducer,
+    SUMMARIZE_FAIL: summarizeFailReducer,
     GETUSERCOURSES_SUCCESS: getUserCoursesReducer,
     GETUSERCOURSES_FAIL: getUserCoursesFailReducer,
-    GETUSERSECTIONS_SUCCESS: getUserSectionSuccessReducer,
-    GETUSERSECTIONS_FAIL: getUserSectionFailReducer,
+    ENROLLCOURSE_SUCCESS: enrollCourseReducer,
+    ENROLLCOURSE_FAIL: enrollCourseFailReducer,
+    GETTRANSCRIPTVIDEO_SUCCESS: getTranscriptVideoReducer,
+    GETTRANSCRIPTVIDEO_FAIL: getTranscriptVideoFailReducer,
+    QUESTIONGENERATION_SUCCESS:questionGenerationReducer,
+    QUESTIONGENERATION_FAIL:questionGenerationFailReducer,
     setPublicCourses(state, action) {
       state.publicCourses = action.payload;
     },
@@ -311,10 +341,14 @@ export const {
   setCoursesDependOnSubject,
   GETUSERCOURSES_SUCCESS,
   GETUSERCOURSES_FAIL,
-  GETUSERSECTIONS_SUCCESS,
-  GETUSERSECTIONS_FAIL,
   GETUSERCONTENTS_SUCCESS,
-  GETUSERCONTENTS_FAIL
+  GETUSERCONTENTS_FAIL,
+  ENROLLCOURSE_SUCCESS,
+  ENROLLCOURSE_FAIL,
+  GETTRANSCRIPTVIDEO_SUCCESS,
+  GETTRANSCRIPTVIDEO_FAIL,
+  QUESTIONGENERATION_SUCCESS,
+  QUESTIONGENERATION_FAIL,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;
