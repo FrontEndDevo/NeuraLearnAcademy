@@ -104,7 +104,6 @@ const Navbar = () => {
                   }`}
                 />
                 <LinksDropdown
-                  links={navbarOptions}
                   isAuth={isAuthenticated}
                   showOptions={showLinksDropdown}
                 />
