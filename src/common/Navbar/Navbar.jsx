@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import nlaLogo from "../../assets/images/LoginSigin/logo.png";
-import NavSearch from "./NavSearch";
+import NavSearch from "./NavSearch/NavSearch";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import defaultUserPicture from "../../assets/images/profile/unknown_user.webp";
