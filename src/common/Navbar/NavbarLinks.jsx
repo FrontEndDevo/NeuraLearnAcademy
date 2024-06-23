@@ -20,7 +20,7 @@ const NavbarLinks = ({ links, isAuth }) => {
     )
   );
 
-  return <div className="flex items-center gap-10">{navLinks}</div>;
+  return <div className="flex items-center gap-2 xl:gap-10">{navLinks}</div>;
 };
 
 NavbarLinks.propTypes = {

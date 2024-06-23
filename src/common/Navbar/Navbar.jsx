@@ -68,82 +68,89 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 z-50 flex items-center justify-between w-screen px-6 py-4 bg-white shadow-lg lg:pr-20">
-      <div className="flex items-center w-1/2 gap-14">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={nlaLogo} alt="NeuraLearnAcademy" className="w-10 h-10" />
-          <h1 className="text-xl font-bold lg:hidden">NLA</h1>
-          <h1 className="hidden text-xl font-bold lg:block">
-            NeuraLearnAcademy
-          </h1>
-        </Link>
-        {/* <NavSearch /> */}
-      </div>
+    <nav className="fixed top-0 z-50 flex flex-col items-center justify-between w-screen gap-4 px-6 py-4 bg-white shadow-lg lg:flex-row lg:pr-20">
+      <div className="flex items-center justify-between w-full">
+        <div className="flex items-center w-1/2 gap-14">
+          <Link to="/" className="flex items-center gap-2">
+            <img src={nlaLogo} alt="NeuraLearnAcademy" className="w-10 h-10" />
+            <h1 className="text-xl font-bold tracking-widest md:hidden lg:block xl:hidden">
+              <span className="text-primary-500">N</span>
+              <span className="text-[#FFD23F]">L</span>
+              <span className="text-[#337357]">A</span>
+            </h1>
+            <h1 className="hidden text-xl font-bold md:block lg:hidden xl:block">
+              NeuraLearnAcademy
+            </h1>
+          </Link>
+          {!isMobile[0] && <NavSearch />}
+        </div>
 
-      <div className="flex items-center gap-10">
-        {!isMobile[0] && (
-          <NavbarLinks links={navbarOptions} isAuth={isAuthenticated} />
-        )}
+        <div className="flex items-center gap-4 xl:gap-10">
+          {!isMobile[0] && (
+            <NavbarLinks links={navbarOptions} isAuth={isAuthenticated} />
+          )}
 
-        {isMobile[0] && (
-          <div>
+          {isMobile[0] && (
+            <div>
+              <div
+                onClick={handleTogglingLinksDropdown}
+                className="relative flex items-center gap-1 p-2 duration-200 cursor-pointer rounded-xl hover:bg-gray-200"
+              >
+                <span className="font-semibold capitalize">resources</span>
+                <FontAwesomeIcon
+                  icon={faCaretDown}
+                  className={`w-2 h-2 duration-200 ${
+                    showLinksDropdown ? "transform rotate-180" : ""
+                  }`}
+                />
+                <LinksDropdown
+                  links={navbarOptions}
+                  isAuth={isAuthenticated}
+                  showOptions={showLinksDropdown}
+                />
+              </div>
+            </div>
+          )}
+
+          {!isAuthenticated && (
+            <div className="flex items-center gap-4 font-semibold uppercase">
+              <Link
+                to="/login"
+                className="px-4 py-2 duration-200 border rounded-lg border-neutral-800 hover:bg-neutral-200"
+              >
+                Log in
+              </Link>
+              <Link
+                to="/signup"
+                className="px-4 py-2 text-white duration-200 rounded-lg bg-neutral-800 hover:bg-neutral-900"
+              >
+                Sign Up
+              </Link>
+            </div>
+          )}
+
+          {isAuthenticated && (
             <div
-              onClick={handleTogglingLinksDropdown}
-              className="relative flex items-center gap-1 p-2 duration-200 cursor-pointer rounded-xl hover:bg-gray-200"
+              onClick={handleTogglingProfileDropdown}
+              className="relative flex items-center gap-1 pr-1 duration-200 rounded-full cursor-pointer hover:bg-gray-200"
             >
-              <span className="font-semibold capitalize">resources</span>
+              <img
+                src={defaultUserPicture}
+                alt="My profile"
+                className="w-8 h-8 p-1 border rounded-full border-neutral-800"
+              />
               <FontAwesomeIcon
                 icon={faCaretDown}
                 className={`w-2 h-2 duration-200 ${
-                  showLinksDropdown ? "transform rotate-180" : ""
+                  showProfileDropdown ? "transform rotate-180" : ""
                 }`}
               />
-              <LinksDropdown
-                links={navbarOptions}
-                isAuth={isAuthenticated}
-                showOptions={showLinksDropdown}
-              />
+              <ProfileDropdown showOptions={showProfileDropdown} />
             </div>
-          </div>
-        )}
-
-        {!isAuthenticated && (
-          <div className="flex items-center gap-4 font-semibold uppercase">
-            <Link
-              to="/login"
-              className="px-4 py-2 duration-200 border rounded-lg border-neutral-800 hover:bg-neutral-200"
-            >
-              Log in
-            </Link>
-            <Link
-              to="/signup"
-              className="px-4 py-2 text-white duration-200 rounded-lg bg-neutral-800 hover:bg-neutral-900"
-            >
-              Sign Up
-            </Link>
-          </div>
-        )}
-
-        {isAuthenticated && (
-          <div
-            onClick={handleTogglingProfileDropdown}
-            className="relative flex items-center gap-1 pr-1 duration-200 rounded-full cursor-pointer hover:bg-gray-200"
-          >
-            <img
-              src={defaultUserPicture}
-              alt="My profile"
-              className="w-8 h-8 p-1 border rounded-full border-neutral-800"
-            />
-            <FontAwesomeIcon
-              icon={faCaretDown}
-              className={`w-2 h-2 duration-200 ${
-                showProfileDropdown ? "transform rotate-180" : ""
-              }`}
-            />
-            <ProfileDropdown showOptions={showProfileDropdown} />
-          </div>
-        )}
+          )}
+        </div>
       </div>
+      {isMobile[0] && <NavSearch />}
     </nav>
   );
 };
