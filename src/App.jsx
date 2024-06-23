@@ -27,6 +27,7 @@ import { createPortal } from "react-dom";
 import { useSelector } from "react-redux";
 import ContactUs from "./shared/ContactUs";
 import AboutUs from "./shared/AboutUs";
+import ProjectTeam from "./shared/ProjectTeam";
 
 const loadingSpinnerId = document.getElementById("loading__spinner");
 
@@ -76,6 +77,7 @@ const App = () => {
 
         <Route path="contactus" element={<ContactUs />} />
         <Route path="about" element={<AboutUs />} />
+        <Route path="team" element={<ProjectTeam />} />
       </Routes>
     </>
   );
