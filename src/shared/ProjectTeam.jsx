@@ -3,6 +3,9 @@ import karim from '../assets/images/homepage/team/karim.jpg';
 import besho from '../assets/images/homepage/team/besho.jpg';
 import basem from '../assets/images/homepage/team/basem.jpg';
 import badwy from '../assets/images/homepage/team/badwy.jpg';
+import sherif from '../assets/images/homepage/team/sherif.jpeg';
+import khaled from '../assets/images/homepage/team/khaled.jpg';
+import zaytony from '../assets/images/homepage/team/zaytony.jpg';
 const ProjectTeam = () => {
     return (
         <section id="our-team" className="bg-gray-100 py-32">
@@ -12,9 +15,9 @@ const ProjectTeam = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
                     <TeamMember
-                        imgSrc="https://spacema-dev.com/elevate/assets/images/team/2.jpg"
+                        imgSrc={sherif}
                         name="Peter Johnson"
-                        role="SEO Specialist"
+                        role="Machine Learning Developer"
                     />
                     <TeamMember
                         imgSrc={badwy}
@@ -22,14 +25,14 @@ const ProjectTeam = () => {
                         role="UX Designer"
                     />
                     <TeamMember
-                        imgSrc="https://spacema-dev.com/elevate/assets/images/team/6.jpg"
-                        name="Michael Davis"
-                        role="Frontend Developer"
+                        imgSrc={khaled}
+                        name="Khaled Mohamed"
+                        role="Backend Developer"
                     />
                     <TeamMember
-                        imgSrc="https://spacema-dev.com/elevate/assets/images/team/7.jpg"
-                        name="Sarah Johnson"
-                        role="Content Writer"
+                        imgSrc={zaytony}
+                        name="Mahmoud Ahmed"
+                        role="Backend Developer"
                     />
                     <TeamMember
                         imgSrc={basem}
