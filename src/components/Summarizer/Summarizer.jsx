@@ -22,14 +22,11 @@ const Summarizer = () => {
   const access = useSelector((state) => state.userAuth.access);
 
   const handleSummarize = () => {
-    console.log("Summarize button clicked");
-    console.log(modelInput);
     summarize(dispatch, access, modelInput);
     setParagraphInput(summarizeData);
   };
 
   const handleSave = () => {
-    console.log("Save button clicked");
     const body = new FormData();
     body.append("title", "section Summarize");
     body.append("content", summarizeData);
