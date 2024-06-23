@@ -18,6 +18,9 @@ const initialState = {
   lectureUpdatedError: null,
   transcriptDataError: null,
   summarizeError: null,
+  enrollCourseError: null,
+  transcriptVideoDataError: null,
+  questionGenerationError: null,
 };
 
 const coursesErrorsSlice = createSlice({
@@ -73,9 +76,6 @@ const coursesErrorsSlice = createSlice({
   GETUSERCOURSES_ERROR: (state, action) => {
     state.getUserCoursesError = action.payload;
   },
-  GETUSERSECTION_ERROR: (state, action) => {
-    state.getUserSectionError = action.payload;
-  },
   DELETELECTURE_ERROR: (state, action) => {
     state.lectureDeletedError = action.payload;
   },
@@ -87,6 +87,15 @@ const coursesErrorsSlice = createSlice({
   },
   SUMMARIZE_ERROR: (state, action) => {
     state.summarizeError = action.payload;
+  },
+  ENROLLCOURSE_ERROR: (state, action) => {
+    state.enrollCourseError = action.payload;
+  },
+  GETTRANSCRIPTVIDEO_ERROR: (state, action) => {
+    state.transcriptVideoDataError = action.payload;
+  },
+  QUESTIONGENERATION_ERROR: (state, action) => {
+    state.questionGenerationError = action.payload;
   },
 });
 
@@ -111,7 +120,9 @@ export const {
   UPDATELECTURE_ERROR,
   GETTRANSCRIPTSECTION_ERROR,
   SUMMARIZE_ERROR,
-  GETUSERSECTION_ERROR
+  ENROLLCOURSE_ERROR,
+  GETTRANSCRIPTVIDEO_ERROR,
+  QUESTIONGENERATION_ERROR,
 } = coursesErrorsSlice.actions;
 
 export default coursesErrorsSlice.reducer;

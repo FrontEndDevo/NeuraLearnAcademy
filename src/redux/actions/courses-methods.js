@@ -6,6 +6,9 @@ import {
   UPDATEUSERDATA_ERROR,
   GETTRANSCRIPTSECTION_ERROR,
   SUMMARIZE_ERROR,
+  ENROLLCOURSE_ERROR,
+  GETTRANSCRIPTVIDEO_ERROR,
+  QUESTIONGENERATION_ERROR,
 } from "../slices/courses/courses-errors";
 
 import {
@@ -36,8 +39,16 @@ import {
   SUMMARIZE_FAIL,
   GETUSERCOURSES_SUCCESS,
   GETUSERCOURSES_FAIL,
-  GETUSERSECTIONS_FAIL,
+  ENROLLCOURSE_SUCCESS,
+  ENROLLCOURSE_FAIL,
+  GETTRANSCRIPTVIDEO_SUCCESS,
+  GETTRANSCRIPTVIDEO_FAIL,
+  QUESTIONGENERATION_SUCCESS,
+  QUESTIONGENERATION_FAIL,
   GETUSERSECTIONS_SUCCESS,
+  GETUSERSECTIONS_FAIL,
+  GETUSERCONTENTS_SUCCESS,
+  GETUSERCONTENTS_FAIL,
 } from "../slices/courses/courses-slice";
 import { setToastMessage } from "../slices/popups-slices/toasts-slice";
 
@@ -380,6 +391,33 @@ export async function getSections(dispatch, access, slug) {
     }
   }
 }
+export async function getUserSections(dispatch, access, slug) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/api/students/course/${slug}/modules/`,
+        config
+      );
+      dispatch(GETUSERSECTIONS_SUCCESS(res.data.modules));
+    } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't load your sections, Please try again.",
+          type: "error",
+        })
+      );
+      dispatch(GETUSERSECTIONS_FAIL());
+    }
+  }
+}
 export async function updateSections(
   dispatch,
   access,
@@ -435,7 +473,7 @@ export async function createContent(dispatch, access, body, slug, type) {
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL +
-        `/api/courses/module/${slug}/content/${type}/create/`, // Construct the URL
+          `/api/courses/module/${slug}/content/${type}/create/`, // Construct the URL
         body,
         config
       );
@@ -483,6 +521,35 @@ export async function getContents(dispatch, access, slug) {
         })
       );
       dispatch(GETCONTENTS_FAIL());
+    }
+  }
+}
+export async function getUserContents(dispatch, access, slug) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/api/students/module/${slug}/contents/`,
+        config
+      );
+      dispatch({
+        type: GETUSERCONTENTS_SUCCESS,
+        payload: { content: res.data.contents, slug },
+      });
+    } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't load the contents! Please Try again later.",
+          type: "error",
+        })
+      );
+      dispatch(GETUSERCONTENTS_FAIL());
     }
   }
 }
@@ -545,7 +612,7 @@ export async function updateLecture(dispatch, access, formData, api) {
     }
   }
 }
-export async function GetUserCourses(dispatch, access ) {
+export async function GetUserCourses(dispatch, access) {
   if (access) {
     const config = {
       headers: {
@@ -562,17 +629,14 @@ export async function GetUserCourses(dispatch, access ) {
       dispatch(GETUSERCOURSES_SUCCESS(res.data));
       console.log(res);
     } catch (err) {
-      dispatch(UPDATELECTURE_FAIL());
+      dispatch(GETUSERCOURSES_FAIL());
     }
   }
 }
 
-
-
-
 export async function enrollCourse(dispatch, access, slug) {
   if (access) {
-    console.log(access)
+    console.log(access);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -583,17 +647,13 @@ export async function enrollCourse(dispatch, access, slug) {
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL + `/api/students/courses/${slug}/enroll/`,
+        {},
         config
       );
-      console.log(res)
-      // dispatch({
-      //   type: GETCONTENTS_SUCCESS,
-      //   payload: { content: res.data.contents, slug },
-      // });
+      dispatch(ENROLLCOURSE_SUCCESS(res.data.enrolled));
     } catch (err) {
-      // dispatch(GETCONTENTS_FAIL());
-      // dispatch(GETCONTENTS_ERROR(err.response.data));
-      console.log(err)
+      dispatch(ENROLLCOURSE_FAIL());
+      dispatch(ENROLLCOURSE_ERROR(err.response.data));
     }
   }
 }
@@ -612,7 +672,7 @@ export async function getTranscriptSection(dispatch, access, slug) {
           `/api/models/module/${slug}/transcripts/`,
         config
       );
-      dispatch(GETTRANSCRIPTSECTION_SUCCESS(res.data));
+      dispatch(GETTRANSCRIPTSECTION_SUCCESS(res.data[0].transcript));
       console.log(res);
     } catch (err) {
       dispatch(GETTRANSCRIPTSECTION_FAIL());
@@ -630,13 +690,16 @@ export async function summarize(dispatch, access, text) {
         Accept: "application/json",
       },
     };
+    const body = JSON.stringify({
+      text,
+    });
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL + `/api/models/summarize/`,
-        config,
-        text
+        body,
+        config
       );
-      dispatch(SUMMARIZE_SUCCESS(res.data));
+      dispatch(SUMMARIZE_SUCCESS(res.data.summary));
       console.log(res);
     } catch (err) {
       dispatch(SUMMARIZE_FAIL());
@@ -657,13 +720,13 @@ export async function getTranscriptVideo(dispatch, access, id) {
     try {
       const res = await axios.get(
         import.meta.env.VITE_API_URL + `/api/models/video/${id}/transcript/`,
-        config,
+        config
       );
-      // dispatch(SUMMARIZE_SUCCESS(res.data));
+      dispatch(GETTRANSCRIPTVIDEO_SUCCESS(res.data));
       console.log(res);
     } catch (err) {
-      // dispatch(SUMMARIZE_FAIL());
-      // dispatch(SUMMARIZE_ERROR(err.response.data));
+      dispatch(GETTRANSCRIPTVIDEO_FAIL());
+      dispatch(GETTRANSCRIPTVIDEO_ERROR(err.response.data));
       console.log(err);
     }
   }
@@ -682,11 +745,11 @@ export async function questionGeneration(dispatch, access) {
         import.meta.env.VITE_API_URL + `/api/models/generate-questions/`,
         config
       );
-      // dispatch(SUMMARIZE_SUCCESS(res.data));
+      dispatch(QUESTIONGENERATION_SUCCESS(res.data));
       console.log(res);
     } catch (err) {
-      // dispatch(SUMMARIZE_FAIL());
-      // dispatch(SUMMARIZE_ERROR(err.response.data));
+      dispatch(QUESTIONGENERATION_FAIL());
+      dispatch(QUESTIONGENERATION_ERROR(err.response.data));
       console.log(err);
     }
   }
