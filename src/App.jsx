@@ -30,10 +30,12 @@ import AboutUs from "./shared/AboutUs";
 import ProjectTeam from "./shared/ProjectTeam";
 
 const loadingSpinnerId = document.getElementById("loading__spinner");
-
+import Navbar from "./common/Navbar/Navbar";
+import Footer from "./common/Footer/Footer";
 const App = () => {
   return (
     <>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -79,6 +81,7 @@ const App = () => {
         <Route path="about" element={<AboutUs />} />
         <Route path="team" element={<ProjectTeam />} />
       </Routes>
+      <Footer />
     </>
   );
 };

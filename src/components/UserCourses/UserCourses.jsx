@@ -72,7 +72,7 @@ const UserCourses = () => {
 
 
   return (
-    <section className="container grid grid-cols-1 px-2 py-10 gap-y-10 md:gap-x-8 md:grid-cols-3 lg:gap-10 lg:grid-cols-4">
+    <section className="container grid grid-cols-1 px-2 pb-10 pt-28 gap-y-10 md:gap-x-8 md:grid-cols-3 lg:gap-10 lg:grid-cols-4">
       <UserCoursesOptions
         option={currentOption}
         chooseUserOption={memorizedUserOptions}

@@ -49,7 +49,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center px-10 pt-10 pb-20">
+      <div className="flex flex-col items-center px-10 pt-32 pb-20">
         <div
           style={{
             boxShadow: "0px 4px 4px 3px rgba(0, 0, 0, 0.25)",
