@@ -73,7 +73,7 @@ const Specializations = () => {
           Specialization Certificate to add to your CV
         </p>
         <Link
-          to="/"
+          to="/all-courses"
           className="px-4 py-2 text-xs font-bold duration-300 bg-white rounded-full md:text-base md:px-8 md:py-4 text-primary-500 hover:text-primary-700"
         >
           Explore specializations with us
