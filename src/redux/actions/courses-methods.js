@@ -473,7 +473,7 @@ export async function createContent(dispatch, access, body, slug, type) {
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL +
-        `/api/courses/module/${slug}/content/${type}/create/`, // Construct the URL
+          `/api/courses/module/${slug}/content/${type}/create/`, // Construct the URL
         body,
         config
       );
@@ -612,7 +612,7 @@ export async function updateLecture(dispatch, access, formData, api) {
     }
   }
 }
-export async function GetUserCourses(dispatch, access ) {
+export async function GetUserCourses(dispatch, access) {
   if (access) {
     const config = {
       headers: {
@@ -634,12 +634,9 @@ export async function GetUserCourses(dispatch, access ) {
   }
 }
 
-
-
-
 export async function enrollCourse(dispatch, access, slug) {
   if (access) {
-    console.log(access)
+    console.log(access);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -675,7 +672,7 @@ export async function getTranscriptSection(dispatch, access, slug) {
           `/api/models/module/${slug}/transcripts/`,
         config
       );
-      dispatch(GETTRANSCRIPTSECTION_SUCCESS(res.data));
+      dispatch(GETTRANSCRIPTSECTION_SUCCESS(res.data[0].transcript));
       console.log(res);
     } catch (err) {
       dispatch(GETTRANSCRIPTSECTION_FAIL());
@@ -693,13 +690,16 @@ export async function summarize(dispatch, access, text) {
         Accept: "application/json",
       },
     };
+    const body = JSON.stringify({
+      text,
+    });
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL + `/api/models/summarize/`,
-        config,
-        text
+        body,
+        config
       );
-      dispatch(SUMMARIZE_SUCCESS(res.data));
+      dispatch(SUMMARIZE_SUCCESS(res.data.summary));
       console.log(res);
     } catch (err) {
       dispatch(SUMMARIZE_FAIL());
@@ -720,7 +720,7 @@ export async function getTranscriptVideo(dispatch, access, id) {
     try {
       const res = await axios.get(
         import.meta.env.VITE_API_URL + `/api/models/video/${id}/transcript/`,
-        config,
+        config
       );
       dispatch(GETTRANSCRIPTVIDEO_SUCCESS(res.data));
       console.log(res);
