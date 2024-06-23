@@ -9,17 +9,17 @@ import {
   faVideo,
   faChevronUp,
   faChevronDown,
- 
 } from "@fortawesome/free-solid-svg-icons";
 import VideoPlayer from "../../shared/VideoPlayer";
 import ImageViewer from "../../shared/ImageViewer";
 import { useDispatch, useSelector } from "react-redux";
-import {  getContents, getSections } from "../../redux/actions/courses-methods";
 import { useParams } from "react-router-dom";
+import {
+  getUserContents,
+  getUserSections,
+} from "../../redux/actions/courses-methods";
 
 const SectionHeader = ({ sectionTitle, onClick, isOpen }) => {
-
-
   return (
     <div
       className="flex items-center content-center justify-between cursor-pointer bg-sky-950"
@@ -37,11 +37,11 @@ const SectionHeader = ({ sectionTitle, onClick, isOpen }) => {
 
 const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
   const sectionData = useSelector(
-    (state) => state.courses.getsectionContent[slug] || []
+    (state) => state.courses.getusersectionContent[slug] || []
   );
-  const [lectures, setLectures] = useState(sectionData);
+  const [lectures, setLectures] = useState([]);
   useEffect(() => {
-    getContents(dispatch, access, slug);
+    getUserContents(dispatch, access, slug);
   }, [dispatch, access, slug]);
 
   useEffect(() => {
@@ -49,7 +49,6 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
       setLectures(sectionData);
     }
   }, [sectionData]);
-  console.log(sectionData)
   const renderIcon = (type) => {
     switch (type) {
       case "video":
@@ -67,7 +66,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
     if (item.video) return item.video.title;
     if (item.image) return item.image.title;
     if (item.file) return item.file.title;
-    return "Unknown Title";
+    return item.text.title;
   };
 
   const handleClick = (item) => {
@@ -79,14 +78,14 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
   };
   return (
     <div
-      className={`w-full transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
+      className={`w-full transition-all duration-300 ease-in-out overflow-hidden ${
+        isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+      }`}
     >
       {lectures.map((item, index) => (
         <div
           className="relative pt-2 bg-white shadow-lg cursor-pointer"
           key={index}
-
         >
           <ul className="space-y-1">
             {Object.keys(item).map((key) => (
@@ -95,7 +94,10 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
                 key={key}
               >
                 <div className="flex justify-between">
-                  <div className="relative cursor-pointer pl-14" onClick={() => handleClick(item)}>
+                  <div
+                    className="relative cursor-pointer pl-14"
+                    onClick={() => handleClick(item)}
+                  >
                     <FontAwesomeIcon
                       icon={renderIcon(key)}
                       className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
@@ -103,7 +105,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
                     <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
                       {renderTitle(item)}
                     </div>
-                  </div>  
+                  </div>
                 </div>
               </li>
             ))}
@@ -115,38 +117,47 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
 };
 
 const UserContent = () => {
-  useEffect(() => {
-    console.log(access)
-    getSections(dispatch, access, slug.slug);
-
-  }, [])
-
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
-  const usercourse = useSelector((state) => state.courses.sectionsData) || [];
+  const usercourse =
+    useSelector((state) => state.courses.userSectionsData) || [];
   const slug = useParams();
   const [selectedContent, setSelectedContent] = useState(null);
+  const [selectedContentUrl, setSelectedContentUrl] = useState("");
   const [openSection, setOpenSection] = useState(null);
   const [userSections, setUserSections] = useState(usercourse);
+
+
+  useEffect(() => {
+    console.log(access);
+    getUserSections(dispatch, access, slug.slug);
+  }, []);
+  useEffect(() => {
+    setUserSections(usercourse || []);
+  }, [usercourse]);
+  
   const toggleSection = (index) => {
     setOpenSection(openSection === index ? null : index);
   };
-
+  const handleSelectContent = (type, url) => {
+    setSelectedContent(type);
+    setSelectedContentUrl(url);
+  };
   const renderSelectedContent = () => {
     if (!selectedContent) return null;
-
+    console.log(selectedContent);
     switch (selectedContent) {
       case "video":
         return (
           <VideoPlayer
-            url="https://youtu.be/KgGbAgW8eTY?si=jYmT8-OIIwpMQrwN"
+            url={selectedContentUrl}
             onClose={() => setSelectedContent(null)}
           />
         );
       case "image":
         return (
           <ImageViewer
-            url="https://s3-alpha-sig.figma.com/img/b610/7369/d235da6ab7b04799b66ba3229c018aac?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=FYqZYP4T~CCo0FcXPF6fLG7CWkIzdWk5XbPIDFAnFNBUS3LZLdDB5qXDgNMHHn06z9tmSIINtDKo~ALCUUGtLs79VNiP9D3rYJDSSi~ZXBePi7kWicKZvrmWUFnxMfXkzRF8b-hmq5IGvnhAfkIF-yeIN4EyuQ7f3IOnxy5yhHGLPQvTvPzuJLjcQ8iCBlv6SYjTAgOeNlr01EMl2CB57G7ZunUHx1Ej3D8fr2vky9qCY~qVVW5li6InGrVEtni1s9yPtumdhTX6l7BiCBjrZAyl1i48QMaDXahPbPmmNhBKbOhhahbooR0S9L40Xv47ZpPTD8Mlpy7A7umVIUeiSA__"
+            url={selectedContentUrl}
             onClose={() => setSelectedContent(null)}
           />
         );
@@ -196,7 +207,7 @@ const UserContent = () => {
                   slug={ele.slug}
                   access={access}
                   dispatch={dispatch}
-                  onSelect={setSelectedContent}
+                  onSelect={handleSelectContent}
                   isOpen={openSection === index}
                 />
               </div>

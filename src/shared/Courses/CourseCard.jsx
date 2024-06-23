@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { faStar as solidStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
-import { formatUrlString } from "../../utils/Utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { enrollCourse } from "../../redux/actions/courses-methods";
@@ -24,7 +23,6 @@ const CourseCard = ({
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
   const handleEnrollClick = () => {
-    console.log("first")
     enrollCourse(dispatch, access ,slug)
   }
   return (
@@ -65,7 +63,7 @@ const CourseCard = ({
             onClick={() => {
               handleEnrollClick();
               }}
-              className=" w-full px-12 py-2 my-4 text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm bg-primary-500 hover:bg-primary-700"
+              className="w-full px-12 py-2 my-4 text-xs text-white duration-300 rounded-full md:px-8 lg:px-10 lg:py-3 md:text-sm bg-primary-500 hover:bg-primary-700"
             >
               Enroll Free
             </button>

@@ -31,6 +31,8 @@ import {
 } from "../../../redux/actions/courses-methods";
 import VideoPlayer from "../../../shared/VideoPlayer";
 import ImageViewer from "../../../shared/ImageViewer";
+import { setIsSpinnerLoading } from "../../../redux/slices/popups-slices/spinner-slice";
+import { setToastMessage } from "../../../redux/slices/popups-slices/toasts-slice";
 
 const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
   const dispatch = useDispatch();
@@ -161,7 +163,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
     if (item.video) return item.video.title;
     if (item.image) return item.image.title;
     if (item.file) return item.file.title;
-    return "Unknown Title";
+    return "Section Sumarization";
   };
   const renderDeleteLink = (lecture) => {
     if (lecture.file) return lecture.file.delete_url;
