@@ -25,7 +25,6 @@ import QuestionGenerationPage from "./pages/QuestionGenerationPage";
 import UserPage from "./pages/Users/UserPage";
 import ContactUs from "./shared/ContactUs";
 import AboutUs from "./shared/AboutUs";
-import ProjectTeam from "./shared/ProjectTeam";
 
 const App = () => {
   return (
@@ -41,6 +40,7 @@ const App = () => {
             element={<ResetPasswordConfirm />}
           />
           <Route path="activate/:uid/:token" element={<Activation />} />
+          <Route path="about-us" element={<AboutUs />} />
           <Route path="*" element={<PageNotFound />} />
           <Route element={<RequireAuth />}>
             <Route path="my-learnings" element={<MyLearningsPage />} />
@@ -63,7 +63,6 @@ const App = () => {
                 element={<ProfileCloseAcountPage />}
               />
             </Route>
-
             <Route path="summarizer" element={<Summarizers />} />
             <Route
               path="questionqeneration"
@@ -75,16 +74,9 @@ const App = () => {
               element={<CoursesContentPage />}
             />
             <Route path="UserContentPage/:slug" element={<UserPage />} />
-            <Route
-              path="CoursesContentPage/:slug"
-              element={<CoursesContentPage />}
-            />
+            <Route path="contact-us" element={<ContactUs />} />
           </Route>
         </Route>
-
-        <Route path="contactus" element={<ContactUs />} />
-        <Route path="about" element={<AboutUs />} />
-        <Route path="team" element={<ProjectTeam />} />
       </Routes>
     </>
   );
