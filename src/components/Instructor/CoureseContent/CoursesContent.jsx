@@ -186,7 +186,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
         <div
           className="relative pt-2 bg-white shadow-lg cursor-pointer"
           key={index}
-         
+
         >
           <ul className="space-y-1">
             {Object.keys(item).map((key) => (
