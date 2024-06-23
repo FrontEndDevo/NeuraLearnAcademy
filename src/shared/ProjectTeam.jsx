@@ -16,7 +16,7 @@ const ProjectTeam = () => {
 
                     <TeamMember
                         imgSrc={sherif}
-                        name="Peter Johnson"
+                        name="Sherif Ahmed"
                         role="Machine Learning Developer"
                     />
                     <TeamMember
