@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import UserCoursesOptions from "./UserCoursesOptions";  
+import UserCoursesOptions from "./UserCoursesOptions";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../shared/Pagination";
 import CourseCard from "../../shared/Courses/CourseCard";
@@ -8,15 +8,14 @@ const userCourses = ["courses", "my lists", "wishlist", "archived", "purchase"];
 
 const UserCourses = () => {
   useEffect(() => {
-    console.log(access)
+    console.log(access);
     GetUserCourses(dispatch, access);
-
-  }, [])
+  }, []);
 
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
   const usercourse = useSelector((state) => state.courses.userCourses) || [];
-  console.log(usercourse)
+  console.log(usercourse);
   // The number of elements to be rendered per page.
   const elementsPerPage = 6;
 
@@ -55,6 +54,7 @@ const UserCourses = () => {
     userCourses[currentOption].slice(1);
   // Render the correct courses based on the search keyword.
   const correctCoursesArray = searchKeyword ? filteredCourses : usercourse;
+  console.log(correctCoursesArray);
   const renderedUserCourses = correctCoursesArray
     .slice(paginationIndices.start, paginationIndices.end)
     .map((course, index) => (
@@ -66,13 +66,11 @@ const UserCourses = () => {
         category={course.category}
         subject={course.subject}
         slug={course.slug}
-
       />
     ));
 
-
   return (
-    <section className="container grid grid-cols-1 px-2 pb-10 pt-28 gap-y-10 md:gap-x-8 md:grid-cols-3 lg:gap-10 lg:grid-cols-4">
+    <section className="container grid grid-cols-1 px-2 mt-40 mb-10 gap-y-10 md:gap-x-8 md:grid-cols-3 lg:gap-10 lg:grid-cols-4">
       <UserCoursesOptions
         option={currentOption}
         chooseUserOption={memorizedUserOptions}
