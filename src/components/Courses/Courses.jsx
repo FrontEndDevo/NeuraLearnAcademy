@@ -114,7 +114,7 @@ const Courses = () => {
           </p>
         </div>
         <Link
-          to="/all-courses/programming"
+          to="/all-courses/"
           className="flex justify-end px-4 py-2 ml-auto text-[10px] text-white capitalize duration-200 rounded-lg lg:px-8 lg:py-4 w-fit lg:text-xl bg-primary-700 hover:bg-primary-500"
         >
           explore programming
