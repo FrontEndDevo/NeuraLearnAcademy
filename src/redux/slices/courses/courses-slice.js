@@ -6,6 +6,7 @@ const initialState = {
   userData: null,
   subjectCourses: null,
   instructorCourses: null,
+  userCourses: null,
   createCourseData: null,
   updateCourseData: null,
   detailCourse: null,
@@ -14,8 +15,11 @@ const initialState = {
   updateSectionData: null,
   sectionContent: [],
   getsectionContent: {},
+  getusersectionContent: {},
   lectureDeleted: null,
   lectureUpdated: null,
+  transcriptdate: null,
+  summarizeData:null,
 };
 
 const subjectCourseReducer = (state, action) => {
@@ -130,6 +134,30 @@ const getSectionContentFailReducer = (state = initialState, action) => {
     },
   };
 };
+
+const getUserSectionContentReducer = (state = initialState, action) => {
+  const { slug, content } = action.payload;
+  console.log(slug, ":", content);
+  return {
+    ...state,
+    getusersectionContent: {
+      ...state.getusersectionContent,
+      [slug]: [...content],
+    },
+  };
+};
+
+const getUserSectionContentFailReducer = (state = initialState, action) => {
+  const { slug } = action.payload;
+  return {
+    ...state,
+    getusersectionContent: {
+      ...state.getusersectionContent,
+      [slug]: [],
+    },
+  };
+};
+
 const deleteLectureReducer = (state, action) => {
   return {
     ...state,
@@ -154,7 +182,57 @@ const updateLectureFailReducer = (state) => {
     lectureUpdated: null,
   };
 };
+const getTranscriptReducer = (state, action) => {
+  return {
+    ...state,
+    transcriptdate: action.payload,
+  };
+};
+const getTranscriptFailReducer = (state) => {
+  return {
+    ...state,
+    transcriptdate: null,
+  };
+};
+const summarizeReducer = (state, action) => {
+  return {
+    ...state,
+    summarizeData: action.payload,
+  };
+};
+const summarizeFailReducer = (state) => {
+  return {
+    ...state,
+    summarizeData: null,
+  };
+};
 
+const getUserCoursesReducer = (state, action) => {
+  return {
+    ...state,
+    userCourses: action.payload,
+  };
+};
+const getUserCoursesFailReducer = (state) => {
+  return {
+    ...state,
+    userCourses: null,
+  };
+};
+
+
+const getUserSectionSuccessReducer = (state, action) => {
+  return {
+    ...state,
+    userCourses: action.payload,
+  };
+};
+const getUserSectionFailReducer = (state) => {
+  return {
+    ...state,
+    userCourses: null,
+  };
+};
 const courseSlice = createSlice({
   name: "course",
   initialState,
@@ -176,10 +254,20 @@ const courseSlice = createSlice({
     CREATECONTENT_FAIL: createContentFailReducer,
     GETCONTENTS_SUCCESS: getSectionContentReducer,
     GETCONTENTS_FAIL: getSectionContentFailReducer,
+    GETUSERCONTENTS_SUCCESS: getUserSectionContentReducer,
+    GETUSERCONTENTS_FAIL: getUserSectionContentFailReducer,
     DELETELECTURE_SUCCESS: deleteLectureReducer,
     DELETELECTURE_FAIL: deleteLectureFailReducer,
     UPDATELECTURE_SUCCESS: updateLectureReducer,
     UPDATELECTURE_FAIL: updateLectureFailReducer,
+    GETTRANSCRIPTSECTION_SUCCESS:getTranscriptReducer,
+    GETTRANSCRIPTSECTION_FAIL:getTranscriptFailReducer,
+    SUMMARIZE_SUCCESS:summarizeReducer,
+    SUMMARIZE_FAIL:summarizeFailReducer,
+    GETUSERCOURSES_SUCCESS: getUserCoursesReducer,
+    GETUSERCOURSES_FAIL: getUserCoursesFailReducer,
+    GETUSERSECTIONS_SUCCESS: getUserSectionSuccessReducer,
+    GETUSERSECTIONS_FAIL: getUserSectionFailReducer,
     setPublicCourses(state, action) {
       state.publicCourses = action.payload;
     },
@@ -215,8 +303,18 @@ export const {
   DELETELECTURE_FAIL,
   UPDATELECTURE_SUCCESS,
   UPDATELECTURE_FAIL,
+  GETTRANSCRIPTSECTION_SUCCESS,
+  GETTRANSCRIPTSECTION_FAIL,
+  SUMMARIZE_SUCCESS,
+  SUMMARIZE_FAIL,
   setPublicCourses,
   setCoursesDependOnSubject,
+  GETUSERCOURSES_SUCCESS,
+  GETUSERCOURSES_FAIL,
+  GETUSERSECTIONS_SUCCESS,
+  GETUSERSECTIONS_FAIL,
+  GETUSERCONTENTS_SUCCESS,
+  GETUSERCONTENTS_FAIL
 } = courseSlice.actions;
 
 export default courseSlice.reducer;

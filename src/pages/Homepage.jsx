@@ -16,7 +16,6 @@ import { useEffect } from "react";
 const Homepage = () => {
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
-
   useEffect(() => {
     const getNeededData = async () => {
       // Fetching a list of available courses (without authentication).

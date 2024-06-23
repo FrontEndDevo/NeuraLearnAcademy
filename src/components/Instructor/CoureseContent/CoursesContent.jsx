@@ -12,7 +12,7 @@ import {
   faImage,
   faVideo,
   faAngleDown,
-  faAngleUp,
+  faAngleUp
 } from "@fortawesome/free-solid-svg-icons";
 import ebook from "../../../assets/images/Instructor/ebook.gif";
 import plus from "../../../assets/images/Instructor/plus.png";
@@ -20,7 +20,7 @@ import summarizerImage from "../../../assets/images/homepage/ai-creative.png";
 import robbotAssist from "../../../assets/images/Instructor/robootAssist.png";
 import CreateNewSection from "../CreateSections/CreateNewSection";
 import DeleteSection from "../CreateSections/DeleteSection";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   createSection,
   deleteLecture,
@@ -31,9 +31,8 @@ import {
 } from "../../../redux/actions/courses-methods";
 import VideoPlayer from "../../../shared/VideoPlayer";
 import ImageViewer from "../../../shared/ImageViewer";
-
-import { setIsSpinnerLoading } from "../../../redux/slices/popups-slices/spinner-slice.js";
-import { setToastMessage } from "../../../redux/slices/popups-slices/toasts-slice.js";
+import {  } from "../../../redux/slices/popups-slices/spinner-slice";
+import { setToastMessage } from "../../../redux/slices/popups-slices/toasts-slice";
 
 const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
   const dispatch = useDispatch();
@@ -49,9 +48,9 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
   };
 
   return (
-    <div className="flex justify-between px-4 py-3 cursor-pointer bg-sky-950 md:px-7 md:py-3">
+    <div className="flex justify-between px-4 py-3 bg-sky-950 md:px-7 md:py-3" >
       <span className="font-semibold text-white">{sectionTitle}</span>
-      <div className="flex space-x-3 text-white">
+      <div className="flex space-x-3 text-white cursor-pointer">
         {/* Arrow icon for toggle */}
 
         <button onClick={onDelete}>
@@ -108,6 +107,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
       setLectures(sectionData);
     }
   }, [sectionData]);
+  console.log(sectionData)
 
   const handleUpdateLecture = (lecture) => {
     dispatch(openModal({ modalName: "sectioninfo", lecture }));
@@ -186,6 +186,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
         <div
           className="relative pt-2 bg-white shadow-lg cursor-pointer"
           key={index}
+         
         >
           <ul className="space-y-1">
             {Object.keys(item).map((key) => (
@@ -194,10 +195,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
                 key={key}
               >
                 <div className="flex justify-between">
-                  <div
-                    className="relative cursor-pointer pl-14"
-                    onClick={() => handleClick(item)}
-                  >
+                  <div className="relative cursor-pointer pl-14" onClick={() => handleClick(item)}>
                     <FontAwesomeIcon
                       icon={renderIcon(key)}
                       className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
@@ -278,17 +276,8 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
         slug={slug}
         onToggle={handleToggle}
       />
-      <div
-        className={`overflow-hidden transition-max-height duration-500 ease-in-out ${
-          isOpen ? "max-h-screen" : "max-h-0"
-        }`}
-      >
-        <SectionContent
-          dispatch={dispatch}
-          access={access}
-          slug={slug}
-          onSelect={onSelect}
-        />
+      <div className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? "max-h-screen" : "max-h-0"}`}>
+        <SectionContent dispatch={dispatch} access={access} slug={slug} onSelect={onSelect} />
       </div>
       {showDeleteModal && (
         <DeleteSection
@@ -454,7 +443,8 @@ const CoursesContent = () => {
               </button>
             </div>
             <div className="w-full md:w-auto">
-              <button
+              <Link
+                to="/summarizer"
                 style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 className="bg-white rounded-[10px] px-3 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
@@ -465,10 +455,11 @@ const CoursesContent = () => {
                   loading="lazy"
                 />
                 <span>Summarizer</span>
-              </button>
+              </Link>
             </div>
             <div className="w-full md:w-auto">
-              <button
+              <Link
+                to="/questionqeneration"
                 style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 className="bg-white rounded-[10px] px-5 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
@@ -479,7 +470,7 @@ const CoursesContent = () => {
                   loading="lazy"
                 />
                 <span>Questions</span>
-              </button>
+              </Link>
             </div>
           </div>
           <div className="flex flex-col w-full px-4 mt-4 md:px-0">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ebook from "../../assets/images/Instructor/ebook.gif";
 import {
@@ -9,112 +9,125 @@ import {
   faVideo,
   faChevronUp,
   faChevronDown,
-  faDownload,
+ 
 } from "@fortawesome/free-solid-svg-icons";
 import VideoPlayer from "../../shared/VideoPlayer";
 import ImageViewer from "../../shared/ImageViewer";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getContents, getSections } from "../../redux/actions/courses-methods";
+
 const SectionHeader = ({ sectionTitle, onClick, isOpen }) => {
+
+
   return (
     <div
-      className="bg-sky-950 flex justify-between items-center content-center cursor-pointer"
+      className="flex items-center content-center justify-between cursor-pointer bg-sky-950"
       onClick={onClick}
     >
-      <div className="flex justify-between  md:space-x-60 w-full px-4 py-3 md:px-6 ">
-        <div className="text-white font-semibold">{sectionTitle}</div>
-        <div className="text-white ml-2">
+      <div className="flex justify-between w-full px-4 py-3 md:space-x-60 md:px-6">
+        <div className="font-semibold text-white">{sectionTitle}</div>
+        <div className="ml-2 text-white">
           <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
         </div>
       </div>
     </div>
   );
 };
-const SectionContent = ({ onSelect }) => {
+
+const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
+  const sectionData = useSelector(
+    (state) => state.courses.getsectionContent[slug] || []
+  );
+  const [lectures, setLectures] = useState(sectionData);
+  useEffect(() => {
+    getContents(dispatch, access, slug);
+  }, [dispatch, access, slug]);
+
+  useEffect(() => {
+    if (sectionData !== lectures) {
+      setLectures(sectionData);
+    }
+  }, [sectionData]);
+  console.log(sectionData)
+  const renderIcon = (type) => {
+    switch (type) {
+      case "video":
+        return faVideo;
+      case "image":
+        return faImage;
+      case "file":
+        return faFileAlt;
+      default:
+        return faFileAlt;
+    }
+  };
+
+  const renderTitle = (item) => {
+    if (item.video) return item.video.title;
+    if (item.image) return item.image.title;
+    if (item.file) return item.file.title;
+    return "Unknown Title";
+  };
+
+  const handleClick = (item) => {
+    if (item.video) {
+      onSelect("video", item.video.file);
+    } else if (item.image) {
+      onSelect("image", item.image.file);
+    }
+  };
   return (
-    <div className="w-full">
-      <div className="relative bg-white shadow-lg ">
-        <ul className="space-y-1">
-          <li
-            className="relative cursor-pointer border-b border-opacity-80 hover:border-opacity-100 border-sky-950"
-            onClick={() => onSelect("video")}
-          >
-            <div className="relative pl-14 flex items-center">
-              <FontAwesomeIcon
-                icon={faVideo}
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-black"
-              />
-              <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
-                Video Name
-              </div>
-            </div>
-          </li>
+    <div
+      className={`w-full transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
+    >
+      {lectures.map((item, index) => (
+        <div
+          className="relative pt-2 bg-white shadow-lg cursor-pointer"
+          key={index}
 
-          <li className="relative border-b border-b-sky-950 border-opacity-80 hover:border-opacity-100">
-            <div className="flex justify-between">
-              <div
-                onClick={() => onSelect("image")}
-                className="relative cursor-pointer pl-14"
+        >
+          <ul className="space-y-1">
+            {Object.keys(item).map((key) => (
+              <li
+                className="relative border-b border-b-sky-950 border-opacity-80"
+                key={key}
               >
-                <FontAwesomeIcon
-                  icon={faImage}
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-black"
-                />
-                <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
-                  Photo Name
+                <div className="flex justify-between">
+                  <div className="relative cursor-pointer pl-14" onClick={() => handleClick(item)}>
+                    <FontAwesomeIcon
+                      icon={renderIcon(key)}
+                      className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
+                    />
+                    <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
+                      {renderTitle(item)}
+                    </div>
+                  </div>  
                 </div>
-              </div>
-              <div className="cursor-pointer flex items-center">
-                <a
-                  href="https://s3-alpha-sig.figma.com/img/ce45/a896/d958cf406bb83c3c0a93e2f03fcb0bef?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jE9UayK3Gtw8ouo4YvhpYzud6lMCbs~-Kr678BXNCzxuCzXVWV36uf4VNryN5iXsilAN5pKSohlQ2~-mMpumkbTnziwjTtwY67XwZObM4CHZo0VySWGMoOO4AajM7uwu6vzQqkpbfQZMAGhF3vbFggUfX~IBBdLX3ANkUacFEU4PRdcg8N~0eIjXvwiHyFbmmggZUi1Z5TAiXWxVv33dJ4zLfd4l7WWyvVrQhMHBdEpOjikPRqyZj2rYRzCnsljA-FgwncUgR9TOxMlbAx-Qn7N~bO8OUQURbtpp1BfF5HcB1U8~2kHTceuAVo-LGQLEXY7aNCQaB2kRvBqGiyfuOg__"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-700"
-                  download
-                >
-                  <FontAwesomeIcon icon={faDownload} className="mr-2" />
-                </a>
-              </div>
-            </div>
-          </li>
-
-          <li className="relative " onClick={() => onSelect("file")}>
-            <div className=" flex justify-between">
-              <div className="relative cursor-pointer pl-14 ">
-                <FontAwesomeIcon
-                  icon={faFileAlt}
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-black"
-                />
-                <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
-                  File Name
-                </div>
-              </div>
-              <div className="cursor-pointer flex items-center">
-                <a
-                  href="https://s3-alpha-sig.figma.com/img/ce45/a896/d958cf406bb83c3c0a93e2f03fcb0bef?Expires=1719187200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jE9UayK3Gtw8ouo4YvhpYzud6lMCbs~-Kr678BXNCzxuCzXVWV36uf4VNryN5iXsilAN5pKSohlQ2~-mMpumkbTnziwjTtwY67XwZObM4CHZo0VySWGMoOO4AajM7uwu6vzQqkpbfQZMAGhF3vbFggUfX~IBBdLX3ANkUacFEU4PRdcg8N~0eIjXvwiHyFbmmggZUi1Z5TAiXWxVv33dJ4zLfd4l7WWyvVrQhMHBdEpOjikPRqyZj2rYRzCnsljA-FgwncUgR9TOxMlbAx-Qn7N~bO8OUQURbtpp1BfF5HcB1U8~2kHTceuAVo-LGQLEXY7aNCQaB2kRvBqGiyfuOg__"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600  hover:text-blue-700"
-                  download
-                >
-                  <FontAwesomeIcon icon={faDownload} className="mr-2" />
-                </a>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
     </div>
   );
 };
 
 const UserContent = () => {
+  useEffect(() => {
+    console.log(access)
+    getSections(dispatch, access, slug.slug);
+
+  }, [])
+
+  const dispatch = useDispatch();
+  const access = useSelector((state) => state.userAuth.access);
+  const usercourse = useSelector((state) => state.courses.sectionsData) || [];
+  const slug = useParams();
   const [selectedContent, setSelectedContent] = useState(null);
   const [openSection, setOpenSection] = useState(null);
-
-  const sections = [
-    { title: "section1" },
-    // Add more sections if needed
-  ];
-
+  const [userSections, setUserSections] = useState(usercourse);
   const toggleSection = (index) => {
     setOpenSection(openSection === index ? null : index);
   };
@@ -148,7 +161,7 @@ const UserContent = () => {
       <header className="p-10 bg-[#004682] text-white">
         <h1 className="text-2xl font-bold">Course Machine Learning</h1>
         <p>Course Machine learning this the best course.</p>
-        <p className="text-sm mt-4 mb-2">
+        <p className="mt-4 mb-2 text-sm">
           <span>
             <FontAwesomeIcon icon={faGraduationCap} /> 0 Students
           </span>
@@ -160,7 +173,7 @@ const UserContent = () => {
           <span> 2/7/2024</span>
         </p>
       </header>
-      <div className="bg-white pb-32 flex flex-col md:flex-row md:space-x-3 lg:space-x-4 justify-around pt-10 relative">
+      <div className="relative flex flex-col justify-around pt-10 pb-32 bg-white md:flex-row md:space-x-3 lg:space-x-4">
         <div className="flex flex-col items-center relative h-[80vh] w-full md:w-3/5">
           {renderSelectedContent()}
           <img
@@ -170,18 +183,22 @@ const UserContent = () => {
             loading="lazy"
           />
         </div>
-        <div className=" bg-white">
-          <div className=" mt-4 px-4 ">
-            {sections.map((ele, index) => (
+        <div className="bg-white ">
+          <div className="px-4 mt-4 ">
+            {userSections.map((ele, index) => (
               <div key={index} className="mb-2">
                 <SectionHeader
                   sectionTitle={ele.title}
                   onClick={() => toggleSection(index)}
                   isOpen={openSection === index}
                 />
-                {openSection === index && (
-                  <SectionContent onSelect={setSelectedContent} />
-                )}
+                <SectionContent
+                  slug={ele.slug}
+                  access={access}
+                  dispatch={dispatch}
+                  onSelect={setSelectedContent}
+                  isOpen={openSection === index}
+                />
               </div>
             ))}
           </div>

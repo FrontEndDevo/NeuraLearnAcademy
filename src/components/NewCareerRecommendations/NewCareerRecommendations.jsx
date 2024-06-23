@@ -1,7 +1,6 @@
 import Slider from "react-slick";
 import CourseCard from "../../shared/Courses/CourseCard";
 import { useSelector } from "react-redux";
-
 const settings = {
   dots: true,
   infinite: true,
@@ -38,11 +37,8 @@ const settings = {
     },
   ],
 };
-
 const NewCareerRecommendations = () => {
   const publicCourses = useSelector((state) => state.courses.publicCourses);
-
-  // Render all courses inside a slider:
   const renderedCourses = publicCourses != undefined && (
     <Slider {...settings}>
       {publicCourses
@@ -60,7 +56,6 @@ const NewCareerRecommendations = () => {
         ))}
     </Slider>
   );
-
   return (
     <section
       className={`container ${
@@ -78,5 +73,4 @@ const NewCareerRecommendations = () => {
     </section>
   );
 };
-
 export default NewCareerRecommendations;

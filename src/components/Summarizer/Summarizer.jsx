@@ -1,28 +1,32 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import sideBarImage from "../../assets/images/homepage/course_4.jpg";
 import summarizerImage from "../../assets/images/homepage/ai-creative.png";
 import { faTrashAlt, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getTranscriptSection,
+  summarize,
+  createContent,
+} from "../../redux/actions/courses-methods";
 
 const Summarizer = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [isShort, setIsShort] = useState(true);
-  const [modelInput, setModelInput] = useState("");
+  const transcriptdate = useSelector((state) => state.courses.transcriptdate);
+  const summarizeData = useSelector((state) => state.courses.summarizeData);
+  const [modelInput, setModelInput] = useState(transcriptdate);
   const [paragraphInput, setParagraphInput] = useState("");
   const [selectedSection, setSelectedSection] = useState(null);
+  const sectionsData = useSelector((state) => state.courses.sectionsData);
+  const [sectionData, setSectionData] = useState(sectionsData);
+  const [slug, setSlug] = useState("");
+  const dispatch = useDispatch();
+  const access = useSelector((state) => state.userAuth.access);
 
   const handleToggle = () => {
     setIsShort(!isShort);
   };
-
-  const [sectionData, setSectionData] = useState([
-    {
-      title: "Section 1",
-    },
-    {
-      title: "Section 2",
-    },
-  ]);
 
   const handleFileUpload = () => {
     console.log("File upload button clicked");
@@ -31,12 +35,16 @@ const Summarizer = () => {
 
   const handleSummarize = () => {
     console.log("Summarize button clicked");
-    // Add your summarization logic here
+    console.log(modelInput);
+    summarize(dispatch, access, modelInput);
   };
 
   const handleSave = () => {
     console.log("Save button clicked");
-    // Add your save logic here
+    const body = new FormData();
+    body.append("title", "section Summarize");
+    body.append("file", summarizeData);
+    createContent(dispatch, access, body, slug, "text");
   };
 
   const handleDelete = () => {
@@ -44,28 +52,30 @@ const Summarizer = () => {
     // Add your delete logic here
   };
 
-  const handleSectionSelect = (index) => {
+  const handleSectionSelect = (slug, index) => {
     setSelectedSection(index);
-    console.log(`Section ${index + 1} selected`);
-    // Add your section select logic here
+    setSlug(slug);
+    console.log(`Section ${slug} selected`);
+    getTranscriptSection(dispatch, access, slug);
   };
 
   return (
     <div className="flex h-screen">
       <div
-        className={`bg-neutral-100 text-white w-64 transition-all duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+        className={`bg-neutral-100 text-white w-64 transition-all duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
-        <div className="px-3 pt-10 pb-4 flex flex-col">
+        <div className="flex flex-col px-3 pt-10 pb-4">
           <img
             src={sideBarImage}
             alt="Logo"
             className="rounded-tl-md rounded-tr-md"
             loading="lazy"
           />
-          <h2 className="text-black font-bold py-1">Course Machine learning</h2>
+          <h2 className="py-1 font-bold text-black">Course Machine learning</h2>
 
-          <div className="flex text-black text-opacity-70 text-sm font-medium tracking-tight mb-3">
+          <div className="flex mb-3 text-sm font-medium tracking-tight text-black text-opacity-70">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -85,9 +95,8 @@ const Summarizer = () => {
         </div>
 
         {sectionData.map((section, index) => (
-          <div key={index} className="px-4 pb-4 flex items-center">
-           
-            <h3 className="text-black text-lg font-bold tracking-tight">
+          <div key={index} className="flex items-center px-4 pb-4">
+            <h3 className="text-lg font-bold tracking-tight text-black">
               {section.title}
             </h3>
 
@@ -95,7 +104,7 @@ const Summarizer = () => {
               type="radio"
               name="section"
               checked={selectedSection === index}
-              onChange={() => handleSectionSelect(index)}
+              onChange={() => handleSectionSelect(section.slug, index)}
               className="ml-2"
             />
           </div>
@@ -103,40 +112,40 @@ const Summarizer = () => {
       </div>
 
       <button
-        className="fixed top-4 left-72 bg-gray-800 text-white p-2 rounded-md"
+        className="fixed p-2 text-white bg-gray-800 rounded-md top-4 left-72"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? "Close" : "Open"}
       </button>
 
       <div className="flex-1 p-4">
-        <div className="flex justify-center items-center space-x-3">
+        <div className="flex items-center justify-center space-x-3">
           <img
             src={summarizerImage}
             alt="Logo"
             className="w-20 h-20"
             loading="lazy"
           />
-          <div className="text-sky-800 text-xl font-extrabold tracking-wider">
+          <div className="text-xl font-extrabold tracking-wider text-sky-800">
             Summarizer
           </div>
         </div>
 
-        <div className="bg-sky-800 py-2 flex flex-col md:flex-row justify-between items-center px-4 md:px-0">
-          <div className="flex space-x-4 ml-0 md:ml-6 mb-2 md:mb-0">
-            <div className="text-white font-semibold">Model:</div>
-            <div className="text-white font-semibold">Paragraph</div>
+        <div className="flex flex-col items-center justify-between px-4 py-2 bg-sky-800 md:flex-row md:px-0">
+          <div className="flex mb-2 ml-0 space-x-4 md:ml-6 md:mb-0">
+            <div className="font-semibold text-white">Model:</div>
+            <div className="font-semibold text-white">Paragraph</div>
           </div>
 
-          <div className="flex justify-center items-center mr-0 md:mr-7">
-            <div className="text-white font-semibold mr-3 md:ml-2 xl:ml-0">
+          <div className="flex items-center justify-center mr-0 md:mr-7">
+            <div className="mr-3 font-semibold text-white md:ml-2 xl:ml-0">
               Summary Length:
             </div>
             <div className="flex items-center space-x-7">
               <label className="relative inline-block w-10 cursor-pointer">
                 <input
                   type="checkbox"
-                  className="opacity-0 w-0 h-0"
+                  className="w-0 h-0 opacity-0"
                   checked={!isShort}
                   onChange={handleToggle}
                 />
@@ -150,14 +159,14 @@ const Summarizer = () => {
               <FontAwesomeIcon
                 onClick={handleDelete}
                 icon={faTrashAlt}
-                className="text-white cursor-pointer hover:text-slate-300 transition duration-700"
+                className="text-white transition duration-700 cursor-pointer hover:text-slate-300"
               />
             </div>
           </div>
         </div>
 
         <div className="flex flex-col md:flex-row">
-          <div className="w-full md:w-1/2 relative mb-4 md:mb-0">
+          <div className="relative w-full mb-4 md:w-1/2 md:mb-0">
             <textarea
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 h-64 md:h-96 overflow-auto"
               value={modelInput}
@@ -167,21 +176,21 @@ const Summarizer = () => {
             <div className="absolute bottom-0 right-0 flex justify-between w-full px-2 mb-2">
               <button
                 onClick={handleFileUpload}
-                className="text-black font-bold py-1 px-2"
+                className="px-2 py-1 font-bold text-black"
               >
                 <FontAwesomeIcon icon={faUpload} className="mr-3" />
                 Upload Doc
               </button>
               <button
                 onClick={handleSummarize}
-                className="bg-sky-800 hover:bg-sky-900 text-white font-bold py-1 px-2 rounded-full"
+                className="px-2 py-1 font-bold text-white rounded-full bg-sky-800 hover:bg-sky-900"
               >
                 Summarizer
               </button>
             </div>
           </div>
 
-          <div className="w-full md:w-1/2 relative">
+          <div className="relative w-full md:w-1/2">
             <textarea
               className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 h-64 md:h-96 overflow-auto"
               value={paragraphInput}
@@ -191,7 +200,7 @@ const Summarizer = () => {
             <div className="absolute bottom-0 flex justify-end w-full px-2 mb-2">
               <button
                 onClick={handleSave}
-                className="bg-sky-800 hover:bg-sky-900 text-white font-bold py-1 px-2 rounded-full"
+                className="px-2 py-1 font-bold text-white rounded-full bg-sky-800 hover:bg-sky-900"
               >
                 Save
               </button>
