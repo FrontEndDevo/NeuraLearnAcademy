@@ -31,8 +31,6 @@ import {
 } from "../../../redux/actions/courses-methods";
 import VideoPlayer from "../../../shared/VideoPlayer";
 import ImageViewer from "../../../shared/ImageViewer";
-import {  } from "../../../redux/slices/popups-slices/spinner-slice";
-import { setToastMessage } from "../../../redux/slices/popups-slices/toasts-slice";
 
 const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
   const dispatch = useDispatch();
@@ -186,7 +184,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
         <div
           className="relative pt-2 bg-white shadow-lg cursor-pointer"
           key={index}
-         
+
         >
           <ul className="space-y-1">
             {Object.keys(item).map((key) => (
