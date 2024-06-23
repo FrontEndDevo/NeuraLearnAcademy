@@ -590,6 +590,7 @@ export async function enrollCourse(dispatch, access, slug) {
     try {
       const res = await axios.post(
         import.meta.env.VITE_API_URL + `/api/students/courses/${slug}/enroll/`,
+        {},
         config
       );
       dispatch(ENROLLCOURSE_SUCCESS(res.data.enrolled));
