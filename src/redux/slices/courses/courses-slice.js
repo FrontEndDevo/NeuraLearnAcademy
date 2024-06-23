@@ -12,6 +12,7 @@ const initialState = {
   detailCourse: null,
   sectionData: null,
   sectionsData: [],
+  userSectionsData: [],
   updateSectionData: null,
   sectionContent: [],
   getsectionContent: {},
@@ -92,6 +93,18 @@ const getSectionsFailReducer = (state) => {
     sectionsData: [],
   };
 };
+const getUserSectionsReducer = (state, action) => {
+  return {
+    ...state,
+    userSectionsData: action.payload,
+  };
+};
+const getUserSectionsFailReducer = (state) => {
+  return {
+    ...state,
+    userSectionsData: [],
+  };
+};
 const updateSectionReducer = (state, action) => {
   return {
     ...state,
@@ -140,7 +153,6 @@ const getSectionContentFailReducer = (state = initialState, action) => {
 
 const getUserSectionContentReducer = (state = initialState, action) => {
   const { slug, content } = action.payload;
-  console.log(slug, ":", content);
   return {
     ...state,
     getusersectionContent: {
@@ -274,6 +286,8 @@ const courseSlice = createSlice({
     CREATESECTION_FAIL: createSectionFailReducer,
     GETSECTIONS_SUCCESS: getSectionsReducer,
     GETSECTIONS_FAIL: getSectionsFailReducer,
+    GETUSERSECTIONS_SUCCESS: getUserSectionsReducer,
+    GETUSERSECTIONS_FAIL: getUserSectionsFailReducer,
     UPDATESECTION_SUCCESS: updateSectionReducer,
     UPDATESECTION_FAIL: updateSectionFailReducer,
     CREATECONTENT_SUCCESS: createContentReducer,
@@ -296,8 +310,8 @@ const courseSlice = createSlice({
     ENROLLCOURSE_FAIL: enrollCourseFailReducer,
     GETTRANSCRIPTVIDEO_SUCCESS: getTranscriptVideoReducer,
     GETTRANSCRIPTVIDEO_FAIL: getTranscriptVideoFailReducer,
-    QUESTIONGENERATION_SUCCESS:questionGenerationReducer,
-    QUESTIONGENERATION_FAIL:questionGenerationFailReducer,
+    QUESTIONGENERATION_SUCCESS: questionGenerationReducer,
+    QUESTIONGENERATION_FAIL: questionGenerationFailReducer,
     setPublicCourses(state, action) {
       state.publicCourses = action.payload;
     },
@@ -341,6 +355,8 @@ export const {
   setCoursesDependOnSubject,
   GETUSERCOURSES_SUCCESS,
   GETUSERCOURSES_FAIL,
+  GETUSERSECTIONS_SUCCESS,
+  GETUSERSECTIONS_FAIL,
   GETUSERCONTENTS_SUCCESS,
   GETUSERCONTENTS_FAIL,
   ENROLLCOURSE_SUCCESS,
