@@ -23,6 +23,7 @@ import RequireAuth from "./components/Registration/RequireAuth/RequireAuth";
 import QuestionGenerationPage from "./pages/QuestionGenerationPage";
 import UserPage from "./pages/Users/UserPage";
 import Navbar from "./common/Navbar/Navbar";
+import Footer from "./common/Footer/Footer";
 const App = () => {
   return (
     <>
@@ -67,6 +68,7 @@ const App = () => {
           <Route path="UserContentPage" element={<UserPage />} />
         </Route>
       </Routes>
+      <Footer />
     </>
   );
 };
