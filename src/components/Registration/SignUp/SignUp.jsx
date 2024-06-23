@@ -20,6 +20,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [role, setRole] = useState("student"); // New state for role
   const [spinner, setSpinner] = useState(false);
 
   const isAuthenticated = useSelector(
@@ -31,9 +32,17 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (firstName && lastName && email && password && rePassword) {
+    if (firstName && lastName && email && password && rePassword && role) {
       setSpinner(true);
-      await signup(dispatch, firstName, lastName, email, password, rePassword);
+      await signup(
+        dispatch,
+        firstName,
+        lastName,
+        email,
+        password,
+        rePassword,
+        // role
+      ); // Include role in signup
       setSpinner(false);
       dispatch(openModal("registration"));
     }
@@ -141,6 +150,34 @@ const SignUp = () => {
                 value={rePassword}
                 onChange={(e) => setRePassword(e.target.value)}
               />
+            </div>
+
+            <div className="w-full m-x-auto">
+              <label className="block mb-1 text-base font-semibold text-neutral-600">
+                Role
+              </label>
+              <div className="flex justify-start w-full gap-5">
+                <label>
+                  <input
+                    type="radio"
+                    value="student"
+                    checked={role === "student"}
+                    onChange={(e) => setRole(e.target.value)}
+                    className="mr-1"
+                  />
+                  Student
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    value="instructor"
+                    checked={role === "instructor"}
+                    onChange={(e) => setRole(e.target.value)}
+                    className="mr-1"
+                  />
+                  Instructor
+                </label>
+              </div>
             </div>
 
             <RegisterButton
