@@ -76,7 +76,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
   const sectionData = useSelector(
     (state) => state.courses.getsectionContent[slug] || []
   );
-  const [lectures, setLectures] = useState(sectionData);
+  const [lectures, setLectures] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [lecture, setLecture] = useState(null);
 
@@ -161,7 +161,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
 
   return (
     <div className="w-full transition-all duration-300 ease-in-out">
-      {lectures.map((item, index) => (
+      {lectures?.map((item, index) => (
         <div
           className="relative pt-2 bg-white shadow-lg cursor-pointer"
           key={index}

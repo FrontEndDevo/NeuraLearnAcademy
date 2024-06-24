@@ -49,7 +49,7 @@ const QuestionGeneration = () => {
   return (
     <div className="flex h-screen">
       <div
-        className={`bg-neutral-100 text-white w-64 h-1/2 fixed left-0 top-20  ${
+        className={`bg-neutral-100 text-white w-64 h-1/2 left-0 top-20  ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -82,7 +82,7 @@ const QuestionGeneration = () => {
         </div>
 
         {/* Scrollable Sections List */}
-        <div className=" h-1/4 overflow-y-auto">
+        <div className="overflow-y-auto h-52">
           {sectionData.map((section, index) => (
             <div key={index} className="flex items-center px-4 pb-4">
               <h3 className="text-lg font-bold tracking-tight text-black">
@@ -107,7 +107,7 @@ const QuestionGeneration = () => {
         {isOpen ? "Close" : "Open"}
       </button>
 
-      <div className="flex-1 p-4 ml-64">
+      <div className="flex-1 p-4">
         <div className="flex items-center justify-center space-x-3">
           <img
             src={summarizerImage}
