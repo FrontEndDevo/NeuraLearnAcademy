@@ -57,7 +57,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center px-10 mt-32 ">
+      <div className="flex flex-col items-center px-10 mt-32">
         <div
           style={{
             boxShadow: "0px 4px 4px 3px rgba(0, 0, 0, 0.25)",
@@ -66,12 +66,12 @@ const SignUp = () => {
         >
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col items-center space-y-3"
+            className="flex flex-col items-center justify-center space-y-3"
           >
             <NeuraLearnAcademy />
 
-            <div className="flex flex-col md:flex-row">
-              <div className="mb-1 md:mr-2">
+            <div className="flex flex-col w-full gap-4 md:flex-row">
+              <div className="w-full">
                 <label
                   htmlFor="firstName"
                   className="block mb-1 text-base font-semibold text-neutral-600"
@@ -86,7 +86,8 @@ const SignUp = () => {
                   onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
-              <div>
+
+              <div className="w-full">
                 <label
                   htmlFor="lastName"
                   className="block mb-1 text-base font-semibold text-neutral-600"
@@ -103,7 +104,7 @@ const SignUp = () => {
               </div>
             </div>
 
-            <div>
+            <div className="w-full">
               <label
                 htmlFor="email"
                 className="block mb-1 text-base font-semibold text-neutral-600"
@@ -120,7 +121,7 @@ const SignUp = () => {
               />
             </div>
 
-            <div>
+            <div className="w-full">
               <label
                 htmlFor="password"
                 className="block mb-1 text-base font-semibold text-neutral-600"
@@ -130,12 +131,13 @@ const SignUp = () => {
               <input
                 type="password"
                 id="password"
-                className={`w-full pl-2 mb-1 py-2 border  md:w-96 sm:w-96`}
+                className={`w-full pl-2 mb-1 py-2 border md:w-96 sm:w-96`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div>
+
+            <div className="w-full">
               <label
                 htmlFor="rePassword"
                 className="block mb-1 text-base font-semibold text-neutral-600"
@@ -145,17 +147,17 @@ const SignUp = () => {
               <input
                 type="password"
                 id="rePassword"
-                className={`w-full sm:w-96 pl-2 mb-2 py-2 border  md:w-96`}
+                className={`w-full sm:w-96 pl-2 mb-2 py-2 border md:w-96`}
                 value={rePassword}
                 onChange={(e) => setRePassword(e.target.value)}
               />
             </div>
 
-            <div className="flex items-center justify-center font-semibold">
+            <div className="flex flex-col items-center justify-center gap-5 font-semibold md:flex-row">
               <h2 className="mr-4 font-bold underline text-neutral-900">
                 Signed up as:
               </h2>
-              <form className="flex justify-start gap-5">
+              <div className="flex items-center gap-2 md:gap-8">
                 <div className="flex flex-row-reverse items-center gap-2">
                   <label htmlFor="student">Student</label>
                   <input
@@ -176,7 +178,7 @@ const SignUp = () => {
                     onChange={(e) => setRole(e.target.value)}
                   />
                 </div>
-              </form>
+              </div>
             </div>
 
             <RegisterButton
