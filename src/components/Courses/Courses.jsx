@@ -63,17 +63,8 @@ const Courses = () => {
   // Render all courses inside a slider:
   const renderSuggestedCourses = publicCourses != undefined && (
     <Slider {...settings}>
-      {publicCourses.map((item, i) => (
-        <CourseCard
-          key={i}
-          image={item.image}
-          title={item.title}
-          instructor={item.instructor}
-          category={item.subject}
-          price={+item.price}
-          type={"Enroll"}
-          slug={item.slug}
-        />
+      {publicCourses.map((course) => (
+        <CourseCard key={course.slug} {...course} type={"Enroll"} />
       ))}
     </Slider>
   );
