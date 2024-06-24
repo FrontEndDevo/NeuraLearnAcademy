@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import sideBarImage from "../../assets/images/homepage/course_4.jpg";
 import summarizerImage from "../../assets/images/homepage/ai-creative.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -81,7 +80,7 @@ const Summarizer = () => {
         </div>
 
         {/* Scrollable Sections List */}
-        <div className="overflow-y-auto  h-3/4">
+        <div className="overflow-y-auto h-3/4">
           {sectionData.map((section, index) => (
             <div key={index} className="flex items-center px-4 pb-4">
               <h3 className="text-lg font-bold tracking-tight text-black">
