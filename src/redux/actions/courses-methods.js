@@ -552,7 +552,7 @@ export async function getContents(dispatch, access, slug) {
         config
       );
       dispatch({
-        type: "GETCONTENTS_SUCCESS",
+        type: GETCONTENTS_SUCCESS,
         payload: { content: res.data.contents, slug },
       });
     } catch (err) {
