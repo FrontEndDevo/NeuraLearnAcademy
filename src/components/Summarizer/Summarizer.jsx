@@ -20,14 +20,11 @@ const Summarizer = () => {
   const [slug, setSlug] = useState("");
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
-
+  const { courseData } = location.state ? location.state : "";
+  
   useEffect(() => {
     setSectionData(sectionsData);
   }, [sectionsData]);
-
-  const handleToggle = () => {
-    setIsShort(!isShort);
-  };
 
   const handleSummarize = () => {
     summarize(dispatch, access, modelInput);
@@ -50,19 +47,20 @@ const Summarizer = () => {
 
   return (
     <div className="flex h-screen">
-     <div
-        className={`bg-neutral-100 text-white w-64 h-96  fixed left-0 top-0 z-50 ${isOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+      <div
+        className={`bg-neutral-100 text-white w-64 h-96  fixed left-0 top-0 z-50 ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         {/* Sidebar Header */}
         <div className="flex flex-col px-3 pt-10 pb-4">
           <img
-            src={sideBarImage}
+            src={courseData.image}
             alt="Logo"
             className="rounded-tl-md rounded-tr-md"
             loading="lazy"
           />
-          <h2 className="py-1 font-bold text-black">Course Machine learning</h2>
+          <h2 className="py-1 font-bold text-black">{courseData.title}</h2>
           <div className="flex mb-3 text-sm font-medium tracking-tight text-black text-opacity-70">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -78,12 +76,12 @@ const Summarizer = () => {
                 d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
               />
             </svg>
-            <p>Last updated 2/7/2024</p>
+            <p>Last updated 24/6/2024</p>
           </div>
         </div>
 
         {/* Scrollable Sections List */}
-        <div className=" overflow-y-auto h-3/4">
+        <div className="overflow-y-auto  h-3/4">
           {sectionData.map((section, index) => (
             <div key={index} className="flex items-center px-4 pb-4">
               <h3 className="text-lg font-bold tracking-tight text-black">
@@ -102,13 +100,13 @@ const Summarizer = () => {
       </div>
 
       <button
-        className="fixed p-2 text-white bg-gray-800 rounded-md top-4 left-72 z-50"
+        className="fixed z-50 p-2 text-white bg-gray-800 rounded-md top-4 left-72"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? "Close" : "Open"}
       </button>
 
-      <div className="flex-1 ml-64 p-4">
+      <div className="flex-1 p-4 ml-64">
         <div className="flex items-center justify-center space-x-3">
           <img
             src={summarizerImage}
