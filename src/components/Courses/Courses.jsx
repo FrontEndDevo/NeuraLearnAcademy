@@ -63,17 +63,8 @@ const Courses = () => {
   // Render all courses inside a slider:
   const renderSuggestedCourses = publicCourses != undefined && (
     <Slider {...settings}>
-      {publicCourses.map((item, i) => (
-        <CourseCard
-          key={i}
-          image={item.image}
-          title={item.title}
-          instructor={item.instructor}
-          category={item.subject}
-          price={+item.price}
-          type={"Enroll"}
-          slug={item.slug}
-        />
+      {publicCourses.map((course) => (
+        <CourseCard key={course.slug} {...course} type={"Enroll"} />
       ))}
     </Slider>
   );
@@ -114,7 +105,7 @@ const Courses = () => {
           </p>
         </div>
         <Link
-          to="/all-courses/programming"
+          to="/all-courses/"
           className="flex justify-end px-4 py-2 ml-auto text-[10px] text-white capitalize duration-200 rounded-lg lg:px-8 lg:py-4 w-fit lg:text-xl bg-primary-700 hover:bg-primary-500"
         >
           explore programming

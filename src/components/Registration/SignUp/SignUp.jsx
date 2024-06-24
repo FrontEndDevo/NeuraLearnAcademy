@@ -6,7 +6,6 @@ import {
   faGoogle,
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
-import CopyRights from "../CopyRights/CopyRights";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../../../redux/actions/auth-methods";
 import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
@@ -40,7 +39,7 @@ const SignUp = () => {
         lastName,
         email,
         password,
-        rePassword,
+        rePassword
         // role
       ); // Include role in signup
       setSpinner(false);
@@ -58,7 +57,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center px-10 pt-32 pb-20">
+      <div className="flex flex-col items-center px-10">
         <div
           style={{
             boxShadow: "0px 4px 4px 3px rgba(0, 0, 0, 0.25)",
@@ -233,8 +232,6 @@ const SignUp = () => {
         successMessage="Your account has been created successfully. please verify your email.
           We have sent you an activation link to your email."
       />
-
-      <CopyRights />
     </>
   );
 };

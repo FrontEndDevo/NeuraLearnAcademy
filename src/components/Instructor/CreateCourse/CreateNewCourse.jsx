@@ -17,7 +17,6 @@ import {
   updateCourse,
 } from "../../../redux/actions/courses-methods";
 import { setIsSpinnerLoading } from "../../../redux/slices/popups-slices/spinner-slice";
-import { setToastMessage } from "../../../redux/slices/popups-slices/toasts-slice";
 
 const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
   const categories = useSelector((state) => state.courses.subjectCourses);
@@ -92,17 +91,31 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
     const description = descriptionRef.current.value.trim();
     const price = +priceRef.current.value;
 
-    if (!title || !price || (!selectedCategoryId && !course)) {
+    if (!title || !price || !description || (!selectedCategoryId && !course)) {
       setMissingError(true);
     } else {
-      try {
-        // Show the spinner.
-        dispatch(setIsSpinnerLoading(true));
-        if (course == null) {
-          // Create the course:
-          await createCourse(
+      setMissingError(false);
+
+      dispatch(setIsSpinnerLoading(true));
+      if (course == null) {
+        // Create the course:
+        await createCourse(
+          dispatch,
+          access,
+          selectedCategoryId,
+          title,
+          description,
+          price,
+          image
+        );
+      } else {
+        // Update the course:
+        if (course.image !== thumbnail) {
+          // If the image has changed, we need to send it to the server.
+          await updateCourse(
             dispatch,
             access,
+            course.slug,
             selectedCategoryId,
             title,
             description,
@@ -110,41 +123,22 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
             image
           );
         } else {
-          // Update the course:
-          if (course.image !== thumbnail) {
-            // If the image has changed, we need to send it to the server.
-            await updateCourse(
-              dispatch,
-              access,
-              course.slug,
-              selectedCategoryId,
-              title,
-              description,
-              price,
-              image
-            );
-          } else {
-            // If the image is the same, we don't need to send it to the server.
-            await updateCourse(
-              dispatch,
-              access,
-              course.slug,
-              selectedCategoryId,
-              title,
-              description,
-              price
-            );
-          }
+          // If the image is the same, we don't need to send it to the server.
+          await updateCourse(
+            dispatch,
+            access,
+            course.slug,
+            selectedCategoryId,
+            title,
+            description,
+            price
+          );
         }
-        // Close the modal.
-        handleCloseCreateCourse();
-      } catch (error) {
-        // Show the error message to the user.
-        dispatch(setToastMessage({ message: error, type: "error" }));
-      } finally {
-        // Close the spinner.
-        dispatch(setIsSpinnerLoading(false));
       }
+
+      handleCloseCreateCourse();
+
+      dispatch(setIsSpinnerLoading(false));
     }
   };
   // Classes for styling:
@@ -155,7 +149,7 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
     <>
       <BlurModal />
 
-      <div className="lg:w-[70vw] w-[95vw] h-[75vh] lg:h-[70vh] overflow-y-scroll z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
+      <div className="lg:w-[70vw] w-[95vw] h-[75vh] lg:h-[70vh] overflow-y-scroll z-40 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
         <div className="flex items-center w-full px-4 py-4 bg-green-400 rounded-t-lg">
           <div className="flex items-center gap-2">
             <h2 className="text-base font-extrabold lg:text-2xl text-indigo-950">
@@ -224,7 +218,7 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
 
             <div className="flex items-center gap-4 lg:items-end">
               <button
-                disabled={spinner.isSpinnerLoading || missingError}
+                disabled={spinner.isSpinnerLoading}
                 onClick={handleSavingCourseInformation}
                 className={`px-6 py-2 text-lg font-semibold tracking-tight text-white duration-300 rounded-lg ${
                   missingError && !spinner.isSpinnerLoading

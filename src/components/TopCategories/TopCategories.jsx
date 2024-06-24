@@ -1,68 +1,25 @@
 import { Link } from "react-router-dom";
-
-import programming from "../../assets/images/homepage/cartoon/1.jpg";
-import DevelopmentImage from "../../assets/images/homepage/cartoon/programming-concept-illustration_114360-1351.jpg";
-import SalesMarktingImage from "../../assets/images/homepage/cartoon/3.jpg";
-import DrawingImage from "../../assets/images/homepage/cartoon/4.jpg";
-import DataScienec from "../../assets/images/homepage/cartoon/men-woman-wearing-virtual-reality-glasses-working_1262-19284.jpg";
-import StrategyImage from "../../assets/images/homepage/cartoon/6.jpg";
-import BuisnessImage from "../../assets/images/homepage/cartoon/58074.jpg";
-import PhtographyImage from "../../assets/images/homepage/cartoon/42429.jpg";
-import { formatUrlString } from "../../utils/Utils";
-
-const tempCategories = [
-  {
-    category: "Development",
-    img: programming,
-  },
-  {
-    category: "Programming",
-    img: DevelopmentImage,
-  },
-  {
-    category: "Sales",
-    img: SalesMarktingImage,
-  },
-  {
-    category: "Drawing",
-    img: DrawingImage,
-  },
-
-  {
-    category: "Strategy",
-    img: StrategyImage,
-  },
-  {
-    category: "Data Science",
-    img: DataScienec,
-  },
-  {
-    category: "Buisness",
-    img: BuisnessImage,
-  },
-  {
-    category: "Photography",
-    img: PhtographyImage,
-  },
-];
+import { useSelector } from "react-redux";
 
 function TopCategories() {
-  const renderCategories = tempCategories.map((item, index) => {
-    const formattedUrl = formatUrlString(item.category);
+  const allCategories =
+    useSelector((state) => state.courses.subjectCourses) || [];
+
+  const renderCategories = allCategories.map((item) => {
     return (
-      <li key={index} className="my-2 md:my-5">
+      <li key={item.id} className="my-2 md:my-5">
         <Link
           className="flex flex-col items-center justify-center"
-          to={`/all-courses/${formattedUrl}`}
+          to={`/all-courses/${item.slug}`}
         >
           <img
-            src={item.img}
+            src={item.image}
             className="transition duration-300 transform border-4 rounded-full border-secondary-700 h-28 w-28 sm:h-32 sm:w-32 md:w-40 md:h-40 lg:w-56 lg:h-56 hover:scale-105"
-            alt={item.category}
+            alt={item.title}
             loading="lazy"
           />
           <h2 className="my-3 text-sm font-extrabold md:text-lg">
-            {item.category}
+            {item.title}
           </h2>
         </Link>
       </li>
@@ -72,10 +29,12 @@ function TopCategories() {
   return (
     <>
       <div className="container my-10 xl:my-20 ">
-        <h3 className="mb-5 ml-3 text-3xl font-bold text-center xl:text-left">
-          Top Categories
-        </h3>
-        <ul className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap:0 ">
+        {allCategories.length !== 0 && (
+          <h3 className="mb-5 ml-3 text-3xl font-bold text-center xl:text-left">
+            Top Categories
+          </h3>
+        )}
+        <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5">
           {renderCategories}
         </ul>
       </div>

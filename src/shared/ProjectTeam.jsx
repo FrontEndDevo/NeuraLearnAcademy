@@ -1,11 +1,10 @@
-import React from 'react';
-import karim from '../assets/images/homepage/team/karim.jpg';
-import besho from '../assets/images/homepage/team/besho.jpg';
-import basem from '../assets/images/homepage/team/basem.jpg';
-import badwy from '../assets/images/homepage/team/badwy.jpg';
-import sherif from '../assets/images/homepage/team/sherif.jpeg';
-import khaled from '../assets/images/homepage/team/khaled.jpg';
-import zaytony from '../assets/images/homepage/team/zaytony.jpg';
+import karim from "../assets/images/homepage/team/karim.jpg";
+import besho from "../assets/images/homepage/team/besho.jpg";
+import basem from "../assets/images/homepage/team/basem.jpg";
+import badwy from "../assets/images/homepage/team/badwy.jpg";
+import sherif from "../assets/images/homepage/team/sherif.jpeg";
+import khaled from "../assets/images/homepage/team/khaled.jpg";
+import zaytony from "../assets/images/homepage/team/zaytony.jpg";
 const ProjectTeam = () => {
     return (
         <section id="our-team" className="bg-gray-100 py-32">
@@ -16,7 +15,7 @@ const ProjectTeam = () => {
 
                     <TeamMember
                         imgSrc={sherif}
-                        name="Sherif Ahmed"
+                        name="Peter Johnson"
                         role="Machine Learning Developer"
                     />
                     <TeamMember
@@ -55,13 +54,17 @@ const ProjectTeam = () => {
 
 // TeamMember component for individual team member
 const TeamMember = ({ imgSrc, name, role }) => {
-    return (
-        <div className="bg-white rounded-lg shadow-md p-6 my-6 text-center container flex flex-col justify-center">
-            <img src={imgSrc} alt={name} className="w-64 h-64 rounded-full mb-4 ml-6" />
-            <h3 className="text-xl font-semibold mb-2">{name}</h3>
-            <p className="text-gray-700">Role: {role}</p>
-        </div>
-    );
+  return (
+    <div className="container flex flex-col justify-center p-6 my-6 text-center bg-white rounded-lg shadow-md">
+      <img
+        src={imgSrc}
+        alt={name}
+        className="w-64 h-64 mb-4 ml-6 rounded-full"
+      />
+      <h3 className="mb-2 text-2xl font-semibold">{name}</h3>
+      <p className="text-sm font-bold text-gray-700">{role}</p>
+    </div>
+  );
 };
 
 export default ProjectTeam;

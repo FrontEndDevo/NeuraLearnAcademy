@@ -52,7 +52,7 @@ const Toast = () => {
   return (
     <div
       className={`fixed z-50 p-4 duration-500 transform -translate-x-1/2 -translate-y-1/2 select-none left-1/2 ${
-        showMessage ? "top-28 opacity-100" : "-top-96 opacity-0"
+        showMessage ? "top-32 opacity-100" : "-top-96 opacity-0"
       }`}
     >
       <div className="flex rounded-lg shadow-lg">

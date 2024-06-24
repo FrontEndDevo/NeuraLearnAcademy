@@ -60,48 +60,34 @@ const SectionInfo = ({ onClose, slug, lecture }) => {
     setSelectedContent(null);
   };
   const handleSave = async () => {
-    try {
-      // Show the spinner.
-      dispatch(setIsSpinnerLoading(true));
+    dispatch(setIsSpinnerLoading(true));
 
-      if (!selectedContent) {
-        // Show the error message to the user.
-        dispatch(
-          setToastMessage({
-            message: "No content selected! Please select a content.",
-            type: "error",
-          })
-        );
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append("title", title);
-      formData.append("file", selectedContent.content);
-      if (lecture) {
-        const api = renderUpdateLink(lecture);
-        await updateLecture(dispatch, access, formData, api);
-      } else {
-        await createContent(
-          dispatch,
-          access,
-          formData,
-          slug,
-          selectedContent.type
-        );
-      }
-    } catch (error) {
-      // Show the error message to the user.
-      dispatch(
-        setToastMessage({
-          message: "Can't create the content! Please Try again.",
-          type: "error",
-        })
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("file", selectedContent.content);
+    if (selectedContent) {
+      await createContent(
+        dispatch,
+        access,
+        formData,
+        slug,
+        selectedContent.type
       );
-    } finally {
+
       onClose();
-      // Close the spinner.
       dispatch(setIsSpinnerLoading(false));
+
+      return;
+    }
+    if (lecture) {
+      const api = renderUpdateLink(lecture);
+
+      await updateLecture(dispatch, access, formData, api);
+
+      onClose();
+      dispatch(setIsSpinnerLoading(false));
+
+      return;
     }
   };
 
@@ -121,7 +107,7 @@ const SectionInfo = ({ onClose, slug, lecture }) => {
   return (
     <>
       <BlurModal />
-      <div className="lg:w-[50vw] w-[80vw] h-[50vh] lg:h-[70vh] overflow-y-scroll z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
+      <div className="lg:w-[50vw] w-[80vw] h-[50vh] lg:h-[70vh] overflow-y-scroll z-40 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
         <div className="flex justify-between items-center w-full px-4 py-4 bg-zinc-100 rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[30px] rounded-br-[30px] border-b-[12px] border-sky-800">
           <div className="flex items-center gap-2 mx-auto">
             <h2 className="text-base font-extrabold lg:text-2xl text-indigo-950">

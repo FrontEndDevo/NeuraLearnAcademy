@@ -6,8 +6,6 @@ import SectionInfo from "../../components/Instructor/CreateSections/SectionInfo"
 import DeleteSection from "../../components/Instructor/CreateSections/DeleteSection";
 import CreateNewSection from "./../../components/Instructor/CreateSections/CreateNewSection";
 import { closeModal } from "../../redux/slices/Instructor/OpenClose";
-import Spinner from "../../shared/popup/Spinner";
-import Toast from "../../shared/popup/Toast";
 
 const sectionInfo = document.getElementById("section__info");
 
@@ -15,8 +13,6 @@ const deletesection = document.getElementById("deletesection__modal");
 const newInstructorCourseId = document.getElementById(
   "instructor__course__content"
 );
-
-const popupsMessages = document.getElementById("popups");
 
 const CoursesContentPage = () => {
   const { modalName, slug, lecture } = useSelector((state) => state.openClose);
@@ -26,9 +22,6 @@ const CoursesContentPage = () => {
   };
   return (
     <>
-      {createPortal(<Toast />, popupsMessages)}
-      {createPortal(<Spinner />, popupsMessages)}
-
       <CoursesContent />
       {modalName === "createNewSection" &&
         createPortal(

@@ -6,7 +6,7 @@ const AllCoursesPage = () => {
   const categories = useSelector((state) => state.courses.subjectCourses);
 
   return (
-    <section className="grid grid-cols-1 gap-2 m-4 my-10 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:m-10">
+    <section className="grid grid-cols-1 gap-2 m-4 my-28 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       <div>
         <CoursesCategories categories={categories} />
       </div>

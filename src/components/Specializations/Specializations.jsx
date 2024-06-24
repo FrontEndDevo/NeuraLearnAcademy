@@ -1,25 +1,26 @@
 import { Link } from "react-router-dom";
-import img from "../../assets/images/homepage/Specializations/uiux.png";
 import Slider from "react-slick/lib/slider";
 
 const ourSpecializations = [
   {
-    image: img,
+    image:
+      "https://i.postimg.cc/YqFcHrJB/marvin-meyer-SYTO3xs06f-U-unsplash.jpg",
     title: "UI/UX Design",
     description:
       "we will take you learn to design user interfaces ,user experience and implement websites and applications and create your first application. ",
   },
   {
-    image: img,
-    title: "UI/UX Design",
+    image:
+      "https://i.postimg.cc/CxjVjhNs/blake-connally-B3l0g6-HLxr8-unsplash.jpg",
+    title: "Web Development",
     description:
-      "we will take you learn to design user interfaces ,user experience and implement websites and applications and create your first application. ",
+      "Enjoy the process of creating a website from scratch, learn the basics of HTML, CSS, and JavaScript and create your first website.",
   },
   {
-    image: img,
-    title: "UI/UX Design",
+    image: "https://i.postimg.cc/NMGYs3R7/Video-Games.png",
+    title: "Game Developmenet",
     description:
-      "we will take you learn to design user interfaces ,user experience and implement websites and applications and create your first application. ",
+      "Start your journey in the world of game development, learn the basics of game development and create your first game.",
   },
 ];
 
@@ -30,7 +31,7 @@ const settings = {
   speed: 500,
   slidesToShow: 1,
   slidesToScroll: 1,
-  // autoplay: true,
+  autoplay: true,
   autoplaySpeed: 2000,
   pauseOnHover: true,
 };
@@ -40,14 +41,16 @@ const Specializations = () => {
     <Slider {...settings}>
       {ourSpecializations.map((item, index) => (
         <div key={index} className="bg-zinc-300 rounded-2xl">
-          <div className="grid items-center grid-cols-2 gap-4 md:gap-8">
+          <div className="grid items-center grid-cols-1 gap-4 pb-2 lg:pb-0 md:text-center lg:grid-cols-2 md:gap-2">
             <img
               src={item.image}
               alt={item.title}
-              className="w-full h-full rounded-l-2xl"
+              className="w-96 h-60 rounded-l-2xl"
             />
-            <div className="pr-4 md:pr-6">
-              <h2 className="text-base font-bold md:text-xl">{item.title}</h2>
+            <div className="mx-2">
+              <h2 className="mb-2 text-base font-bold md:text-xl">
+                {item.title}
+              </h2>
               <p className="text-xs font-semibold leading-snug text-justify md:leading-6 md:text-sm">
                 {item.description}
               </p>
@@ -70,7 +73,7 @@ const Specializations = () => {
           Specialization Certificate to add to your CV
         </p>
         <Link
-          to="/"
+          to="/all-courses"
           className="px-4 py-2 text-xs font-bold duration-300 bg-white rounded-full md:text-base md:px-8 md:py-4 text-primary-500 hover:text-primary-700"
         >
           Explore specializations with us

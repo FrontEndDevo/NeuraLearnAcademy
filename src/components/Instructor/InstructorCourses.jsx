@@ -17,23 +17,11 @@ const InstructorCourses = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchInstructorCourses = async () => {
-      try {
-        // Show the spinner.
-        dispatch(setIsSpinnerLoading(true));
+      dispatch(setIsSpinnerLoading(true));
 
-        await getInstructorCourses(dispatch, access);
-      } catch (error) {
-        // Show the error message to the user.
-        dispatch(
-          setToastMessage({
-            message: "Can't fetch your courses. Please try again later.",
-            type: "error",
-          })
-        );
-      } finally {
-        // Close the spinner.
-        dispatch(setIsSpinnerLoading(false));
-      }
+      await getInstructorCourses(dispatch, access);
+
+      dispatch(setIsSpinnerLoading(false));
     };
     fetchInstructorCourses();
   }, [dispatch, access]);
@@ -73,7 +61,7 @@ const InstructorCourses = () => {
         selectedOption={instructorOption}
         getInstructorOption={handleInstructorOption}
       />
-      <div className="mx-4 lg:px-10 lg:py-20">
+      <div className="mx-4 lg:px-10">
         <div className="flex items-center justify-between mb-10">
           <h2 className="mx-auto text-2xl font-bold capitalize lg:mx-0">
             my {instructorOption}
