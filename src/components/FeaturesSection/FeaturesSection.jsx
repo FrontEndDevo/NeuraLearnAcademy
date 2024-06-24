@@ -11,12 +11,12 @@ const professionalPeople = [
   },
   {
     id: 2,
-    title: "Mona ali",
+    title: "Yasser Ali",
     story:
       '"One of the best decisions I have made was to take the Professional Certificate. I have been able to apply the skills I learned in the Professional Certificate to my work. I have been able to take on more responsibility and have been promoted to CEO of international. I am very grateful for the opportunity to learn and grow."',
     job: "Front End Developer",
     CardImage:
-      "https://i.postimg.cc/hvb5XvgX/pexels-moh-adbelghaffar-3123821.jpg",
+      "https://i.postimg.cc/QC6nLvxn/pexels-simon-robben-55958-614810.jpg",
   },
   {
     id: 3,
