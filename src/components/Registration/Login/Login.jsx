@@ -8,7 +8,6 @@ import {
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
 
-import CopyRights from "../CopyRights/CopyRights";
 import { login } from "../../../redux/actions/auth-methods";
 import { useDispatch, useSelector } from "react-redux";
 import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
@@ -164,7 +163,6 @@ const Login = () => {
         successMessage="Login successfully"
       />
 
-      <CopyRights />
     </>
   );
 };
