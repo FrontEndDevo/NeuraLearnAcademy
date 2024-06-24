@@ -73,7 +73,7 @@ const InstructorCourses = () => {
         selectedOption={instructorOption}
         getInstructorOption={handleInstructorOption}
       />
-      <div className="mx-4 lg:px-10 lg:py-20">
+      <div className="mx-4 lg:px-10">
         <div className="flex items-center justify-between mb-10">
           <h2 className="mx-auto text-2xl font-bold capitalize lg:mx-0">
             my {instructorOption}
