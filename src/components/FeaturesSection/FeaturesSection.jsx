@@ -1,41 +1,66 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDoubleRight } from "@fortawesome/free-solid-svg-icons";
-
-import men1 from "../../assets/images/homepage/FeatureSection/men1.jpeg";
-import men2 from "../../assets/images/homepage/FeatureSection/men2.jpeg";
-import women from "../../assets/images/homepage/FeatureSection/women1.jpeg";
 import bg from "../../assets/images/homepage/FeatureSection/bg.jpeg";
-import { Link } from "react-router-dom";
 
-const cardData = [
+const professionalPeople = [
   {
-    title: "Fahmy ali",
-    description:
-      '"To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset.With Neura Learn  Academy Business, I can give my team the space to learn and take the initiative.It means we can produce higher quality work more quickly."',
-    personPostion: "CEO of international",
-    CardImage: men1,
+    id: 1,
+    title: "John Stowt",
+    story:
+      '"I have been able to apply the skills I learned in the Professional Certificate to my work. I have been able to take on more responsibility and have been promoted to CEO of international. I am very grateful for the opportunity to learn and grow."',
+    job: "CEO manager",
+    photo: "https://i.postimg.cc/L62WrtBL/John-Stowt.jpg",
   },
   {
-    title: "Mona ali",
-    description:
-      '"To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset.With Neura Learn  Academy Business, I can give my team the space to learn and take the initiative.It means we can produce higher quality work more quickly."',
-    personPostion: "Front End Developer",
-    CardImage: women,
+    id: 2,
+    title: "Yasser Ali",
+    story:
+      '"One of the best decisions I have made was to take the Professional Certificate. I have been able to apply the skills I learned in the Professional Certificate to my work. I have been able to take on more responsibility and have been promoted to CEO of international. I am very grateful for the opportunity to learn and grow."',
+    job: "Front End Developer",
+    photo: "https://i.postimg.cc/QC6nLvxn/pexels-simon-robben-55958-614810.jpg",
   },
   {
-    title: "karim ali",
-    description:
-      '"To stay at the leading edge of IT innovation, your team needs to regularly reinvent its skillset.With Neura Learn  Academy Business, I can give my team the space to learn and take the initiative.It means we can produce higher quality work more quickly."',
-    personPostion: "Back End Developer ",
-    CardImage: men2,
+    id: 3,
+    title: "karim Mahmoud",
+    story:
+      '"Now I am a full stack developer. I have been able to apply the skills I learned in the Professional Certificate to my work. I have been able to take on more responsibility and have been promoted to CEO of international. I am very grateful for the opportunity to learn and grow."',
+    job: "full stack Developer",
+    photo: "https://i.postimg.cc/x1d4d9Zd/Karim-Mahmoud.jpg",
   },
 ];
+
 const FeaturesSection = () => {
   const divStyle = {
     backgroundImage: `url(${bg})`,
     backgroundSize: "100% 130%",
     backgroundRepeat: "no-repeat",
   };
+
+  const professionalCertifications = professionalPeople.map((person) => (
+    <div key={person.id} className="p-4">
+      <div className="relative bg-black rounded-tl-[23px] rounded-tr-[23px] rounded-bl-[23px]">
+        <h2 className="text-white text-[25px] md:text-[35px] text-opacity-80 font-extrabold ] tracking-widest pt-12 pb-20 pl-6 md:pl-20 select-none">
+          #Comments
+        </h2>
+        <h2 className="absolute text-2xl font-extrabold text-white capitalize bottom-2 left-36">
+          {person.title}
+        </h2>
+      </div>
+
+      <div className="relative CardDetails bg-stone-5">
+        <img
+          src={person.photo}
+          alt={person.title}
+          className="absolute left-0 z-10 w-32 h-32 mx-1 text-white border-4 border-white rounded-full shadow-lg -top-20"
+        />
+        <div className="absolute py-2 text-sm font-semibold left-32 md:left-36 text-neutral-500 md:text-normal">
+          {person.job}
+        </div>
+
+        <p className="h-full py-10 text-black md:text-[17px] px-6 pt-16 bg-stone-50">
+          {person.story}
+        </p>
+      </div>
+    </div>
+  ));
 
   return (
     <>
@@ -49,52 +74,9 @@ const FeaturesSection = () => {
       <section className="grid px-0 py-20 place-items-center" style={divStyle}>
         <div className="container">
           <div className="grid grid-cols-1 pb-10 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 place-items-center">
-            {cardData.forEach((card, index) => {
-              return (
-                <>
-                  <div key={index} className="p-4">
-                    <div className=" relative bg-black rounded-tl-[23px] rounded-tr-[23px] rounded-bl-[23px]">
-                      <h2 className=" text-white text-[25px] md:text-[35px] text-opacity-80 font-extrabold ] tracking-widest pt-12 pb-20 pl-6 md:pl-20">
-                        #Comments
-                      </h2>
-                      <h2 className="absolute text-2xl font-extrabold text-white bottom-2 left-36">
-                        {card.title}
-                      </h2>
-                    </div>
-                    <div className="relative CardDetails bg-stone-50 ">
-                      <img
-                        src={card.CardImage}
-                        alt={card.title}
-                        className="absolute left-0 z-10 w-32 h-32 text-white border-4 border-white rounded-full shadow-lg -top-20"
-                      />
-                      <div className="absolute py-2 text-sm font-semibold left-32 md:left-36 text-neutral-500 md:text-normal">
-                        {card.personPostion}
-                      </div>
-
-                      <p className="h-full  text-black text-[ ] md:text-[17px]  px-6 pt-16  bg-stone-50  ">
-                        {card.description}
-                      </p>
-
-                      <Link
-                        to="/"
-                        className="inline-block relative left-[45%] md:left-[60%] 2xl:left-[70%] text-primary-500 duration-200 hover:text-primary-700 text-base font-bold py-5"
-                      >
-                        Read all story{" "}
-                        <FontAwesomeIcon icon={faAngleDoubleRight} />
-                      </Link>
-                    </div>
-                  </div>
-                </>
-              );
-            })}
+            {professionalCertifications}
           </div>
         </div>
-        <Link
-          to="/"
-          className="p-3 text-base font-bold text-center text-white duration-200 bg-primary-500 hover:bg-primary-700 rounded-3xl"
-        >
-          View more customer stories{" "}
-        </Link>
       </section>
     </>
   );

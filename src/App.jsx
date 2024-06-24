@@ -23,20 +23,12 @@ import CoursesContentPage from "./pages/Instructor/CoursesContentPage";
 import RequireAuth from "./components/Registration/RequireAuth/RequireAuth";
 import QuestionGenerationPage from "./pages/QuestionGenerationPage";
 import UserPage from "./pages/Users/UserPage";
-import Spinner from "./shared/popup/Spinner";
-import { createPortal } from "react-dom";
-import { useSelector } from "react-redux";
 import ContactUs from "./shared/ContactUs";
 import AboutUs from "./shared/AboutUs";
-import ProjectTeam from "./shared/ProjectTeam";
-const loadingSpinnerId = document.getElementById("loading__spinner");
-import Navbar from "./common/Navbar/Navbar";
-import Footer from "./common/Footer/Footer";
 
 const App = () => {
   return (
     <>
-      <Navbar />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Homepage />} />
@@ -48,6 +40,7 @@ const App = () => {
             element={<ResetPasswordConfirm />}
           />
           <Route path="activate/:uid/:token" element={<Activation />} />
+          <Route path="about-us" element={<AboutUs />} />
           <Route path="*" element={<PageNotFound />} />
           <Route element={<RequireAuth />}>
             <Route path="my-learnings" element={<MyLearningsPage />} />
@@ -70,7 +63,6 @@ const App = () => {
                 element={<ProfileCloseAcountPage />}
               />
             </Route>
-
             <Route path="summarizer" element={<Summarizers />} />
             <Route
               path="questionqeneration"
@@ -82,18 +74,10 @@ const App = () => {
               element={<CoursesContentPage />}
             />
             <Route path="UserContentPage/:slug" element={<UserPage />} />
-            <Route
-              path="CoursesContentPage/:slug"
-              element={<CoursesContentPage />}
-            />
+            <Route path="contact-us" element={<ContactUs />} />
           </Route>
         </Route>
-
-        <Route path="contactus" element={<ContactUs />} />
-        <Route path="about" element={<AboutUs />} />
-        <Route path="team" element={<ProjectTeam />} />
       </Routes>
-      <Footer />
     </>
   );
 };

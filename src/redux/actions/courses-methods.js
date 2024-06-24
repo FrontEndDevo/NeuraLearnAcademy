@@ -5,8 +5,6 @@ import {
   GETSUBJECTCOURSES_ERROR,
   UPDATEUSERDATA_ERROR,
   GETTRANSCRIPTSECTION_ERROR,
-  SUMMARIZE_ERROR,
-  ENROLLCOURSE_ERROR,
   GETTRANSCRIPTVIDEO_ERROR,
   QUESTIONGENERATION_ERROR,
 } from "../slices/courses/courses-errors";
@@ -122,7 +120,8 @@ export async function getInstructorCourses(dispatch, access) {
     } catch (err) {
       dispatch(
         setToastMessage({
-          message: "Opps! We couldn't fetch you courses, Try to refresh page.",
+          message:
+            "Opps! We couldn't fetch your courses!, Please Try to refresh page.",
           type: "error",
         })
       );
@@ -311,13 +310,18 @@ export async function deleteCourse(dispatch, access, slug) {
         })
       );
     } catch (err) {
+      console.log(err);
       dispatch(
-        setToastMessage({ message: err.response.data.detail, type: "error" })
+        setToastMessage({
+          message: "We couldn't delete the course!, Please try again.",
+          type: "error",
+        })
       );
     }
   }
 }
 
+// Create the instructor course section.
 export async function createSection(
   dispatch,
   access,
@@ -360,6 +364,8 @@ export async function createSection(
     }
   }
 }
+
+// Delete the instructor course section.
 export async function deleteSection(dispatch, access, slug) {
   if (access) {
     const config = {
@@ -390,6 +396,8 @@ export async function deleteSection(dispatch, access, slug) {
     }
   }
 }
+
+// Get the sections of the course.
 export async function getSections(dispatch, access, slug) {
   if (access) {
     const config = {
@@ -409,7 +417,7 @@ export async function getSections(dispatch, access, slug) {
     } catch (err) {
       dispatch(
         setToastMessage({
-          message: "Can't load your sections, Please try again.",
+          message: "Can't load your sections!, Please try again.",
           type: "error",
         })
       );
@@ -417,6 +425,8 @@ export async function getSections(dispatch, access, slug) {
     }
   }
 }
+
+// Get the sections of the course.
 export async function getUserSections(dispatch, access, slug) {
   if (access) {
     const config = {
@@ -444,6 +454,8 @@ export async function getUserSections(dispatch, access, slug) {
     }
   }
 }
+
+// Update the instructor course section.
 export async function updateSections(
   dispatch,
   access,
@@ -487,6 +499,8 @@ export async function updateSections(
     }
   }
 }
+
+// Create the course content.
 export async function createContent(dispatch, access, body, slug, type) {
   if (access) {
     const config = {
@@ -521,6 +535,8 @@ export async function createContent(dispatch, access, body, slug, type) {
     }
   }
 }
+
+// Get the contents of the course.
 export async function getContents(dispatch, access, slug) {
   if (access) {
     const config = {
@@ -550,6 +566,8 @@ export async function getContents(dispatch, access, slug) {
     }
   }
 }
+
+// Get the contents of the course.
 export async function getUserContents(dispatch, access, slug) {
   if (access) {
     const config = {
@@ -579,6 +597,8 @@ export async function getUserContents(dispatch, access, slug) {
     }
   }
 }
+
+// Delete the course lecture.
 export async function deleteLecture(dispatch, access, api) {
   if (access) {
     const config = {
@@ -608,6 +628,8 @@ export async function deleteLecture(dispatch, access, api) {
     }
   }
 }
+
+// Update the course lecture.
 export async function updateLecture(dispatch, access, formData, api) {
   if (access) {
     const config = {
@@ -638,6 +660,8 @@ export async function updateLecture(dispatch, access, formData, api) {
     }
   }
 }
+
+// Get the user courses.
 export async function GetUserCourses(dispatch, access) {
   if (access) {
     const config = {
@@ -660,9 +684,9 @@ export async function GetUserCourses(dispatch, access) {
   }
 }
 
+// Enroll in a course.
 export async function enrollCourse(dispatch, access, slug) {
   if (access) {
-    console.log(access);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -676,13 +700,27 @@ export async function enrollCourse(dispatch, access, slug) {
         {},
         config
       );
+      dispatch(
+        setToastMessage({
+          message: "Enrolled in the course successfully.",
+          type: "success",
+        })
+      );
       dispatch(ENROLLCOURSE_SUCCESS(res.data.enrolled));
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message:
+            "Can't enroll in the course rightnow!, Please try again later.",
+          type: "error",
+        })
+      );
       dispatch(ENROLLCOURSE_FAIL());
-      dispatch(ENROLLCOURSE_ERROR(err.response.data));
     }
   }
 }
+
+// Get the transcript section.
 export async function getTranscriptSection(dispatch, access, slug) {
   if (access) {
     const config = {
@@ -701,12 +739,20 @@ export async function getTranscriptSection(dispatch, access, slug) {
       dispatch(GETTRANSCRIPTSECTION_SUCCESS(res.data[0].transcript));
       console.log(res);
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't load the transcript, Please try again later.",
+          type: "error",
+        })
+      );
       dispatch(GETTRANSCRIPTSECTION_FAIL());
       dispatch(GETTRANSCRIPTSECTION_ERROR(err.response.data));
       console.log(err);
     }
   }
 }
+
+// Summarize the transcript.
 export async function summarize(dispatch, access, text) {
   if (access) {
     const config = {
@@ -726,14 +772,19 @@ export async function summarize(dispatch, access, text) {
         config
       );
       dispatch(SUMMARIZE_SUCCESS(res.data.summary));
-      console.log(res);
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Couldn't summarize the transcript!, Please try again.",
+          type: "error",
+        })
+      );
       dispatch(SUMMARIZE_FAIL());
-      dispatch(SUMMARIZE_ERROR(err.response.data));
-      console.log(err);
     }
   }
 }
+
+
 export async function getTranscriptVideo(dispatch, access, id) {
   if (access) {
     const config = {

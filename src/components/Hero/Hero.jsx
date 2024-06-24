@@ -3,7 +3,6 @@ import hero from "/src/assets/images/homepage/hero.png";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
-
   return (
     <div className="mx-4 mt-24 md:mx-8 lg:mx-12">
       <section className="grid items-center justify-center">
@@ -16,7 +15,7 @@ const Hero = () => {
             </p>
           </div>
           <Link
-            to="/"
+            to="/all-courses"
             className="px-8 py-3 text-base font-bold text-center text-white duration-200 bg-primary-500 rounded-3xl hover:bg-primary-700"
           >
             Get Started
@@ -26,7 +25,7 @@ const Hero = () => {
           <img src={hero} alt="" />
         </div>
       </section>
-      <Benefits/>
+      <Benefits />
     </div>
   );
 };

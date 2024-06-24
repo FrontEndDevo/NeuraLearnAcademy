@@ -6,6 +6,7 @@ import {
   summarize,
   createContent,
 } from "../../redux/actions/courses-methods";
+import { setIsSpinnerLoading } from "../../redux/slices/popups-slices/spinner-slice";
 
 const Summarizer = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -25,34 +26,50 @@ const Summarizer = () => {
     setSectionData(sectionsData);
   }, [sectionsData]);
 
-  const handleSummarize = () => {
-    summarize(dispatch, access, modelInput);
+  const handleSummarize = async () => {
+    dispatch(setIsSpinnerLoading(true));
+
+    await summarize(dispatch, access, modelInput);
+    
     setParagraphInput(summarizeData);
+
+    dispatch(setIsSpinnerLoading(false));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
+    dispatch(setIsSpinnerLoading(true));
+
     const body = new FormData();
     body.append("title", "section Summarize");
     body.append("content", summarizeData);
-    createContent(dispatch, access, body, slug, "text");
+
+    await createContent(dispatch, access, body, slug, "text");
+
+    dispatch(setIsSpinnerLoading(false));
   };
 
-  const handleSectionSelect = (slug, index) => {
+  const handleSectionSelect = async (slug, index) => {
+    dispatch(setIsSpinnerLoading(true));
+
     setSelectedSection(index);
     setSlug(slug);
-    getTranscriptSection(dispatch, access, slug);
+
+    await getTranscriptSection(dispatch, access, slug);
+
     setModelInput(transcriptdata);
+
+    dispatch(setIsSpinnerLoading(false));
   };
 
   return (
     <div className="flex h-screen">
       <div
-        className={`bg-neutral-100 text-white w-64 h-96  fixed left-0 top-0 z-50 ${
+        className={`bg-transparent text-white w-64 h-96 fixed left-0 top-0 z-50 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Sidebar Header */}
-        <div className="flex flex-col px-3 pt-10 pb-4">
+        <div className="flex flex-col px-3 pb-4 mt-24">
           <img
             src={courseData.image}
             alt="Logo"
