@@ -12,6 +12,7 @@ import {
   faChevronUp,
   faChevronDown,
   faDownload, // Import the faDownload icon
+  faFont
 } from "@fortawesome/free-solid-svg-icons";
 import VideoPlayer from "../../shared/VideoPlayer";
 import ImageViewer from "../../shared/ImageViewer";
@@ -68,13 +69,13 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
   const renderIcon = (type) => {
     switch (type) {
       case "video":
-        return faVideo;
+        return [faVideo];
       case "image":
-        return faImage;
+        return [faImage];
       case "file":
-        return faFileAlt;
+        return [faFileAlt,faDownload];
       default:
-        return faFileAlt;
+        return [faFont, faDownload];
     }
   };
 
@@ -110,19 +111,28 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
                 className="relative border-b border-b-sky-950 border-opacity-80"
                 key={key}
               >
-                <div className="flex justify-between">
+                <div className="flex ">
                     <div
-                      className="relative cursor-pointer pl-14"
+                      className=" cursor-pointer pl-14"
                     onClick={() => handleClick(item)}
                   >
                     <FontAwesomeIcon
-                      icon={renderIcon(key)}
+                      icon={renderIcon(key)[0]}
                       className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
                     />
-                    <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
-                      {renderTitle(item)}
-                        
-                    </div>
+                    
+                    <div className="flex  space-x-10 ">
+                      <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
+                        {renderTitle(item)}
+
+                      </div>
+                      <a href="">
+                        <FontAwesomeIcon
+                          icon={renderIcon(key)[1]}
+                          className=" w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
+                        />
+                    </a>
+                  </div>
                   </div>
                 </div>
               </li>
