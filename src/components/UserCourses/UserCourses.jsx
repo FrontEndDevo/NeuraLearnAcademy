@@ -4,18 +4,24 @@ import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../../shared/Pagination";
 import CourseCard from "../../shared/Courses/CourseCard";
 import { GetUserCourses } from "../../redux/actions/courses-methods";
+import { setIsSpinnerLoading } from "../../redux/slices/popups-slices/spinner-slice";
 const userCourses = ["courses", "my lists", "wishlist", "archived", "purchase"];
 
 const UserCourses = () => {
-  useEffect(() => {
-    console.log(access);
-    GetUserCourses(dispatch, access);
-  }, [access, dispatch]);
-
   const dispatch = useDispatch();
-  const access = useSelector((state) => state.userAuth.access);
+  const access = useSelector((state) => state.userAuth.access); 
   const usercourse = useSelector((state) => state.courses.userCourses) || [];
-  console.log(usercourse);
+
+  useEffect(() => {
+    const fetchUserCourses = async (dispatch, access) => {
+      dispatch(setIsSpinnerLoading(true));
+
+      await GetUserCourses(dispatch, access);
+
+      dispatch(setIsSpinnerLoading(false));
+    };
+    fetchUserCourses(dispatch, access);
+  }, [access, dispatch]);
   // The number of elements to be rendered per page.
   const elementsPerPage = 6;
 
