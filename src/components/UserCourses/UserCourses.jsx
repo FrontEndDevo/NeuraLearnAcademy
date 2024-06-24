@@ -10,7 +10,7 @@ const UserCourses = () => {
   useEffect(() => {
     console.log(access);
     GetUserCourses(dispatch, access);
-  }, []);
+  }, [access, dispatch]);
 
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
