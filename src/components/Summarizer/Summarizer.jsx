@@ -64,7 +64,7 @@ const Summarizer = () => {
   return (
     <div className="flex h-screen">
       <div
-        className={`bg-transparent text-white w-64 h-96 fixed left-0 top-0 z-50 ${
+        className={`bg-transparent text-white w-64 h-1/2 fixed left-0 top-0 z-50 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
