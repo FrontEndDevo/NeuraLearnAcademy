@@ -70,34 +70,34 @@ const SignUp = () => {
           >
             <NeuraLearnAcademy />
 
-            <div className="flex flex-col w-full gap-4 md:flex-row">
-              <div className="w-full">
+            <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
                 <label
                   htmlFor="firstName"
-                  className="block mb-1 text-base font-semibold text-neutral-600"
+                  className="mb-1 text-base font-semibold text-neutral-600"
                 >
                   First Name
                 </label>
                 <input
                   type="text"
                   id="firstName"
-                  className={`w-full sm:w-96 pl-2 py-2 border  md:w-48`}
+                  className={`w-full pl-2 py-2 border`}
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
 
-              <div className="w-full">
+              <div>
                 <label
                   htmlFor="lastName"
-                  className="block mb-1 text-base font-semibold text-neutral-600"
+                  className="mb-1 text-base font-semibold text-neutral-600"
                 >
                   Last Name
                 </label>
                 <input
                   type="text"
                   id="lastName"
-                  className={`w-full sm:w-96 pl-2 py-2 border md:w-48`}
+                  className={`w-full pl-2 py-2 border`}
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
@@ -107,14 +107,14 @@ const SignUp = () => {
             <div className="w-full">
               <label
                 htmlFor="email"
-                className="block mb-1 text-base font-semibold text-neutral-600"
+                className="mb-1 text-base font-semibold text-neutral-600"
               >
                 Email
               </label>
               <input
                 type="email"
                 id="email"
-                className="w-full py-2 pl-2 border border-gray-300 sm:w-96 md:w-96"
+                className="w-full py-2 pl-2 border border-gray-300"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -131,7 +131,7 @@ const SignUp = () => {
               <input
                 type="password"
                 id="password"
-                className={`w-full pl-2 mb-1 py-2 border md:w-96 sm:w-96`}
+                className={`w-full pl-2 mb-1 py-2 border`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -140,14 +140,14 @@ const SignUp = () => {
             <div className="w-full">
               <label
                 htmlFor="rePassword"
-                className="block mb-1 text-base font-semibold text-neutral-600"
+                className="mb-1 text-base font-semibold text-neutral-600"
               >
                 Confirm Password
               </label>
               <input
                 type="password"
                 id="rePassword"
-                className={`w-full sm:w-96 pl-2 mb-2 py-2 border md:w-96`}
+                className={`w-full pl-2 mb-2 py-2 border`}
                 value={rePassword}
                 onChange={(e) => setRePassword(e.target.value)}
               />
