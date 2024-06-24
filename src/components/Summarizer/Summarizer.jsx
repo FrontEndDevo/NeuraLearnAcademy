@@ -7,6 +7,7 @@ import {
   createContent,
 } from "../../redux/actions/courses-methods";
 import { setIsSpinnerLoading } from "../../redux/slices/popups-slices/spinner-slice";
+import { useLocation } from "react-router-dom";
 
 const Summarizer = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -20,8 +21,8 @@ const Summarizer = () => {
   const [slug, setSlug] = useState("");
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
+  const location = useLocation();
   const { courseData } = location.state ? location.state : "";
-  
   useEffect(() => {
     setSectionData(sectionsData);
   }, [sectionsData]);
@@ -30,7 +31,7 @@ const Summarizer = () => {
     dispatch(setIsSpinnerLoading(true));
 
     await summarize(dispatch, access, modelInput);
-    
+
     setParagraphInput(summarizeData);
 
     dispatch(setIsSpinnerLoading(false));
@@ -71,12 +72,12 @@ const Summarizer = () => {
         {/* Sidebar Header */}
         <div className="flex flex-col px-3 pb-4 mt-24">
           <img
-            src={courseData.image}
+            src={courseData?.image}
             alt="Logo"
             className="rounded-tl-md rounded-tr-md"
             loading="lazy"
           />
-          <h2 className="py-1 font-bold text-black">{courseData.title}</h2>
+          <h2 className="py-1 font-bold text-black">{courseData?.title}</h2>
           <div className="flex mb-3 text-sm font-medium tracking-tight text-black text-opacity-70">
             <svg
               xmlns="http://www.w3.org/2000/svg"
