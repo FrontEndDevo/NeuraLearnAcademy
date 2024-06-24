@@ -1,4 +1,3 @@
-import React from "react";
 import karim from "../assets/images/homepage/team/karim.jpg";
 import besho from "../assets/images/homepage/team/besho.jpg";
 import basem from "../assets/images/homepage/team/basem.jpg";
@@ -17,14 +16,10 @@ const ProjectTeam = () => {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <TeamMember
             imgSrc={sherif}
-            name="Sherif Mohamed"
+            name="Sherif Ahmed"
             role="Machine Learning Developer"
           />
-          <TeamMember
-            imgSrc={badwy}
-            name="Mohamed Ashraf "
-            role="UX Designer"
-          />
+          <TeamMember imgSrc={badwy} name="Mohamed Ashraf" role="UX Designer" />
           <TeamMember
             imgSrc={khaled}
             name="Khaled Mohamed"
