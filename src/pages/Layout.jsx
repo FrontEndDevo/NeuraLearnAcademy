@@ -13,7 +13,7 @@ const Layout = () => {
       {createPortal(<Toast />, popupsMessages)}
       {createPortal(<Spinner />, popupsMessages)}
       <Navbar />
-      <div className="my-32 md:my-20">
+      <div className="my-40 md:my-20">
         <Outlet />
       </div>
       <Footer />
