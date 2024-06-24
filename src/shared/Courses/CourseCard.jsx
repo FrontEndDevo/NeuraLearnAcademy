@@ -5,7 +5,6 @@ import { faStar as regularStar } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { enrollCourse } from "../../redux/actions/courses-methods";
-import { setToastMessage } from "../../redux/slices/popups-slices/toasts-slice";
 import { setIsSpinnerLoading } from "../../redux/slices/popups-slices/spinner-slice";
 
 const CourseCard = (props) => {
