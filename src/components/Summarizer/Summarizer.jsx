@@ -65,7 +65,7 @@ const Summarizer = () => {
   return (
     <div className="flex h-screen">
       <div
-        className={`bg-transparent text-white w-64 h-1/2 fixed left-0 top-0 z-50 ${
+        className={`bg-transparent text-white  w-64 h-screen   fixed left-0 top-0 z-50 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
@@ -98,7 +98,7 @@ const Summarizer = () => {
         </div>
 
         {/* Scrollable Sections List */}
-        <div className="overflow-y-auto h-3/4">
+        <div className="overflow-y-auto h-1/4">
           {sectionData.map((section, index) => (
             <div key={index} className="flex items-center px-4 pb-4">
               <h3 className="text-lg font-bold tracking-tight text-black">
@@ -117,7 +117,7 @@ const Summarizer = () => {
       </div>
 
       <button
-        className="fixed z-50 p-2 text-white bg-gray-800 rounded-md top-4 left-72"
+        className="fixed z-50 p-2 text-white bg-gray-800 rounded-md top-24 left-72"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? "Close" : "Open"}
