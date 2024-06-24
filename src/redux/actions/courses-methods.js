@@ -5,7 +5,6 @@ import {
   GETSUBJECTCOURSES_ERROR,
   UPDATEUSERDATA_ERROR,
   GETTRANSCRIPTSECTION_ERROR,
-  SUMMARIZE_ERROR,
   GETTRANSCRIPTVIDEO_ERROR,
   QUESTIONGENERATION_ERROR,
 } from "../slices/courses/courses-errors";
@@ -475,6 +474,7 @@ export async function updateSections(
   }
 }
 
+// Create the course content.
 export async function createContent(dispatch, access, body, slug, type) {
   if (access) {
     const config = {
@@ -602,6 +602,8 @@ export async function deleteLecture(dispatch, access, api) {
     }
   }
 }
+
+// Update the course lecture.
 export async function updateLecture(dispatch, access, formData, api) {
   if (access) {
     const config = {
@@ -632,6 +634,8 @@ export async function updateLecture(dispatch, access, formData, api) {
     }
   }
 }
+
+// Get the user courses.
 export async function GetUserCourses(dispatch, access) {
   if (access) {
     const config = {
@@ -690,6 +694,7 @@ export async function enrollCourse(dispatch, access, slug) {
   }
 }
 
+// Get the transcript section.
 export async function getTranscriptSection(dispatch, access, slug) {
   if (access) {
     const config = {
@@ -708,12 +713,20 @@ export async function getTranscriptSection(dispatch, access, slug) {
       dispatch(GETTRANSCRIPTSECTION_SUCCESS(res.data[0].transcript));
       console.log(res);
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Can't load the transcript, Please try again later.",
+          type: "error",
+        })
+      );
       dispatch(GETTRANSCRIPTSECTION_FAIL());
       dispatch(GETTRANSCRIPTSECTION_ERROR(err.response.data));
       console.log(err);
     }
   }
 }
+
+// Summarize the transcript.
 export async function summarize(dispatch, access, text) {
   if (access) {
     const config = {
@@ -733,14 +746,19 @@ export async function summarize(dispatch, access, text) {
         config
       );
       dispatch(SUMMARIZE_SUCCESS(res.data.summary));
-      console.log(res);
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Couldn't summarize the transcript!, Please try again.",
+          type: "error",
+        })
+      );
       dispatch(SUMMARIZE_FAIL());
-      dispatch(SUMMARIZE_ERROR(err.response.data));
-      console.log(err);
     }
   }
 }
+
+
 export async function getTranscriptVideo(dispatch, access, id) {
   if (access) {
     const config = {
