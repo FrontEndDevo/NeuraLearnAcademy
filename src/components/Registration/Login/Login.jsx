@@ -8,7 +8,6 @@ import {
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
 
-import CopyRights from "../CopyRights/CopyRights";
 import { login } from "../../../redux/actions/auth-methods";
 import { useDispatch, useSelector } from "react-redux";
 import NeuraLearnAcademy from "../../../shared/NeuraLearnAcademy";
@@ -55,7 +54,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center px-10 pt-32 pb-16">
+      <div className="flex flex-col items-center px-10 ">
         <div className="flex items-center justify-between mb-10">
           <h1 className="font-bold text-neutral-600 md:text-lg">
             New To NLA ?{" "}
@@ -164,7 +163,6 @@ const Login = () => {
         successMessage="Login successfully"
       />
 
-      <CopyRights />
     </>
   );
 };

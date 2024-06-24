@@ -10,7 +10,7 @@ const Spinner = () => {
       disabled
       type="button"
       className={`fixed px-8 py-3 text-sm font-bold text-gray-900 duration-500 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg select-none top-28 left-1/2 hover:bg-gray-100 hover:text-blue-700 z-50 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 ${
-        isLoading ? "top-28 opacity-100" : "-top-96 opacity-0"
+        isLoading ? "top-32 opacity-100" : "-top-96 opacity-0"
       }`}
     >
       <svg
