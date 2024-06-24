@@ -92,9 +92,10 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
     const description = descriptionRef.current.value.trim();
     const price = +priceRef.current.value;
 
-    if (!title || !price || (!selectedCategoryId && !course)) {
+    if (!title || !price || !description || (!selectedCategoryId && !course)) {
       setMissingError(true);
     } else {
+      setMissingError(false);
       try {
         // Show the spinner.
         dispatch(setIsSpinnerLoading(true));
@@ -155,7 +156,7 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
     <>
       <BlurModal />
 
-      <div className="lg:w-[70vw] w-[95vw] h-[75vh] lg:h-[70vh] overflow-y-scroll z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
+      <div className="lg:w-[70vw] w-[95vw] h-[75vh] lg:h-[70vh] overflow-y-scroll z-40 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
         <div className="flex items-center w-full px-4 py-4 bg-green-400 rounded-t-lg">
           <div className="flex items-center gap-2">
             <h2 className="text-base font-extrabold lg:text-2xl text-indigo-950">
@@ -224,7 +225,7 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
 
             <div className="flex items-center gap-4 lg:items-end">
               <button
-                disabled={spinner.isSpinnerLoading || missingError}
+                disabled={spinner.isSpinnerLoading}
                 onClick={handleSavingCourseInformation}
                 className={`px-6 py-2 text-lg font-semibold tracking-tight text-white duration-300 rounded-lg ${
                   missingError && !spinner.isSpinnerLoading
