@@ -43,11 +43,17 @@ const Summarizer = () => {
     dispatch(setIsSpinnerLoading(false));
   };
 
-  const handleSectionSelect = (slug, index) => {
+  const handleSectionSelect = async (slug, index) => {
+    dispatch(setIsSpinnerLoading(true));
+
     setSelectedSection(index);
     setSlug(slug);
-    getTranscriptSection(dispatch, access, slug);
+
+    await getTranscriptSection(dispatch, access, slug);
+
     setModelInput(transcriptdata);
+
+    dispatch(setIsSpinnerLoading(false));
   };
 
   return (
