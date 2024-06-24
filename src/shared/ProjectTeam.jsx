@@ -6,49 +6,50 @@ import sherif from "../assets/images/homepage/team/sherif.jpeg";
 import khaled from "../assets/images/homepage/team/khaled.jpg";
 import zaytony from "../assets/images/homepage/team/zaytony.jpg";
 const ProjectTeam = () => {
-  return (
-    <section id="our-team" className="py-32 bg-gray-100">
-      <div className="container px-4 mx-auto">
-        <h2 className="mb-8 text-3xl font-bold text-center text-primary">
-          Meet Our Team
-        </h2>
+    return (
+        <section id="our-team" className="bg-gray-100 py-32">
+            <div className="container mx-auto px-4">
+                <h2 className="text-3xl font-bold text-center mb-8 text-primary">Meet Our Team</h2>
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          <TeamMember
-            imgSrc={sherif}
-            name="Sherif Ahmed"
-            role="Machine Learning Developer"
-          />
-          <TeamMember imgSrc={badwy} name="Mohamed Ashraf" role="UX Designer" />
-          <TeamMember
-            imgSrc={khaled}
-            name="Khaled Mohamed"
-            role="Backend Developer"
-          />
-          <TeamMember
-            imgSrc={zaytony}
-            name="Mahmoud Ahmed"
-            role="Backend Developer"
-          />
-          <TeamMember
-            imgSrc={basem}
-            name="Basem Yhia"
-            role="Front End Developer "
-          />
-          <TeamMember
-            imgSrc={besho}
-            name="Beshoy Tag"
-            role="Front End Developer "
-          />
-          <TeamMember
-            imgSrc={karim}
-            name="Karim Abdelazim"
-            role="Front End Developer "
-          />
-        </div>
-      </div>
-    </section>
-  );
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                    <TeamMember
+                        imgSrc={sherif}
+                        name="Peter Johnson"
+                        role="Machine Learning Developer"
+                    />
+                    <TeamMember
+                        imgSrc={badwy}
+                        name="Mohamed Ashraf "
+                        role="UX Designer"
+                    />
+                    <TeamMember
+                        imgSrc={khaled}
+                        name="Khaled Mohamed"
+                        role="Backend Developer"
+                    />
+                    <TeamMember
+                        imgSrc={zaytony}
+                        name="Mahmoud Ahmed"
+                        role="Backend Developer"
+                    />
+                    <TeamMember
+                        imgSrc={basem}
+                        name="Basem Yhia"
+                        role="Front End Developer "
+                    />
+                    <TeamMember
+                        imgSrc={besho}
+                        name="Beshoy Tag"
+                        role="Front End Developer " />
+                    <TeamMember
+                        imgSrc={karim}
+                        name="Karim Abdelazim"
+                        role="Front End Developer " />
+                </div>
+            </div>
+        </section>
+    );
 };
 
 // TeamMember component for individual team member
