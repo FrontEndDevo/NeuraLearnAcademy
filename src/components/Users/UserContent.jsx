@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ebook from "../../assets/images/Instructor/ebook.gif";
+import AIAssistantImage from "../../assets/images/homepage/bot.png"; // Replace with your actual image file
+
 import {
   faGraduationCap,
   faClock,
@@ -9,11 +11,12 @@ import {
   faVideo,
   faChevronUp,
   faChevronDown,
+  faDownload, // Import the faDownload icon
 } from "@fortawesome/free-solid-svg-icons";
 import VideoPlayer from "../../shared/VideoPlayer";
 import ImageViewer from "../../shared/ImageViewer";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   getUserContents,
   getUserSections,
@@ -22,13 +25,13 @@ import {
 const SectionHeader = ({ sectionTitle, onClick, isOpen }) => {
   return (
     <div
-      className="flex items-center content-center justify-between cursor-pointer bg-sky-950"
-      onClick={onClick}
+      className="flex items-center content-center justify-between  bg-sky-950"
+     
     >
       <div className="flex justify-between w-full px-4 py-3 md:space-x-60 md:px-6">
         <div className="font-semibold text-white">{sectionTitle}</div>
-        <div className="ml-2 text-white">
-          <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
+        <div className="ml-2 text-white cursor-pointer">
+          <FontAwesomeIcon onClick={onClick} icon={isOpen ? faChevronUp : faChevronDown} />
         </div>
       </div>
     </div>
@@ -49,6 +52,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
       setLectures(sectionData);
     }
   }, [sectionData]);
+
   const renderIcon = (type) => {
     switch (type) {
       case "video":
@@ -62,12 +66,13 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
     }
   };
 
-  const renderTitle = (item) => {
+ const renderTitle = (item) => {
     if (item.video) return item.video.title;
     if (item.image) return item.image.title;
     if (item.file) return item.file.title;
     return item.text.title;
   };
+
 
   const handleClick = (item) => {
     if (item.video) {
@@ -76,15 +81,15 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
       onSelect("image", item.image.file);
     }
   };
+
   return (
     <div
-      className={`w-full transition-all duration-300 ease-in-out overflow-hidden ${
-        isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-      }`}
+      className={`w-full transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
     >
       {lectures.map((item, index) => (
         <div
-          className="relative pt-2 bg-white shadow-lg cursor-pointer"
+          className="relative pt-2 bg-white shadow-lg "
           key={index}
         >
           <ul className="space-y-1">
@@ -94,8 +99,8 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
                 key={key}
               >
                 <div className="flex justify-between">
-                  <div
-                    className="relative cursor-pointer pl-14"
+                    <div
+                      className="relative cursor-pointer pl-14"
                     onClick={() => handleClick(item)}
                   >
                     <FontAwesomeIcon
@@ -104,6 +109,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
                     />
                     <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
                       {renderTitle(item)}
+                        
                     </div>
                   </div>
                 </div>
@@ -127,7 +133,6 @@ const UserContent = () => {
   const [openSection, setOpenSection] = useState(null);
   const [userSections, setUserSections] = useState(usercourse);
 
-
   useEffect(() => {
     console.log(access);
     getUserSections(dispatch, access, slug.slug);
@@ -135,7 +140,7 @@ const UserContent = () => {
   useEffect(() => {
     setUserSections(usercourse || []);
   }, [usercourse]);
-  
+
   const toggleSection = (index) => {
     setOpenSection(openSection === index ? null : index);
   };
@@ -161,7 +166,6 @@ const UserContent = () => {
             onClose={() => setSelectedContent(null)}
           />
         );
-
       default:
         return null;
     }
@@ -195,6 +199,23 @@ const UserContent = () => {
           />
         </div>
         <div className="bg-white ">
+          <div className="flex flex-col  justify-center gap-3 px-5 md:flex-row md:space-x-3 md:gap-0 lg:space-x-4 md:px-0">
+            <div className="w-full md:w-auto ">
+              <Link to={'/ChatBot'}
+                style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
+                onClick=""
+                className="bg-white rounded-[10px] px-5 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
+              >
+                <img
+                  src={AIAssistantImage}
+                  className="w-8 py-1.5"
+                  alt="plus image"
+                  loading="lazy"
+                />
+                <span>Chat Bot</span>
+              </Link>
+            </div>
+          </div>
           <div className="px-4 mt-4 ">
             {userSections.map((ele, index) => (
               <div key={index} className="mb-2">
