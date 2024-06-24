@@ -26,9 +26,13 @@ const Summarizer = () => {
     setSectionData(sectionsData);
   }, [sectionsData]);
 
-  const handleSummarize = () => {
-    summarize(dispatch, access, modelInput);
+  const handleSummarize = async () => {
+    dispatch(setIsSpinnerLoading(true));
+
+    await summarize(dispatch, access, modelInput);
     setParagraphInput(summarizeData);
+
+    dispatch(setIsSpinnerLoading(false));
   };
 
   const handleSave = async () => {
