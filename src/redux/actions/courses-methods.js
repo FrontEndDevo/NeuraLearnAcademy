@@ -47,6 +47,8 @@ import {
   GETUSERSECTIONS_FAIL,
   GETUSERCONTENTS_SUCCESS,
   GETUSERCONTENTS_FAIL,
+  GETCOURSEDETAILES_SUCCESS,
+  GETCOURSEDETAILES_FAIL,
 } from "../slices/courses/courses-slice";
 import { setToastMessage } from "../slices/popups-slices/toasts-slice";
 
@@ -257,6 +259,30 @@ export async function updateCourse(
           type: "error",
         })
       );
+    }
+  }
+}
+// Update the instructor course content.
+export async function getCourseDetaile(dispatch, access, slug) {
+  if (access) {
+    const config = {
+      headers: {
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+        "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+      },
+    };
+
+    try {
+      const res = await axios.get(
+        import.meta.env.VITE_API_URL + `/api/courses/${slug}/detail/`,
+        config
+      );
+      console.log(res.data);
+      dispatch(GETCOURSEDETAILES_SUCCESS(res.data));
+    } catch (err) {
+      console.log(err);
+      dispatch(GETCOURSEDETAILES_FAIL());
     }
   }
 }
@@ -526,7 +552,7 @@ export async function getContents(dispatch, access, slug) {
         config
       );
       dispatch({
-        type: GETCONTENTS_SUCCESS,
+        type: "GETCONTENTS_SUCCESS",
         payload: { content: res.data.contents, slug },
       });
     } catch (err) {

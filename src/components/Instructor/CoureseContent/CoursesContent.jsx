@@ -26,6 +26,7 @@ import {
   deleteLecture,
   deleteSection,
   getContents,
+  getCourseDetaile,
   getSections,
   updateSections,
 } from "../../../redux/actions/courses-methods";
@@ -270,7 +271,9 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
 
 const CoursesContent = () => {
   const sectionsData = useSelector((state) => state.courses.sectionsData);
+  const courseDetaile = useSelector((state) => state.courses.courseDetaile);
   const [newSections, setNewSections] = useState(sectionsData || []);
+  const [courseData, setCourseData] = useState(courseDetaile || []);
   const [showModal, setShowModal] = useState(false);
   const [selectedSection, setSelectedSection] = useState(null);
   const [selectedContent, setSelectedContent] = useState(null);
@@ -328,6 +331,10 @@ const CoursesContent = () => {
     setNewSections(sectionsData || []);
   }, [sectionsData]);
 
+  useEffect(() => {
+    getCourseDetaile(dispatch, access, slug);
+  }, [dispatch, access, slug]);
+
   const handleSelectContent = (type, url) => {
     setSelectedContent(type);
     setSelectedContentUrl(url);
@@ -357,19 +364,19 @@ const CoursesContent = () => {
 
   return (
     <>
-      <header className="p-10 bg-[#004682] text-white">
-        <h1 className="text-2xl font-bold">Course Machine Learning</h1>
-        <p>Course Machine learning this the best course.</p>
+      <header className="p-10 bg-[#004682] text-white mt-20">
+        <h1 className="text-2xl font-bold">{courseData.title}</h1>
+        <p>{courseData.overview}</p>
         <p className="mt-4 mb-2 text-sm">
           <span>
-            <FontAwesomeIcon icon={faGraduationCap} /> 0 Students
+            <FontAwesomeIcon icon={faGraduationCap} /> 10 Students
           </span>
         </p>
         <p className="text-sm">
           <span>
             <FontAwesomeIcon icon={faClock} /> Last updated
           </span>
-          <span> 2/7/2024</span>
+          <span> 24/6/2024</span>
         </p>
       </header>
       <div className="flex flex-col justify-around pt-10 pb-32 bg-white md:flex-row md:space-x-3 lg:space-x-4">
@@ -402,6 +409,9 @@ const CoursesContent = () => {
             <div className="w-full md:w-auto">
               <Link
                 to="/summarizer"
+                state={{
+                  courseData: courseData,
+                }}
                 style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 className="bg-white rounded-[10px] px-3 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
@@ -416,7 +426,10 @@ const CoursesContent = () => {
             </div>
             <div className="w-full md:w-auto">
               <Link
-                to="/questionqeneration"
+                to={"/questionqeneration"}
+                state={{
+                  courseData: courseData,
+                }}
                 style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 className="bg-white rounded-[10px] px-5 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
               >
