@@ -57,7 +57,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center px-10 mt-32  ">
+      <div className="flex flex-col items-center px-10 mt-32 ">
         <div
           style={{
             boxShadow: "0px 4px 4px 3px rgba(0, 0, 0, 0.25)",
@@ -151,32 +151,32 @@ const SignUp = () => {
               />
             </div>
 
-            <div className="w-full m-x-auto">
-              <label className="block mb-1 text-base font-semibold text-neutral-600">
-                Role
-              </label>
-              <div className="flex justify-start w-full gap-5">
-                <label>
+            <div className="flex items-center justify-center font-semibold">
+              <h2 className="mr-4 font-bold underline text-neutral-900">
+                Signed up as:
+              </h2>
+              <form className="flex justify-start gap-5">
+                <div className="flex flex-row-reverse items-center gap-2">
+                  <label htmlFor="student">Student</label>
                   <input
                     type="radio"
+                    name="role"
+                    id="student"
                     value="student"
-                    checked={role === "student"}
                     onChange={(e) => setRole(e.target.value)}
-                    className="mr-1"
                   />
-                  Student
-                </label>
-                <label>
+                </div>
+                <div className="flex flex-row-reverse items-center gap-2">
+                  <label htmlFor="instructor">Instructor</label>
                   <input
                     type="radio"
+                    name="role"
+                    id="instructor"
                     value="instructor"
-                    checked={role === "instructor"}
                     onChange={(e) => setRole(e.target.value)}
-                    className="mr-1"
                   />
-                  Instructor
-                </label>
-              </div>
+                </div>
+              </form>
             </div>
 
             <RegisterButton
