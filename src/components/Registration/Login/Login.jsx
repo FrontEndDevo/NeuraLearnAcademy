@@ -56,7 +56,7 @@ const Login = () => {
     <>
       <div className="flex flex-col items-center px-10 ">
         <div className="flex items-center justify-between mb-10">
-          <h1 className="font-bold text-neutral-600 md:text-lg">
+          <h1 className="font-bold text-neutral-600 md:text-lg mt-5">
             New To NLA ?{" "}
             <Link to="/signup">
               <span className="text-lg font-bold text-blue-700">
