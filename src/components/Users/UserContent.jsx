@@ -18,6 +18,7 @@ import {
   getUserContents,
   getUserSections,
 } from "../../redux/actions/courses-methods";
+import { setIsSpinnerLoading } from "../../redux/slices/popups-slices/spinner-slice";
 
 const SectionHeader = ({ sectionTitle, onClick, isOpen }) => {
   return (
@@ -41,14 +42,26 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
   );
   const [lectures, setLectures] = useState([]);
   useEffect(() => {
-    getUserContents(dispatch, access, slug);
+    const fetchUserContents = async () => {
+      if (!access) {
+        return;
+      }
+      dispatch(setIsSpinnerLoading(true));
+
+      await getUserContents(dispatch, access, slug);
+
+      dispatch(setIsSpinnerLoading(false));
+    };
+
+    fetchUserContents();
   }, [dispatch, access, slug]);
 
   useEffect(() => {
     if (sectionData !== lectures) {
       setLectures(sectionData);
     }
-  }, [sectionData]);
+  }, [sectionData, lectures]);
+
   const renderIcon = (type) => {
     switch (type) {
       case "video":
@@ -121,21 +134,28 @@ const UserContent = () => {
   const access = useSelector((state) => state.userAuth.access);
   const usercourse =
     useSelector((state) => state.courses.userSectionsData) || [];
+
   const slug = useParams();
   const [selectedContent, setSelectedContent] = useState(null);
   const [selectedContentUrl, setSelectedContentUrl] = useState("");
   const [openSection, setOpenSection] = useState(null);
   const [userSections, setUserSections] = useState(usercourse);
 
+  useEffect(() => {
+    const fetchUserSections = async () => {
+      dispatch(setIsSpinnerLoading(true));
+
+      await getUserSections(dispatch, access, slug.slug);
+
+      dispatch(setIsSpinnerLoading(false));
+    };
+    fetchUserSections();
+  }, [access, dispatch, slug.slug]);
 
   useEffect(() => {
-    console.log(access);
-    getUserSections(dispatch, access, slug.slug);
-  }, []);
-  useEffect(() => {
     setUserSections(usercourse || []);
-  }, [usercourse]);
-  
+  }, []);
+
   const toggleSection = (index) => {
     setOpenSection(openSection === index ? null : index);
   };

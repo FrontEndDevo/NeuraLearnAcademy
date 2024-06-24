@@ -17,23 +17,11 @@ const InstructorCourses = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchInstructorCourses = async () => {
-      try {
-        // Show the spinner.
-        dispatch(setIsSpinnerLoading(true));
+      dispatch(setIsSpinnerLoading(true));
 
-        await getInstructorCourses(dispatch, access);
-      } catch (error) {
-        // Show the error message to the user.
-        dispatch(
-          setToastMessage({
-            message: "Can't fetch your courses. Please try again later.",
-            type: "error",
-          })
-        );
-      } finally {
-        // Close the spinner.
-        dispatch(setIsSpinnerLoading(false));
-      }
+      await getInstructorCourses(dispatch, access);
+
+      dispatch(setIsSpinnerLoading(false));
     };
     fetchInstructorCourses();
   }, [dispatch, access]);

@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../redux/slices/Instructor/OpenClose";
 import { deleteCourse } from "../../redux/actions/courses-methods";
 import { setIsSpinnerLoading } from "../../redux/slices/popups-slices/spinner-slice";
-import { setToastMessage } from "../../redux/slices/popups-slices/toasts-slice";
 const InstructorCourseCard = (props) => {
   const spinner = useSelector((state) => state.spinner);
 
@@ -50,18 +49,11 @@ const InstructorCourseCard = (props) => {
 
   // Delete a course:
   const handleDeleteCourse = async () => {
-    try {
-      // Show the spinner.
-      dispatch(setIsSpinnerLoading(true));
+    dispatch(setIsSpinnerLoading(true));
 
-      await deleteCourse(dispatch, userAccess, slug);
-    } catch (error) {
-      // Show the error message to the user.
-      dispatch(setToastMessage({ message: error, type: "error" }));
-    } finally {
-      // Close the spinner.
-      dispatch(setIsSpinnerLoading(false));
-    }
+    await deleteCourse(dispatch, userAccess, slug);
+
+    dispatch(setIsSpinnerLoading(false));
   };
 
   // Courses properties like videos, sections, and quizzes:

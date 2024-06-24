@@ -12,7 +12,7 @@ import {
   faImage,
   faVideo,
   faAngleDown,
-  faAngleUp
+  faAngleUp,
 } from "@fortawesome/free-solid-svg-icons";
 import ebook from "../../../assets/images/Instructor/ebook.gif";
 import plus from "../../../assets/images/Instructor/plus.png";
@@ -48,7 +48,7 @@ const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
   };
 
   return (
-    <div className="flex justify-between px-4 py-3 bg-sky-950 md:px-7 md:py-3" >
+    <div className="flex justify-between px-4 py-3 bg-sky-950 md:px-7 md:py-3">
       <span className="font-semibold text-white">{sectionTitle}</span>
       <div className="flex space-x-3 text-white cursor-pointer">
         {/* Arrow icon for toggle */}
@@ -81,23 +81,11 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
 
   useEffect(() => {
     const fetchInstructorCoursesContents = async () => {
-      try {
-        // Show the spinner.
-        dispatch(setIsSpinnerLoading(true));
+      dispatch(setIsSpinnerLoading(true));
 
-        await getContents(dispatch, access, slug);
-      } catch (error) {
-        // Show the error message to the user.
-        dispatch(
-          setToastMessage({
-            message: "Can't load the contents. Please try again later.",
-            type: "error",
-          })
-        );
-      } finally {
-        // Close the spinner.
-        dispatch(setIsSpinnerLoading(false));
-      }
+      await getContents(dispatch, access, slug);
+
+      dispatch(setIsSpinnerLoading(false));
     };
     fetchInstructorCoursesContents();
   }, [dispatch, access, slug]);
@@ -106,8 +94,7 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
     if (sectionData !== lectures) {
       setLectures(sectionData);
     }
-  }, [sectionData]);
-  console.log(sectionData)
+  }, []);
 
   const handleUpdateLecture = (lecture) => {
     dispatch(openModal({ modalName: "sectioninfo", lecture }));
@@ -119,26 +106,17 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
   };
 
   const handleConfirmDeleteLecture = async () => {
-    try {
-      // Show the spinner.
-      dispatch(setIsSpinnerLoading(true));
+    dispatch(setIsSpinnerLoading(true));
 
-      const api = renderDeleteLink(lecture);
-      await deleteLecture(dispatch, access, api); // Replace with actual action and slug
-      setShowDeleteModal(false);
-      setLecture(null);
-    } catch (error) {
-      // Show the error message to the user.
-      dispatch(
-        setToastMessage({
-          message: "Can't delete the lecture! Please Try again later.",
-          type: "error",
-        })
-      );
-    } finally {
-      // Close the spinner.
-      dispatch(setIsSpinnerLoading(false));
-    }
+    const api = renderDeleteLink(lecture);
+
+    await deleteLecture(dispatch, access, api); // Replace with actual action and slug
+
+    setShowDeleteModal(false);
+
+    setLecture(null);
+
+    dispatch(setIsSpinnerLoading(false));
   };
 
   const handleCloseDeleteModal = () => {
@@ -186,7 +164,6 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
         <div
           className="relative pt-2 bg-white shadow-lg cursor-pointer"
           key={index}
-
         >
           <ul className="space-y-1">
             {Object.keys(item).map((key) => (
@@ -195,7 +172,10 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
                 key={key}
               >
                 <div className="flex justify-between">
-                  <div className="relative cursor-pointer pl-14" onClick={() => handleClick(item)}>
+                  <div
+                    className="relative cursor-pointer pl-14"
+                    onClick={() => handleClick(item)}
+                  >
                     <FontAwesomeIcon
                       icon={renderIcon(key)}
                       className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
@@ -238,25 +218,15 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
     setShowDeleteModal(true);
   };
   const handleConfirmDelete = async () => {
-    try {
-      // Show the spinner.
-      dispatch(setIsSpinnerLoading(true));
+    dispatch(setIsSpinnerLoading(true));
 
-      setShowDeleteModal(false);
-      await deleteSection(dispatch, access, slug);
-      onDelete();
-    } catch (error) {
-      // Show the error message to the user.
-      dispatch(
-        setToastMessage({
-          message: "Something went wrong! Try again later.",
-          type: "error",
-        })
-      );
-    } finally {
-      // Close the spinner.
-      dispatch(setIsSpinnerLoading(false));
-    }
+    setShowDeleteModal(false);
+
+    await deleteSection(dispatch, access, slug);
+
+    onDelete();
+
+    dispatch(setIsSpinnerLoading(false));
   };
 
   const handleCloseModal = () => {
@@ -276,8 +246,17 @@ const NewSection = ({ sectionTitle, onDelete, onEdit, slug, onSelect }) => {
         slug={slug}
         onToggle={handleToggle}
       />
-      <div className={`overflow-hidden transition-max-height duration-500 ease-in-out ${isOpen ? "max-h-screen" : "max-h-0"}`}>
-        <SectionContent dispatch={dispatch} access={access} slug={slug} onSelect={onSelect} />
+      <div
+        className={`overflow-hidden transition-max-height duration-500 ease-in-out ${
+          isOpen ? "max-h-screen" : "max-h-0"
+        }`}
+      >
+        <SectionContent
+          dispatch={dispatch}
+          access={access}
+          slug={slug}
+          onSelect={onSelect}
+        />
       </div>
       {showDeleteModal && (
         <DeleteSection
@@ -315,29 +294,19 @@ const CoursesContent = () => {
   };
 
   const handleSaveSection = async (title, description, slugSection, type) => {
-    try {
-      // Show the spinner.
-      dispatch(setIsSpinnerLoading(true));
+    dispatch(setIsSpinnerLoading(true));
 
-      if (type === "update") {
-        await updateSections(dispatch, access, title, description, slugSection);
-      } else {
-        await createSection(dispatch, access, title, description, slugSection);
-      }
-      await getSections(dispatch, access, slug);
-      setShowModal(false);
-    } catch (error) {
-      // Show the error message to the user.
-      dispatch(
-        setToastMessage({
-          message: "Something went wrong! Try again later.",
-          type: "error",
-        })
-      );
-    } finally {
-      // Close the spinner.
-      dispatch(setIsSpinnerLoading(false));
+    if (type === "update") {
+      await updateSections(dispatch, access, title, description, slugSection);
+    } else {
+      await createSection(dispatch, access, title, description, slugSection);
     }
+
+    await getSections(dispatch, access, slug);
+
+    setShowModal(false);
+
+    dispatch(setIsSpinnerLoading(false));
   };
 
   const handleDeleteSection = (index) => {
@@ -346,23 +315,11 @@ const CoursesContent = () => {
 
   useEffect(() => {
     const fetchCourseSections = async () => {
-      try {
-        // Show the spinner.
-        dispatch(setIsSpinnerLoading(true));
+      dispatch(setIsSpinnerLoading(true));
 
-        await getSections(dispatch, access, slug);
-      } catch (error) {
-        // Show the error message to the user.
-        dispatch(
-          setToastMessage({
-            message: "couldn't load your sections. Please try again later.",
-            type: "error",
-          })
-        );
-      } finally {
-        // Close the spinner.
-        dispatch(setIsSpinnerLoading(false));
-      }
+      await getSections(dispatch, access, slug);
+
+      dispatch(setIsSpinnerLoading(false));
     };
     fetchCourseSections();
   }, [dispatch, access, slug]);

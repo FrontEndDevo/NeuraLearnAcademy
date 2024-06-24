@@ -119,7 +119,8 @@ export async function getInstructorCourses(dispatch, access) {
     } catch (err) {
       dispatch(
         setToastMessage({
-          message: "Opps! We couldn't fetch you courses, Try to refresh page.",
+          message:
+            "Opps! We couldn't fetch your courses!, Please Try to refresh page.",
           type: "error",
         })
       );
@@ -284,13 +285,18 @@ export async function deleteCourse(dispatch, access, slug) {
         })
       );
     } catch (err) {
+      console.log(err);
       dispatch(
-        setToastMessage({ message: err.response.data.detail, type: "error" })
+        setToastMessage({
+          message: "We couldn't delete the course!, Please try again.",
+          type: "error",
+        })
       );
     }
   }
 }
 
+// Create the instructor course section.
 export async function createSection(
   dispatch,
   access,
@@ -333,6 +339,8 @@ export async function createSection(
     }
   }
 }
+
+// Delete the instructor course section.
 export async function deleteSection(dispatch, access, slug) {
   if (access) {
     const config = {
@@ -363,6 +371,8 @@ export async function deleteSection(dispatch, access, slug) {
     }
   }
 }
+
+// Get the sections of the course.
 export async function getSections(dispatch, access, slug) {
   if (access) {
     const config = {
@@ -382,7 +392,7 @@ export async function getSections(dispatch, access, slug) {
     } catch (err) {
       dispatch(
         setToastMessage({
-          message: "Can't load your sections, Please try again.",
+          message: "Can't load your sections!, Please try again.",
           type: "error",
         })
       );
@@ -390,6 +400,8 @@ export async function getSections(dispatch, access, slug) {
     }
   }
 }
+
+// Get the sections of the course.
 export async function getUserSections(dispatch, access, slug) {
   if (access) {
     const config = {
@@ -417,6 +429,8 @@ export async function getUserSections(dispatch, access, slug) {
     }
   }
 }
+
+// Update the instructor course section.
 export async function updateSections(
   dispatch,
   access,
@@ -460,6 +474,7 @@ export async function updateSections(
     }
   }
 }
+
 export async function createContent(dispatch, access, body, slug, type) {
   if (access) {
     const config = {
@@ -494,6 +509,8 @@ export async function createContent(dispatch, access, body, slug, type) {
     }
   }
 }
+
+// Get the contents of the course.
 export async function getContents(dispatch, access, slug) {
   if (access) {
     const config = {
@@ -523,6 +540,8 @@ export async function getContents(dispatch, access, slug) {
     }
   }
 }
+
+// Get the contents of the course.
 export async function getUserContents(dispatch, access, slug) {
   if (access) {
     const config = {
@@ -552,6 +571,8 @@ export async function getUserContents(dispatch, access, slug) {
     }
   }
 }
+
+// Delete the course lecture.
 export async function deleteLecture(dispatch, access, api) {
   if (access) {
     const config = {

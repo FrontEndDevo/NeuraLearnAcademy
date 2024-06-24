@@ -17,7 +17,6 @@ import {
   updateCourse,
 } from "../../../redux/actions/courses-methods";
 import { setIsSpinnerLoading } from "../../../redux/slices/popups-slices/spinner-slice";
-import { setToastMessage } from "../../../redux/slices/popups-slices/toasts-slice";
 
 const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
   const categories = useSelector((state) => state.courses.subjectCourses);
@@ -96,14 +95,27 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
       setMissingError(true);
     } else {
       setMissingError(false);
-      try {
-        // Show the spinner.
-        dispatch(setIsSpinnerLoading(true));
-        if (course == null) {
-          // Create the course:
-          await createCourse(
+
+      dispatch(setIsSpinnerLoading(true));
+      if (course == null) {
+        // Create the course:
+        await createCourse(
+          dispatch,
+          access,
+          selectedCategoryId,
+          title,
+          description,
+          price,
+          image
+        );
+      } else {
+        // Update the course:
+        if (course.image !== thumbnail) {
+          // If the image has changed, we need to send it to the server.
+          await updateCourse(
             dispatch,
             access,
+            course.slug,
             selectedCategoryId,
             title,
             description,
@@ -111,41 +123,22 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
             image
           );
         } else {
-          // Update the course:
-          if (course.image !== thumbnail) {
-            // If the image has changed, we need to send it to the server.
-            await updateCourse(
-              dispatch,
-              access,
-              course.slug,
-              selectedCategoryId,
-              title,
-              description,
-              price,
-              image
-            );
-          } else {
-            // If the image is the same, we don't need to send it to the server.
-            await updateCourse(
-              dispatch,
-              access,
-              course.slug,
-              selectedCategoryId,
-              title,
-              description,
-              price
-            );
-          }
+          // If the image is the same, we don't need to send it to the server.
+          await updateCourse(
+            dispatch,
+            access,
+            course.slug,
+            selectedCategoryId,
+            title,
+            description,
+            price
+          );
         }
-        // Close the modal.
-        handleCloseCreateCourse();
-      } catch (error) {
-        // Show the error message to the user.
-        dispatch(setToastMessage({ message: error, type: "error" }));
-      } finally {
-        // Close the spinner.
-        dispatch(setIsSpinnerLoading(false));
       }
+
+      handleCloseCreateCourse();
+
+      dispatch(setIsSpinnerLoading(false));
     }
   };
   // Classes for styling:

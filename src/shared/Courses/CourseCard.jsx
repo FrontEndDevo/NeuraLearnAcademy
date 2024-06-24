@@ -29,7 +29,9 @@ const CourseCard = (props) => {
 
   const handleEnrollClick = async () => {
     dispatch(setIsSpinnerLoading(true));
+
     await enrollCourse(dispatch, access, slug);
+
     dispatch(setIsSpinnerLoading(false));
   };
 
