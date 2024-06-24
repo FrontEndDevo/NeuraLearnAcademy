@@ -18,7 +18,6 @@ const initialState = {
   lectureUpdatedError: null,
   transcriptDataError: null,
   summarizeError: null,
-  enrollCourseError: null,
   transcriptVideoDataError: null,
   questionGenerationError: null,
 };
@@ -88,9 +87,6 @@ const coursesErrorsSlice = createSlice({
   SUMMARIZE_ERROR: (state, action) => {
     state.summarizeError = action.payload;
   },
-  ENROLLCOURSE_ERROR: (state, action) => {
-    state.enrollCourseError = action.payload;
-  },
   GETTRANSCRIPTVIDEO_ERROR: (state, action) => {
     state.transcriptVideoDataError = action.payload;
   },
@@ -120,7 +116,6 @@ export const {
   UPDATELECTURE_ERROR,
   GETTRANSCRIPTSECTION_ERROR,
   SUMMARIZE_ERROR,
-  ENROLLCOURSE_ERROR,
   GETTRANSCRIPTVIDEO_ERROR,
   QUESTIONGENERATION_ERROR,
 } = coursesErrorsSlice.actions;

@@ -6,7 +6,6 @@ import {
   UPDATEUSERDATA_ERROR,
   GETTRANSCRIPTSECTION_ERROR,
   SUMMARIZE_ERROR,
-  ENROLLCOURSE_ERROR,
   GETTRANSCRIPTVIDEO_ERROR,
   QUESTIONGENERATION_ERROR,
 } from "../slices/courses/courses-errors";
@@ -634,9 +633,9 @@ export async function GetUserCourses(dispatch, access) {
   }
 }
 
+// Enroll in a course.
 export async function enrollCourse(dispatch, access, slug) {
   if (access) {
-    console.log(access);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -650,13 +649,26 @@ export async function enrollCourse(dispatch, access, slug) {
         {},
         config
       );
+      dispatch(
+        setToastMessage({
+          message: "Enrolled in the course successfully.",
+          type: "success",
+        })
+      );
       dispatch(ENROLLCOURSE_SUCCESS(res.data.enrolled));
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message:
+            "Can't enroll in the course rightnow!, Please try again later.",
+          type: "error",
+        })
+      );
       dispatch(ENROLLCOURSE_FAIL());
-      dispatch(ENROLLCOURSE_ERROR(err.response.data));
     }
   }
 }
+
 export async function getTranscriptSection(dispatch, access, slug) {
   if (access) {
     const config = {
