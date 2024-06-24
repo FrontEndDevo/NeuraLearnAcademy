@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import sideBarImage from "../../assets/images/homepage/course_4.jpg";
 import summarizerImage from "../../assets/images/homepage/ai-creative.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,7 +20,8 @@ const Summarizer = () => {
   const [slug, setSlug] = useState("");
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
-
+  const { courseData } = location.state ? location.state : "";
+  
   useEffect(() => {
     setSectionData(sectionsData);
   }, [sectionsData]);
@@ -30,6 +30,7 @@ const Summarizer = () => {
     dispatch(setIsSpinnerLoading(true));
 
     await summarize(dispatch, access, modelInput);
+    
     setParagraphInput(summarizeData);
 
     dispatch(setIsSpinnerLoading(false));
@@ -70,12 +71,12 @@ const Summarizer = () => {
         {/* Sidebar Header */}
         <div className="flex flex-col px-3 pb-4 mt-24">
           <img
-            src={sideBarImage}
+            src={courseData.image}
             alt="Logo"
             className="rounded-tl-md rounded-tr-md"
             loading="lazy"
           />
-          <h2 className="py-1 font-bold text-black">Course Machine learning</h2>
+          <h2 className="py-1 font-bold text-black">{courseData.title}</h2>
           <div className="flex mb-3 text-sm font-medium tracking-tight text-black text-opacity-70">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +92,7 @@ const Summarizer = () => {
                 d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
               />
             </svg>
-            <p>Last updated 2/7/2024</p>
+            <p>Last updated 24/6/2024</p>
           </div>
         </div>
 

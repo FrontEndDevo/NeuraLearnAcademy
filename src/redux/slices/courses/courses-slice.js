@@ -24,6 +24,7 @@ const initialState = {
   isEnrolled: null,
   transcriptVideoData: null,
   questionGenerationData: null,
+  courseDetaile: null,
 };
 
 const subjectCourseReducer = (state, action) => {
@@ -270,6 +271,18 @@ const questionGenerationFailReducer = (state) => {
     questionGenerationData: null,
   };
 };
+const getCourseDetaileReducer = (state, action) => {
+  return {
+    ...state,
+    courseDetaile: action.payload,
+  };
+};
+const getCourseDetaileFailReducer = (state) => {
+  return {
+    ...state,
+    courseDetaile: null,
+  };
+};
 
 const courseSlice = createSlice({
   name: "course",
@@ -312,6 +325,8 @@ const courseSlice = createSlice({
     GETTRANSCRIPTVIDEO_FAIL: getTranscriptVideoFailReducer,
     QUESTIONGENERATION_SUCCESS: questionGenerationReducer,
     QUESTIONGENERATION_FAIL: questionGenerationFailReducer,
+    GETCOURSEDETAILES_SUCCESS: getCourseDetaileReducer,
+    GETCOURSEDETAILES_FAIL: getCourseDetaileFailReducer,
     setPublicCourses(state, action) {
       state.publicCourses = action.payload;
     },
@@ -365,6 +380,8 @@ export const {
   GETTRANSCRIPTVIDEO_FAIL,
   QUESTIONGENERATION_SUCCESS,
   QUESTIONGENERATION_FAIL,
+  GETCOURSEDETAILES_SUCCESS,
+  GETCOURSEDETAILES_FAIL,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;
