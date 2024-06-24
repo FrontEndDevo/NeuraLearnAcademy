@@ -30,7 +30,7 @@ const SectionHeader = ({ sectionTitle, onClick, isOpen }) => {
       className="flex items-center content-center justify-between  bg-sky-950"
      
     >
-      <div className="flex justify-between w-full px-4 py-3 md:space-x-60 md:px-6">
+      <div className="flex justify-between w-full  py-3 md:space-x-60 md:px-6">
         <div className="font-semibold text-white">{sectionTitle}</div>
         <div className="ml-2 text-white cursor-pointer">
           <FontAwesomeIcon onClick={onClick} icon={isOpen ? faChevronUp : faChevronDown} />
@@ -40,7 +40,7 @@ const SectionHeader = ({ sectionTitle, onClick, isOpen }) => {
   );
 };
 
-const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
+const SectionContent = ({ dispatch, access, slug, onSelect, isOpen, selectedContentUrl }) => {
   const sectionData = useSelector(
     (state) => state.courses.getusersectionContent[slug] || []
   );
@@ -73,19 +73,18 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
       case "image":
         return [faImage];
       case "file":
-        return [faFileAlt,faDownload];
+        return [faFileAlt, faDownload];
       default:
         return [faFont, faDownload];
     }
   };
 
- const renderTitle = (item) => {
+  const renderTitle = (item) => {
     if (item.video) return item.video.title;
     if (item.image) return item.image.title;
     if (item.file) return item.file.title;
     return item.text.title;
   };
-
 
   const handleClick = (item) => {
     if (item.video) {
@@ -111,28 +110,27 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
                 className="relative border-b border-b-sky-950 border-opacity-80"
                 key={key}
               >
-                <div className="flex ">
-                    <div
-                      className=" cursor-pointer pl-14"
+                <div className=" ">
+                  <div
+                    className=" cursor-pointer pl-14"
                     onClick={() => handleClick(item)}
                   >
                     <FontAwesomeIcon
                       icon={renderIcon(key)[0]}
                       className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
                     />
-                    
-                    <div className="flex  space-x-10 ">
+
+                    <div className="flex items-center  space-x-10 ">
                       <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
                         {renderTitle(item)}
-
                       </div>
-                      <a href="">
+                      <a href={selectedContentUrl} download>
                         <FontAwesomeIcon
                           icon={renderIcon(key)[1]}
-                          className=" w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
+                          className=" w-6 h-6 text-primary-500 mt-3 mr-5 transform -translate-y-1/2 left-3 top-1/2"
                         />
-                    </a>
-                  </div>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </li>
@@ -144,24 +142,22 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen }) => {
   );
 };
 
+
 const UserContent = () => {
   const dispatch = useDispatch();
   const access = useSelector((state) => state.userAuth.access);
-  const usercourse =
-    useSelector((state) => state.courses.userSectionsData) || [];
-
+  const usercourse = useSelector((state) => state.courses.userSectionsData) || [];
   const slug = useParams();
   const [selectedContent, setSelectedContent] = useState(null);
   const [selectedContentUrl, setSelectedContentUrl] = useState("");
   const [openSection, setOpenSection] = useState(null);
   const [userSections, setUserSections] = useState(usercourse);
 
+
   useEffect(() => {
     const fetchUserSections = async () => {
       dispatch(setIsSpinnerLoading(true));
-
       await getUserSections(dispatch, access, slug.slug);
-
       dispatch(setIsSpinnerLoading(false));
     };
     fetchUserSections();
@@ -170,17 +166,18 @@ const UserContent = () => {
   useEffect(() => {
     setUserSections(usercourse || []);
   }, [usercourse]);
-  
+
   const toggleSection = (index) => {
     setOpenSection(openSection === index ? null : index);
   };
+
   const handleSelectContent = (type, url) => {
     setSelectedContent(type);
     setSelectedContentUrl(url);
   };
+
   const renderSelectedContent = () => {
     if (!selectedContent) return null;
-    console.log(selectedContent);
     switch (selectedContent) {
       case "video":
         return (
@@ -260,6 +257,7 @@ const UserContent = () => {
                   dispatch={dispatch}
                   onSelect={handleSelectContent}
                   isOpen={openSection === index}
+                  selectedContentUrl={selectedContentUrl} // Pass the selectedContentUrl
                 />
               </div>
             ))}
@@ -269,5 +267,6 @@ const UserContent = () => {
     </>
   );
 };
+
 
 export default UserContent;
