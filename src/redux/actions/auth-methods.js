@@ -124,7 +124,9 @@ export async function signup(
   last_name,
   email,
   password,
-  re_password
+  re_password,
+  is_student = false,
+  is_instructor = false
 ) {
   // Prepare the request headers and body for the API call to the backend.
   const config = {
@@ -139,6 +141,8 @@ export async function signup(
     email,
     password,
     re_password,
+    is_student,
+    is_instructor,
   });
 
   try {
