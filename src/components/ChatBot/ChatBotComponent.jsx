@@ -1,105 +1,153 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import AIAssistantImage from "../../assets/images/homepage/bot.png"; // Replace with your actual image file
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { chatBot } from "../../redux/actions/courses-methods";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const ChatBotComponent = () => {
-    const [message, setMessage] = useState("");
-    const [chatHistory, setChatHistory] = useState([]);
-    const [showInitialText, setShowInitialText] = useState(true);
-    const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [chatHistory, setChatHistory] = useState(() => {
+    const savedChatHistory = localStorage.getItem("chatHistory");
+    return savedChatHistory ? JSON.parse(savedChatHistory) : [];
+  });
+  const [loading, setLoading] = useState(false);
+  const questionAnswer = useSelector((state) => state.courses.questionAnswer);
+  const [showInitialText, setShowInitialText] = useState(
+    chatHistory.length === 0
+  );
+  const slug = useParams();
+  const dispatch = useDispatch();
+  const access = useSelector((state) => state.userAuth.access);
 
-    const handleInputChange = (e) => {
-        setMessage(e.target.value);
-        setShowInitialText(e.target.value.trim() === "");
-    };
+  useEffect(() => {
+    if (questionAnswer) {
+      setChatHistory((prevChatHistory) => {
+        const updatedChatHistory = prevChatHistory.map((item, index) => {
+          if (index === prevChatHistory.length - 1 && item.answer === "") {
+            return { ...item, answer: questionAnswer.answer };
+          }
+          return item;
+        });
+        localStorage.setItem("chatHistory", JSON.stringify(updatedChatHistory));
+        return updatedChatHistory;
+      });
+      setLoading(false); // Hide loading indicator
+    }
+  }, [questionAnswer]);
 
-    const handleSendMessage = () => {
-        if (message.trim() !== "") {
-            setChatHistory([...chatHistory, message.trim()]);
-            setMessage("");
-        }
-    };
+  useEffect(() => {
+    localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
+  }, [chatHistory]);
 
-    return (
-        <div className="flex h-screen w-full relative">
-            {/* Sidebar */}
-            {isOpen && (
-                <div className="bg-stone-50 w-64 h-full flex flex-col justify-between absolute top-0 left-0 z-10">
-                    <button className="flex justify-center opacity-90 text-black text-[17px] tracking-wide bg-white hover:bg-slate-50 transition duration-700 rounded-[25px] shadow-md py-2 mt-10 mx-8 font-bold">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z"
-                            />
-                        </svg>
-                        New Chat
-                    </button>
-                </div>
-            )}
-
-            {/* Chat Area */}
-            <div className="flex-1 p-4 relative bg-neutral-100 shadow w-full">
-                <button
-                    className="fixed top-4 left-72 bg-gray-800 text-white p-2 rounded-md"
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    {isOpen ? "Close" : "Open"}
-                </button>
-
-                {/* Initial Text and Image */}
-                {showInitialText && (
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-gray-00 text-2xl flex flex-col items-center">
-                        <img
-                            src={AIAssistantImage}
-                            alt="AI Assistant"
-                            className="w-20 mb-4"
-                        />
-                        <span className="text-sky-800 text-[26px] font-bold font-['Outfit'] tracking-wide">
-                            Ask Nerualearn AI assistant ?
-                        </span>
-                    </div>
-                )}
-
-                {/* Chat History */}
-                <div className="h-full overflow-y-auto">
-                    {chatHistory.map((msg, index) => (
-                        <div key={index} className="my-2 flex justify-center">
-                            <p className="">{msg}</p>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Input Area */}
-                <div className="absolute bottom-5 left-0 right-0 p-4 flex justify-center">
-                    <div className="md:w-3/5 flex md:space-x-6">
-                        <input
-                            type="text"
-                            className="flex-1  border-2 px-8 py-2 bg-gray-100 rounded-[25px] text-neutral-600 text-[15px] font-normal font-['Outfit'] tracking-wide"
-                            placeholder="Message me I can help you for any question about the course material ..."
-                            value={message}
-                            onChange={handleInputChange}
-                        />
-                        <button
-                            className=" text-sky-800 hover:text-sky-900 transition duration-700 font-bold py-2 px-4 rounded-r"
-                            onClick={handleSendMessage}
-                        >
-                            {" "}
-                            <FontAwesomeIcon className="text-xl" icon={faPaperPlane} />
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+  const handleInputChange = (e) => {
+    setMessage(e.target.value);
+    setShowInitialText(
+      e.target.value.trim() === "" && chatHistory.length === 0
     );
+  };
+
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    if (message.trim() !== "") {
+      const newMessage = { question: message.trim(), answer: "" };
+      const updatedChatHistory = [...chatHistory, newMessage];
+      setChatHistory(updatedChatHistory);
+      setMessage("");
+      setLoading(true); // Show loading indicator
+      const chat_history = updatedChatHistory.map((chat) => chat.question);
+      localStorage.setItem("chatHistory", JSON.stringify(updatedChatHistory));
+      chatBot(dispatch, access, slug.slug, message, chat_history, 3);
+    }
+  };
+
+  const handleClearChat = () => {
+    setChatHistory([]);
+    localStorage.removeItem("chatHistory");
+    setShowInitialText(true);
+  };
+
+  return (
+    <div className="relative flex w-full h-screen">
+      {/* Chat Area */}
+      <div className="relative flex-1 w-full p-4">
+        {/* Initial Text and Image */}
+        {showInitialText && (
+          <div className="flex flex-col items-center text-2xl text-center md:mb-52 text-gray-00">
+            <img
+              src={AIAssistantImage}
+              alt="AI Assistant"
+              className="w-20 mb-4"
+            />
+            <span className="text-sky-800 text-[26px] font-bold font-['Outfit'] tracking-wide">
+              Ask Neuralearn AI assistant?
+            </span>
+          </div>
+        )}
+
+        {/* Chat History */}
+        <div className={`h-full overflow-y-auto`}>
+          {chatHistory.map((chat, index) => (
+            <div key={index} className="mb-4">
+              <div className="flex justify-end">
+                <p className="w-auto h-auto px-5 py-2 text-white bg-[#2F2F2F] rounded-3xl">
+                  {chat.question}
+                </p>
+              </div>
+              {chat.answer ? (
+                <div className="flex justify-start mt-2">
+                  <p className="w-auto h-auto px-5 py-2 text-white bg-[#1F1F1F] rounded-3xl">
+                    {chat.answer}
+                  </p>
+                </div>
+              ) : (
+                loading && (
+                  <div className="flex justify-start mt-2">
+                    <div className="flex items-center">
+                      <div className="w-6 h-6 mr-1 bg-gray-500 rounded-full animate-bounce"></div>
+                      <div className="w-6 h-6 mr-1 bg-gray-500 rounded-full animate-bounce"></div>
+                      <div className="w-6 h-6 bg-gray-500 rounded-full animate-bounce"></div>
+                    </div>
+                  </div>
+                )
+              )}
+            </div>
+          ))}
+
+          {/* Input Area */}
+          <div
+            className={`flex flex-wrap justify-center p-4 mt-5 bottom-5 md:flex-nowrap md:flex-row flex-col-reverse items-center gap-5 ${
+              showInitialText ? "" : "md:mt-[22.2rem] mt-[11.3rem] "
+            }`}
+          >
+            <button
+              className="opacity-90 text-black text-[17px] tracking-wide bg-white rounded-[25px] shadow-md py-2 md:mx-8 font-bold px-5 w-44"
+              onClick={handleClearChat}
+            >
+              Clear Chat
+            </button>
+            <form
+              className="flex md:w-3/5 md:space-x-6"
+              onSubmit={handleSendMessage}
+            >
+              <input
+                type="text"
+                className="w-60 flex-1 border-2 border-[#1F1F1F] px-4 md:px-8 py-2 bg-gray-100 rounded-[25px] text-neutral-600 text-[15px] font-normal font-['Outfit'] tracking-wide outline-none"
+                placeholder="Message me I can help you for any question about the course material ..."
+                value={message}
+                onChange={handleInputChange}
+                required
+              />
+              <button className="px-1 py-2 font-bold transition duration-700 rounded-r md:px-4 text-sky-800 hover:text-sky-900">
+                <FontAwesomeIcon className="text-xl" icon={faPaperPlane} />
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default ChatBotComponent;
