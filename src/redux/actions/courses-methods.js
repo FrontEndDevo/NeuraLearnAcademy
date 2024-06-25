@@ -49,6 +49,8 @@ import {
   GETUSERCONTENTS_FAIL,
   GETCOURSEDETAILES_SUCCESS,
   GETCOURSEDETAILES_FAIL,
+  CHATBOT_SUCCESS,
+  CHATBOT_FAIL,
 } from "../slices/courses/courses-slice";
 import { setToastMessage } from "../slices/popups-slices/toasts-slice";
 
@@ -609,6 +611,7 @@ export async function deleteLecture(dispatch, access, api) {
       },
     };
     try {
+      console.log(api);
       const res = await axios.delete(api, config);
       dispatch(
         setToastMessage({
@@ -736,7 +739,7 @@ export async function getTranscriptSection(dispatch, access, slug) {
           `/api/models/module/${slug}/transcripts/`,
         config
       );
-      dispatch(GETTRANSCRIPTSECTION_SUCCESS(res.data[0].transcript));
+      dispatch(GETTRANSCRIPTSECTION_SUCCESS(res.data.transcript));
       console.log(res);
     } catch (err) {
       dispatch(
@@ -784,7 +787,6 @@ export async function summarize(dispatch, access, text) {
   }
 }
 
-
 export async function getTranscriptVideo(dispatch, access, id) {
   if (access) {
     const config = {
@@ -808,7 +810,7 @@ export async function getTranscriptVideo(dispatch, access, id) {
     }
   }
 }
-export async function questionGeneration(dispatch, access) {
+export async function questionGeneration(dispatch, access, text) {
   if (access) {
     const config = {
       headers: {
@@ -817,16 +819,56 @@ export async function questionGeneration(dispatch, access) {
         Accept: "application/json",
       },
     };
+    const body = JSON.stringify({
+      text,
+    });
     try {
-      const res = await axios.get(
+      const res = await axios.post(
         import.meta.env.VITE_API_URL + `/api/models/generate-questions/`,
+        body,
         config
       );
-      dispatch(QUESTIONGENERATION_SUCCESS(res.data));
+      dispatch(QUESTIONGENERATION_SUCCESS(res.data.responses));
       console.log(res);
     } catch (err) {
       dispatch(QUESTIONGENERATION_FAIL());
       dispatch(QUESTIONGENERATION_ERROR(err.response.data));
+      console.log(err);
+    }
+  }
+}
+export async function chatBot(
+  dispatch,
+  access,
+  slug,
+  question,
+  chat_history,
+  k
+) {
+  if (access) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `JWT ${access}`,
+        Accept: "application/json",
+      },
+    };
+    const body = JSON.stringify({
+      slug,
+      question,
+      chat_history,
+      k,
+    });
+    try {
+      const res = await axios.post(
+        import.meta.env.VITE_API_URL + `/api/models/chatbot/`,
+        body,
+        config
+      );
+      dispatch(CHATBOT_SUCCESS(res.data));
+      console.log(res);
+    } catch (err) {
+      dispatch(CHATBOT_FAIL());
       console.log(err);
     }
   }

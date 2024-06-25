@@ -3,17 +3,20 @@ import summarizerImage from "../../assets/images/instructor/robootAssist.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getTranscriptSection,
-  summarize,
   createContent,
+  questionGeneration,
 } from "../../redux/actions/courses-methods";
 import { useLocation } from "react-router-dom";
 
 const QuestionGeneration = () => {
   const [isOpen, setIsOpen] = useState(true);
   const transcriptdata = useSelector((state) => state.courses.transcriptdate);
-  const summarizeData = useSelector((state) => state.courses.summarizeData);
+  const questionData = useSelector(
+    (state) => state.courses.questionGenerationData
+  );
+  console.log(questionData);
   const [modelInput, setModelInput] = useState();
-  const [paragraphInput, setParagraphInput] = useState("");
+  const [paragraphInput, setParagraphInput] = useState(null);
   const [selectedSection, setSelectedSection] = useState(null);
   const sectionsData = useSelector((state) => state.courses.sectionsData);
   const [sectionData, setSectionData] = useState(sectionsData);
@@ -28,14 +31,15 @@ const QuestionGeneration = () => {
   }, [sectionsData]);
 
   const handleGenerate = () => {
-    summarize(dispatch, access, modelInput);
-    setParagraphInput(summarizeData);
+    questionGeneration(dispatch, access, modelInput);
+    const stringData = JSON.stringify(questionData);
+    setParagraphInput(stringData);
   };
 
   const handleSave = () => {
     const body = new FormData();
     body.append("title", "section Questions");
-    body.append("content", summarizeData);
+    body.append("content", paragraphInput);
     createContent(dispatch, access, body, slug, "text");
   };
 
@@ -103,16 +107,15 @@ const QuestionGeneration = () => {
       
 
       <div className="flex-1 pt-4 pr-2 md:mt-10 lg:mt-0">
-        <div className="flex md:justify-center md:items-center space-x-2">
+        <div className="flex space-x-2 md:justify-center md:items-center">
           <img
             src={summarizerImage}
             alt="Logo"
             className="w-12 h-12 md:w-20 md:h-20"
             loading="lazy"
           />
-          <div className="text-sm md:text-base my-2 md:mt-0 lg:text-xl font-extrabold tracking-wider text-sky-800">
-            Question
-            Generation
+          <div className="my-2 text-sm font-extrabold tracking-wider md:text-base md:mt-0 lg:text-xl text-sky-800">
+            Question Generation
           </div>
         </div>
 
@@ -130,7 +133,7 @@ const QuestionGeneration = () => {
               onChange={(e) => setModelInput(e.target.value)}
               placeholder="Enter your model input"
             />
-            <div className="absolute bottom-0 left-12 lg:left-0 right-0 flex justify-between  px-2 mb-2">
+            <div className="absolute bottom-0 right-0 flex justify-between w-full px-2 mb-2 left-12 lg:left-0">
               <button
                 onClick={handleGenerate}
                 className="px-2 py-1 font-bold text-white rounded-full bg-sky-800 hover:bg-sky-900"

@@ -33,20 +33,33 @@ const SignUp = () => {
 
     if (firstName && lastName && email && password === rePassword && role) {
       setSpinner(true);
-      await signup(
-        dispatch,
-        firstName,
-        lastName,
-        email,
-        password,
-        rePassword
-        // role
-      ); // Include role in signup
+      if (role === "student") {
+        await signup(
+          dispatch,
+          firstName,
+          lastName,
+          email,
+          password,
+          rePassword,
+          true
+        );
+      } else {
+        await signup(
+          dispatch,
+          firstName,
+          lastName,
+          email,
+          password,
+          rePassword,
+          false,
+          true
+        );
+      }
+      // Include role in signup
       setSpinner(false);
       dispatch(openModal("registration"));
     }
   };
-
   const navigate = useNavigate();
 
   useEffect(() => {
