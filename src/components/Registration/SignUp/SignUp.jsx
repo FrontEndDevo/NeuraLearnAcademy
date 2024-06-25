@@ -31,7 +31,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (firstName && lastName && email && password && rePassword && role) {
+    if (firstName && lastName && email && password === rePassword && role) {
       setSpinner(true);
       await signup(
         dispatch,
