@@ -23,6 +23,7 @@ import {
   getUserSections,
 } from "../../redux/actions/courses-methods";
 import { setIsSpinnerLoading } from "../../redux/slices/popups-slices/spinner-slice";
+import MarkdownRenderer from "../../pages/Instructor/MarkdownRenderer";
 
 const SectionHeader = ({ sectionTitle, onClick, isOpen }) => {
   return (
@@ -91,6 +92,10 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen, selectedCont
       onSelect("video", item.video.file);
     } else if (item.image) {
       onSelect("image", item.image.file);
+    } else if (item.text) {
+      onSelect("text", item.text.content);
+    } else {
+      onSelect("file", item.file.file);
     }
   };
 
@@ -152,7 +157,8 @@ const UserContent = () => {
   const [selectedContentUrl, setSelectedContentUrl] = useState("");
   const [openSection, setOpenSection] = useState(null);
   const [userSections, setUserSections] = useState(usercourse);
-
+  const courseDetaile = useSelector((state) => state.courses.courseDetaile);
+  const [courseData, setCourseData] = useState(courseDetaile || []);
 
   useEffect(() => {
     const fetchUserSections = async () => {
@@ -193,6 +199,8 @@ const UserContent = () => {
             onClose={() => setSelectedContent(null)}
           />
         );
+      case "text":
+        return <MarkdownRenderer markdownData={selectedContentUrl} />;
       default:
         return null;
     }
@@ -200,19 +208,19 @@ const UserContent = () => {
 
   return (
     <>
-      <header className="p-10 bg-[#004682] text-white">
-        <h1 className="text-2xl font-bold">Course Machine Learning</h1>
-        <p>Course Machine learning this the best course.</p>
+      <header className="p-10 bg-[#004682] text-white mt-20">
+        <h1 className="text-2xl font-bold">{courseData.title}</h1>
+        <p>{courseData.overview}</p>
         <p className="mt-4 mb-2 text-sm">
           <span>
-            <FontAwesomeIcon icon={faGraduationCap} /> 0 Students
+            <FontAwesomeIcon icon={faGraduationCap} /> 10 Students
           </span>
         </p>
         <p className="text-sm">
           <span>
             <FontAwesomeIcon icon={faClock} /> Last updated
           </span>
-          <span> 2/7/2024</span>
+          <span> 24/6/2024</span>
         </p>
       </header>
       <div className="relative flex flex-col justify-around pt-10 pb-32 bg-white md:flex-row md:space-x-3 lg:space-x-4">
