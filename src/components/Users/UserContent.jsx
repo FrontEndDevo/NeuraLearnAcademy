@@ -27,10 +27,10 @@ import { setIsSpinnerLoading } from "../../redux/slices/popups-slices/spinner-sl
 const SectionHeader = ({ sectionTitle, onClick, isOpen }) => {
   return (
     <div
-      className="flex items-center content-center justify-between  bg-sky-950"
+      className="flex items-center content-center justify-between bg-sky-950"
      
     >
-      <div className="flex justify-between w-full  py-3 md:space-x-60 md:px-6">
+      <div className="flex justify-between w-full py-3 md:space-x-60 md:px-6">
         <div className="font-semibold text-white">{sectionTitle}</div>
         <div className="ml-2 text-white cursor-pointer">
           <FontAwesomeIcon onClick={onClick} icon={isOpen ? faChevronUp : faChevronDown} />
@@ -110,9 +110,9 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen, selectedCont
                 className="relative border-b border-b-sky-950 border-opacity-80"
                 key={key}
               >
-                <div className=" ">
+                <div className="">
                   <div
-                    className=" cursor-pointer pl-14"
+                    className="cursor-pointer pl-14"
                     onClick={() => handleClick(item)}
                   >
                     <FontAwesomeIcon
@@ -120,14 +120,14 @@ const SectionContent = ({ dispatch, access, slug, onSelect, isOpen, selectedCont
                       className="absolute w-6 h-6 text-black transform -translate-y-1/2 left-3 top-1/2"
                     />
 
-                    <div className="flex items-center  space-x-10 ">
+                    <div className="flex items-center space-x-10 ">
                       <div className="w-full py-2 focus:outline-none bg-white rounded-[1px] text-black/opacity-80 text-lg font-medium font-['Outfit']">
                         {renderTitle(item)}
                       </div>
                       <a href={selectedContentUrl} download>
                         <FontAwesomeIcon
                           icon={renderIcon(key)[1]}
-                          className=" w-6 h-6 text-primary-500 mt-3 mr-5 transform -translate-y-1/2 left-3 top-1/2"
+                          className="w-6 h-6 mt-3 mr-5 transform -translate-y-1/2 text-primary-500 left-3 top-1/2"
                         />
                       </a>
                     </div>
@@ -226,9 +226,10 @@ const UserContent = () => {
           />
         </div>
         <div className="bg-white ">
-          <div className="flex flex-col  justify-center gap-3 px-5 md:flex-row md:space-x-3 md:gap-0 lg:space-x-4 md:px-0">
+          <div className="flex flex-col justify-center gap-3 px-5 md:flex-row md:space-x-3 md:gap-0 lg:space-x-4 md:px-0">
             <div className="w-full md:w-auto ">
-              <Link to={'/ChatBot'}
+              <Link
+                to={`/ChatBot/${slug.slug}`}
                 style={{ boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)" }}
                 onClick=""
                 className="bg-white rounded-[10px] px-5 py-3 flex flex-col justify-center items-center opacity-90 text-[#004682] font-bold cursor-pointer w-full"
