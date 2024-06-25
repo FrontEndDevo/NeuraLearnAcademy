@@ -33,6 +33,7 @@ import {
 import VideoPlayer from "../../../shared/VideoPlayer";
 import ImageViewer from "../../../shared/ImageViewer";
 import { setIsSpinnerLoading } from "../../../redux/slices/popups-slices/spinner-slice";
+import MarkdownRenderer from "../../../pages/Instructor/MarkdownRenderer";
 
 const SectionHeader = ({ sectionTitle, onDelete, onEdit, slug, onToggle }) => {
   const dispatch = useDispatch();
@@ -142,13 +143,13 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
     if (item.video) return item.video.title;
     if (item.image) return item.image.title;
     if (item.file) return item.file.title;
-    return "Section Sumarization";
+    return item.text.title;
   };
   const renderDeleteLink = (lecture) => {
     if (lecture.file) return lecture.file.delete_url;
     if (lecture.video) return lecture.video.delete_url;
     if (lecture.image) return lecture.image.delete_url;
-    return "Unknown Linke";
+    return lecture.text.delete_url;
   };
 
   const handleClick = (item) => {
@@ -156,6 +157,10 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
       onSelect("video", item.video.file);
     } else if (item.image) {
       onSelect("image", item.image.file);
+    } else if (item.text) {
+      onSelect("text", item.text.content);
+    } else {
+      onSelect("file", item.file.file);
     }
   };
 
@@ -189,9 +194,11 @@ const SectionContent = ({ dispatch, access, slug, onSelect }) => {
                     <button onClick={() => handleDeleteLecture(item)}>
                       <FontAwesomeIcon icon={faTrash} />
                     </button>
-                    <button onClick={() => handleUpdateLecture(item)}>
-                      <FontAwesomeIcon icon={faPenToSquare} />
-                    </button>
+                    {!item.text && (
+                      <button onClick={() => handleUpdateLecture(item)}>
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                      </button>
+                    )}
                   </div>
                 </div>
               </li>
@@ -354,6 +361,13 @@ const CoursesContent = () => {
         return (
           <ImageViewer
             url={selectedContentUrl}
+            onClose={() => setSelectedContent(null)}
+          />
+        );
+      case "text":
+        return (
+          <MarkdownRenderer
+            markdownData={selectedContentUrl}
             onClose={() => setSelectedContent(null)}
           />
         );
