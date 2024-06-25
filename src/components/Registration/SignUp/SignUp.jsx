@@ -31,7 +31,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (firstName && lastName && email && password && rePassword && role) {
+    if (firstName && lastName && email && password === rePassword && role) {
       setSpinner(true);
       if (role === "student") {
         await signup(
@@ -70,7 +70,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center px-10 mt-32 ">
+      <div className="flex flex-col items-center px-10 mt-32">
         <div
           style={{
             boxShadow: "0px 4px 4px 3px rgba(0, 0, 0, 0.25)",
@@ -79,61 +79,62 @@ const SignUp = () => {
         >
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col items-center space-y-3"
+            className="flex flex-col items-center justify-center space-y-3"
           >
             <NeuraLearnAcademy />
 
-            <div className="flex flex-col md:flex-row">
-              <div className="mb-1 md:mr-2">
+            <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
                 <label
                   htmlFor="firstName"
-                  className="block mb-1 text-base font-semibold text-neutral-600"
+                  className="mb-1 text-base font-semibold text-neutral-600"
                 >
                   First Name
                 </label>
                 <input
                   type="text"
                   id="firstName"
-                  className={`w-full sm:w-96 pl-2 py-2 border  md:w-48`}
+                  className={`w-full pl-2 py-2 border`}
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
+
               <div>
                 <label
                   htmlFor="lastName"
-                  className="block mb-1 text-base font-semibold text-neutral-600"
+                  className="mb-1 text-base font-semibold text-neutral-600"
                 >
                   Last Name
                 </label>
                 <input
                   type="text"
                   id="lastName"
-                  className={`w-full sm:w-96 pl-2 py-2 border md:w-48`}
+                  className={`w-full pl-2 py-2 border`}
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
             </div>
 
-            <div>
+            <div className="w-full">
               <label
                 htmlFor="email"
-                className="block mb-1 text-base font-semibold text-neutral-600"
+                className="mb-1 text-base font-semibold text-neutral-600"
               >
                 Email
               </label>
               <input
                 type="email"
                 id="email"
-                className="w-full py-2 pl-2 border border-gray-300 sm:w-96 md:w-96"
+                className="w-full py-2 pl-2 border border-gray-300"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
 
-            <div>
+            <div className="w-full">
               <label
                 htmlFor="password"
                 className="block mb-1 text-base font-semibold text-neutral-600"
@@ -143,52 +144,53 @@ const SignUp = () => {
               <input
                 type="password"
                 id="password"
-                className={`w-full pl-2 mb-1 py-2 border  md:w-96 sm:w-96`}
+                className={`w-full pl-2 mb-1 py-2 border`}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div>
+
+            <div className="w-full">
               <label
                 htmlFor="rePassword"
-                className="block mb-1 text-base font-semibold text-neutral-600"
+                className="mb-1 text-base font-semibold text-neutral-600"
               >
                 Confirm Password
               </label>
               <input
                 type="password"
                 id="rePassword"
-                className={`w-full sm:w-96 pl-2 mb-2 py-2 border  md:w-96`}
+                className={`w-full pl-2 mb-2 py-2 border`}
                 value={rePassword}
                 onChange={(e) => setRePassword(e.target.value)}
               />
             </div>
 
-            <div className="w-full m-x-auto">
-              <label className="block mb-1 text-base font-semibold text-neutral-600">
-                Role
-              </label>
-              <div className="flex justify-start w-full gap-5">
-                <label>
+            <div className="flex flex-col items-center justify-center gap-5 font-semibold md:flex-row">
+              <h2 className="mr-4 font-bold underline text-neutral-900">
+                Signed up as:
+              </h2>
+              <div className="flex items-center gap-2 md:gap-8">
+                <div className="flex flex-row-reverse items-center gap-2">
+                  <label htmlFor="student">Student</label>
                   <input
                     type="radio"
+                    name="role"
+                    id="student"
                     value="student"
-                    checked={role === "student"}
                     onChange={(e) => setRole(e.target.value)}
-                    className="mr-1"
                   />
-                  Student
-                </label>
-                <label>
+                </div>
+                <div className="flex flex-row-reverse items-center gap-2">
+                  <label htmlFor="instructor">Instructor</label>
                   <input
                     type="radio"
+                    name="role"
+                    id="instructor"
                     value="instructor"
-                    checked={role === "instructor"}
                     onChange={(e) => setRole(e.target.value)}
-                    className="mr-1"
                   />
-                  Instructor
-                </label>
+                </div>
               </div>
             </div>
 

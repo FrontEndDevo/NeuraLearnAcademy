@@ -19,7 +19,6 @@ import {
   updateLecture,
 } from "../../../redux/actions/courses-methods";
 import { setIsSpinnerLoading } from "../../../redux/slices/popups-slices/spinner-slice";
-import { setToastMessage } from "../../../redux/slices/popups-slices/toasts-slice";
 
 const SectionInfo = ({ onClose, slug, lecture }) => {
   const [selectedContent, setSelectedContent] = useState(null);
@@ -29,6 +28,11 @@ const SectionInfo = ({ onClose, slug, lecture }) => {
   useEffect(() => {
     if (lecture) {
       setTitle(renderTitle(lecture));
+
+      const fileType = Object.keys(lecture)[0]; // Type.
+      const fileContent = lecture[Object.keys(lecture)[0]].file;
+
+      setSelectedContent({ type: fileType, content: fileContent });
     }
   }, [lecture]);
 
@@ -36,14 +40,14 @@ const SectionInfo = ({ onClose, slug, lecture }) => {
     if (item.video) return item.video.title;
     if (item.image) return item.image.title;
     if (item.file) return item.file.title;
-    return "Unknown Title";
+    return "";
   };
 
   const renderUpdateLink = (lecture) => {
-    if (lecture.file) return lecture.file.edit_url;
-    if (lecture.video) return lecture.video.edit_url;
-    if (lecture.image) return lecture.image.edit_url;
-    return "Unknown Linke";
+    if (lecture.file) return lecture.file.file;
+    if (lecture.video) return lecture.video.file;
+    if (lecture.image) return lecture.image.file;
+    return "";
   };
 
   const access = useSelector((state) => state.userAuth.access);
@@ -59,13 +63,15 @@ const SectionInfo = ({ onClose, slug, lecture }) => {
   const handleDeleteContent = () => {
     setSelectedContent(null);
   };
+
   const handleSave = async () => {
     dispatch(setIsSpinnerLoading(true));
 
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("file", selectedContent.content);
-    if (selectedContent) {
+    if (selectedContent && !lecture) {
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("file", selectedContent.content);
+
       await createContent(
         dispatch,
         access,
@@ -79,10 +85,24 @@ const SectionInfo = ({ onClose, slug, lecture }) => {
 
       return;
     }
+
     if (lecture) {
+      const fileContent = lecture[Object.keys(lecture)[0]].file;
+
       const api = renderUpdateLink(lecture);
 
-      await updateLecture(dispatch, access, formData, api);
+      if (fileContent === selectedContent.content) {
+        const formData = new FormData();
+        formData.append("title", title);
+
+        await updateLecture(dispatch, access, formData, api);
+      } else {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("file", selectedContent.content);
+
+        await updateLecture(dispatch, access, formData, api);
+      }
 
       onClose();
       dispatch(setIsSpinnerLoading(false));
@@ -195,7 +215,6 @@ const SectionInfo = ({ onClose, slug, lecture }) => {
                 </h2>
               </div>
             ) : (
-              // selectedContent.map((content, index) => (
               <div className="flex justify-between items-center space-x-12 px-2 mb-10 bg-zinc-100 py-3 rounded-[10px] backdrop-blur-sm">
                 <div className="flex">
                   <img
