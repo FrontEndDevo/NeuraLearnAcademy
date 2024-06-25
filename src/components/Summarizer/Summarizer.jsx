@@ -70,7 +70,7 @@ const Summarizer = () => {
         }`}
       >
         {/* Sidebar Header */}
-        <div className="flex flex-col px-3 pb-4 mt-24">
+        <div className="flex flex-col px-3 pb-4 mt-4 md:mt-20 lg:mt-4">
           <img
             src={courseData?.image}
             alt="Logo"
@@ -123,15 +123,15 @@ const Summarizer = () => {
         {isOpen ? "Close" : "Open"}
       </button> */}
 
-      <div className="flex-1 p-4">
-        <div className="flex items-center justify-center space-x-3">
+      <div className="flex-1 pt-4 pr-2 md:mt-10 lg:mt-0">
+        <div className="flex md:justify-center md:items-center  space-x-3">
           <img
             src={summarizerImage}
             alt="Logo"
-            className="w-20 h-20"
+            className="w-12 h-12 md:w-20 md:h-20"
             loading="lazy"
           />
-          <div className="text-xl font-extrabold tracking-wider text-sky-800">
+          <div className="text-sm md:text-base mt-2 md:mt-0 lg:text-xl font-extrabold tracking-wider text-sky-800">
             Summarizer
           </div>
         </div>
@@ -145,12 +145,12 @@ const Summarizer = () => {
         <div className="flex flex-col md:flex-row">
           <div className="relative w-full mb-4 md:w-1/2 md:mb-0">
             <textarea
-              className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 h-64 md:h-96 overflow-auto outline-none"
+              className="block p-2.5 md:w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 h-64 md:h-96 overflow-auto outline-none"
               value={modelInput}
               onChange={(e) => setModelInput(e.target.value)}
               placeholder="Enter your model input"
             />
-            <div className="absolute bottom-0 right-0 flex justify-between w-full px-2 mb-2">
+            <div className="absolute bottom-0 left-12 lg:left-0 right-0 flex justify-between w-full px-2 mb-2">
               <button
                 onClick={handleSummarize}
                 className="px-2 py-1 font-bold text-white rounded-full bg-sky-800 hover:bg-sky-900"
