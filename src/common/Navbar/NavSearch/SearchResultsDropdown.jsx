@@ -5,7 +5,7 @@ const SearchResultsDropdown = ({ results }) => {
   const coursesResults = results.slice(0, 10).map((course) => (
     <Link
       key={course.slug}
-      to={course.slug}
+      to={`/UserContentPage/${course.slug}`}
       className="flex items-center gap-2 px-1 py-2 duration-200 rounded-b-md hover:bg-neutral-100"
     >
       <img src={course.image} alt={course.title} className="w-10 h-10 border" />
