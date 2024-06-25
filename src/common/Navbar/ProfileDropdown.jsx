@@ -47,7 +47,7 @@ const ProfileDropdown = ({ showOptions }) => {
 
   return (
     <div
-      className={`absolute top-full right-0 gap-2 z-50 duration-200 border-2 bg-white shadow-lg rounded-md ${
+      className={`absolute top-full right-0 gap-2 z-40 duration-200 border-2 bg-white shadow-lg rounded-md ${
         showOptions
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-5 pointer-events-none"

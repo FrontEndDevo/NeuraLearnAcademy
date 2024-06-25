@@ -68,7 +68,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 z-50 flex flex-col items-center justify-between w-screen gap-4 px-6 py-4 bg-white shadow-lg lg:flex-row lg:pr-20">
+    <nav className="fixed top-0 z-40 flex flex-col items-center justify-between w-screen gap-4 px-6 py-4 bg-white shadow-lg lg:flex-row lg:pr-20">
       <div className="flex items-center justify-between w-full">
         <div className="flex items-center w-1/2 gap-14">
           <Link to="/" className="flex items-center gap-2">

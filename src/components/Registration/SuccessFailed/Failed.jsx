@@ -25,7 +25,7 @@ const Failed = ({ error }) => {
     <>
       <BlurModal />
 
-      <div className="p-10 text-white bg-[#ee5c4d] text-center z-50 md:w-1/2 xl:w-1/3 2xl:w-1/5 flex flex-col rounded border border-neutral-300 shadow items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+      <div className="p-10 text-white bg-[#ee5c4d] text-center z-40 md:w-1/2 xl:w-1/3 2xl:w-1/5 flex flex-col rounded border border-neutral-300 shadow items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <FontAwesomeIcon
           icon={faXmark}
           onClick={handleCloseFailedModal}

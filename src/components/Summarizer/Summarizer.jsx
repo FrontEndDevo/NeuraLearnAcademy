@@ -117,21 +117,21 @@ const Summarizer = () => {
       </div>
 
       {/* <button
-        className="fixed z-50 p-2 text-white bg-gray-800 rounded-md top-24 left-72"
+        className="fixed z-40 p-2 text-white bg-gray-800 rounded-md top-24 left-72"
         onClick={() => setIsOpen(!isOpen)}
       >
         {isOpen ? "Close" : "Open"}
       </button> */}
 
       <div className="flex-1 pt-4 pr-2 md:mt-10 lg:mt-0">
-        <div className="flex md:justify-center md:items-center  space-x-3">
+        <div className="flex space-x-3 md:justify-center md:items-center">
           <img
             src={summarizerImage}
             alt="Logo"
             className="w-12 h-12 md:w-20 md:h-20"
             loading="lazy"
           />
-          <div className="text-sm md:text-base mt-2 md:mt-0 lg:text-xl font-extrabold tracking-wider text-sky-800">
+          <div className="mt-2 text-sm font-extrabold tracking-wider md:text-base md:mt-0 lg:text-xl text-sky-800">
             Summarizer
           </div>
         </div>
@@ -150,7 +150,7 @@ const Summarizer = () => {
               onChange={(e) => setModelInput(e.target.value)}
               placeholder="Enter your model input"
             />
-            <div className="absolute bottom-0 left-12 lg:left-0 right-0 flex justify-between w-full px-2 mb-2">
+            <div className="absolute bottom-0 right-0 flex justify-between w-full px-2 mb-2 left-12 lg:left-0">
               <button
                 onClick={handleSummarize}
                 className="px-2 py-1 font-bold text-white rounded-full bg-sky-800 hover:bg-sky-900"

@@ -95,7 +95,7 @@ const LinksDropdown = ({ isAuth, showOptions }) => {
 
   return (
     <div
-      className={`absolute -right-0 md:-right-20 grid grid-cols-1 md:grid-cols-2 w-[76vw] md:w-[98vw] z-50 gap-2 duration-200 bg-white border-2 rounded-md shadow-lg top-full ${
+      className={`absolute -right-0 md:-right-20 grid grid-cols-1 md:grid-cols-2 w-[76vw] md:w-[98vw] z-40 gap-2 duration-200 bg-white border-2 rounded-md shadow-lg top-full ${
         showOptions
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-5 pointer-events-none"

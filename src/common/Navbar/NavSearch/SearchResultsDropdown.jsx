@@ -16,7 +16,7 @@ const SearchResultsDropdown = ({ results }) => {
 
   return (
     <div
-      className={`absolute w-full right-0 z-50 gap-2 duration-200 bg-white rounded-b-md shadow-lg mt-1 top-full ${
+      className={`absolute w-full right-0 z-40 gap-2 duration-200 bg-white rounded-b-md shadow-lg mt-1 top-full ${
         results.length > 0
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-5 pointer-events-none"
