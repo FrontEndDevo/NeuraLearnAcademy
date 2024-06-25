@@ -100,12 +100,7 @@ const QuestionGeneration = () => {
         </div>
       </div>
 
-      {/* <button
-        className="fixed z-50 p-2 text-white bg-gray-800 rounded-md top-24 left-72"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {isOpen ? "Close" : "Open"}
-      </button> */}
+      
 
       <div className="flex-1 pt-4 pr-2 md:mt-10 lg:mt-0">
         <div className="flex md:justify-center md:items-center space-x-2">
@@ -135,7 +130,7 @@ const QuestionGeneration = () => {
               onChange={(e) => setModelInput(e.target.value)}
               placeholder="Enter your model input"
             />
-            <div className="absolute bottom-0 left-12 lg:left-0 right-0 flex justify-between w-full px-2 mb-2">
+            <div className="absolute bottom-0 left-12 lg:left-0 right-0 flex justify-between  px-2 mb-2">
               <button
                 onClick={handleGenerate}
                 className="px-2 py-1 font-bold text-white rounded-full bg-sky-800 hover:bg-sky-900"
