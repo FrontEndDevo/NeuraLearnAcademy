@@ -115,13 +115,13 @@ const Navbar = () => {
             <div className="flex items-center gap-4 font-semibold uppercase">
               <Link
                 to="/login"
-                className="px-4 py-2 duration-200 border rounded-lg border-neutral-800 hover:bg-neutral-200"
+                className="hidden px-4 py-2 duration-200 border rounded-lg md:block border-neutral-800 hover:bg-neutral-200"
               >
                 Log in
               </Link>
               <Link
                 to="/signup"
-                className="px-4 py-2 text-white duration-200 rounded-lg bg-neutral-800 hover:bg-neutral-900"
+                className="hidden px-4 py-2 text-white duration-200 rounded-lg md:block bg-neutral-800 hover:bg-neutral-900"
               >
                 Sign Up
               </Link>
