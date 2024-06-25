@@ -56,7 +56,7 @@ const Login = () => {
     <>
       <div className="flex flex-col items-center px-10 ">
         <div className="flex items-center justify-between mb-10">
-          <h1 className="font-bold text-neutral-600 md:text-lg mt-5">
+          <h1 className="mt-5 font-bold text-center text-neutral-600 md:text-lg">
             New To NLA ?{" "}
             <Link to="/signup">
               <span className="text-lg font-bold text-blue-700">
@@ -116,7 +116,7 @@ const Login = () => {
               clickButton={handleSubmit}
             />
 
-            <div className="flex items-center gap-4 text-lg font-semibold">
+            <div className="flex flex-col items-center text-sm font-semibold lg:text-lg md:text-base md:gap-4 md:flex-row">
               <h4>Forget Password?</h4>
               <Link
                 to="/reset-password"
@@ -126,11 +126,11 @@ const Login = () => {
               </Link>
             </div>
 
-            <h2 className="font-normal text-black text-1xl md:text-1xl md:font-semibold">
+            <h2 className="text-sm font-normal text-black md:text-base md:font-semibold">
               Continue in another way
             </h2>
 
-            <div className="flex space-x-12 ">
+            <div className="flex space-x-12">
               <Link>
                 <button className="p-2 border border-red-600 rounded-full">
                   <FontAwesomeIcon icon={faGoogle} className="text-red-600" />
@@ -162,7 +162,6 @@ const Login = () => {
         navigatePage="/"
         successMessage="Login successfully"
       />
-
     </>
   );
 };
