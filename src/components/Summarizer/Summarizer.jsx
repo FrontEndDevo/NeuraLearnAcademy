@@ -150,7 +150,7 @@ const Summarizer = () => {
               onChange={(e) => setModelInput(e.target.value)}
               placeholder="Enter your model input"
             />
-            <div className="absolute bottom-0 left-12 lg:left-0 right-0 flex justify-between w-full px-2 mb-2">
+            <div className="absolute bottom-0 left-12 lg:left-0 right-0 flex justify-between  px-2 mb-2">
               <button
                 onClick={handleSummarize}
                 className="px-2 py-1 font-bold text-white rounded-full bg-sky-800 hover:bg-sky-900"
