@@ -25,6 +25,7 @@ const initialState = {
   transcriptVideoData: null,
   questionGenerationData: null,
   courseDetaile: null,
+  questionAnswer: null,
 };
 
 const subjectCourseReducer = (state, action) => {
@@ -283,6 +284,18 @@ const getCourseDetaileFailReducer = (state) => {
     courseDetaile: null,
   };
 };
+const getAnswerQuestionReducer = (state, action) => {
+  return {
+    ...state,
+    questionAnswer: action.payload,
+  };
+};
+const getAnswerQuestionFailReducer = (state) => {
+  return {
+    ...state,
+    questionAnswer: null,
+  };
+};
 
 const courseSlice = createSlice({
   name: "course",
@@ -327,6 +340,8 @@ const courseSlice = createSlice({
     QUESTIONGENERATION_FAIL: questionGenerationFailReducer,
     GETCOURSEDETAILES_SUCCESS: getCourseDetaileReducer,
     GETCOURSEDETAILES_FAIL: getCourseDetaileFailReducer,
+    CHATBOT_SUCCESS: getAnswerQuestionReducer,
+    CHATBOT_FAIL: getAnswerQuestionFailReducer,
     setPublicCourses(state, action) {
       state.publicCourses = action.payload;
     },
@@ -382,6 +397,8 @@ export const {
   QUESTIONGENERATION_FAIL,
   GETCOURSEDETAILES_SUCCESS,
   GETCOURSEDETAILES_FAIL,
+  CHATBOT_SUCCESS,
+  CHATBOT_FAIL,
 } = courseSlice.actions;
 
 export default courseSlice.reducer;
