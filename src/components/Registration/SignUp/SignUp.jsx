@@ -33,20 +33,33 @@ const SignUp = () => {
 
     if (firstName && lastName && email && password && rePassword && role) {
       setSpinner(true);
-      await signup(
-        dispatch,
-        firstName,
-        lastName,
-        email,
-        password,
-        rePassword
-        // role
-      ); // Include role in signup
+      if (role === "student") {
+        await signup(
+          dispatch,
+          firstName,
+          lastName,
+          email,
+          password,
+          rePassword,
+          true
+        );
+      } else {
+        await signup(
+          dispatch,
+          firstName,
+          lastName,
+          email,
+          password,
+          rePassword,
+          false,
+          true
+        );
+      }
+      // Include role in signup
       setSpinner(false);
       dispatch(openModal("registration"));
     }
   };
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,7 +70,7 @@ const SignUp = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center px-10 mt-32  ">
+      <div className="flex flex-col items-center px-10 mt-32 ">
         <div
           style={{
             boxShadow: "0px 4px 4px 3px rgba(0, 0, 0, 0.25)",
