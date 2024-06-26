@@ -11,7 +11,7 @@ const BlurModal = () => {
   return (
     <div
       onClick={handleCloseModal}
-      className="fixed z-50 w-screen h-screen bg-white backdrop-blur-sm bg-opacity-10"
+      className="fixed z-30 w-screen h-screen bg-white backdrop-blur-sm bg-opacity-10"
     ></div>
   );
 };
