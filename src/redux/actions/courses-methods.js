@@ -6,7 +6,6 @@ import {
   UPDATEUSERDATA_ERROR,
   GETTRANSCRIPTSECTION_ERROR,
   GETTRANSCRIPTVIDEO_ERROR,
-  QUESTIONGENERATION_ERROR,
 } from "../slices/courses/courses-errors";
 
 import {
@@ -833,13 +832,19 @@ export async function questionGeneration(dispatch, access, text) {
       dispatch(QUESTIONGENERATION_SUCCESS(res.data.responses));
       console.log(res);
     } catch (err) {
+      dispatch(
+        setToastMessage({
+          message: "Couldn't generate the questions!, Please try again.",
+          type: "error",
+        })
+      );
       dispatch(QUESTIONGENERATION_FAIL());
-      dispatch(QUESTIONGENERATION_ERROR(err.response.data));
       console.log(err);
     }
   }
 }
 
+// Get the user courses.
 export async function chatBot(
   dispatch,
   access,
