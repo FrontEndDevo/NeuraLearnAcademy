@@ -16,6 +16,7 @@ const navbarOptions = [
     title: "home",
     link: "/",
     requireAuth: false,
+    role: "both",
   },
 
   {
@@ -23,24 +24,28 @@ const navbarOptions = [
     title: "my learnings",
     link: "/my-learnings",
     requireAuth: true,
+    role: "student",
   },
   {
     id: 3,
     title: "instructor",
     link: "/instructor",
     requireAuth: true,
+    role: "instructor",
   },
   {
     id: 4,
     title: "contact us",
     link: "/contact-us",
     requireAuth: true,
+    role: "both",
   },
   {
     id: 5,
     title: "about us",
     link: "/about-us",
     requireAuth: false,
+    role: "both",
   },
 ];
 
@@ -64,7 +69,6 @@ const Navbar = () => {
 
   const userAuth = useSelector((state) => state.userAuth);
   const { isAuthenticated, user } = userAuth;
-
   const handleTogglingProfileDropdown = () => {
     setShowProfileDropdown((prevState) => !prevState);
   };
@@ -93,7 +97,11 @@ const Navbar = () => {
 
         <div className="flex items-center gap-4 xl:gap-10">
           {!isMobile[0] && (
-            <NavbarLinks links={navbarOptions} isAuth={isAuthenticated} />
+            <NavbarLinks
+              links={navbarOptions}
+              isAuth={isAuthenticated}
+              user={user}
+            />
           )}
 
           {isMobile[0] && (
