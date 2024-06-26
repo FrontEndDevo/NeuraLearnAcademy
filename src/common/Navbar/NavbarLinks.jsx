@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const NavbarLinks = ({ links, isAuth, user }) => {
+  const { is_instructor, is_student } = user;
   const linkClasses =
     "p-2 font-semibold capitalize duration-200 rounded-lg hover:bg-neutral-800 hover:text-white";
 
@@ -13,24 +14,15 @@ const NavbarLinks = ({ links, isAuth, user }) => {
       item.requireAuth &&
       isAuth &&
       item.role == "instructor" &&
-      user.is_instructor
+      is_instructor
     ) {
-      console.log(`is_instructor`);
-
       return (
         <Link key={item.id} to={item.link} className={linkClasses}>
           {item.title}
         </Link>
       );
     }
-    if (
-      item.requireAuth &&
-      isAuth &&
-      item.role == "student" &&
-      user.is_student
-    ) {
-      console.log(`is_student`);
-
+    if (item.requireAuth && isAuth && item.role == "student" && is_student) {
       return (
         <Link key={item.id} to={item.link} className={linkClasses}>
           {item.title}
@@ -39,8 +31,6 @@ const NavbarLinks = ({ links, isAuth, user }) => {
     }
 
     if (item.role == "both") {
-      console.log(`both`);
-
       return (
         <Link key={item.id} to={item.link} className={linkClasses}>
           {item.title}

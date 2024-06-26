@@ -810,6 +810,8 @@ export async function getTranscriptVideo(dispatch, access, id) {
     }
   }
 }
+
+// Get the user courses.
 export async function questionGeneration(dispatch, access, text) {
   if (access) {
     const config = {
@@ -837,6 +839,7 @@ export async function questionGeneration(dispatch, access, text) {
     }
   }
 }
+
 export async function chatBot(
   dispatch,
   access,
