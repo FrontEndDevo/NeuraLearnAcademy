@@ -205,6 +205,7 @@ export async function reset_password(dispatch, email) {
   } catch (err) {
     dispatch(PASSWORD_RESET_FAIL());
     dispatch(RESET_PASSWORD_ERROR(err.response.data));
+  }
 }
 
 // Send a request to the backend to confirm the password reset.
