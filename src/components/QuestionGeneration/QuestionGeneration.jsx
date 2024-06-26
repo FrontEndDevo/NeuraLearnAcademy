@@ -3,17 +3,20 @@ import summarizerImage from "../../assets/images/instructor/robootAssist.png";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getTranscriptSection,
-  summarize,
   createContent,
+  questionGeneration,
 } from "../../redux/actions/courses-methods";
 import { useLocation } from "react-router-dom";
 
 const QuestionGeneration = () => {
   const [isOpen, setIsOpen] = useState(true);
   const transcriptdata = useSelector((state) => state.courses.transcriptdate);
-  const summarizeData = useSelector((state) => state.courses.summarizeData);
+  const questionData = useSelector(
+    (state) => state.courses.questionGenerationData
+  );
+  console.log(questionData);
   const [modelInput, setModelInput] = useState();
-  const [paragraphInput, setParagraphInput] = useState("");
+  const [paragraphInput, setParagraphInput] = useState(null);
   const [selectedSection, setSelectedSection] = useState(null);
   const sectionsData = useSelector((state) => state.courses.sectionsData);
   const [sectionData, setSectionData] = useState(sectionsData);
@@ -28,14 +31,15 @@ const QuestionGeneration = () => {
   }, [sectionsData]);
 
   const handleGenerate = () => {
-    summarize(dispatch, access, modelInput);
-    setParagraphInput(summarizeData);
+    questionGeneration(dispatch, access, modelInput);
+    const stringData = JSON.stringify(questionData);
+    setParagraphInput(stringData);
   };
 
   const handleSave = () => {
     const body = new FormData();
     body.append("title", "section Questions");
-    body.append("content", summarizeData);
+    body.append("content", paragraphInput);
     createContent(dispatch, access, body, slug, "text");
   };
 
@@ -100,12 +104,7 @@ const QuestionGeneration = () => {
         </div>
       </div>
 
-      {/* <button
-        className="fixed z-40 p-2 text-white bg-gray-800 rounded-md top-24 left-72"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {isOpen ? "Close" : "Open"}
-      </button> */}
+      
 
       <div className="flex-1 pt-4 pr-2 md:mt-10 lg:mt-0">
         <div className="flex space-x-2 md:justify-center md:items-center">
