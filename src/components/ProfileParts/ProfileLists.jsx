@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const userInfo = {
   name: "Ahmed Ashraf",
@@ -42,6 +43,8 @@ const profileSections = [
 const ProfileLists = () => {
   const fileInput = useRef(null);
   const [userPhoto, setUserPhoto] = useState(userInfo.photo);
+
+  const userInformation = useSelector((state) => state.userAuth.user);
 
   const handleIconClick = () => {
     fileInput.current.click();
@@ -97,7 +100,7 @@ const ProfileLists = () => {
         </div>
       </div>
       <h1 className="mt-2 mb-4 text-lg font-semibold text-center">
-        {userInfo.name}
+        {userInformation.first_name + " " + userInformation.last_name}
       </h1>
 
       <ul className="flex flex-col gap-4">{userProfileSections}</ul>

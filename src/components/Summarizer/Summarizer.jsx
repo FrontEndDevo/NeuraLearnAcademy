@@ -7,7 +7,7 @@ import {
   createContent,
 } from "../../redux/actions/courses-methods";
 import { setIsSpinnerLoading } from "../../redux/slices/popups-slices/spinner-slice";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Summarizer = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -70,7 +70,10 @@ const Summarizer = () => {
         }`}
       >
         {/* Sidebar Header */}
-        <div className="flex flex-col px-3 pb-4 mt-4 md:mt-20 lg:mt-4">
+        <Link
+          to={`/CoursesContentPage/${courseData.slug}`}
+          className="flex flex-col px-3 pb-4 mt-4 md:mt-20 lg:mt-4"
+        >
           <img
             src={courseData?.image}
             alt="Logo"
@@ -95,7 +98,7 @@ const Summarizer = () => {
             </svg>
             <p>Last updated 24/6/2024</p>
           </div>
-        </div>
+        </Link>
 
         {/* Scrollable Sections List */}
         <div className="overflow-y-auto h-52">
@@ -115,13 +118,6 @@ const Summarizer = () => {
           ))}
         </div>
       </div>
-
-      <button
-        className="fixed z-50 p-2 text-white bg-gray-800 rounded-md top-24 left-72"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {isOpen ? "Close" : "Open"}
-      </button>
 
       <div className="flex-1 pt-4 pr-2 md:mt-10 lg:mt-0">
         <div className="flex space-x-3 md:justify-center md:items-center">

@@ -80,11 +80,12 @@ const ProfileInfoPage = () => {
     setFormState({ ...formState, [key]: event.target.value });
   };
 
+  const userInformation = useSelector((state) => state.userAuth.user);
+  console.log(userInformation);
   const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
     updateUserData(
       dispatch,
       access,
@@ -95,7 +96,7 @@ const ProfileInfoPage = () => {
   };
 
   const userData = {
-    name: "Ahmed Ashraf",
+    name: userInformation.first_name + " " + userInformation.last_name,
     description: "No risk No Fun",
     job: "Job tittle",
     learning: "4 Learning",

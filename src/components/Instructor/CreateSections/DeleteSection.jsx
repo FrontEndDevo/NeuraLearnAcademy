@@ -20,7 +20,7 @@ const DeleteSection = ({ onClose, onDelete}) => {
     return (
         <>
             <BlurModal />
-            <div className=" lg:w-[50vw] w-[80vw] h-[50vh]  overflow-y-scroll z-50 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
+            <div className=" lg:w-[50vw] w-[80vw] h-[50vh]  overflow-y-scroll z-40 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
                 
                 <div className="flex justify-end p-3 ">
                     <button

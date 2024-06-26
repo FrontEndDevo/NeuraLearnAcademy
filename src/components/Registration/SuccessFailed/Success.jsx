@@ -25,7 +25,7 @@ const Success = ({ navigatePage = "/", message = "" }) => {
     <>
       <BlurModal />
 
-      <div className="fixed z-50 flex flex-col items-center p-10 text-center -translate-x-1/2 -translate-y-1/2 bg-white border rounded shadow md:w-1/2 xl:w-1/3 2xl:w-1/5 border-neutral-300 top-1/2 left-1/2">
+      <div className="fixed z-40 flex flex-col items-center p-10 text-center -translate-x-1/2 -translate-y-1/2 bg-white border rounded shadow md:w-1/2 xl:w-1/3 2xl:w-1/5 border-neutral-300 top-1/2 left-1/2">
         <FontAwesomeIcon
           icon={faXmark}
           onClick={handleCloseSuccessModal}

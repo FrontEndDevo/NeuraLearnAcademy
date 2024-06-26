@@ -6,7 +6,8 @@ import {
   createContent,
   questionGeneration,
 } from "../../redux/actions/courses-methods";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { setIsSpinnerLoading } from "../../redux/slices/popups-slices/spinner-slice";
 
 const QuestionGeneration = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -14,7 +15,6 @@ const QuestionGeneration = () => {
   const questionData = useSelector(
     (state) => state.courses.questionGenerationData
   );
-  console.log(questionData);
   const [modelInput, setModelInput] = useState();
   const [paragraphInput, setParagraphInput] = useState(null);
   const [selectedSection, setSelectedSection] = useState(null);
@@ -30,10 +30,15 @@ const QuestionGeneration = () => {
     setSectionData(sectionsData);
   }, [sectionsData]);
 
-  const handleGenerate = () => {
-    questionGeneration(dispatch, access, modelInput);
+  const handleGenerate = async () => {
+    dispatch(setIsSpinnerLoading(true));
+
+    await questionGeneration(dispatch, access, modelInput);
+
     const stringData = JSON.stringify(questionData);
     setParagraphInput(stringData);
+
+    dispatch(setIsSpinnerLoading(false));
   };
 
   const handleSave = () => {
@@ -58,7 +63,10 @@ const QuestionGeneration = () => {
         }`}
       >
         {/* Sidebar Header */}
-        <div className="flex flex-col px-3 pt-10 pb-4 mt-4 md:mt-20 lg:mt-4">
+        <Link
+          to={`/CoursesContentPage/${courseData.slug}`}
+          className="flex flex-col px-3 pt-10 pb-4 mt-4 md:mt-20 lg:mt-4"
+        >
           <img
             src={courseData.image}
             alt="Logo"
@@ -83,7 +91,7 @@ const QuestionGeneration = () => {
             </svg>
             <p>Last updated 24/6/2024</p>
           </div>
-        </div>
+        </Link>
 
         {/* Scrollable Sections List */}
         <div className="overflow-y-auto h-52">
@@ -103,8 +111,6 @@ const QuestionGeneration = () => {
           ))}
         </div>
       </div>
-
-      
 
       <div className="flex-1 pt-4 pr-2 md:mt-10 lg:mt-0">
         <div className="flex space-x-2 md:justify-center md:items-center">

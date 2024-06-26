@@ -45,7 +45,7 @@ const Dropdown = ({
       </div>
 
       <ul
-        className={`absolute gap-2 z-50 duration-200 w-full p-2 border-2 bg-white shadow-lg rounded-md ${
+        className={`absolute gap-2 z-40 duration-200 w-full p-2 border-2 bg-white shadow-lg rounded-md ${
           isDropdownOpen
             ? "opacity-100 translate-y-0"
             : "opacity-0 -translate-y-5 pointer-events-none"

@@ -18,7 +18,6 @@ const initialState = {
   lectureUpdatedError: null,
   transcriptDataError: null,
   transcriptVideoDataError: null,
-  questionGenerationError: null,
 };
 
 const coursesErrorsSlice = createSlice({
@@ -86,9 +85,6 @@ const coursesErrorsSlice = createSlice({
   GETTRANSCRIPTVIDEO_ERROR: (state, action) => {
     state.transcriptVideoDataError = action.payload;
   },
-  QUESTIONGENERATION_ERROR: (state, action) => {
-    state.questionGenerationError = action.payload;
-  },
 });
 
 export const {
@@ -112,7 +108,6 @@ export const {
   UPDATELECTURE_ERROR,
   GETTRANSCRIPTSECTION_ERROR,
   GETTRANSCRIPTVIDEO_ERROR,
-  QUESTIONGENERATION_ERROR,
 } = coursesErrorsSlice.actions;
 
 export default coursesErrorsSlice.reducer;

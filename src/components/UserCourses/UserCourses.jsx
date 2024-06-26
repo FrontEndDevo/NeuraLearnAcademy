@@ -9,7 +9,7 @@ const userCourses = ["courses", "my lists", "wishlist", "archived", "purchase"];
 
 const UserCourses = () => {
   const dispatch = useDispatch();
-  const access = useSelector((state) => state.userAuth.access); 
+  const access = useSelector((state) => state.userAuth.access);
   const usercourse = useSelector((state) => state.courses.userCourses) || [];
 
   useEffect(() => {
@@ -60,7 +60,6 @@ const UserCourses = () => {
     userCourses[currentOption].slice(1);
   // Render the correct courses based on the search keyword.
   const correctCoursesArray = searchKeyword ? filteredCourses : usercourse;
-  console.log(correctCoursesArray);
   const renderedUserCourses = correctCoursesArray
     .slice(paginationIndices.start, paginationIndices.end)
     .map((course, index) => (

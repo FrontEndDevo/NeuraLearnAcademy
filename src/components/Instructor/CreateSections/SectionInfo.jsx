@@ -127,7 +127,7 @@ const SectionInfo = ({ onClose, slug, lecture }) => {
   return (
     <>
       <BlurModal />
-      <div className="lg:w-[50vw] w-[80vw] h-[50vh] lg:h-[70vh] overflow-y-scroll z-40 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
+      <div className="lg:w-[50vw] w-[80vw] h-[50vh] lg:h-[70vh] overflow-y-scroll z-30 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
         <div className="flex justify-between items-center w-full px-4 py-4 bg-zinc-100 rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[30px] rounded-br-[30px] border-b-[12px] border-sky-800">
           <div className="flex items-center gap-2 mx-auto">
             <h2 className="text-base font-extrabold lg:text-2xl text-indigo-950">
