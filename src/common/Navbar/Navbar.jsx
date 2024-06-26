@@ -26,12 +26,18 @@ const navbarOptions = [
   },
   {
     id: 3,
+    title: "instructor",
+    link: "/instructor",
+    requireAuth: true,
+  },
+  {
+    id: 4,
     title: "contact us",
     link: "/contact-us",
     requireAuth: true,
   },
   {
-    id: 4,
+    id: 5,
     title: "about us",
     link: "/about-us",
     requireAuth: false,
