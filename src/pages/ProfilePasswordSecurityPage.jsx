@@ -30,7 +30,6 @@ const ProfilePasswordSecurityPage = () => {
   const submitHandler = (event) => {
     event.preventDefault();
     if (formState.newPassword != formState.confirmNewPassword) return;
-    console.log(formState);
   };
 
   return (

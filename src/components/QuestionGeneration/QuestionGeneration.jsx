@@ -15,7 +15,6 @@ const QuestionGeneration = () => {
   const questionData = useSelector(
     (state) => state.courses.questionGenerationData
   );
-  console.log(questionData);
   const [modelInput, setModelInput] = useState();
   const [paragraphInput, setParagraphInput] = useState(null);
   const [selectedSection, setSelectedSection] = useState(null);

@@ -81,10 +81,6 @@ export async function checkAuthenticated(dispatch) {
     } catch (err) {
       dispatch(AUTHENTICATED_FAIL());
       dispatch(AUTHENTICATION_ERROR(err.response.data));
-      // console.log(err);
-      // console.log(err.response.data);
-      // console.log(err.response.data.detail);
-      // console.log(err.response.data.code);
     }
   } else {
     dispatch(AUTHENTICATED_FAIL());
@@ -157,13 +153,6 @@ export async function signup(
   } catch (err) {
     dispatch(SIGNUP_FAIL());
     dispatch(SIGNUP_ERROR(err.response.data));
-    // console.log(err);
-    // console.log(err.response.data);
-    // console.log(err.response.data.first_name[0]);
-    // console.log(err.response.data.last_name[0]);
-    // console.log(err.response.data.email[0]);
-    // console.log(err.response.data.non_field_errors[0]);
-    // console.log(err.response.data.password[0]);
   }
 }
 
@@ -190,8 +179,6 @@ export async function activation(dispatch, uid, token) {
   } catch (err) {
     dispatch(ACTIVATION_FAIL());
     dispatch(ACTIVATION_ERROR(err.response.data));
-    // console.log(err.response.data.uid[0])
-    // console.log(err.response.data.token[0])
   }
 }
 
@@ -218,10 +205,6 @@ export async function reset_password(dispatch, email) {
   } catch (err) {
     dispatch(PASSWORD_RESET_FAIL());
     dispatch(RESET_PASSWORD_ERROR(err.response.data));
-    // console.log(err);
-    // console.log(err.response.data);
-    // console.log(err.response.data.email[0]);
-  }
 }
 
 // Send a request to the backend to confirm the password reset.
@@ -253,9 +236,6 @@ export async function reset_password_confirm(
   } catch (err) {
     dispatch(PASSWORD_RESET_CONFIRM_FAIL());
     dispatch(RESET_PASSWORD_CONFIRM_ERROR(err.response.data));
-    // console.log(err);
-    // console.log(err.response.data);
-    // console.log(err.response.data.new_password[0]);
   }
 }
 

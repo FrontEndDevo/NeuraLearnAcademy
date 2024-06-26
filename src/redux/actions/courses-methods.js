@@ -279,10 +279,8 @@ export async function getCourseDetaile(dispatch, access, slug) {
         import.meta.env.VITE_API_URL + `/api/courses/${slug}/detail/`,
         config
       );
-      console.log(res.data);
       dispatch(GETCOURSEDETAILES_SUCCESS(res.data));
     } catch (err) {
-      console.log(err);
       dispatch(GETCOURSEDETAILES_FAIL());
     }
   }
@@ -311,7 +309,6 @@ export async function deleteCourse(dispatch, access, slug) {
         })
       );
     } catch (err) {
-      console.log(err);
       dispatch(
         setToastMessage({
           message: "We couldn't delete the course!, Please try again.",
@@ -610,7 +607,6 @@ export async function deleteLecture(dispatch, access, api) {
       },
     };
     try {
-      console.log(api);
       const res = await axios.delete(api, config);
       dispatch(
         setToastMessage({
@@ -679,7 +675,6 @@ export async function GetUserCourses(dispatch, access) {
         config
       );
       dispatch(GETUSERCOURSES_SUCCESS(res.data));
-      console.log(res);
     } catch (err) {
       dispatch(GETUSERCOURSES_FAIL());
     }
@@ -739,7 +734,6 @@ export async function getTranscriptSection(dispatch, access, slug) {
         config
       );
       dispatch(GETTRANSCRIPTSECTION_SUCCESS(res.data.transcript));
-      console.log(res);
     } catch (err) {
       dispatch(
         setToastMessage({
@@ -749,7 +743,6 @@ export async function getTranscriptSection(dispatch, access, slug) {
       );
       dispatch(GETTRANSCRIPTSECTION_FAIL());
       dispatch(GETTRANSCRIPTSECTION_ERROR(err.response.data));
-      console.log(err);
     }
   }
 }
@@ -801,11 +794,9 @@ export async function getTranscriptVideo(dispatch, access, id) {
         config
       );
       dispatch(GETTRANSCRIPTVIDEO_SUCCESS(res.data));
-      console.log(res);
     } catch (err) {
       dispatch(GETTRANSCRIPTVIDEO_FAIL());
       dispatch(GETTRANSCRIPTVIDEO_ERROR(err.response.data));
-      console.log(err);
     }
   }
 }
@@ -830,7 +821,6 @@ export async function questionGeneration(dispatch, access, text) {
         config
       );
       dispatch(QUESTIONGENERATION_SUCCESS(res.data.responses));
-      console.log(res);
     } catch (err) {
       dispatch(
         setToastMessage({
@@ -839,7 +829,6 @@ export async function questionGeneration(dispatch, access, text) {
         })
       );
       dispatch(QUESTIONGENERATION_FAIL());
-      console.log(err);
     }
   }
 }
@@ -874,10 +863,8 @@ export async function chatBot(
         config
       );
       dispatch(CHATBOT_SUCCESS(res.data));
-      console.log(res);
     } catch (err) {
       dispatch(CHATBOT_FAIL());
-      console.log(err);
     }
   }
 }

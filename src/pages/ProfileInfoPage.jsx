@@ -84,7 +84,6 @@ const ProfileInfoPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formState);
     updateUserData(
       dispatch,
       access,
