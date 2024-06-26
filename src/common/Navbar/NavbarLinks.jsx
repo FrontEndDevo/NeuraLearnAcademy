@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const NavbarLinks = ({ links, isAuth, user }) => {
-  const { is_instructor, is_student } = user;
+  const { is_instructor = false, is_student = false } = user || {};
   const linkClasses =
     "p-2 font-semibold capitalize duration-200 rounded-lg hover:bg-neutral-800 hover:text-white";
 
