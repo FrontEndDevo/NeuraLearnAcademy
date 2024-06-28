@@ -61,48 +61,66 @@ const navListMenuItems = [
   },
 ];
 
+const LinkItem = ({
+  item,
+  parentLinkClasses,
+  iconLinkClasses,
+  titleLinkClasses,
+  descriptionLinkClasses,
+}) => (
+  <Link key={item.id} to={item.link} className={parentLinkClasses}>
+    <FontAwesomeIcon icon={item.icon} className={iconLinkClasses} />
+    <div>
+      <h6 className={titleLinkClasses}>{item.title}</h6>
+      <p className={descriptionLinkClasses}>{item.description}</p>
+    </div>
+  </Link>
+);
+
+LinkItem.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    icon: PropTypes.object.isRequired, // FontAwesomeIcon icon is an object
+    link: PropTypes.string.isRequired,
+    requireAuth: PropTypes.bool.isRequired,
+  }).isRequired,
+  parentLinkClasses: PropTypes.string.isRequired,
+  iconLinkClasses: PropTypes.string.isRequired,
+  titleLinkClasses: PropTypes.string.isRequired,
+  descriptionLinkClasses: PropTypes.string.isRequired,
+};
+
 const LinksDropdown = ({ isAuth, showOptions }) => {
   const parentLinkClasses =
     "flex items-center gap-3 px-4 py-3 pr-12 text-sm font-semibold capitalize duration-200 cursor-pointer whitespace-nowrap hover:bg-neutral-100";
-
   const titleLinkClasses = "text-base text-neutral-900";
-
-  const discriptionLinkClasses = "text-sm whitespace-pre-wrap text-neutral-600";
-
+  const descriptionLinkClasses = "text-sm whitespace-pre-wrap text-neutral-600";
   const iconLinkClasses = "w-6 h-6 p-2 bg-gray-100 rounded-lg";
 
-  const navLinks = navListMenuItems.map((item) =>
-    item.requireAuth ? (
-      isAuth ? (
-        <Link key={item.id} to={item.link} className={parentLinkClasses}>
-          <FontAwesomeIcon icon={item.icon} className={iconLinkClasses} />
-          <div>
-            <h6 className={titleLinkClasses}>{item.title}</h6>
-            <p className={discriptionLinkClasses}>{item.description}</p>
-          </div>
-        </Link>
-      ) : null
-    ) : (
-      <Link key={item.id} to={item.link} className={parentLinkClasses}>
-        <FontAwesomeIcon icon={item.icon} className={iconLinkClasses} />
-        <div>
-          <h6 className={titleLinkClasses}>{item.title}</h6>
-          <p className={discriptionLinkClasses}>{item.description}</p>
-        </div>
-      </Link>
-    )
-  );
+  const navLinks = navListMenuItems
+    .filter((item) => !item.requireAuth || isAuth)
+    .map((item) => (
+      <LinkItem
+        key={item.id}
+        item={item}
+        parentLinkClasses={parentLinkClasses}
+        iconLinkClasses={iconLinkClasses}
+        titleLinkClasses={titleLinkClasses}
+        descriptionLinkClasses={descriptionLinkClasses}
+      />
+    ));
 
   return (
     <div
-      className={`absolute -right-0 md:-right-20 grid grid-cols-1 md:grid-cols-2 w-[76vw] md:w-[98vw] z-40 gap-2 duration-200 bg-white border-2 rounded-md shadow-lg top-full ${
+      className={`absolute -right-0 md:-right-20 grid grid-cols-1 md:grid-cols-2 w-[76vw] md:w-[98vw] z-40 gap-2 duration-200 bg-white border-2 rounded-md shadow-lg top-full max-h-96 overflow-y-auto ${
         showOptions
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-5 pointer-events-none"
       }`}
     >
       {navLinks}
-
       {!isAuth && (
         <div className="flex items-center justify-center gap-2 px-4 pb-2 font-semibold uppercase sm:gap-12 md:hidden">
           <Link
