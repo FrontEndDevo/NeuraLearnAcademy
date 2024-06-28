@@ -29,7 +29,7 @@ const sections = [
 ];
 
 // Social media icons and links.
-const items = [
+const socialItems = [
   { name: "Facebook", icon: faFacebook, link: "https://www.facebook.com/" },
   { name: "Instagram", icon: faInstagram, link: "https://www.instagram.com/" },
   { name: "Twitter", icon: faTwitter, link: "https://twitter.com/" },
@@ -37,9 +37,23 @@ const items = [
   { name: "Github", icon: faGithub, link: "https://github.com/" },
 ];
 
+const FooterSection = ({ title, items }) => (
+  <div>
+    <h6 className="pt-2 pr-2 mb-2 font-bold uppercase border-b border-indigo-600 rounded-r-xl">
+      {title}
+    </h6>
+    <ul>
+      {items.map((item, index) => (
+        <li key={index} className="py-1 text-gray-500 hover:text-white">
+          {item}
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
 const Footer = () => {
-  // Handle the form submission.
-  const handleSubmitSubscribtionFooterForm = (e) => {
+  const handleSubmitSubscriptionForm = (e) => {
     e.preventDefault();
     console.log("You have subscribed successfully!");
   };
@@ -48,18 +62,11 @@ const Footer = () => {
     <div className="w-full p-4 mt-10 text-gray-300 bg-neutral-900">
       <div className="max-w-[1240px] text-center mx-auto grid justify-items-center gap-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-6 border-b-2 border-gray-600 py-8">
         {sections.map((section, index) => (
-          <div key={index}>
-            <h6 className="pt-2 pr-2 mb-2 font-bold uppercase border-b border-indigo-600 rounded-r-xl">
-              {section.title}
-            </h6>
-            <ul>
-              {section.items.map((item, i) => (
-                <li key={i} className="py-1 text-gray-500 hover:text-white">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+          <FooterSection
+            key={index}
+            title={section.title}
+            items={section.items}
+          />
         ))}
 
         <div className="col-span-2 pt-8 lg:col-span-2 md:col-span-4 md:pt-2">
@@ -71,7 +78,7 @@ const Footer = () => {
             weekly.
           </p>
           <form
-            onSubmit={handleSubmitSubscribtionFooterForm}
+            onSubmit={handleSubmitSubscriptionForm}
             className="flex flex-col sm:flex-row"
           >
             <input
@@ -98,16 +105,11 @@ const Footer = () => {
           , All rights reserved
         </p>
         <div className="flex justify-between sm:w-[300px] pt-4 text-2xl">
-          {items.map((item, index) => {
-            return (
-              <Link key={index} to={item.link}>
-                <FontAwesomeIcon
-                  icon={item.icon}
-                  className="hover:text-white"
-                />
-              </Link>
-            );
-          })}
+          {socialItems.map((item, index) => (
+            <Link key={index} to={item.link}>
+              <FontAwesomeIcon icon={item.icon} className="hover:text-white" />
+            </Link>
+          ))}
         </div>
       </div>
     </div>
