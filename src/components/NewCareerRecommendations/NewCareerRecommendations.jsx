@@ -1,6 +1,7 @@
 import Slider from "react-slick";
 import CourseCard from "../../shared/Courses/CourseCard";
 import { useSelector } from "react-redux";
+
 const settings = {
   dots: true,
   infinite: true,
@@ -37,9 +38,15 @@ const settings = {
     },
   ],
 };
+
 const NewCareerRecommendations = () => {
   const publicCourses = useSelector((state) => state.courses.publicCourses);
-  const renderedCourses = publicCourses != undefined && (
+
+  if (!publicCourses || publicCourses.length <= 4) {
+    return null;
+  }
+
+  const renderedCourses = (
     <Slider {...settings}>
       {publicCourses
         .slice()
@@ -56,21 +63,15 @@ const NewCareerRecommendations = () => {
         ))}
     </Slider>
   );
+
   return (
-    <section
-      className={`container ${
-        publicCourses != undefined && publicCourses.length > 4 && "py-20"
-      }`}
-    >
-      {publicCourses != undefined && publicCourses.length > 4 && (
-        <h2 className="mx-6 mb-10 text-xl font-bold lg:text-3xl lg:mx-0">
-          Recommend this if you are looking for a new career path
-        </h2>
-      )}
-      {publicCourses != undefined &&
-        publicCourses.length > 4 &&
-        renderedCourses}
+    <section className="container py-20">
+      <h2 className="mx-6 mb-10 text-xl font-bold lg:text-3xl lg:mx-0">
+        Recommend this if you are looking for a new career path
+      </h2>
+      {renderedCourses}
     </section>
   );
 };
+
 export default NewCareerRecommendations;
