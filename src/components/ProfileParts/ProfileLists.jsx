@@ -9,8 +9,9 @@ import {
   faShield,
 } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+
 import { useSelector } from "react-redux";
+import ProfileLink from "./ProfileLink";
 
 const userInfo = {
   name: "Ahmed Ashraf",
@@ -42,7 +43,7 @@ const profileSections = [
 
 const ProfileLists = () => {
   const fileInput = useRef(null);
-  const [userPhoto, setUserPhoto] = useState(userInfo.photo);
+  const [userPhotoUrl, setUserPhotoUrl] = useState(userInfo.photo);
 
   const userInformation = useSelector((state) => state.userAuth.user);
 
@@ -54,32 +55,20 @@ const ProfileLists = () => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
-      setUserPhoto(reader.result);
+      setUserPhotoUrl(reader.result);
     };
     reader.readAsDataURL(file);
   };
 
   const userProfileSections = profileSections.map((section, index) => (
-    <NavLink
-      key={index}
-      to={`/profile/${section.name}`}
-      style={({ isActive }) => ({
-        borderLeftStyle: isActive ? "solid" : "none",
-        borderLeftColor: isActive ? "blue" : "none",
-        borderLeftWidth: isActive ? "0.3rem" : "none",
-      })}
-      className="flex items-center gap-2 p-2 duration-200 cursor-pointer hover:before:hidden"
-    >
-      <FontAwesomeIcon icon={section.icon} className="w-5 h-5" />
-      <span className="text-base font-semibold capitalize">{section.name}</span>
-    </NavLink>
+    <ProfileLink key={index} section={section} />
   ));
 
   return (
     <aside className="col-span-6 mx-3 lg:col-span-1 md:col-span-2 md:mx-0">
       <div className="relative flex flex-col w-40 mx-auto">
         <img
-          src={userPhoto}
+          src={userPhotoUrl}
           alt={userInfo.name}
           className="w-40 h-40 rounded-full"
         />
