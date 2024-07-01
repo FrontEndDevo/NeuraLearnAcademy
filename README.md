@@ -257,33 +257,33 @@ NeuraLearn Academy is an innovative educational platform leveraging generative A
 
 ## Introduction
 
-### Image 1: Question Generation
+### Image 1: Home Page
 
-![Question Generation](https://drive.google.com/uc?id=1HecahfzS67n0QLiD9ysHDd0dAr9xjRX5)
+![Home Page](https://drive.google.com/uc?id=1hWpQUGVnVQwUpozQl0YhTpJkJC8A0Zp_)
 
-Description of Image 1: This image showcases the question generation feature of NeuraLearn Academy.
+Description of Image 1: This image showcases the home page and basic features of neuralLearnAcdemy.
 
-### Image 2: Summarization
+### Image 2: Home Page
 
-![Summarization](https://drive.google.com/uc?id=1abcxyz234567890)
+![Home Page](https://drive.google.com/uc?id=1OE_iVqjHAIahthUh0JNsXMh31Bwo-RK5)
 
-Description of Image 2: This image demonstrates the summarization capability of NeuraLearn Academy.
+Description of Image 1: This image showcases the home page and basic features of neuralLearnAcdemy.
 
-### Image 3: Interactive Educational Chats
+### Image 3: Home Page
 
-![Interactive Chats](https://drive.google.com/uc?id=1def456789012345)
+![Home Page](https://drive.google.com/uc?id=1jj0It-dz8ci3FON9VVy-jlNF_1Yl7L33)
 
-Description of Image 3: Here, interactive educational chats using Retrieval-Augmented Generation (RAG) architecture are highlighted.
+Description of Image 1: This image showcases the home page and basic features of neuralLearnAcdemy.
 
-### Image 4: Personalized Knowledge Assessment
+### Image 4: Home Page
 
-![Personalized Assessment](https://drive.google.com/uc?id=1ghijklmnopqrstuv)
+![Home Page](https://drive.google.com/uc?id=1T5odQz4LVjA4TJzPquYrn5h7YplXCwgX)
 
-Description of Image 4: This image illustrates personalized knowledge assessment tailored to each student's learning pace.
+Description of Image 1: This image showcases the home page and basic features of neuralLearnAcdemy.
 
-### Image 5: Iterative Learning Journey
+### Image 5: Sign Up
 
-![Iterative Learning](https://drive.google.com/uc?id=1wxyz9876543210)
+![Sign Up](https://drive.google.com/uc?id=1wxyz9876543210)
 
 Description of Image 5: Shows the structured progression through the course material, ensuring comprehensive learning.
 
