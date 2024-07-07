@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Layout from "./pages/Layout";
 import Homepage from "./pages/Homepage";
 import SignUpPage from "./pages/SignUpPage";
@@ -27,40 +27,11 @@ import ContactUs from "./shared/ContactUs";
 import AboutUs from "./shared/AboutUs";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  checkAuthenticated,
-  load_user,
-  login,
-} from "./redux/actions/auth-methods";
+import { load_user } from "./redux/actions/auth-methods";
 
 const App = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const userAuth = useSelector((state) => state.userAuth);
-
-  // useEffect(() => {
-  //   if (userAuth == true) {
-  //     if (!userData) {
-  //       load_user(dispatch);
-  //     }
-  //   } else {
-  //     const checkIfUserAuthenticated = async () => {
-  //       const isAuthenticated = await checkAuthenticated(dispatch);
-  //       if (isAuthenticated) {
-  //         if (!userData) {
-  //           load_user(dispatch);
-  //         }
-  //       } else {
-  //         if (userData) {
-  //           await login(dispatch, userData.email, userData.password);
-  //         } else {
-  //           navigate("/");
-  //         }
-  //       }
-  //     };
-  //     checkIfUserAuthenticated();
-  //   }
-  // }, [navigate, dispatch, userData, userAuth]);
 
   useEffect(() => {
     const fetchUserData = async () => {
