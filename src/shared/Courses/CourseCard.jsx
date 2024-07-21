@@ -61,13 +61,32 @@ const CourseCard = (props) => {
         <h3 className="my-2 text-base font-semibold text-start lg:text-xl text-gray-color-700">
           {title.length <= 50 ? title : title.slice(0, 50) + "..."}
         </h3>
-
-        {overview && (
-          <p className="text-xs">
-            {overview.length <= 100 ? overview : overview.slice(0, 100) + "..."}
-          </p>
-        )}
-
+        
+        <div className="flex flex-wrap items-center gap-2 mt-2 md:flex-nowrap">
+          {coursePrice > 0 && (
+            <p
+              className={`text-2xl font-bold ${
+                discount && discount === 100 ? "text-[#3AA552]" : ""
+              }`}
+            >
+              {discount
+                ? discount === 100
+                  ? "Free"
+                  : `$${(coursePrice - (coursePrice * discount) / 100).toFixed(
+                      2
+                    )}`
+                : `$${coursePrice.toFixed(2)}`}
+            </p>
+          )}
+          {discount > 0 && discount < 100 && (
+            <>
+              <span className="text-base font-semibold text-gray-500 line-through">
+                ${coursePrice.toFixed(2)}
+              </span>
+              <p className="text-base font-semibold">{`${discount}% off`}</p>
+            </>
+          )}
+        </div>
         {type === "Enroll" ? (
           <button
             onClick={() => {
@@ -102,32 +121,6 @@ const CourseCard = (props) => {
             </div>
           </div>
         )}
-
-        <div className="flex flex-wrap items-center gap-2 mt-2 md:flex-nowrap">
-          {coursePrice > 0 && (
-            <p
-              className={`text-2xl font-bold ${
-                discount && discount === 100 ? "text-[#3AA552]" : ""
-              }`}
-            >
-              {discount
-                ? discount === 100
-                  ? "Free"
-                  : `$${(coursePrice - (coursePrice * discount) / 100).toFixed(
-                      2
-                    )}`
-                : `$${coursePrice.toFixed(2)}`}
-            </p>
-          )}
-          {discount > 0 && discount < 100 && (
-            <>
-              <span className="text-base font-semibold text-gray-500 line-through">
-                ${coursePrice.toFixed(2)}
-              </span>
-              <p className="text-base font-semibold">{`${discount}% off`}</p>
-            </>
-          )}
-        </div>
       </div>
     </li>
   );

@@ -22,133 +22,100 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
   const categories = useSelector((state) => state.courses.subjectCourses);
   const access = useSelector((state) => state.userAuth.access);
   const spinner = useSelector((state) => state.spinner);
+  const dispatch = useDispatch();
 
-  // We sent the image to the server, and need thumbnail to display it on the client side.
   const [thumbnail, setThumbnail] = useState("");
   const [image, setImage] = useState("");
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [missingError, setMissingError] = useState(false);
-  // Input Refs:
+
   const titleRef = useRef("");
   const descriptionRef = useRef("");
   const priceRef = useRef(0);
 
-  // Set the course information if it exists:
   useEffect(() => {
     if (course) {
       setThumbnail(course.image || "");
       setImage(course.image || "");
-      setSelectedCategoryId(
-        categories.filter((cat) => cat.title == course.subject)[0].id || null
-      );
+      const category = categories.find((cat) => cat.title === course.subject);
+      setSelectedCategoryId(category ? category.id : null);
       titleRef.current.value = course.title || "";
       descriptionRef.current.value = course.overview || "";
       priceRef.current.value = course.price || 0;
     }
   }, [course, categories]);
 
-  // Handle the selected category:
   const handleSelectedSubject = (selectedOption) => {
     const selectedSubject = categories.find(
       (item) => item.title === selectedOption
     );
-    if (selectedSubject) {
-      setSelectedCategoryId(selectedSubject.id);
-    }
+    setSelectedCategoryId(selectedSubject ? selectedSubject.id : null);
   };
 
-  // Handle the deletion of the thumbnail:
   const handleDeleteThumbnail = () => {
     setImage("");
     setThumbnail("");
   };
 
-  // Close the create course modal:
-  const dispatch = useDispatch();
   const handleCloseCreateCourse = () => {
     dispatch(closeModal());
   };
 
   const handleUploadedImage = (file) => {
-    // Store the file in image to send it to server.
     setImage(file);
-
-    // Prepare the image to be displayed on the client side.
     const reader = new FileReader();
-    reader.onloadend = () => {
-      setThumbnail(reader.result);
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
+    reader.onloadend = () => setThumbnail(reader.result);
+    if (file) reader.readAsDataURL(file);
   };
 
-  // Handle the saving of the course information:
   const handleSavingCourseInformation = async () => {
-    // Get the values from the input fields using useRef hooks:
     const title = titleRef.current.value.trim();
     const description = descriptionRef.current.value.trim();
     const price = +priceRef.current.value;
 
     if (!title || !price || !description || (!selectedCategoryId && !course)) {
       setMissingError(true);
-    } else {
-      setMissingError(false);
-
-      dispatch(setIsSpinnerLoading(true));
-      if (course == null) {
-        // Create the course:
-        await createCourse(
-          dispatch,
-          access,
-          selectedCategoryId,
-          title,
-          description,
-          price,
-          image
-        );
-      } else {
-        // Update the course:
-        if (course.image !== thumbnail) {
-          // If the image has changed, we need to send it to the server.
-          await updateCourse(
-            dispatch,
-            access,
-            course.slug,
-            selectedCategoryId,
-            title,
-            description,
-            price,
-            image
-          );
-        } else {
-          // If the image is the same, we don't need to send it to the server.
-          await updateCourse(
-            dispatch,
-            access,
-            course.slug,
-            selectedCategoryId,
-            title,
-            description,
-            price
-          );
-        }
-      }
-
-      handleCloseCreateCourse();
-
-      dispatch(setIsSpinnerLoading(false));
+      return;
     }
+
+    setMissingError(false);
+    dispatch(setIsSpinnerLoading(true));
+
+    if (!course) {
+      await createCourse(
+        dispatch,
+        access,
+        selectedCategoryId,
+        title,
+        description,
+        price,
+        image
+      );
+    } else {
+      const imageChanged = course.image !== thumbnail;
+      await updateCourse(
+        dispatch,
+        access,
+        course.slug,
+        selectedCategoryId,
+        title,
+        description,
+        price,
+        imageChanged ? image : undefined
+      );
+    }
+
+    handleCloseCreateCourse();
+    dispatch(setIsSpinnerLoading(false));
   };
-  // Classes for styling:
+
   const labelClasses = "block mb-1 text-sm lg:text-base lg:font-semibold";
   const inputClasses =
     "p-2 text-base rounded-sm w-full mb-2 outline-none caret-indigo-800 border border-black border-opacity-80";
+
   return (
     <>
       <BlurModal />
-
       <div className="lg:w-[70vw] w-[95vw] h-[75vh] lg:h-[70vh] overflow-y-scroll z-30 bg-white rounded-lg fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-xl">
         <div className="flex items-center w-full px-4 py-4 bg-green-400 rounded-t-lg">
           <div className="flex items-center gap-2">
@@ -160,7 +127,6 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
               className="text-blue-500 h-9 w-9"
             />
           </div>
-
           <button
             onClick={handleCloseCreateCourse}
             className="p-1 ml-auto text-base font-semibold tracking-tight duration-300 rounded-lg md:p-2 bg-zinc-300 hover:bg-zinc-400"
@@ -173,11 +139,10 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
           <div className="flex flex-col items-start justify-between gap-6">
             <div className="w-full md:flex md:items-center md:justify-between lg:block">
               <img
-                src={thumbnail ? thumbnail : defaultImage}
+                src={thumbnail || defaultImage}
                 alt="course thumbnail"
                 className="h-48 mx-auto border border-black border-opacity-50 w-80 lg:w-3/4"
               />
-
               <div className="flex flex-wrap items-center justify-center gap-4 mt-4 lg:mt-10 lg:justify-between">
                 <div>
                   <label
@@ -192,7 +157,6 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
                     getImage={handleUploadedImage}
                   />
                 </div>
-
                 <div
                   onClick={handleDeleteThumbnail}
                   className={`relative py-1 px-4 duration-300 rounded-full cursor-pointer ${
@@ -215,7 +179,6 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
                 </div>
               </div>
             </div>
-
             <div className="flex items-center gap-4 lg:items-end">
               <button
                 disabled={spinner.isSpinnerLoading}
@@ -238,7 +201,6 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
               )}
             </div>
           </div>
-
           <div>
             <div>
               <p className={`${labelClasses} -mb-2`}>Categories: </p>
@@ -251,7 +213,6 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
                 />
               )}
             </div>
-
             <div>
               <label htmlFor="title" className={labelClasses}>
                 Title:
@@ -264,7 +225,6 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
                 className={`${inputClasses} lg:font-bold`}
               />
             </div>
-
             <div>
               <label htmlFor="description" className={labelClasses}>
                 Description:
@@ -278,7 +238,6 @@ const CreateNewCourse = React.memo(({ instructorCourseDetails: course }) => {
                 className={`${inputClasses} resize-none`}
               />
             </div>
-
             <div className="relative">
               <label htmlFor="price" className={labelClasses}>
                 Price:

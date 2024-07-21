@@ -1,4 +1,6 @@
 import bg from "../../assets/images/homepage/FeatureSection/bg.jpeg";
+import PersonCard from "./PersonCard";
+import SectionHeader from "./SectionHeader";
 
 const professionalPeople = [
   {
@@ -19,10 +21,10 @@ const professionalPeople = [
   },
   {
     id: 3,
-    title: "karim Mahmoud",
+    title: "Karim Mahmoud",
     story:
       '"Now I am a full stack developer. I have been able to apply the skills I learned in the Professional Certificate to my work. I have been able to take on more responsibility and have been promoted to CEO of international. I am very grateful for the opportunity to learn and grow."',
-    job: "full stack Developer",
+    job: "Full Stack Developer",
     photo: "https://i.postimg.cc/x1d4d9Zd/Karim-Mahmoud.jpg",
   },
 ];
@@ -34,47 +36,18 @@ const FeaturesSection = () => {
     backgroundRepeat: "no-repeat",
   };
 
-  const professionalCertifications = professionalPeople.map((person) => (
-    <div key={person.id} className="p-4">
-      <div className="relative bg-black rounded-tl-[23px] rounded-tr-[23px] rounded-bl-[23px]">
-        <h2 className="text-white text-[25px] md:text-[35px] text-opacity-80 font-extrabold ] tracking-widest pt-12 pb-20 pl-6 md:pl-20 select-none">
-          #Comments
-        </h2>
-        <h2 className="absolute text-2xl font-extrabold text-white capitalize bottom-2 left-36">
-          {person.title}
-        </h2>
-      </div>
-
-      <div className="relative CardDetails bg-stone-5">
-        <img
-          src={person.photo}
-          alt={person.title}
-          className="absolute left-0 z-10 w-32 h-32 mx-1 text-white border-4 border-white rounded-full shadow-lg -top-20"
-        />
-        <div className="absolute py-2 text-sm font-semibold left-32 md:left-36 text-neutral-500 md:text-normal">
-          {person.job}
-        </div>
-
-        <p className="h-full py-10 text-black md:text-[17px] px-6 pt-16 bg-stone-50">
-          {person.story}
-        </p>
-      </div>
-    </div>
-  ));
-
   return (
     <>
-      <h1 className="pt-20 mb-5 font-bold text-center text-1xl md:text-3xl">
-        How Professional Certificates have helped others
-      </h1>
-      <h3 className="mb-8 font-medium text-center md:mb-12">
-        Stories from those that have completed Professional Certificates
-      </h3>
-
+      <SectionHeader
+        title="How Professional Certificates have helped others"
+        subtitle="Stories from those that have completed Professional Certificates"
+      />
       <section className="grid px-0 py-20 place-items-center" style={divStyle}>
         <div className="container">
           <div className="grid grid-cols-1 pb-10 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 place-items-center">
-            {professionalCertifications}
+            {professionalPeople.map((person) => (
+              <PersonCard key={person.id} person={person} />
+            ))}
           </div>
         </div>
       </section>

@@ -1,9 +1,11 @@
 import { closeModal } from "../../../redux/slices/Instructor/OpenClose";
 import { useDispatch } from "react-redux";
 import { useEffect, useRef, useState } from "react";
+import PropTypes from "prop-types";
 import BlurModal from "../../../shared/BlurModal";
 import contentInfo from "../../../assets/images/Instructor/info.png";
 import { useParams } from "react-router-dom";
+import InputField from "./InputField";
 
 const CreateNewSection = ({ onSave, onClose, section }) => {
   const [missingError, setMissingError] = useState(false);
@@ -65,42 +67,18 @@ const CreateNewSection = ({ onSave, onClose, section }) => {
         </div>
         <div className="px-2 py-4 md:px-4 md:mx-10 ">
           <form onSubmit={handleSubmit}>
-            <label className="text-black text-xl font-semibold font-['Open Sans']">
-              Title:
-            </label>
-            <div className="flex items-center my-3 md:ml-4">
-              <div className="flex justify-center items-center px-5 py-2.5 text-sm font-medium text-center bg-sky-800  text-white">
-                Section
-              </div>
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  ref={titleRef}
-                  id="title"
-                  className="w-full h-full px-4 py-2 border border-black outline-none bg-zinc-100 border-opacity-80"
-                  placeholder="Write Title of section"
-                />
-              </div>
-            </div>
-            <label className="text-black text-xl font-semibold font-['Open Sans']">
-              Description:
-            </label>
-            <div className="flex items-center mt-1 md:ml-4">
-              <div className="flex justify-center items-center px-5 py-2.5 text-sm font-medium text-center bg-sky-800  text-white">
-                Section
-              </div>
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  ref={descRef}
-                  id="description"
-                  className="w-full h-full px-4 py-2 border border-black outline-none bg-zinc-100 border-opacity-80"
-                  placeholder="Write description of section"
-                />
-              </div>
-            </div>
+            <InputField
+              label="Title"
+              placeholder="Write Title of section"
+              ref={titleRef}
+            />
+            <InputField
+              label="Description"
+              placeholder="Write description of section"
+              ref={descRef}
+            />
             <div className="flex justify-end mt-6">
-              <button className="px-5 py-2 opacity-90 text-lg font-bold font-['Outfit'] tracking-wide text-white duration-700  bg-sky-800 hover:bg-sky-950 rounded-[25px] shadow">
+              <button className="px-5 py-2 opacity-90 text-lg font-bold font-['Outfit'] tracking-wide text-white duration-700 bg-sky-800 hover:bg-sky-950 rounded-[25px] shadow">
                 Save
               </button>
             </div>
@@ -112,6 +90,16 @@ const CreateNewSection = ({ onSave, onClose, section }) => {
       </div>
     </>
   );
+};
+
+CreateNewSection.propTypes = {
+  onSave: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
+  section: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    slug: PropTypes.string,
+  }),
 };
 
 export default CreateNewSection;

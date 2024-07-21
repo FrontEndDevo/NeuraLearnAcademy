@@ -1,3 +1,4 @@
+
 # NeuraLearn Academy
 
 NeuraLearn Academy is an innovative educational platform leveraging generative AI and Large Language Models (LLMs) to enhance online learning experiences. This platform introduces new workflows utilizing AI technologies, benefiting both instructors and students. The primary objective of NeuraLearn Academy is to revolutionize online learning by integrating generative AI and LLMs.
@@ -286,14 +287,3 @@ Description of Image 1: This image showcases the home page and basic features of
 ![Sign Up](https://drive.google.com/uc?id=1wxyz9876543210)
 
 Description of Image 5: Shows the structured progression through the course material, ensuring comprehensive learning.
-
-## Features
-
-- **Question Generation**: Utilizes deep learning systems to facilitate the generation of insightful questions, enhancing teaching effectiveness.
-- **Summarization**: Provides concise summaries of video transcripts, aiding in content comprehension.
-- **Interactive Educational Chats**: Employs Retrieval-Augmented Generation (RAG) architecture for dynamic interactions.
-- **Personalized Knowledge Assessment**: Tailors assessments to each student's understanding and learning pace.
-- **Iterative Learning Journey**: Ensures structured progression through the course material.
-
-
-

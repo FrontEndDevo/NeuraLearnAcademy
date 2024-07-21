@@ -1,6 +1,6 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import SearchResultsDropdown from "./SearchResultsDropdown";
 
@@ -14,31 +14,27 @@ const NavSearch = () => {
   );
 
   // Find the courses based on the search keyword.
-  const findResults = (keyword) => {
-    if (keyword) {
-      const results = neuraLearnAcademyCourses.filter((course) =>
-        course.title.trim().toLowerCase().includes(keyword)
-      );
-
-      setSearchResults(results);
-    } else {
-      setSearchResults([]);
-    }
-  };
+  const findResults = useCallback(
+    (keyword) => {
+      if (keyword) {
+        const results = neuraLearnAcademyCourses.filter((course) =>
+          course.title.trim().toLowerCase().includes(keyword)
+        );
+        setSearchResults(results);
+      } else {
+        setSearchResults([]);
+      }
+    },
+    [neuraLearnAcademyCourses]
+  );
 
   const handleSearchedKeyword = (e) => {
     const keyword = e.target.value.trim().toLowerCase();
-
     setSearchedKeyword(keyword);
-
-    // Filter the courses based on the search keyword.
     findResults(keyword);
   };
 
-  const handleNavSearch = () => {
-    // Filter the courses based on the search keyword.
-    findResults(searchedKeyword);
-  };
+  const handleNavSearch = () => findResults(searchedKeyword);
 
   return (
     <div className="relative flex items-stretch w-full">
@@ -57,7 +53,7 @@ const NavSearch = () => {
       <button
         onClick={handleNavSearch}
         className={`bg-neutral-800 duration-200 hover:bg-neutral-900 text-xs md:text-base uppercase px-4 py-3 rounded-r-[3px] ${
-          searchResults.length == 0 && searchedKeyword
+          searchResults.length === 0 && searchedKeyword
             ? "text-red-500"
             : "text-white"
         } border border-neutral-800`}

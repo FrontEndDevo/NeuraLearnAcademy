@@ -1,54 +1,57 @@
 import { useCallback, useEffect, useState } from "react";
-import InstructorCourseCard from "../../shared/Courses/InstructorCourseCard";
-import InstructorSidebar from "../../components/Instructor/InstructorSideBar";
-import DefaultInstructorCourse from "../../shared/Courses/DefaultInstructorCourse";
 import { useDispatch, useSelector } from "react-redux";
-import { getInstructorCourses } from "../../redux/actions/courses-methods";
+import InstructorCourseCard from "../../shared/Courses/InstructorCourseCard";
+import InstructorSidebar from "./InstructorSidebar";
+import DefaultInstructorCourse from "../../shared/Courses/DefaultInstructorCourse";
 import Pagination from "../../shared/Pagination";
+import { getInstructorCourses } from "../../redux/actions/courses-methods";
 import { setIsSpinnerLoading } from "../../redux/slices/popups-slices/spinner-slice";
-import { setToastMessage } from "../../redux/slices/popups-slices/toasts-slice";
-const InstructorCourses = () => {
-  const [instructorOption, setInstructorOption] = useState("courses");
 
-  const instructorCourses =
-    useSelector((state) => state.courses.instructorCourses) || [];
-  const access = useSelector((state) => state.userAuth.access);
-
-  const dispatch = useDispatch();
+const useFetchInstructorCourses = (dispatch, access) => {
   useEffect(() => {
-    const fetchInstructorCourses = async () => {
+    const fetchCourses = async () => {
       dispatch(setIsSpinnerLoading(true));
-
       await getInstructorCourses(dispatch, access);
-
       dispatch(setIsSpinnerLoading(false));
     };
-    fetchInstructorCourses();
+    fetchCourses();
   }, [dispatch, access]);
+};
 
-  // The number of elements to be rendered per page.
-  const elementsPerPage = 7; // Add to this value 1 (DefaultInstructorCourse component)
-
+const usePagination = (elementsPerPage) => {
   const [paginationIndices, setPaginationIndices] = useState({
     start: 0,
     end: elementsPerPage,
   });
 
-  // Memorize the pagination function to avoid re-rendering.
-  const memorizedInstructorCoursesPagination = useCallback((cur) => {
-    // Calc the first and last product index that should be rendered.
-    const startIndex = (cur - 1) * elementsPerPage;
-    const endIndex = startIndex + elementsPerPage;
+  const updatePagination = useCallback(
+    (cur) => {
+      const startIndex = (cur - 1) * elementsPerPage;
+      const endIndex = startIndex + elementsPerPage;
+      setPaginationIndices({ start: startIndex, end: endIndex });
+    },
+    [elementsPerPage]
+  );
 
-    setPaginationIndices({ start: startIndex, end: endIndex });
-  }, []);
+  return [paginationIndices, updatePagination];
+};
 
-  // Get the selected option from the sidebar.
+const InstructorCourses = () => {
+  const [instructorOption, setInstructorOption] = useState("courses");
+  const instructorCourses =
+    useSelector((state) => state.courses.instructorCourses) || [];
+  const access = useSelector((state) => state.userAuth.access);
+  const dispatch = useDispatch();
+
+  useFetchInstructorCourses(dispatch, access);
+
+  const elementsPerPage = 7;
+  const [paginationIndices, updatePagination] = usePagination(elementsPerPage);
+
   const handleInstructorOption = (option) => {
     setInstructorOption(option);
   };
 
-  // Map through the instructorCourses array and render an InstructorCourseCard component for each course.
   const instructorCoursesList = instructorCourses
     .slice(paginationIndices.start, paginationIndices.end)
     .map((course, index) => (
@@ -75,7 +78,7 @@ const InstructorCourses = () => {
         <Pagination
           elementsPerPage={elementsPerPage}
           length={instructorCourses.length}
-          getCurrentPage={memorizedInstructorCoursesPagination}
+          getCurrentPage={updatePagination}
         />
       </div>
     </section>
